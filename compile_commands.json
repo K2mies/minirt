@@ -1,0 +1,202 @@
+[
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_miniRT",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/minirt_main.c",
+   "-o",
+   "obj/minirt_main.o"
+  ],
+  "file": "src/minirt_main.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_miniRT",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/tuple/minirt_tuples00.c",
+   "-o",
+   "obj/tuple/minirt_tuples00.o"
+  ],
+  "file": "src/tuple/minirt_tuples00.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_miniRT",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/tuple/minirt_tuples01.c",
+   "-o",
+   "obj/tuple/minirt_tuples01.o"
+  ],
+  "file": "src/tuple/minirt_tuples01.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_miniRT",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/tuple/minirt_tuples02.c",
+   "-o",
+   "obj/tuple/minirt_tuples02.o"
+  ],
+  "file": "src/tuple/minirt_tuples02.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_miniRT",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/tuple/minirt_tuples03.c",
+   "-o",
+   "obj/tuple/minirt_tuples03.o"
+  ],
+  "file": "src/tuple/minirt_tuples03.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_miniRT",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/tuple/minirt_tuples04.c",
+   "-o",
+   "obj/tuple/minirt_tuples04.o"
+  ],
+  "file": "src/tuple/minirt_tuples04.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_miniRT",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/tuple/minirt_tuples05.c",
+   "-o",
+   "obj/tuple/minirt_tuples05.o"
+  ],
+  "file": "src/tuple/minirt_tuples05.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_miniRT",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/tuple/minirt_floats.c",
+   "-o",
+   "obj/tuple/minirt_floats.o"
+  ],
+  "file": "src/tuple/minirt_floats.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_miniRT",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/color/minirt_color00.c",
+   "-o",
+   "obj/color/minirt_color00.o"
+  ],
+  "file": "src/color/minirt_color00.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_miniRT",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/color/minirt_color01.c",
+   "-o",
+   "obj/color/minirt_color01.o"
+  ],
+  "file": "src/color/minirt_color01.c"
+ }
+]
