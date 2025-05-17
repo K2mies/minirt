@@ -51,3 +51,8 @@ void	convert_hex_into_channels(t_color *col)
 	col->ch[B] = (col->rgba >> 8) & col->rgba;
 	col->ch[A] = (col->rgba >> 0) & col->rgba;
 }
+
+//convert chanels to hex
+//convert channels to rgb
+//convert rgb to channels
+//convert hex to rgb
