@@ -54,5 +54,7 @@ void	convert_hex_into_channels(t_color *col)
 
 //convert chanels to hex
 //convert channels to rgb
+//-uint8t r = 255
+//-float ch_to_r = r/255f
 //convert rgb to channels
 //convert hex to rgb
