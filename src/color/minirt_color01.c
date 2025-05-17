@@ -12,49 +12,26 @@
 #include "minirt.h"
 
 /**
- * Function to convert 0-1 rgba values to
- * a single rgba stored as an uint32_t
+ * Function to convert rgba values into
+ * a hexadecimal value stored inside
+ * col->rgba value
  *
- * @param r		red channel 0-1 value
- * @param g		green channel 0-1 value
- * @param b		blue channel 0-1 value
- * @param a		alpha channel 0-1 value
- *
- * @return		hex value for rgba stored as uint32_t
+ * @param col		color struct to update
  */
-uint32_t	convert_rgba_to_hex(float r, float g, float b, float a)
+void	convert_rgba_to_hex(t_color *col)
 {
-	uint32_t	red;
-	uint32_t	green;
-	uint32_t	blue;
-	uint32_t	alpha;
-
-	red = (uint32_t)roundf(fminf(fmaxf(r * 255.0f, 0.0f), 255.0f));
-	green =(uint32_t)roundf(fminf(fmaxf(g * 255.0f, 0.0f), 255.0f));
-	blue =(uint32_t)roundf(fminf(fmaxf(b * 255.0f, 0.0f), 255.0f));
-	alpha =(uint32_t)roundf(fminf(fmaxf(a * 255.0f, 0.0f), 255.0f));
-
-	return (uint32_t)((red << 24) | (green << 16) | (blue << 8) | alpha);
+    convert_rgba_to_channels(col);
+    convert_channels_to_hex(col);
 }
 
 /**
- * Function to convert a hex value into single
- * channels stored as uint8_t 
- * (so they can be combined into uint32_t)
+ * Function to convert a hex value into
+ * r, g, b, a values stored in a col struct
  *
- * @param col	point to the color struct
+ * @param col		color struct to update
  */
-void	convert_hex_into_channels(t_color *col)
+void    convert_hex_to_rgba(t_color *col)
 {
-	col->ch[R] = (col->rgba >> 24) & col->rgba;
-	col->ch[G] = (col->rgba >> 16) & col->rgba;
-	col->ch[B] = (col->rgba >> 8) & col->rgba;
-	col->ch[A] = (col->rgba >> 0) & col->rgba;
+    convert_hex_to_channels(col);
+    convert_channels_to_rgba(col);
 }
-
-//convert chanels to hex
-//convert channels to rgb
-//-uint8t r = 255
-//-float ch_to_r = r/255f
-//convert rgb to channels
-//convert hex to rgb

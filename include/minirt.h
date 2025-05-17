@@ -48,13 +48,20 @@ typedef struct s_color
 	float		a;
 }	t_color;
 
+//enum    channel_type
+//{
+//    R,
+//    G,
+//    B,
+//    A,
+//};
+
 enum	channel_type
 {
 	A,
 	B,
 	G,
 	R,
-
 };
 
 /* ================================ TOUPLES ================================= */
@@ -85,7 +92,11 @@ bool		compare_floats(float a, float b);
 /* --------------------------------------------------------- minirt_color00.c */
 t_color		*color(float r, float g, float b);
 /* --------------------------------------------------------- minirt_color01.c */
-uint32_t	convert_rgba_to_hex(float r, float g, float b, float a);
-void		convert_hex_into_channels(t_color *col);
-
+void	    convert_rgba_to_hex(t_color *col);
+void        convert_hex_to_rgba(t_color *col);
+/* --------------------------------------------------------- minirt_color02.c */
+void        convert_channels_to_hex(t_color *col);
+void		convert_hex_to_channels(t_color *col);
+void        convert_channels_to_rgba(t_color *col);
+void        convert_rgba_to_channels(t_color *col);
 #endif

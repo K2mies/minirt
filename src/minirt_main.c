@@ -272,23 +272,38 @@
 //	printf("ticks: %d\n", count);
 //}i
 //
+
+void    test_print_col(t_color *col)
+{
+	printf("rgba:                0x%08X\n", col->rgba);
+	printf("channel values:\n");
+	printf("CH[R]:               %x\n", col->ch[R]);
+	printf("CH[G]:               %x\n", col->ch[G]);
+	printf("CH[B]:               %x\n", col->ch[B]);
+	printf("CH[A]:               %x\n", col->ch[A]);
+	printf("0-1 values:\n");
+	printf("r:                   %f\n", col->r);
+	printf("g:                   %f\n", col->g);
+	printf("b:                   %f\n", col->b);
+	printf("a:                   %f\n", col->a);
+	printf("reconstructed rgba = %08x\n", (uint32_t)((col->ch[R] << 24) | (col->ch[G] << 16) | (col->ch[B] << 8) | (col->ch[A] << 0)));
+    printf("\n");
+}
 void	test_create_color()
 {
 	t_color	*col;
 
-	col = color(0.75, 0.51, 0.64);
-	printf("rgba: 0x%x\n", col->rgba);
-	printf("channel values:\n");
-	printf("CH[R]: %x\n", col->ch[R]);
-	printf("CH[G]: %x\n", col->ch[G]);
-	printf("CH[B]: %x\n", col->ch[B]);
-	printf("CH[A]: %x\n", col->ch[A]);
-	printf("0-1 values:\n");
-	printf("r: %f\n", col->r);
-	printf("g: %f\n", col->g);
-	printf("b: %f\n", col->b);
-	printf("a: %f\n", col->a);
-	printf("reconstructed rgba = %x", (uint32_t)((col->ch[R] << 24) | (col->ch[G] << 16) | (col->ch[B] << 8) | (col->ch[A] << 0)));
+	col = color(-0.75, 2.51, 0.64);
+    printf("initial values\n");
+    test_print_col(col);
+
+    printf("convert channels to hex\n");
+    convert_channels_to_hex(col);
+    test_print_col(col);
+
+    printf("convert hex to rgba (they should be capped\n");
+    convert_hex_to_rgba(col);
+    test_print_col(col);
 	free(col);
 }
 

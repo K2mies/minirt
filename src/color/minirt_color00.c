@@ -31,8 +31,7 @@ t_color	*color(float r, float g, float b)
 	col->g = g;
 	col->b = b;
 	col->a = 1.0;
-	col->rgba = convert_rgba_to_hex(r, g, b, col->a);
-	convert_hex_into_channels(col);
+    convert_rgba_to_hex(col);
 
 	return (col);
 }
