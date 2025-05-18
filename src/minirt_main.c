@@ -273,38 +273,211 @@
 //}i
 //
 
-void    test_print_col(t_color *col)
+//void    test_print_col(t_color *col)
+//{
+//	printf("rgba:                0x%08X\n\n", col->rgba);
+//	printf("channel values:----------------\n");
+//	printf("CH[R]:               %x\n", col->ch[R]);
+//	printf("CH[G]:               %x\n", col->ch[G]);
+//	printf("CH[B]:               %x\n", col->ch[B]);
+//	printf("CH[A]:               %x\n", col->ch[A]);
+//	printf("\n0-1 values:-------------------\n");
+//	printf("r:                   %f\n", col->r);
+//	printf("g:                   %f\n", col->g);
+//	printf("b:                   %f\n", col->b);
+//	printf("a:                   %f\n", col->a);
+//	printf("\nreconstructed rgba = %08x\n", (uint32_t)((col->ch[R] << 24) | (col->ch[G] << 16) | (col->ch[B] << 8) | (col->ch[A] << 0)));
+//    printf("------------------------------\n");
+//    printf("\n\n");
+//}
+//void	test_create_color()
+//{
+//	t_color	*col;
+//
+//	col = color(1, 0, 0.796);
+//    printf("initial values------------------\n");
+//    test_print_col(col);
+//
+//    printf("convert channels to hex---------\n");
+//    convert_channels_to_hex(col);
+//    test_print_col(col);
+//
+//    printf("convert hex to rgba (they should be capped)\n");
+//    convert_hex_to_rgba(col);
+//    test_print_col(col);
+//	free(col);
+//}
+
+//void    test_add_colors_together()
+//{
+//    t_color *a;
+//    t_color *b;
+//    t_color *res;
+//
+//    a = color(0.9, 0.6, 0.75);
+//    b = color(0.7, 0.1, 0.25);
+//
+//    res = add_colors(a, b);
+//    test_print_col(res);
+//
+//    free(a);
+//    free(b);
+//    free(res);
+//}
+//
+//void    test_sub_colors()
+//{
+//    t_color *a;
+//    t_color *b;
+//    t_color *res;
+//
+//    a = color(0.9, 0.6, 0.75);
+//    b = color(0.7, 0.1, 0.25);
+//
+//    res = sub_colors(a, b);
+//    test_print_col(res);
+//
+//    free(a);
+//    free(b);
+//    free(res);
+//}
+//
+//void    test_multiply_color_by_scalar()
+//{
+//
+//    float   scalar;
+//    t_color *col;
+//    t_color *res;
+//
+//    scalar = 2;
+//    col = color(0.2, 0.3, 0.4);
+//
+//    res = multiply_color_by_scalar(col, scalar);
+//    test_print_col(res);
+//
+//    free(col);
+//    free(res);
+//}
+//
+//void    test_multiply_colors()
+//{
+//    t_color *a;
+//    t_color *b;
+//    t_color *res;
+//
+//    a = color(1, 0.2, 0.4);
+//    b = color(0.9, 1, 0.1);
+//    res = multiply_color(a, b);
+//
+//    test_print_col(res);
+//
+//    free(a);
+//    free(b);
+//    free(res);
+//}
+
+//void    test_init_canvas()
+//{
+////  t_minirt    *minirt;
+//    t_canvas    *can;
+//    int         i;
+//    int         j;
+//
+//    can = malloc(sizeof(t_canvas));
+//    can = canvas(5, 5);
+//
+//    i = -1;
+//    while (++i < can->width)
+//    {
+//        j = -1;
+//        while (++j < can->height)
+//        {
+//            printf("%08x ", can->pixels[i][j].rgba);
+//        }
+//        printf("\n");
+//    }
+//
+//}
+
+//void    test_init_minirt_data()
+//{
+//    t_minirt    *minirt;
+//    int         i;
+//    int         j;
+//
+//    minirt = malloc(sizeof(t_minirt));
+//    minirt->canvas = canvas(6, 6);
+//
+//    i = -1;
+//    while (++i < minirt->canvas->width)
+//    {
+//        j = -1;
+//        while (++j < minirt->canvas->height)
+//        {
+//            printf("%08x ", minirt->canvas->pixels[i][j].rgba);
+//        }
+//        printf("\n");
+//
+//    }
+//}
+
+void    test_print_canvas(t_minirt *minirt)
 {
-	printf("rgba:                0x%08X\n", col->rgba);
-	printf("channel values:\n");
-	printf("CH[R]:               %x\n", col->ch[R]);
-	printf("CH[G]:               %x\n", col->ch[G]);
-	printf("CH[B]:               %x\n", col->ch[B]);
-	printf("CH[A]:               %x\n", col->ch[A]);
-	printf("0-1 values:\n");
-	printf("r:                   %f\n", col->r);
-	printf("g:                   %f\n", col->g);
-	printf("b:                   %f\n", col->b);
-	printf("a:                   %f\n", col->a);
-	printf("reconstructed rgba = %08x\n", (uint32_t)((col->ch[R] << 24) | (col->ch[G] << 16) | (col->ch[B] << 8) | (col->ch[A] << 0)));
-    printf("\n");
+    int     i;
+    int     j;
+
+    i = -1;
+    while (++i < minirt->canvas->width)
+    {
+        j = -1;
+        while (++j < minirt->canvas->height)
+        {
+            printf("%08x ", minirt->canvas->pixels[i][j].rgba);
+        }
+        printf("\n");
+    }
+
 }
-void	test_create_color()
+
+void    test_color_canvas_pixel()
 {
-	t_color	*col;
+    t_minirt    *minirt;
+    t_color     *col1;
+    t_color     *col2;
 
-	col = color(-0.75, 2.51, 0.64);
-    printf("initial values\n");
-    test_print_col(col);
+    minirt = malloc(sizeof(t_minirt));
+    minirt->canvas = canvas(4, 4);
+    col1 = color(0.31, 0.57, 0.10);
+    col2 = color(0.10, 0.31, 0.93);
+    write_pixel_to_canvas(minirt->canvas, 0, 1, col1);
+    write_pixel_to_canvas(minirt->canvas, 1, 2, col2);
+    test_print_canvas(minirt);
 
-    printf("convert channels to hex\n");
-    convert_channels_to_hex(col);
-    test_print_col(col);
+    int i;
 
-    printf("convert hex to rgba (they should be capped\n");
-    convert_hex_to_rgba(col);
-    test_print_col(col);
-	free(col);
+    i = -1;
+    while (++i < minirt->canvas->width)
+    {
+            free(minirt->canvas->pixels[i]);
+    }
+//    int i;
+//    int j;
+//
+//    i = -1;
+//    while (++i < minirt->canvas->width)
+//    {
+//        j = -1;
+//        while (++j < minirt->canvas->height)
+//        {
+//            free(minirt->canvas->pixels[i][j]);
+//        }
+//    }
+//  free(minirt->canvas->pixels);
+//  free(minirt->canvas);
+    free(minirt);
+    free(col1);
+    free(col2);
+
 }
 
 int	main(int argc, char **argv)
@@ -312,7 +485,17 @@ int	main(int argc, char **argv)
 	(void)argc;
 	(void)argv;
 
-	test_create_color();
+    test_color_canvas_pixel();
+
+//    test_init_minirt_data();
+//    test_init_canvas();
+
+//    test_add_colors_together();
+//    test_sub_colors();
+//    test_multiply_color_by_scalar();
+//    test_multiply_colors();
+
+//	test_create_color();
 //	test_projectile();
 
 //	unsigned int test;

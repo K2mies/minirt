@@ -6,7 +6,7 @@
 /*   By: rhvidste <rhvidste@student.hive.email.com  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 18:01:33 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/05/17 20:39:09 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/05/18 00:35:50 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"

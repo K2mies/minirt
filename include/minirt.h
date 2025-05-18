@@ -16,12 +16,10 @@
 /* =============================== HEADERS ================================== */
 
 /* -------------------------------------------------------------------- libft */
-
 # include "../lib/libft/libft.h"
+/* -------------------------------------------------------------------- MLX42 */
 # include "../lib/MLX42/include/MLX42/MLX42.h"
-
 /* ----------------------------------------------- miniRT specific inclusions */
-
 # include <stdio.h>
 # include <stdbool.h>
 # include <math.h>
@@ -48,14 +46,23 @@ typedef struct s_color
 	float		a;
 }	t_color;
 
-//enum    channel_type
-//{
-//    R,
-//    G,
-//    B,
-//    A,
-//};
+// Typedef for Canvas
+typedef struct s_canvas
+{
+    int         width;
+    int         height;
+    t_color     **pixels;
+}   t_canvas;
 
+// Typedef for Main data struct
+typedef struct s_minirt
+{
+    t_canvas    *canvas;
+
+}   t_minirt;
+
+/* ================================ ENUMS =================================== */
+//Enum for RGBA channels 
 enum	channel_type
 {
 	A,
@@ -65,6 +72,7 @@ enum	channel_type
 };
 
 /* ================================ TOUPLES ================================= */
+
 /* -------------------------------------------------------- minirt_tuples00.c */
 t_tuple		*point(float x, float y, float z);
 t_tuple		*vector(float x, float y, float z);
@@ -89,6 +97,7 @@ t_tuple		*cross_product(t_tuple *a, t_tuple *b);
 bool		compare_floats(float a, float b);
 
 /* ================================ COLORS ================================== */
+
 /* --------------------------------------------------------- minirt_color00.c */
 t_color		*color(float r, float g, float b);
 /* --------------------------------------------------------- minirt_color01.c */
@@ -99,4 +108,17 @@ void        convert_channels_to_hex(t_color *col);
 void		convert_hex_to_channels(t_color *col);
 void        convert_channels_to_rgba(t_color *col);
 void        convert_rgba_to_channels(t_color *col);
+/* --------------------------------------------------------- minirt_color03.c */
+t_color     *add_colors(t_color *cola, t_color *colb);
+t_color     *sub_colors(t_color *cola, t_color *colb);
+/* --------------------------------------------------------- minirt_color04.c */
+t_color     *multiply_color_by_scalar(t_color *col, float scalar);
+t_color     *multiply_color(t_color *cola, t_color *colb);
+
+/* ================================ CANVAS ================================== */
+
+/* -------------------------------------------------------- minirt_canvas00.c */
+t_canvas    *canvas(int width, int height);
+/* -------------------------------------------------------- minirt_canvas01.c */
+void        write_pixel_to_canvas(t_canvas *canvas, int x, int y, t_color *col);
 #endif

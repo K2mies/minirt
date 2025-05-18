@@ -26,6 +26,7 @@ INC_FLAGS	=	-I $(LIBFT_DIR) -I $(INC_DIR) -I $(LIBLMX_DIR)/include
 #-----------------------------------------------------------------------------------#
 HEADER		=	$(INC_DIR)/minirt.h
 LIBS		= 	$(LIBLMX_DIR)/build/libmlx42.a -L/opt/homebrew/lib -lglfw -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo -ldl -pthread -lm
+#LIBS		= 	$(LIBLMX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
 #-----------------------------------------------------------------------------------#
 SRC_DIR		=	./src
 OBJ_DIR		=	./obj
@@ -44,6 +45,11 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				$(SRC_DIR)/color/minirt_color00.c									\
 				$(SRC_DIR)/color/minirt_color01.c									\
 				$(SRC_DIR)/color/minirt_color02.c									\
+				$(SRC_DIR)/color/minirt_color03.c									\
+				$(SRC_DIR)/color/minirt_color04.c									\
+				\
+				$(SRC_DIR)/canvas/minirt_canvas00.c									\
+				$(SRC_DIR)/canvas/minirt_canvas01.c									\
 
 #-----------------------------------------------------------------------------------#
 OBJ 		= 	$(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
