@@ -270,7 +270,7 @@
 //		printf("res position = x: %f, y: %f, z: %f w: %f\n", res->position->x, res->position->y, res->position->z, res->position->w);
 //	}
 //	printf("ticks: %d\n", count);
-//}i
+//}
 //
 
 //void    test_print_col(t_color *col)
@@ -421,47 +421,10 @@
 //    }
 //}
 
-void    test_print_canvas(t_minirt *minirt)
-{
-    int     i;
-    int     j;
-
-    i = -1;
-    while (++i < minirt->canvas->width)
-    {
-        j = -1;
-        while (++j < minirt->canvas->height)
-        {
-            printf("%08x ", minirt->canvas->pixels[i][j].rgba);
-        }
-        printf("\n");
-    }
-
-}
-
-void    test_color_canvas_pixel()
-{
-    t_minirt    *minirt;
-    t_color     *col1;
-    t_color     *col2;
-
-    minirt = malloc(sizeof(t_minirt));
-    minirt->canvas = canvas(4, 4);
-    col1 = color(0.31, 0.57, 0.10);
-    col2 = color(0.10, 0.31, 0.93);
-    write_pixel_to_canvas(minirt->canvas, 0, 1, col1);
-    write_pixel_to_canvas(minirt->canvas, 1, 2, col2);
-    test_print_canvas(minirt);
-
-    int i;
-
-    i = -1;
-    while (++i < minirt->canvas->width)
-    {
-            free(minirt->canvas->pixels[i]);
-    }
-//    int i;
-//    int j;
+//void    test_print_canvas(t_minirt *minirt)
+//{
+//    int     i;
+//    int     j;
 //
 //    i = -1;
 //    while (++i < minirt->canvas->width)
@@ -469,14 +432,142 @@ void    test_color_canvas_pixel()
 //        j = -1;
 //        while (++j < minirt->canvas->height)
 //        {
-//            free(minirt->canvas->pixels[i][j]);
+//            printf("%08x ", minirt->canvas->pixels[i][j].rgba);
+//        }
+//        printf("\n");
+//    }
+//
+//}
+
+//void    test_color_canvas_pixel()
+//{
+//    t_minirt    *minirt;
+//    t_color     *col1;
+//    t_color     *col2;
+//
+//    minirt = malloc(sizeof(t_minirt));
+//    minirt->canvas = canvas(4, 4);
+//    col1 = color(0.31, 0.57, 0.10);
+//    col2 = color(0.10, 0.31, 0.93);
+//    write_pixel_to_canvas(minirt->canvas, 0, 1, col1);
+//    write_pixel_to_canvas(minirt->canvas, 1, 2, col2);
+//    test_print_canvas(minirt);
+//
+//    int i;
+//
+//    i = -1;
+//    while (++i < minirt->canvas->width)
+//    {
+//            free(minirt->canvas->pixels[i]);
+//    }
+////    int i;
+////    int j;
+////
+////    i = -1;
+////    while (++i < minirt->canvas->width)
+////    {
+////        j = -1;
+////        while (++j < minirt->canvas->height)
+////        {
+////            free(minirt->canvas->pixels[i][j]);
+////        }
+////    }
+////  free(minirt->canvas->pixels);
+////  free(minirt->canvas);
+//    free(minirt);
+//    free(col1);
+//    free(col2);
+//
+//}
+//
+
+//void    test_write_to_ppm()
+//{
+//    t_canvas    *can;
+//    t_color     *col;
+//    int i;
+//    int j;
+//
+//    can = canvas(640, 480);
+//    col = color(1, 1, 0);
+//    i = -1;
+//    while (++i < can->width)
+//    {
+//        j = -1;
+//        while (++j < can->height)
+//        {
+//            write_pixel_to_canvas(can, i, j,col);
 //        }
 //    }
-//  free(minirt->canvas->pixels);
-//  free(minirt->canvas);
-    free(minirt);
-    free(col1);
-    free(col2);
+//    canvas_to_ppm(can);
+//}
+typedef struct	s_projectile
+{
+	t_tuple	*position;
+	t_tuple	*velocity;
+}	t_projectile;
+
+typedef struct	s_environment
+{
+	t_tuple	*gravity;
+	t_tuple	*wind;
+}	t_environment;
+
+t_projectile *tick(t_environment *env, t_projectile *proj)
+{
+	t_projectile	*res;
+	t_tuple		*position;
+	t_tuple		*velocity;
+
+	res = malloc(sizeof(t_projectile));
+	position = add_tuples(proj->position, proj->velocity);
+	velocity = add_tuples(proj->velocity, add_tuples(env->gravity, env->wind));
+	res->position = position;
+	res->velocity = velocity;
+	return (res);
+}
+
+t_projectile	*test_projectile()
+{
+	t_projectile	*res;
+	t_projectile	*proj;
+	t_environment	*env;
+	int				count;
+
+	res = malloc(sizeof(t_projectile));
+	proj = malloc(sizeof(t_projectile));
+	env = malloc(sizeof(t_environment));
+
+	proj->position = point(0, 1, 0);
+	proj->velocity = normalize_vector(vector(1, 1, 0));
+	env->gravity = vector(0, -0.1, 0);
+	env->wind = vector(-0.01, 0, 0);
+
+	count = 0;
+	res = tick(env, proj);
+	count++;
+	printf("res position = x: %f, y: %f, z: %f w: %f\n", res->position->x, res->position->y, res->position->z, res->position->w);
+	while (res->position->y >= 0)
+	{
+		count++;
+		res = tick(env, res);
+		printf("res position = x: %f, y: %f, z: %f w: %f\n", res->position->x, res->position->y, res->position->z, res->position->w);
+	}
+	printf("ticks: %d\n", count);
+	return (res);
+}
+
+int	get_max_x_int(t_projectile *proj)
+{
+	int		res;
+
+	res = o;
+}
+
+void	test_projectile_to_ppm()
+{
+	t_projectile	*res;
+	res = test_projectile();
 
 }
 
@@ -485,7 +576,11 @@ int	main(int argc, char **argv)
 	(void)argc;
 	(void)argv;
 
-    test_color_canvas_pixel();
+	test_projectile_to_ppm();
+
+ //   test_write_to_ppm();
+
+//    test_color_canvas_pixel();
 
 //    test_init_minirt_data();
 //    test_init_canvas();

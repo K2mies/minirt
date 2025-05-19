@@ -23,6 +23,8 @@
 # include <stdio.h>
 # include <stdbool.h>
 # include <math.h>
+# include <fcntl.h>
+# include <unistd.h>
 
 /* ================================ TYPEDEFS ================================ */
 
@@ -101,24 +103,29 @@ bool		compare_floats(float a, float b);
 /* --------------------------------------------------------- minirt_color00.c */
 t_color		*color(float r, float g, float b);
 /* --------------------------------------------------------- minirt_color01.c */
-void	    convert_rgba_to_hex(t_color *col);
-void        convert_hex_to_rgba(t_color *col);
+void		convert_rgba_to_hex(t_color *col);
+void		convert_hex_to_rgba(t_color *col);
 /* --------------------------------------------------------- minirt_color02.c */
-void        convert_channels_to_hex(t_color *col);
+void		convert_channels_to_hex(t_color *col);
 void		convert_hex_to_channels(t_color *col);
-void        convert_channels_to_rgba(t_color *col);
-void        convert_rgba_to_channels(t_color *col);
+void		convert_channels_to_rgba(t_color *col);
+void		convert_rgba_to_channels(t_color *col);
 /* --------------------------------------------------------- minirt_color03.c */
-t_color     *add_colors(t_color *cola, t_color *colb);
-t_color     *sub_colors(t_color *cola, t_color *colb);
+t_color		*add_colors(t_color *cola, t_color *colb);
+t_color		*sub_colors(t_color *cola, t_color *colb);
 /* --------------------------------------------------------- minirt_color04.c */
-t_color     *multiply_color_by_scalar(t_color *col, float scalar);
-t_color     *multiply_color(t_color *cola, t_color *colb);
+t_color		*multiply_color_by_scalar(t_color *col, float scalar);
+t_color		*multiply_color(t_color *cola, t_color *colb);
 
 /* ================================ CANVAS ================================== */
 
 /* -------------------------------------------------------- minirt_canvas00.c */
-t_canvas    *canvas(int width, int height);
+t_canvas	*canvas(int width, int height);
 /* -------------------------------------------------------- minirt_canvas01.c */
-void        write_pixel_to_canvas(t_canvas *canvas, int x, int y, t_color *col);
+void		write_pixel_to_canvas(t_canvas *canvas, int x, int y, t_color *col);
+
+/* ===========================++===== PPM ==+================================ */
+
+/* ----------------------------------------------------------- minirt_ppm00.c */
+void		canvas_to_ppm(t_canvas *canvas);
 #endif

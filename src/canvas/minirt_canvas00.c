@@ -28,6 +28,13 @@ static void    init_canvas_pixels(t_canvas *canvas)
     while (++i < canvas->width)
     {
         canvas->pixels[i] = malloc(sizeof(t_color) * canvas->height);
+        if (!canvas->pixels[i])
+        {
+            while (i--)
+                free(canvas->pixels[i]);
+            printf("canvas pixels freed\n");
+            return ;
+        }
         j = -1;
         while (++j < canvas->height)
             canvas->pixels[i][j] = *color(0, 0, 0);
