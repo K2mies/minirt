@@ -18,9 +18,9 @@
  *
  * @return		magnitude of the given vector;
  */
-float	get_magnitude(t_tuple *vec)
+t_float	get_magnitude(t_tuple *vec)
 {
-	float	mag;
+	t_float	mag;
 	mag = sqrt((vec->x * vec->x) + (vec->y * vec->y)
 			+ (vec->z * vec->z) + (vec->w * vec->w));
 	return (mag);
@@ -35,7 +35,7 @@ float	get_magnitude(t_tuple *vec)
  */
 t_tuple *normalize_vector(t_tuple *vec)
 {
-	float	mag;
+	t_float	mag;
 	t_tuple *res;
 
 	res = malloc(sizeof(t_tuple));

@@ -19,9 +19,9 @@
  *
  * @return		dot product of Vector a and Vector b
  */
-float	dot_product(t_tuple *a, t_tuple *b)
+t_float	dot_product(t_tuple *a, t_tuple *b)
 {
-	float res;
+	t_float res;
 
 	res = (a->x * b->x) + (a->y * b->y) + (a->z * b->z) + (a->w * b->w);
 	return (res);
@@ -38,9 +38,9 @@ float	dot_product(t_tuple *a, t_tuple *b)
 t_tuple	*cross_product(t_tuple *a, t_tuple *b)
 {
 	t_tuple *res;
-	float		x;
-	float		y;
-	float		z;
+	t_float		x;
+	t_float		y;
+	t_float		z;
 
 	x = (a->y * b->z) - (a->z * b->y);
 	y = (a->z * b->x) - (a->x * b->z);

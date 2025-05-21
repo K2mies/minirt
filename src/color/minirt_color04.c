@@ -19,7 +19,7 @@
  *
  * @return		color multiplied by scalar
  */
-t_color *multiply_color_by_scalar(t_color *col, float scalar)
+t_color *multiply_color_by_scalar(t_color *col, t_float scalar)
 {
     t_color *res;
     

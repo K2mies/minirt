@@ -21,6 +21,7 @@
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 /* ----------------------------------------------- miniRT specific inclusions */
 # include <stdio.h>
+# include <stdint.h>
 # include <stdbool.h>
 # include <math.h>
 # include <fcntl.h>
@@ -28,13 +29,16 @@
 
 /* ================================ TYPEDEFS ================================ */
 
+// Custom typedef for float (so can be switched to double later for testing)
+typedef float	t_float;
+
 // Typedef for Touple
 typedef struct s_tuple
 {
-	float		x;
-	float		y;
-	float		z;
-	float		w;
+	t_float		x;
+	t_float		y;
+	t_float		z;
+	t_float		w;
 }	t_tuple;
 
 // Typedef for Color
@@ -42,10 +46,10 @@ typedef struct s_color
 {
 	uint32_t	rgba;
 	uint8_t		ch[4];
-	float		r;
-	float		g;
-	float		b;
-	float		a;
+	t_float		r;
+	t_float		g;
+	t_float		b;
+	t_float		a;
 }	t_color;
 
 // Typedef for Canvas
@@ -76,32 +80,32 @@ enum	channel_type
 /* ================================ TOUPLES ================================= */
 
 /* -------------------------------------------------------- minirt_tuples00.c */
-t_tuple		*point(float x, float y, float z);
-t_tuple		*vector(float x, float y, float z);
+t_tuple		*point(t_float x, t_float y, t_float z);
+t_tuple		*vector(t_float x, t_float y, t_float z);
 /* -------------------------------------------------------- minirt_tuples01.c */
 t_tuple		*add_tuples(t_tuple *tupa, t_tuple *tupb);
 t_tuple		*sub_tuples(t_tuple *tupa, t_tuple *tupb);
 t_tuple		*negate_tuple(t_tuple *tup);
 /* -------------------------------------------------------- minirt_tuples02.c */
-t_tuple		*multiply_tuple_by_scalar(t_tuple *tup, float scalar);
-t_tuple		*devide_tuple_by_scalar(t_tuple *tup, float scalar);
+t_tuple		*multiply_tuple_by_scalar(t_tuple *tup, t_float scalar);
+t_tuple		*devide_tuple_by_scalar(t_tuple *tup, t_float scalar);
 /* -------------------------------------------------------- minirt_tuples03.c */
-float		get_magnitude(t_tuple *vec);
+t_float		get_magnitude(t_tuple *vec);
 t_tuple		*normalize_vector(t_tuple *vec);
 /* -------------------------------------------------------- minirt_tuples04.c */
 bool		compare_tuples(t_tuple *tupa, t_tuple *tupb);
 bool		is_tuple_vector(t_tuple *tup);
 bool		is_tuple_point(t_tuple *tup);
 /* -------------------------------------------------------- minirt_tuples05.c */
-float		dot_product(t_tuple *a, t_tuple *b);
+t_float		dot_product(t_tuple *a, t_tuple *b);
 t_tuple		*cross_product(t_tuple *a, t_tuple *b);
-/* ---------------------------------------------------------- minirt_floats.c */
-bool		compare_floats(float a, float b);
+/* ---------------------------------------------------------- minirt_t_floats.c */
+bool		compare_floats(t_float a, t_float b);
 
 /* ================================ COLORS ================================== */
 
 /* --------------------------------------------------------- minirt_color00.c */
-t_color		*color(float r, float g, float b);
+t_color		*color(t_float r, t_float g, t_float b);
 /* --------------------------------------------------------- minirt_color01.c */
 void		convert_rgba_to_hex(t_color *col);
 void		convert_hex_to_rgba(t_color *col);
@@ -114,7 +118,7 @@ void		convert_rgba_to_channels(t_color *col);
 t_color		*add_colors(t_color *cola, t_color *colb);
 t_color		*sub_colors(t_color *cola, t_color *colb);
 /* --------------------------------------------------------- minirt_color04.c */
-t_color		*multiply_color_by_scalar(t_color *col, float scalar);
+t_color		*multiply_color_by_scalar(t_color *col, t_float scalar);
 t_color		*multiply_color(t_color *cola, t_color *colb);
 
 /* ================================ CANVAS ================================== */

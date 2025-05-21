@@ -17,7 +17,7 @@ static void	create_ppm_header(int *fd, t_canvas *canvas)
 	char	*height;
 
 	width = ft_itoa(canvas->width);
-	height = ft_itoa(canvas->width);
+	height = ft_itoa(canvas->height);
 	ft_putendl_fd("P3", *fd);
 	ft_putendl_fd("", *fd);
 	ft_putstr_fd(width, *fd);

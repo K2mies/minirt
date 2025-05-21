@@ -22,7 +22,7 @@
  *
  * @return		true if floats are equiviland and false if not.
  */
-bool	compare_floats(float a, float b)
+bool	compare_floats(t_float a, t_float b)
 {
 	if (fabs(a - b ) < EPSILON)
 		return (true);

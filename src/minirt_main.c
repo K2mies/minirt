@@ -12,7 +12,7 @@
 #include "minirt.h"
 //static bool is_tuple_vector(t_tuple *tuple);
 
-//static void	test_return_point(float x, float y, float z)
+//static void	test_return_point(t_float x, t_float y, t_float z)
 //{
 //	t_tuple	*point;
 //
@@ -21,7 +21,7 @@
 //	free(point);
 //}
 //
-//static void	test_return_vector(float x, float y, float z)
+//static void	test_return_vector(t_float x, t_float y, t_float z)
 //{
 //	t_tuple	*vec;
 //
@@ -37,7 +37,7 @@
 //	return (false);
 //}
 //
-//static	void	test_is_tuple_a_vector_or_point(float x, float y, float z, float w)
+//static	void	test_is_tuple_a_vector_or_point(t_float x, t_float y, t_float z, t_float w)
 //{
 //	t_tuple	*tup;
 //
@@ -52,12 +52,12 @@
 //	free(tup);
 //}
 
-//static void	test_if_two_floats_equivilant(float a, float b)
+//static void	test_if_two_t_floats_equivilant(t_float a, t_float b)
 //{
-//	if (compare_floats(a, b) == true)
-//		printf("floats are equivilant\n");
+//	if (compare_t_floats(a, b) == true)
+//		printf("t_floats are equivilant\n");
 //	else
-//		printf("floats are not equivilant\n");
+//		printf("t_floats are not equivilant\n");
 //}
 
 //static void	test_if_two_tuples_are_equivilant()
@@ -161,7 +161,7 @@
 //void	test_get_magnitude_of_vector()
 //{
 //	t_tuple	*vec;
-//	float		res;
+//	t_float		res;
 //
 //	vec = vector(-1, -2 ,-3);
 //	res = get_magnitude_of_vector(vec);
@@ -173,7 +173,7 @@
 //{
 //	t_tuple	*vec;
 //	t_tuple	*norm;
-//	float		mag;
+//	t_float		mag;
 //
 //	vec = vector(1, 2 ,3);
 //	norm = normalize_vector(vec);
@@ -190,7 +190,7 @@
 //{
 //		t_tuple	*vec_a;
 //		t_tuple	*vec_b;
-//		float		res;
+//		t_float		res;
 //
 //		vec_a = vector(1, 2, 3);
 //		vec_b = vector(2, 3, 4);
@@ -345,7 +345,7 @@
 //void    test_multiply_color_by_scalar()
 //{
 //
-//    float   scalar;
+//    t_float   scalar;
 //    t_color *col;
 //    t_color *res;
 //
@@ -501,6 +501,18 @@
 //    }
 //    canvas_to_ppm(can);
 //}
+//
+t_tuple	*add_three_tuples(t_tuple *a, t_tuple *b, t_tuple *c)
+{
+	t_tuple	*res;
+
+	res = malloc(sizeof(t_tuple));
+	res->x = a->x + b->x + c->x;
+	res->y = a->y + b->y + c->y;
+	res->z = a->z + b->z + c->z;
+	res->w = 0;
+	return (res);
+}
 typedef struct	s_projectile
 {
 	t_tuple	*position;
@@ -521,7 +533,8 @@ t_projectile *tick(t_environment *env, t_projectile *proj)
 
 	res = malloc(sizeof(t_projectile));
 	position = add_tuples(proj->position, proj->velocity);
-	velocity = add_tuples(proj->velocity, add_tuples(env->gravity, env->wind));
+//	velocity = add_tuples(proj->velocity, add_tuples(env->gravity, env->wind));
+	velocity = add_three_tuples(proj->velocity, env->gravity, env->wind);
 	res->position = position;
 	res->velocity = velocity;
 	return (res);
@@ -529,54 +542,78 @@ t_projectile *tick(t_environment *env, t_projectile *proj)
 
 t_projectile	*test_projectile()
 {
+	t_canvas		*can;
 	t_projectile	*res;
 	t_projectile	*proj;
 	t_environment	*env;
 	int				count;
 
+	can = canvas(900, 550);
 	res = malloc(sizeof(t_projectile));
 	proj = malloc(sizeof(t_projectile));
 	env = malloc(sizeof(t_environment));
 
 	proj->position = point(0, 1, 0);
-	proj->velocity = normalize_vector(vector(1, 1, 0));
+//	proj->velocity = normalize_vector(vector(1, 1, 0));
+	proj->velocity = multiply_tuple_by_scalar(normalize_vector(vector(1, 1.8, 0)), 11.25);
 	env->gravity = vector(0, -0.1, 0);
 	env->wind = vector(-0.01, 0, 0);
 
+//	res->position->y = roundf(res->position->y);
+//	res->position->x = roundf(res->position->x);
 	count = 0;
 	res = tick(env, proj);
+	if ((int)roundf(res->position->y) > 0 && (int)roundf(res->position->y) < can->height && (int)roundf(res->position->x) <= can->width && (int)roundf(res->position->x) >= 0)
+		write_pixel_to_canvas(can, (int)roundf(res->position->x), (int)roundf(res->position->y), color(1, 0, 0));
 	count++;
-	printf("res position = x: %f, y: %f, z: %f w: %f\n", res->position->x, res->position->y, res->position->z, res->position->w);
-	while (res->position->y >= 0)
+	printf("res position = x: %d, y: %d, z: %d w: %d\n", (int)roundf(res->position->x), (int)roundf(res->position->y), (int)roundf(res->position->z), (int)roundf(res->position->w));
+	while ((int)roundf(res->position->y) > 0)
 	{
 		count++;
 		res = tick(env, res);
-		printf("res position = x: %f, y: %f, z: %f w: %f\n", res->position->x, res->position->y, res->position->z, res->position->w);
+		if ((int)roundf(res->position->y) > 0 && (int)roundf(res->position->y) < can->height && (int)roundf(res->position->x) <= can->width && (int)roundf(res->position->x) >= 0)
+		{
+			write_pixel_to_canvas(can, (int)roundf(res->position->x), (int)roundf(res->position->y), color(1, 0, 0));
+//			printf("res position = x: %f, y: %f, z: %f w: %f\n", roundf(res->position->x), roundf(res->position->y), roundf(res->position->z), roundf(res->position->w));
+			printf("res position = x: %d, y: %d, z: %d w: %d\n", (int)roundf(res->position->x), (int)roundf(res->position->y), (int)roundf(res->position->z), (int)roundf(res->position->w));
+		}
 	}
+	int	x = 588;
+	int y = 465;
+	printf("Selected pixel: x: %d y: %d\nColor: %08x\n", x, y, can->pixels[x][y].rgba);
+	canvas_to_ppm(can);
 	printf("ticks: %d\n", count);
 	return (res);
 }
 
-int	get_max_x_int(t_projectile *proj)
-{
-	int		res;
-
-	res = o;
-}
-
-void	test_projectile_to_ppm()
-{
-	t_projectile	*res;
-	res = test_projectile();
-
-}
+//void	test_rectangle_to_ppm()
+//{
+//	t_canvas	*can;
+//
+//	can = canvas(20, 20);
+//	int i = 1;
+//	int	j = 1;
+//	while (i < 10 )
+//	{
+//		j = 1;
+//		while (j < 10)
+//		{
+//			write_pixel_to_canvas(can, j, i, color(1, 0, 0));
+//			j++;
+//		}
+//		i++;
+//	}
+//	canvas_to_ppm(can);
+//
+//}
 
 int	main(int argc, char **argv)
 {
 	(void)argc;
 	(void)argv;
 
-	test_projectile_to_ppm();
+//	test_rectangle_to_ppm();
+	test_projectile();
 
  //   test_write_to_ppm();
 
@@ -617,8 +654,8 @@ int	main(int argc, char **argv)
 
 //	test_if_two_tuples_are_equivilant();
 
-//	test_if_two_floats_equivilant(0.231, 0.231);
-//	test_if_two_floats_equivilant(0.231, 0.231);
+//	test_if_two_t_floats_equivilant(0.231, 0.231);
+//	test_if_two_t_floats_equivilant(0.231, 0.231);
 
 	//test_is_tuple_a_vector_or_point(ft_atoi(argv[1]), ft_atoi(argv[2]), ft_atoi(argv[3]), ft_atoi(argv[4]));
 

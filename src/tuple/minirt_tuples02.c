@@ -19,7 +19,7 @@
  *
  * @return		Tuple multiplied by scalar
  */
-t_tuple	*multiply_tuple_by_scalar(t_tuple *tup, float scalar)
+t_tuple	*multiply_tuple_by_scalar(t_tuple *tup, t_float scalar)
 {
 	t_tuple	*res;
 
@@ -39,7 +39,7 @@ t_tuple	*multiply_tuple_by_scalar(t_tuple *tup, float scalar)
  *
  * @return		Tuple multiplied by scalar
  */
-t_tuple	*devide_tuple_by_scalar(t_tuple *tup, float scalar)
+t_tuple	*devide_tuple_by_scalar(t_tuple *tup, t_float scalar)
 {
 	t_tuple	*res;
 

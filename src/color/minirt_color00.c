@@ -22,7 +22,7 @@
  *
  * @return		color type struct
  */
-t_color	*color(float r, float g, float b)
+t_color	*color(t_float r, t_float g, t_float b)
 {
 	t_color	*col;
 

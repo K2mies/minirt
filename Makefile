@@ -102,4 +102,14 @@ fclean: clean
 re: fclean all
 		@echo "$(GREEN)Cleaned and rebuilt everything for miniRT!$(DEF_COLOR)"
 #-------------------------------------------------------------------------------#
-.PHONY: all clean fclean re libmlx bonus
+debug:	CFLAGS += $(DEBUG_FLAGS)
+debug:	fclean all
+
+libftdebug:
+	make debug -C $(LIBFT_DIR)
+
+clean_debug:
+	rm -f $(NAME)
+	rm -f $(OBJ_DIR)
+#-------------------------------------------------------------------------------#
+.PHONY: all clean fclean re debug libftdebug clean_debug libmlx bonus
