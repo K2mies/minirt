@@ -64,6 +64,7 @@ static void	create_ppm_pixels(int *fd, t_canvas *canvas)
 			free(num);
 		}
 	}
+    printf("w = %d h = %d\n", i, j);
 }
 
 /**

@@ -502,17 +502,7 @@
 //    canvas_to_ppm(can);
 //}
 //
-t_tuple	*add_three_tuples(t_tuple *a, t_tuple *b, t_tuple *c)
-{
-	t_tuple	*res;
 
-	res = malloc(sizeof(t_tuple));
-	res->x = a->x + b->x + c->x;
-	res->y = a->y + b->y + c->y;
-	res->z = a->z + b->z + c->z;
-	res->w = 0;
-	return (res);
-}
 typedef struct	s_projectile
 {
 	t_tuple	*position;
@@ -525,6 +515,29 @@ typedef struct	s_environment
 	t_tuple	*wind;
 }	t_environment;
 
+
+bool    is_valid_canvas_pixel(t_projectile *proj, t_canvas *can)
+{
+    if ((int)roundf(proj->position->y) > 0
+        && (int)roundf(proj->position->y) < can->height
+        && (int)roundf(proj->position->x) < can->width
+        && (int)roundf(proj->position->x) > 0)
+        return (true);
+    return (false);
+}
+
+t_tuple	*add_three_tuples(t_tuple *a, t_tuple *b, t_tuple *c)
+{
+	t_tuple	*res;
+
+	res = malloc(sizeof(t_tuple));
+	res->x = a->x + b->x + c->x;
+	res->y = a->y + b->y + c->y;
+	res->z = a->z + b->z + c->z;
+	res->w = 0;
+	return (res);
+}
+
 t_projectile *tick(t_environment *env, t_projectile *proj)
 {
 	t_projectile	*res;
@@ -533,11 +546,18 @@ t_projectile *tick(t_environment *env, t_projectile *proj)
 
 	res = malloc(sizeof(t_projectile));
 	position = add_tuples(proj->position, proj->velocity);
-//	velocity = add_tuples(proj->velocity, add_tuples(env->gravity, env->wind));
 	velocity = add_three_tuples(proj->velocity, env->gravity, env->wind);
 	res->position = position;
 	res->velocity = velocity;
 	return (res);
+}
+
+void    free_projectile(t_projectile *p)
+{
+    free(p->position);
+    free(p->velocity);
+    free(p);
+
 }
 
 t_projectile	*test_projectile()
@@ -555,33 +575,37 @@ t_projectile	*test_projectile()
 
 	proj->position = point(0, 1, 0);
 //	proj->velocity = normalize_vector(vector(1, 1, 0));
+//	proj->velocity = multiply_tuple_by_scalar(normalize_vector(vector(1, 1.8, 0)), 11.25);
 	proj->velocity = multiply_tuple_by_scalar(normalize_vector(vector(1, 1.8, 0)), 11.25);
 	env->gravity = vector(0, -0.1, 0);
 	env->wind = vector(-0.01, 0, 0);
-
-//	res->position->y = roundf(res->position->y);
-//	res->position->x = roundf(res->position->x);
 	count = 0;
 	res = tick(env, proj);
-	if ((int)roundf(res->position->y) > 0 && (int)roundf(res->position->y) < can->height && (int)roundf(res->position->x) <= can->width && (int)roundf(res->position->x) >= 0)
-		write_pixel_to_canvas(can, (int)roundf(res->position->x), (int)roundf(res->position->y), color(1, 0, 0));
+    t_color *col = color(1, 0, 0);
+    if (is_valid_canvas_pixel(res, can) == true)
+		write_pixel_to_canvas(can, (int)roundf(res->position->x), (int)roundf(res->position->y), col);
 	count++;
 	printf("res position = x: %d, y: %d, z: %d w: %d\n", (int)roundf(res->position->x), (int)roundf(res->position->y), (int)roundf(res->position->z), (int)roundf(res->position->w));
+//    printf("color: %008x\n", can->pixels[(int)roundf(res->position->x)][(int)roundf(res->position->y)].rgba);
 	while ((int)roundf(res->position->y) > 0)
 	{
 		count++;
 		res = tick(env, res);
-		if ((int)roundf(res->position->y) > 0 && (int)roundf(res->position->y) < can->height && (int)roundf(res->position->x) <= can->width && (int)roundf(res->position->x) >= 0)
+        if (is_valid_canvas_pixel(res, can) == true)
 		{
-			write_pixel_to_canvas(can, (int)roundf(res->position->x), (int)roundf(res->position->y), color(1, 0, 0));
+			write_pixel_to_canvas(can, (int)roundf(res->position->x), (int)roundf(res->position->y), col);
 //			printf("res position = x: %f, y: %f, z: %f w: %f\n", roundf(res->position->x), roundf(res->position->y), roundf(res->position->z), roundf(res->position->w));
 			printf("res position = x: %d, y: %d, z: %d w: %d\n", (int)roundf(res->position->x), (int)roundf(res->position->y), (int)roundf(res->position->z), (int)roundf(res->position->w));
+//            printf("color: %008x\n", can->pixels[(int)roundf(res->position->x)][(int)roundf(res->position->y)].rgba);
 		}
 	}
-	int	x = 588;
-	int y = 465;
-	printf("Selected pixel: x: %d y: %d\nColor: %08x\n", x, y, can->pixels[x][y].rgba);
+
+//	int	x = (int)roundf(res->position->x);
+//	int y = (int)roundf(res->position->y);
+//	printf("Selected pixel: x: %d y: %d\nColor: %08x\n", x, y, can->pixels[x][y].rgba);
 	canvas_to_ppm(can);
+    free_projectile(res);
+//    free(col);
 	printf("ticks: %d\n", count);
 	return (res);
 }

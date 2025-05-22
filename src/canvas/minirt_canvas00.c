@@ -23,11 +23,11 @@ static void    init_canvas_pixels(t_canvas *canvas)
     int i;
     int j;
     
-    canvas->pixels = malloc(sizeof(t_color) * canvas->width);
+    canvas->pixels = malloc(sizeof(t_color *) * canvas->width);
     i = -1;
     while (++i < canvas->width)
     {
-        canvas->pixels[i] = malloc(sizeof(t_color) * canvas->height);
+        canvas->pixels[i] = malloc(sizeof(t_color *) * canvas->height);
         if (!canvas->pixels[i])
         {
             while (i--)
