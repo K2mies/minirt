@@ -72,7 +72,7 @@ static void	create_ppm_pixels(int *fd, t_canvas *canvas)
  * and fill it with data from a
  * t_canvas type
  *
- * @param canvas	pointer to the canvase to export to ppm
+ * @param canvas	pointer to the canvase to export to width/
  */
 void	canvas_to_ppm(t_canvas *canvas)
 {

@@ -595,7 +595,7 @@ t_projectile	*test_projectile()
 	int				count;
 
 	can = canvas(900, 550);
-//	can = canvas(90, 55);
+//	can = canvas(900 * 2, 550 * 2);
 	res = malloc(sizeof(t_projectile));
 	proj = malloc(sizeof(t_projectile));
 	env = malloc(sizeof(t_environment));
@@ -610,20 +610,20 @@ t_projectile	*test_projectile()
 	res = tick(env, proj);
     t_color *col = color(1, 0, 0);
     if (is_valid_canvas_pixel(res, can) == true)
-		write_pixel_to_canvas(can, (int)roundf(res->position->x), (int)roundf(res->position->y), col);
+		write_pixel_to_canvas(can, (int)roundf(res->position->x), can->height - (int)roundf(res->position->y), col);
 	count++;
 	printf("res position = x: %d, y: %d, z: %d w: %d\n", (int)roundf(res->position->x), (int)roundf(res->position->y), (int)roundf(res->position->z), (int)roundf(res->position->w));
-    printf("color: %008x\n", can->pixels[(int)roundf(res->position->y)][(int)roundf(res->position->x)].rgba);
+//  printf("color: %008x\n", can->pixels[(int)roundf(res->position->y)][(int)roundf(res->position->x)].rgba);
 	while ((int)roundf(res->position->y) > 0)
 	{
 		count++;
 		res = tick(env, res);
         if (is_valid_canvas_pixel(res, can) == true)
 		{
-			write_pixel_to_canvas(can, (int)roundf(res->position->x), (int)roundf(res->position->y), col);
+			write_pixel_to_canvas(can, (int)roundf(res->position->x), can->height - (int)roundf(res->position->y), col);
 //			printf("res position = x: %f, y: %f, z: %f w: %f\n", roundf(res->position->x), roundf(res->position->y), roundf(res->position->z), roundf(res->position->w));
 			printf("res position = x: %d, y: %d, z: %d w: %d\n", (int)roundf(res->position->x), (int)roundf(res->position->y), (int)roundf(res->position->z), (int)roundf(res->position->w));
-            printf("color: %008x\n", can->pixels[(int)roundf(res->position->y)][(int)roundf(res->position->x)].rgba);
+//            printf("color: %008x\n", can->pixels[(int)roundf(res->position->y)][(int)roundf(res->position->x)].rgba);
 		}
 	}
 //    print_canvas(can);

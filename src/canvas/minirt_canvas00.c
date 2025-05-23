@@ -25,9 +25,9 @@ static void    init_canvas_pixels(t_canvas *canvas)
     
     canvas->pixels = malloc(sizeof(t_color *) * canvas->height);
     y = -1;
-    while (++y < canvas->width)
+    while (++y < canvas->height)
     {
-        canvas->pixels[y] = malloc(sizeof(t_color *) * canvas->width);
+        canvas->pixels[y] = malloc(sizeof(t_color) * canvas->width);
         if (!canvas->pixels[y])
         {
             while (y--)
@@ -36,7 +36,7 @@ static void    init_canvas_pixels(t_canvas *canvas)
             return ;
         }
         x = -1;
-        while (++x < canvas->height)
+        while (++x < canvas->width)
             set_color(&canvas->pixels[y][x], 0, 0, 0);
     }
 }
