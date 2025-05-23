@@ -60,11 +60,23 @@ typedef struct	s_canvas
     t_color     **pixels;
 }   t_canvas;
 
-// Typedef for Matrix
-typedef struct	s_matrix
+// Typedef for 4X4 Matrix
+typedef struct	s_matrix4
 {
 	t_float	m[4][4];
-}	t_matrix;
+}	t_matrix4;
+
+// Typedef for 3X3 Matrix
+typedef struct	s_matrix3
+{
+	t_float	m[3][3];
+}	t_matrix3;
+
+// Typedef for 2X2 Matrix
+typedef struct	s_matrix2
+{
+	t_float	m[2][2];
+}	t_matrix2;
 
 // Typedef for Main data struct
 typedef struct s_minirt
@@ -143,7 +155,15 @@ void		canvas_to_ppm(t_canvas *canvas);
 /* ===========================++=== MATRIX ================================== */
 
 /* -------------------------------------------------------- minirt_matrix00.c */
-t_matrix	matrix(void);
-t_matrix	id_matrix(void);
+t_matrix4	id_matrix4(void);
+t_matrix4	matrix4(void);
+t_matrix3	matrix3(void);
+t_matrix2	matrix2(void);
+/* -------------------------------------------------------- minirt_matrix01.c */
+bool		compare_matrix4(t_matrix4 *a, t_matrix4 *b);
+bool		compare_matrix3(t_matrix3 *a, t_matrix3 *b);
+bool		compare_matrix2(t_matrix2 *a, t_matrix2 *b);
+/* -------------------------------------------------------- minirt_matrix02.c */
+t_matrix4	matrix4_multiply(t_matrix4 *a, t_matrix4 *b);
 
 #endif

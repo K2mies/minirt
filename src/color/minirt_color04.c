@@ -38,7 +38,7 @@ t_color multiply_color_by_scalar(t_color *col, t_float scalar)
  * @param tupa	first color for multiplacation
  * @param tupa	fsecond color for multiplacation
  *
- * @return		new color with the multiplied values
+ * @return	new color with the multiplied values
  */
 t_color multiply_color(t_color *cola, t_color *colb)
 {

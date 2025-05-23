@@ -54,6 +54,8 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				$(SRC_DIR)/ppm/minirt_ppm00.c										\
 				\
 				$(SRC_DIR)/matrix/minirt_matrix00.c									\
+				$(SRC_DIR)/matrix/minirt_matrix01.c									\
+				$(SRC_DIR)/matrix/minirt_matrix02.c									\
 
 
 #-----------------------------------------------------------------------------------#
