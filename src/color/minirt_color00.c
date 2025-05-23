@@ -11,6 +11,14 @@
 /* ************************************************************************** */
 #include "minirt.h"
 
+void    set_color(t_color *a, t_float r, t_float g, t_float b)
+{
+    a->r = r;
+    a->g = g;
+    a->b = b;
+    a->a = 1.0;
+    convert_rgba_to_hex(a);
+} 
 /**
  * Function to create a color struct
  * based on 0-1 rgba values

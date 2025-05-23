@@ -41,30 +41,30 @@ static void	create_ppm_header(int *fd, t_canvas *canvas)
  */
 static void	create_ppm_pixels(int *fd, t_canvas *canvas)
 {
-	int		i;
-	int		j;
+	int		x;
+	int		y;
 	char	*num;
 
-	i = -1;
-	while (++i < canvas->width)
+	y = -1;
+	while (++y < canvas->height)
 	{
-		j = -1;
-		while (++j < canvas->height)
+		x = -1;
+		while (++x < canvas->width)
 		{
-			num = ft_itoa(canvas->pixels[i][j].ch[R]);
+			num = ft_itoa(canvas->pixels[y][x].ch[R]);
 			ft_putstr_fd(num, *fd);
 			ft_putstr_fd(" ", *fd);
 			free(num);
-			num = ft_itoa(canvas->pixels[i][j].ch[G]);
+			num = ft_itoa(canvas->pixels[y][x].ch[G]);
 			ft_putstr_fd(num, *fd);
 			ft_putstr_fd(" ", *fd);
 			free(num);
-			num = ft_itoa(canvas->pixels[i][j].ch[B]);
+			num = ft_itoa(canvas->pixels[y][x].ch[B]);
 			ft_putendl_fd(num, *fd);
 			free(num);
 		}
 	}
-    printf("w = %d h = %d\n", i, j);
+    printf("w = %d h = %d\n", x, y);
 }
 
 /**

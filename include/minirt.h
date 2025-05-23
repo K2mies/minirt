@@ -106,6 +106,7 @@ bool		compare_floats(t_float a, t_float b);
 
 /* --------------------------------------------------------- minirt_color00.c */
 t_color		*color(t_float r, t_float g, t_float b);
+void    set_color(t_color *a, t_float r, t_float g, t_float b);
 /* --------------------------------------------------------- minirt_color01.c */
 void		convert_rgba_to_hex(t_color *col);
 void		convert_hex_to_rgba(t_color *col);

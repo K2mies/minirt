@@ -13,5 +13,7 @@
 
 void    write_pixel_to_canvas(t_canvas *canvas, int x, int y, t_color *col)
 {
-    canvas->pixels[x][y] = *col;
+    (void)col;
+    set_color(&canvas->pixels[y][x], 1, 0, 0);
+//    canvas->pixels[y][x] = *col;
 }
