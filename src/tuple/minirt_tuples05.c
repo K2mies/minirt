@@ -35,9 +35,9 @@ t_float	dot_product(t_tuple *a, t_tuple *b)
  *
  * @return		cross product of Vector a and Vector b
  */
-t_tuple	*cross_product(t_tuple *a, t_tuple *b)
+t_tuple	cross_product(t_tuple *a, t_tuple *b)
 {
-	t_tuple *res;
+	t_tuple res;
 	t_float		x;
 	t_float		y;
 	t_float		z;

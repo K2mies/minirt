@@ -86,15 +86,15 @@ enum	channel_type
 /* ================================ TOUPLES ================================= */
 
 /* -------------------------------------------------------- minirt_tuples00.c */
-t_tuple		*point(t_float x, t_float y, t_float z);
-t_tuple		*vector(t_float x, t_float y, t_float z);
+t_tuple		point(t_float x, t_float y, t_float z);
+t_tuple		vector(t_float x, t_float y, t_float z);
 /* -------------------------------------------------------- minirt_tuples01.c */
-t_tuple		*add_tuples(t_tuple *tupa, t_tuple *tupb);
-t_tuple		*sub_tuples(t_tuple *tupa, t_tuple *tupb);
-t_tuple		*negate_tuple(t_tuple *tup);
+t_tuple		add_tuples(t_tuple *tupa, t_tuple *tupb);
+t_tuple		sub_tuples(t_tuple *tupa, t_tuple *tupb);
+t_tuple		negate_tuple(t_tuple *tup);
 /* -------------------------------------------------------- minirt_tuples02.c */
-t_tuple		*multiply_tuple_by_scalar(t_tuple *tup, t_float scalar);
-t_tuple		*devide_tuple_by_scalar(t_tuple *tup, t_float scalar);
+t_tuple		multiply_tuple_by_scalar(t_tuple *tup, t_float scalar);
+t_tuple		devide_tuple_by_scalar(t_tuple *tup, t_float scalar);
 /* -------------------------------------------------------- minirt_tuples03.c */
 t_float		get_magnitude(t_tuple *vec);
 t_tuple		*normalize_vector(t_tuple *vec);
@@ -104,7 +104,7 @@ bool		is_tuple_vector(t_tuple *tup);
 bool		is_tuple_point(t_tuple *tup);
 /* -------------------------------------------------------- minirt_tuples05.c */
 t_float		dot_product(t_tuple *a, t_tuple *b);
-t_tuple		*cross_product(t_tuple *a, t_tuple *b);
+t_tuple		cross_product(t_tuple *a, t_tuple *b);
 /* ---------------------------------------------------------- minirt_t_floats.c */
 bool		compare_floats(t_float a, t_float b);
 

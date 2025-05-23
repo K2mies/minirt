@@ -21,15 +21,15 @@
  *
  * @return		Vector of t_vec4 type
  */
-t_tuple	*point(t_float x, t_float y, t_float z)
+t_tuple	point(t_float x, t_float y, t_float z)
 {
-	t_tuple	*point;
+	t_tuple	point;
 
-	point = malloc(sizeof(t_tuple));
-	point->x = x;
-	point->y = y;
-	point->z = z;
-	point->w = 1;
+//	point = malloc(sizeof(t_tuple));
+	point.x = x;
+	point.y = y;
+	point.z = z;
+	point.w = 1;
 	return (point);
 }
 
@@ -43,14 +43,14 @@ t_tuple	*point(t_float x, t_float y, t_float z)
  *
  * @return		Vector of t_vec4 type
  */
-t_tuple	*vector(t_float x, t_float y, t_float z)
+t_tuple	vector(t_float x, t_float y, t_float z)
 {
-	t_tuple	*vector;
+	t_tuple	vector;
 
-	vector = malloc(sizeof(t_tuple));
-	vector->x = x;
-	vector->y = y;
-	vector->z = z;
-	vector->w = 0;
+//	vector = malloc(sizeof(t_tuple));
+	vector.x = x;
+	vector.y = y;
+	vector.z = z;
+	vector.w = 0;
 	return (vector);
 }

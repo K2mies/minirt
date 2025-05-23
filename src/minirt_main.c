@@ -62,13 +62,13 @@
 
 //static void	test_if_two_tuples_are_equivilant()
 //{
-//	t_tuple	*tupa;
-//	t_tuple	*tupb;
+//	t_tuple	tupa;
+//	t_tuple	tupb;
 //
 //	tupa = vector(10, 0.001, 10);
 //	tupb = vector(10, 0.001, 10);
 //
-//	if (compare_tuples(tupa, tupb) == true)
+//	if (compare_tuples(&tupa, &tupb) == true)
 //		printf("tuples are equivilant\n");
 //	else
 //		printf("tuples are not equivilant\n");
@@ -76,7 +76,7 @@
 //	tupa = vector(10, 0.0010, 10);
 //	tupb = vector(10, 0.001, 10);
 //
-//	if (compare_tuples(tupa, tupb) == true)
+//	if (compare_tuples(&tupa, &tupb) == true)
 //		printf("tuples are equivilant\n");
 //	else
 //		printf("tuples are not equivilant\n");
@@ -84,66 +84,63 @@
 //	tupa = vector(10, 10, 10);
 //	tupb = point(10, 10, 10);
 //
-//	if (compare_tuples(tupa, tupb) == true)
+//	if (compare_tuples(&tupa, &tupb) == true)
 //		printf("tuples are equivilant\n");
 //	else
 //		printf("tuples are not equivilant\n");	
-//	free(tupa);
-//	free(tupb);
+////	free(tupa);
+////	free(tupb);
 //}
 
 //void	test_add_two_tuples_together()
 //{
-//	t_tuple	*tupa;
-//	t_tuple	*tupb;
-//	t_tuple	*tupc;
+//	t_tuple	tupa;
+//	t_tuple	tupb;
+//	t_tuple	tupc;
 //
 //	tupa = point(3, -2, 5);
 //	tupb = vector(-2, 3, 1);
-//	tupc = add_tuples(tupa, tupb);
+//	tupc = add_tuples(&tupa, &tupb);
 //
-//	printf("tupc = x: %f y: %f z: %f w: %f", tupc->x, tupc->y, tupc->z, tupc->w);
+//	printf("tupc = x: %f y: %f z: %f w: %f", tupc.x, tupc.y, tupc.z, tupc.w);
 //
 //}
-
+//
 //void	test_sub_two_tuples()
 //{
-//	t_tuple	*tupa;
-//	t_tuple	*tupb;
-//	t_tuple	*tupc;
+//	t_tuple	tupa;
+//	t_tuple	tupb;
+//	t_tuple	tupc;
 //
 //	tupa = point(3, 2, 1);
 //	tupb = vector(5, 6, 7);
-//	tupc = sub_tuples(tupa, tupb);
+//	tupc = sub_tuples(&tupa, &tupb);
 //
-//	printf("tupc = x: %f y: %f z: %f w: %f", tupc->x, tupc->y, tupc->z, tupc->w);
-//
+//	printf("tupc = x: %f y: %f z: %f w: %f", tupc.x, tupc.y, tupc.z, tupc.w);
 //}
 //
-//Void	test_negate_tuple()
+//void	test_negate_tuple()
 //{
-//	t_tuple	*tup;
-//	t_tuple	*res;
+//	t_tuple	tup;
+//	t_tuple	res;
 //
 //	tup = vector(1, -2, 3);
-//	res = negate_tuple(tup);
-//	printf("res = x: %f y: %f z: %f w: %f", res->x, res->y, res->z, res->w);
+//	res = negate_tuple(&tup);
+//	printf("res = x: %f y: %f z: %f w: %f", res.x, res.y, res.z, res.w);
 //	free(tup);
 //	free(res);
 //}
-//
-//void	test_multiply_tuple_by_scaler()
-//{
-//	t_tuple	*tup;
-//	t_tuple	*res;
-//
-//	tup = point(1, -2, 3);
-//	res = multiply_tuple_by_scaler(tup, 0.5);
-//
-//	printf("res = x: %f y: %f z: %f w: %f", res->x, res->y, res->z, res->w);
-//	free(tup);
-//	free(res);
-//}
+
+void	test_multiply_tuple_by_scaler()
+{
+	t_tuple	tup;
+	t_tuple	res;
+
+	tup = point(1, -2, 3);
+	res = multiply_tuple_by_scaler(&tup, 0.5);
+
+	printf("res = x: %f y: %f z: %f w: %f", res.x, res.y, res.z, res.w);
+}
 
 //void	test_devide_tuple_by_scaler()
 //{
@@ -654,53 +651,53 @@
 
 /* ================================ MATRIX =================================== */
 
-void	test_print_matrix(t_matrix m)
-{
-	int	x;
-	int	y;
-
-	y = -1;
-	while (++y < 4)
-	{
-		x = -1;
-		while (++x < 4)
-		{
-			printf("%.1f ", m.m[y][x]);
-		}
-		printf("\n");
-	}
-}
-
-void	test_matrix_creation_and_indexing()
-{
-	t_matrix	m;
-
-	m = matrix();
-	m.m[0][0] = 1;
-	m.m[0][1] = 2;
-	m.m[0][2] = 3;
-	m.m[0][3] = 4;
-	m.m[1][0] = 5.5;
-	m.m[1][1] = 6.5;
-	m.m[1][2] = 7.5;
-	m.m[1][3] = 8.5;
-	m.m[2][0] = 9;
-	m.m[2][1] = 10;
-	m.m[2][2] = 11;
-	m.m[2][3] = 12;
-	m.m[3][0] = 13.5;
-	m.m[3][1] = 14.5;
-	m.m[3][2] = 15.5;
-	m.m[3][3] = 16.5;
-	test_print_matrix(m);
-}
+//void	test_print_matrix(t_matrix m)
+//{
+//	int	x;
+//	int	y;
+//
+//	y = -1;
+//	while (++y < 4)
+//	{
+//		x = -1;
+//		while (++x < 4)
+//		{
+//			printf("%.1f ", m.m[y][x]);
+//		}
+//		printf("\n");
+//	}
+//}
+//
+//void	test_matrix_creation_and_indexing()
+//{
+//	t_matrix	m;
+//
+//	m = matrix();
+//	m.m[0][0] = 1;
+//	m.m[0][1] = 2;
+//	m.m[0][2] = 3;
+//	m.m[0][3] = 4;
+//	m.m[1][0] = 5.5;
+//	m.m[1][1] = 6.5;
+//	m.m[1][2] = 7.5;
+//	m.m[1][3] = 8.5;
+//	m.m[2][0] = 9;
+//	m.m[2][1] = 10;
+//	m.m[2][2] = 11;
+//	m.m[2][3] = 12;
+//	m.m[3][0] = 13.5;
+//	m.m[3][1] = 14.5;
+//	m.m[3][2] = 15.5;
+//	m.m[3][3] = 16.5;
+//	test_print_matrix(m);
+//}
 
 int	main(int argc, char **argv)
 {
 	(void)argc;
 	(void)argv;
 
-	test_matrix_creation_and_indexing();
+//	test_matrix_creation_and_indexing();
 
 //	test_rectangle_to_ppm();
 //	test_projectile();
@@ -735,6 +732,7 @@ int	main(int argc, char **argv)
 
 //	test_get_magnitude_of_vector();
 
+	test_multiply_tuple_by_scaler();
 //	test_devide_tuple_by_scaler();
 //	test_negate_tuple();
 
