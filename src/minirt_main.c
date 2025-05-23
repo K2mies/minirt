@@ -505,137 +505,131 @@
 
 
 
-typedef struct	s_projectile
-{
-	t_tuple	*position;
-	t_tuple	*velocity;
-}	t_projectile;
-
-typedef struct	s_environment
-{
-	t_tuple	*gravity;
-	t_tuple	*wind;
-}	t_environment;
-
-void    free_projectile(t_projectile *p)
-{
-    free(p->position);
-    free(p->velocity);
-    free(p);
-
-}
-
-bool    is_valid_canvas_pixel(t_projectile *proj, t_canvas *can)
-{
-    if ((int)roundf(proj->position->y) > 0
-        && (int)roundf(proj->position->y) < can->height
-        && (int)roundf(proj->position->x) < can->width
-        && (int)roundf(proj->position->x) > 0)
-        return (true);
-    return (false);
-}
-
-t_tuple	*add_three_tuples(t_tuple *a, t_tuple *b, t_tuple *c)
-{
-	t_tuple	*res;
-
-	res = malloc(sizeof(t_tuple));
-	res->x = a->x + b->x + c->x;
-	res->y = a->y + b->y + c->y;
-	res->z = a->z + b->z + c->z;
-	res->w = 0;
-	return (res);
-}
-
-t_projectile *tick(t_environment *env, t_projectile *proj)
-{
-	t_projectile	*res;
-	t_tuple		*position;
-	t_tuple		*velocity;
-
-	res = malloc(sizeof(t_projectile));
-	position = add_tuples(proj->position, proj->velocity);
-	velocity = add_three_tuples(proj->velocity, env->gravity, env->wind);
-	res->position = position;
-	res->velocity = velocity;
-    free_projectile(proj);
-	return (res);
-}
-
-void    print_canvas(t_canvas *can)
-{
-    int x;
-    int y;
-
-    y = -1;
-    while (++y < can->height)
-    {
-        x = -1;
-        while (++x < can->width)
-        {
-            if (can->pixels[y][x].ch[R])
-            {
-                printf("1");
-            }
-            else
-                printf("0");
-        }
-        printf("\n");
-
-    }
-
-}
-
-t_projectile	*test_projectile()
-{
-	t_canvas		*can;
-	t_projectile	*res;
-	t_projectile	*proj;
-	t_environment	*env;
-	int				count;
-
-	can = canvas(900, 550);
-//	can = canvas(900 * 2, 550 * 2);
-	res = malloc(sizeof(t_projectile));
-	proj = malloc(sizeof(t_projectile));
-	env = malloc(sizeof(t_environment));
-
-	proj->position = point(0, 1, 0);
-//	proj->velocity = normalize_vector(vector(1, 1, 0));
+/* ================================ PROJECTILE SIMULATION =================================== */
+//typedef struct	s_projectile
+//{
+//	t_tuple	*position;
+//	t_tuple	*velocity;
+//}	t_projectile;
+//
+//typedef struct	s_environment
+//{
+//	t_tuple	*gravity;
+//	t_tuple	*wind;
+//}	t_environment;
+//
+//void    free_projectile(t_projectile *p)
+//{
+//    free(p->position);
+//    free(p->velocity);
+//    free(p);
+//
+//}
+//
+//bool    is_valid_canvas_pixel(t_projectile *proj, t_canvas *can)
+//{
+//    if ((int)roundf(proj->position->y) > 0
+//        && (int)roundf(proj->position->y) < can->height
+//        && (int)roundf(proj->position->x) < can->width
+//        && (int)roundf(proj->position->x) > 0)
+//        return (true);
+//    return (false);
+//}
+//
+//t_tuple	*add_three_tuples(t_tuple *a, t_tuple *b, t_tuple *c)
+//{
+//	t_tuple	*res;
+//
+//	res = malloc(sizeof(t_tuple));
+//	res->x = a->x + b->x + c->x;
+//	res->y = a->y + b->y + c->y;
+//	res->z = a->z + b->z + c->z;
+//	res->w = 0;
+//	return (res);
+//}
+//
+//t_projectile *tick(t_environment *env, t_projectile *proj)
+//{
+//	t_projectile	*res;
+//	t_tuple		*position;
+//	t_tuple		*velocity;
+//
+//	res = malloc(sizeof(t_projectile));
+//	position = add_tuples(proj->position, proj->velocity);
+//	velocity = add_three_tuples(proj->velocity, env->gravity, env->wind);
+//	res->position = position;
+//	res->velocity = velocity;
+//    free_projectile(proj);
+//	return (res);
+//}
+//
+//void    print_canvas(t_canvas *can)
+//{
+//    int x;
+//    int y;
+//
+//    y = -1;
+//    while (++y < can->height)
+//    {
+//        x = -1;
+//        while (++x < can->width)
+//        {
+//            if (can->pixels[y][x].ch[R])
+//            {
+//                printf("1");
+//            }
+//            else
+//                printf("0");
+//        }
+//        printf("\n");
+//
+//    }
+//
+//}
+//
+//t_projectile	*test_projectile()
+//{
+//	t_canvas		*can;
+//	t_projectile	*res;
+//	t_projectile	*proj;
+//	t_environment	*env;
+//	int				count;
+//
+//	can = canvas(900, 550);
+//	res = malloc(sizeof(t_projectile));
+//	proj = malloc(sizeof(t_projectile));
+//	env = malloc(sizeof(t_environment));
+//
+//	proj->position = point(0, 1, 0);
 //	proj->velocity = multiply_tuple_by_scalar(normalize_vector(vector(1, 1.8, 0)), 11.25);
-	proj->velocity = multiply_tuple_by_scalar(normalize_vector(vector(1, 1.8, 0)), 11.25);
-	env->gravity = vector(0, -0.1, 0);
-	env->wind = vector(-0.01, 0, 0);
-	count = 0;
-	res = tick(env, proj);
-    t_color *col = color(1, 0, 0);
-    if (is_valid_canvas_pixel(res, can) == true)
-		write_pixel_to_canvas(can, (int)roundf(res->position->x), can->height - (int)roundf(res->position->y), col);
-	count++;
-	printf("res position = x: %d, y: %d, z: %d w: %d\n", (int)roundf(res->position->x), (int)roundf(res->position->y), (int)roundf(res->position->z), (int)roundf(res->position->w));
-//  printf("color: %008x\n", can->pixels[(int)roundf(res->position->y)][(int)roundf(res->position->x)].rgba);
-	while ((int)roundf(res->position->y) > 0)
-	{
-		count++;
-		res = tick(env, res);
-        if (is_valid_canvas_pixel(res, can) == true)
-		{
-			write_pixel_to_canvas(can, (int)roundf(res->position->x), can->height - (int)roundf(res->position->y), col);
-//			printf("res position = x: %f, y: %f, z: %f w: %f\n", roundf(res->position->x), roundf(res->position->y), roundf(res->position->z), roundf(res->position->w));
-			printf("res position = x: %d, y: %d, z: %d w: %d\n", (int)roundf(res->position->x), (int)roundf(res->position->y), (int)roundf(res->position->z), (int)roundf(res->position->w));
-//            printf("color: %008x\n", can->pixels[(int)roundf(res->position->y)][(int)roundf(res->position->x)].rgba);
-		}
-	}
-//    print_canvas(can);
-//	int	x = (int)roundf(res->position->x);
-//	int y = (int)roundf(res->position->y);
-//	printf("Selected pixel: x: %d y: %d\nColor: %08x\n", x, y, can->pixels[x][y].rgba);
-	canvas_to_ppm(can);
-    free_projectile(res);
-    free(col);
-	printf("ticks: %d\n", count);
-	return (res);
-}
+//	env->gravity = vector(0, -0.1, 0);
+//	env->wind = vector(-0.01, 0, 0);
+//	count = 0;
+//	res = tick(env, proj);
+//	t_color *col = color(1, 0, 0);
+//	if (is_valid_canvas_pixel(res, can) == true)
+//		write_pixel_to_canvas(can, (int)roundf(res->position->x), can->height - (int)roundf(res->position->y), col);
+//	count++;
+//	printf("res position = x: %d, y: %d, z: %d w: %d\n", (int)roundf(res->position->x), (int)roundf(res->position->y), (int)roundf(res->position->z), (int)roundf(res->position->w));
+////	 printf("color: %008x\n", can->pixels[(int)roundf(res->position->y)][(int)roundf(res->position->x)].rgba);
+//	while ((int)roundf(res->position->y) > 0)
+//	{
+//		count++;
+//		res = tick(env, res);
+//        if (is_valid_canvas_pixel(res, can) == true)
+//		{
+//			write_pixel_to_canvas(can, (int)roundf(res->position->x), can->height - (int)roundf(res->position->y), col);
+//			printf("res position = x: %d, y: %d, z: %d w: %d\n", (int)roundf(res->position->x), (int)roundf(res->position->y), (int)roundf(res->position->z), (int)roundf(res->position->w));
+////			printf("color: %008x\n", can->pixels[(int)roundf(res->position->y)][(int)roundf(res->position->x)].rgba);
+//		}
+//	}
+////	print_canvas(can);
+//	canvas_to_ppm(can);
+//	free_projectile(res);
+//	free(col);
+//	printf("ticks: %d\n", count);
+//	return (res);
+//}
 
 //void	test_rectangle_to_ppm()
 //{
@@ -658,13 +652,58 @@ t_projectile	*test_projectile()
 //
 //}
 
+/* ================================ MATRIX =================================== */
+
+void	test_print_matrix(t_matrix m)
+{
+	int	x;
+	int	y;
+
+	y = -1;
+	while (++y < 4)
+	{
+		x = -1;
+		while (++x < 4)
+		{
+			printf("%.1f ", m.m[y][x]);
+		}
+		printf("\n");
+	}
+}
+
+void	test_matrix_creation_and_indexing()
+{
+	t_matrix	m;
+
+	m = matrix();
+	m.m[0][0] = 1;
+	m.m[0][1] = 2;
+	m.m[0][2] = 3;
+	m.m[0][3] = 4;
+	m.m[1][0] = 5.5;
+	m.m[1][1] = 6.5;
+	m.m[1][2] = 7.5;
+	m.m[1][3] = 8.5;
+	m.m[2][0] = 9;
+	m.m[2][1] = 10;
+	m.m[2][2] = 11;
+	m.m[2][3] = 12;
+	m.m[3][0] = 13.5;
+	m.m[3][1] = 14.5;
+	m.m[3][2] = 15.5;
+	m.m[3][3] = 16.5;
+	test_print_matrix(m);
+}
+
 int	main(int argc, char **argv)
 {
 	(void)argc;
 	(void)argv;
 
+	test_matrix_creation_and_indexing();
+
 //	test_rectangle_to_ppm();
-	test_projectile();
+//	test_projectile();
 
  //   test_write_to_ppm();
 

@@ -53,12 +53,18 @@ typedef struct s_color
 }	t_color;
 
 // Typedef for Canvas
-typedef struct s_canvas
+typedef struct	s_canvas
 {
     int         width;
     int         height;
     t_color     **pixels;
 }   t_canvas;
+
+// Typedef for Matrix
+typedef struct	s_matrix
+{
+	t_float	m[4][4];
+}	t_matrix;
 
 // Typedef for Main data struct
 typedef struct s_minirt
@@ -106,7 +112,7 @@ bool		compare_floats(t_float a, t_float b);
 
 /* --------------------------------------------------------- minirt_color00.c */
 t_color		*color(t_float r, t_float g, t_float b);
-void    set_color(t_color *a, t_float r, t_float g, t_float b);
+void		set_color(t_color *a, t_float r, t_float g, t_float b);
 /* --------------------------------------------------------- minirt_color01.c */
 void		convert_rgba_to_hex(t_color *col);
 void		convert_hex_to_rgba(t_color *col);
@@ -133,4 +139,11 @@ void		write_pixel_to_canvas(t_canvas *canvas, int x, int y, t_color *col);
 
 /* ----------------------------------------------------------- minirt_ppm00.c */
 void		canvas_to_ppm(t_canvas *canvas);
+
+/* ===========================++=== MATRIX ================================== */
+
+/* -------------------------------------------------------- minirt_matrix00.c */
+t_matrix	matrix(void);
+t_matrix	id_matrix(void);
+
 #endif
