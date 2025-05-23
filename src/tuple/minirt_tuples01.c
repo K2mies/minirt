@@ -24,7 +24,6 @@ t_tuple	add_tuples(t_tuple *tupa, t_tuple *tupb)
 {
 	t_tuple	res;
 
-//	res = malloc(sizeof(t_tuple));
 	res.x = tupa->x + tupb->x;
 	res.y = tupa->y + tupb->y;
 	res.z = tupa->z + tupb->z;
@@ -49,7 +48,6 @@ t_tuple	sub_tuples(t_tuple *tupa, t_tuple *tupb)
 {
 	t_tuple	res;
 
-//	res = malloc(sizeof(t_tuple));
 	res.x = tupa->x - tupb->x;
 	res.y = tupa->y - tupb->y;
 	res.z = tupa->z - tupb->z;
@@ -70,9 +68,7 @@ t_tuple	negate_tuple(t_tuple *tup)
 	t_tuple	res;
 	t_tuple	zero;
 
-//	res = malloc(sizeof(t_tuple));
 	zero = vector(0, 0, 0);
 	res = sub_tuples(&zero, tup);
-//	free(zero);
 	return (res);
 }

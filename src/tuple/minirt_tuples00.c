@@ -25,7 +25,6 @@ t_tuple	point(t_float x, t_float y, t_float z)
 {
 	t_tuple	point;
 
-//	point = malloc(sizeof(t_tuple));
 	point.x = x;
 	point.y = y;
 	point.z = z;
@@ -47,7 +46,6 @@ t_tuple	vector(t_float x, t_float y, t_float z)
 {
 	t_tuple	vector;
 
-//	vector = malloc(sizeof(t_tuple));
 	vector.x = x;
 	vector.y = y;
 	vector.z = z;

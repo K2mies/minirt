@@ -30,17 +30,16 @@ void    set_color(t_color *a, t_float r, t_float g, t_float b)
  *
  * @return		color type struct
  */
-t_color	*color(t_float r, t_float g, t_float b)
+t_color	color(t_float r, t_float g, t_float b)
 {
-	t_color	*col;
+    t_color	col;
 
-	col = malloc(sizeof(t_color));
-	col->r = r;
-	col->g = g;
-	col->b = b;
-	col->a = 1.0;
-    convert_rgba_to_hex(col);
+    col.r = r;
+    col.g = g;
+    col.b = b;
+    col.a = 1.0;
+    convert_rgba_to_hex(&col);
 
-	return (col);
+    return (col);
 }
 

@@ -33,17 +33,16 @@ t_float	get_magnitude(t_tuple *vec)
  *
  * @return		returns normalised version of the tuple. 
  */
-t_tuple *normalize_vector(t_tuple *vec)
+t_tuple normalize_vector(t_tuple *vec)
 {
 	t_float	mag;
-	t_tuple *res;
+	t_tuple res;
 
-	res = malloc(sizeof(t_tuple));
 	mag = get_magnitude(vec);
-	res->x = vec->x / mag;
-	res->y = vec->y / mag;
-	res->z = vec->z / mag;
-	res->w = vec->w / mag;	
+	res.x = vec->x / mag;
+	res.y = vec->y / mag;
+	res.z = vec->z / mag;
+	res.w = vec->w / mag;	
 	return (res);
 
 }

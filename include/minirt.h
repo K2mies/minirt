@@ -97,7 +97,7 @@ t_tuple		multiply_tuple_by_scalar(t_tuple *tup, t_float scalar);
 t_tuple		devide_tuple_by_scalar(t_tuple *tup, t_float scalar);
 /* -------------------------------------------------------- minirt_tuples03.c */
 t_float		get_magnitude(t_tuple *vec);
-t_tuple		*normalize_vector(t_tuple *vec);
+t_tuple		normalize_vector(t_tuple *vec);
 /* -------------------------------------------------------- minirt_tuples04.c */
 bool		compare_tuples(t_tuple *tupa, t_tuple *tupb);
 bool		is_tuple_vector(t_tuple *tup);
@@ -111,7 +111,7 @@ bool		compare_floats(t_float a, t_float b);
 /* ================================ COLORS ================================== */
 
 /* --------------------------------------------------------- minirt_color00.c */
-t_color		*color(t_float r, t_float g, t_float b);
+t_color		color(t_float r, t_float g, t_float b);
 void		set_color(t_color *a, t_float r, t_float g, t_float b);
 /* --------------------------------------------------------- minirt_color01.c */
 void		convert_rgba_to_hex(t_color *col);
@@ -122,11 +122,11 @@ void		convert_hex_to_channels(t_color *col);
 void		convert_channels_to_rgba(t_color *col);
 void		convert_rgba_to_channels(t_color *col);
 /* --------------------------------------------------------- minirt_color03.c */
-t_color		*add_colors(t_color *cola, t_color *colb);
-t_color		*sub_colors(t_color *cola, t_color *colb);
+t_color		add_colors(t_color *cola, t_color *colb);
+t_color		sub_colors(t_color *cola, t_color *colb);
 /* --------------------------------------------------------- minirt_color04.c */
-t_color		*multiply_color_by_scalar(t_color *col, t_float scalar);
-t_color		*multiply_color(t_color *cola, t_color *colb);
+t_color		multiply_color_by_scalar(t_color *col, t_float scalar);
+t_color		multiply_color(t_color *cola, t_color *colb);
 
 /* ================================ CANVAS ================================== */
 
