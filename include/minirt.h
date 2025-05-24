@@ -29,9 +29,12 @@
 
 /* ================================ TYPEDEFS ================================ */
 
+
+/* ------------------------------------------------------------- custom types */
 // Custom typedef for float (so can be switched to double later for testing)
 typedef float	t_float;
 
+/* ------------------------------------------------------------------- tuples */
 // Typedef for Touple
 typedef struct s_tuple
 {
@@ -41,6 +44,7 @@ typedef struct s_tuple
 	t_float		w;
 }	t_tuple;
 
+/* ------------------------------------------------------------------- colors */
 // Typedef for Color
 typedef struct s_color
 {
@@ -52,6 +56,7 @@ typedef struct s_color
 	t_float		a;
 }	t_color;
 
+/* ------------------------------------------------------------------- canvas */
 // Typedef for Canvas
 typedef struct	s_canvas
 {
@@ -60,6 +65,7 @@ typedef struct	s_canvas
     t_color     **pixels;
 }   t_canvas;
 
+/* -------------------------------------------------------------- matracies.c */
 // Typedef for 4X4 Matrix
 typedef struct	s_matrix4
 {
@@ -78,6 +84,7 @@ typedef struct	s_matrix2
 	t_float	m[2][2];
 }	t_matrix2;
 
+/* --------------------------------------------------------- main data struct */
 // Typedef for Main data struct
 typedef struct s_minirt
 {
@@ -94,6 +101,8 @@ enum	channel_type
 	G,
 	R,
 };
+
+/* ============================== DEFINITIONS =============================== */
 
 /* ================================ TOUPLES ================================= */
 
@@ -147,12 +156,12 @@ t_canvas	*canvas(int width, int height);
 /* -------------------------------------------------------- minirt_canvas01.c */
 void		write_pixel_to_canvas(t_canvas *canvas, int x, int y, t_color *col);
 
-/* ===========================++===== PPM ==+================================ */
+/* ================================== PPM =================================== */
 
 /* ----------------------------------------------------------- minirt_ppm00.c */
 void		canvas_to_ppm(t_canvas *canvas);
 
-/* ===========================++=== MATRIX ================================== */
+/* ================================ MATRIX ================================== */
 
 /* -------------------------------------------------------- minirt_matrix00.c */
 t_matrix4	id_matrix4(void);

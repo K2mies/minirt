@@ -46,6 +46,5 @@ t_tuple	devide_tuple_by_scalar(t_tuple *tup, t_float scalar)
 	res.y = tup->y / scalar;
 	res.z = tup->z / scalar;
 	res.w = tup->w / scalar;
-
 	return (res);
 }

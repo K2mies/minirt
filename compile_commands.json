@@ -1,6 +1,6 @@
 [
  {
-  "directory": "/home/rhvidste/Documents/GIT/git_miniRT",
+  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
   "arguments": [
    "cc",
    "-Wextra",
@@ -20,7 +20,7 @@
   "file": "src/minirt_main.c"
  },
  {
-  "directory": "/home/rhvidste/Documents/GIT/git_miniRT",
+  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
   "arguments": [
    "cc",
    "-Wextra",
@@ -40,7 +40,7 @@
   "file": "src/tuple/minirt_tuples00.c"
  },
  {
-  "directory": "/home/rhvidste/Documents/GIT/git_miniRT",
+  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
   "arguments": [
    "cc",
    "-Wextra",
@@ -60,7 +60,7 @@
   "file": "src/tuple/minirt_tuples01.c"
  },
  {
-  "directory": "/home/rhvidste/Documents/GIT/git_miniRT",
+  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
   "arguments": [
    "cc",
    "-Wextra",
@@ -80,7 +80,7 @@
   "file": "src/tuple/minirt_tuples02.c"
  },
  {
-  "directory": "/home/rhvidste/Documents/GIT/git_miniRT",
+  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
   "arguments": [
    "cc",
    "-Wextra",
@@ -100,7 +100,7 @@
   "file": "src/tuple/minirt_tuples03.c"
  },
  {
-  "directory": "/home/rhvidste/Documents/GIT/git_miniRT",
+  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
   "arguments": [
    "cc",
    "-Wextra",
@@ -120,7 +120,7 @@
   "file": "src/tuple/minirt_tuples04.c"
  },
  {
-  "directory": "/home/rhvidste/Documents/GIT/git_miniRT",
+  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
   "arguments": [
    "cc",
    "-Wextra",
@@ -140,7 +140,7 @@
   "file": "src/tuple/minirt_tuples05.c"
  },
  {
-  "directory": "/home/rhvidste/Documents/GIT/git_miniRT",
+  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
   "arguments": [
    "cc",
    "-Wextra",
@@ -160,7 +160,7 @@
   "file": "src/tuple/minirt_floats.c"
  },
  {
-  "directory": "/home/rhvidste/Documents/GIT/git_miniRT",
+  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
   "arguments": [
    "cc",
    "-Wextra",
@@ -180,7 +180,7 @@
   "file": "src/color/minirt_color00.c"
  },
  {
-  "directory": "/home/rhvidste/Documents/GIT/git_miniRT",
+  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
   "arguments": [
    "cc",
    "-Wextra",
@@ -198,5 +198,185 @@
    "obj/color/minirt_color01.o"
   ],
   "file": "src/color/minirt_color01.c"
+ },
+ {
+  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/color/minirt_color02.c",
+   "-o",
+   "obj/color/minirt_color02.o"
+  ],
+  "file": "src/color/minirt_color02.c"
+ },
+ {
+  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/color/minirt_color03.c",
+   "-o",
+   "obj/color/minirt_color03.o"
+  ],
+  "file": "src/color/minirt_color03.c"
+ },
+ {
+  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/color/minirt_color04.c",
+   "-o",
+   "obj/color/minirt_color04.o"
+  ],
+  "file": "src/color/minirt_color04.c"
+ },
+ {
+  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/canvas/minirt_canvas00.c",
+   "-o",
+   "obj/canvas/minirt_canvas00.o"
+  ],
+  "file": "src/canvas/minirt_canvas00.c"
+ },
+ {
+  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/canvas/minirt_canvas01.c",
+   "-o",
+   "obj/canvas/minirt_canvas01.o"
+  ],
+  "file": "src/canvas/minirt_canvas01.c"
+ },
+ {
+  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/ppm/minirt_ppm00.c",
+   "-o",
+   "obj/ppm/minirt_ppm00.o"
+  ],
+  "file": "src/ppm/minirt_ppm00.c"
+ },
+ {
+  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/matrix/minirt_matrix00.c",
+   "-o",
+   "obj/matrix/minirt_matrix00.o"
+  ],
+  "file": "src/matrix/minirt_matrix00.c"
+ },
+ {
+  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/matrix/minirt_matrix01.c",
+   "-o",
+   "obj/matrix/minirt_matrix01.o"
+  ],
+  "file": "src/matrix/minirt_matrix01.c"
+ },
+ {
+  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/matrix/minirt_matrix02.c",
+   "-o",
+   "obj/matrix/minirt_matrix02.o"
+  ],
+  "file": "src/matrix/minirt_matrix02.c"
  }
 ]

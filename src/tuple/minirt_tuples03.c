@@ -6,7 +6,7 @@
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:37:55 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/05/14 12:39:13 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/05/24 18:26:36 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
@@ -21,6 +21,7 @@
 t_float	get_magnitude(t_tuple *vec)
 {
 	t_float	mag;
+
 	mag = sqrt((vec->x * vec->x) + (vec->y * vec->y)
 			+ (vec->z * vec->z) + (vec->w * vec->w));
 	return (mag);
@@ -33,17 +34,15 @@ t_float	get_magnitude(t_tuple *vec)
  *
  * @return		returns normalised version of the tuple. 
  */
-t_tuple normalize_vector(t_tuple *vec)
+t_tuple	normalize_vector(t_tuple *vec)
 {
 	t_float	mag;
-	t_tuple res;
+	t_tuple	res;
 
 	mag = get_magnitude(vec);
 	res.x = vec->x / mag;
 	res.y = vec->y / mag;
 	res.z = vec->z / mag;
-	res.w = vec->w / mag;	
+	res.w = vec->w / mag;
 	return (res);
-
 }
-

@@ -52,7 +52,6 @@ t_tuple	sub_tuples(t_tuple *tupa, t_tuple *tupb)
 	res.y = tupa->y - tupb->y;
 	res.z = tupa->z - tupb->z;
 	res.w = tupa->w - tupb->w;
-
 	return (res);
 }
 
