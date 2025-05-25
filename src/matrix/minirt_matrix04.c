@@ -31,7 +31,6 @@ t_matrix3   submatrix4(t_matrix4 m, int row, int col)
 
     new_row = 0;
     r = -1;
-
     while (++r < 4)
     {
         if (r == row)
@@ -70,7 +69,6 @@ t_matrix2   submatrix3(t_matrix3 m, int row, int col)
 
     new_row = 0;
     r = -1;
-
     while (++r < 3)
     {
         if (r == row)
@@ -86,6 +84,5 @@ t_matrix2   submatrix3(t_matrix3 m, int row, int col)
         }
         new_row++;
     }
-    return (res);
-    
+    return (res); 
 }
