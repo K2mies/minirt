@@ -104,9 +104,10 @@ enum	channel_type
 
 /* ============================== DEFINITIONS =============================== */
 
-/* ================================ TOUPLES ================================= */
+/* ================================= TUPLES ================================= */
 
 /* -------------------------------------------------------- minirt_tuples00.c */
+t_tuple     tuple(t_float x, t_float y, t_float z, t_float w);
 t_tuple		point(t_float x, t_float y, t_float z);
 t_tuple		vector(t_float x, t_float y, t_float z);
 /* -------------------------------------------------------- minirt_tuples01.c */
@@ -174,5 +175,20 @@ bool		compare_matrix3(t_matrix3 *a, t_matrix3 *b);
 bool		compare_matrix2(t_matrix2 *a, t_matrix2 *b);
 /* -------------------------------------------------------- minirt_matrix02.c */
 t_matrix4	matrix4_multiply(t_matrix4 *a, t_matrix4 *b);
-
+t_tuple     matrix4_multiply_tuple(t_matrix4 *m, t_tuple *t);
+/* -------------------------------------------------------- minirt_matrix03.c */
+t_matrix4   transpose_matrix4(t_matrix4 m);
+t_float     determinent_of_matrix2(t_matrix2 m);
+t_float     determinent_of_matrix3(t_matrix3 m);
+t_float     determinent_of_matrix4(t_matrix4 m);
+/* -------------------------------------------------------- minirt_matrix04.c */
+t_matrix3   submatrix4(t_matrix4 m, int row, int col);
+t_matrix2   submatrix3(t_matrix3 m, int row, int col);
+/* -------------------------------------------------------- minirt_matrix05.c */
+t_float     minor4(t_matrix4 m, int row, int col);
+t_float     minor3(t_matrix3 m, int row, int col);
+t_float     cofactor4(t_matrix4 m, int row, int col);
+t_float     cofactor3(t_matrix3 m, int row, int col);
+/* -------------------------------------------------------- minirt_matrix06.c */
+bool        is_matrix4_invertable(t_matrix4 m);
 #endif

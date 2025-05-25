@@ -12,6 +12,28 @@
 #include "minirt.h"
 
 /**
+ * Function to create and return a tuple
+ * of t_tuple type for which w is custom;
+ *
+ * @param x		x variable of t_float type
+ * @param y		y variable of t_float type
+ * @param z		z variable of t_float type
+ * @param w		w variable of t_float type
+ *
+ * @return		tuple of t_tuple type
+ */
+t_tuple tuple(t_float x, t_float y, t_float z, t_float w)
+{
+    t_tuple tuple;
+
+    tuple.x = x;
+    tuple.y = y;
+    tuple.z = z;
+    tuple.w = w;
+    return (tuple);
+}
+
+/**
  * Function to create and return a Point
  * of t_point4 type for which w = 1;
  *

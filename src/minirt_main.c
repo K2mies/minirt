@@ -670,6 +670,39 @@ void	test_print_matrix(t_matrix4 m)
 	}
 }
 
+void	test_print_matrix3(t_matrix3 m)
+{
+	int	x;
+	int	y;
+
+	y = -1;
+	while (++y < 3)
+	{
+		x = -1;
+		while (++x < 3)
+		{
+			printf("%.1f ", m.m[y][x]);
+		}
+		printf("\n");
+	}
+}
+
+void	test_print_matrix2(t_matrix2 m)
+{
+	int	x;
+	int	y;
+
+	y = -1;
+	while (++y < 2)
+	{
+		x = -1;
+		while (++x < 2)
+		{
+			printf("%.1f ", m.m[y][x]);
+		}
+		printf("\n");
+	}
+}
 //void	test_matrix_creation_and_indexing()
 //{
 //	t_matrix4	m;
@@ -740,56 +773,370 @@ void	test_print_matrix(t_matrix4 m)
 //}
 //
 
-void	test_multiply_two_matrix4()
+//void	test_multiply_two_matrix4()
+//{
+//	t_matrix4	a;
+//	t_matrix4	b;
+//	t_matrix4	res;
+//
+//	a.m[0][0] = 1;
+//	a.m[0][1] = 2;
+//	a.m[0][2] = 3;
+//	a.m[0][3] = 4;
+//	a.m[1][0] = 5;
+//	a.m[1][1] = 6;
+//	a.m[1][2] = 7;
+//	a.m[1][3] = 8;
+//	a.m[2][0] = 9;
+//	a.m[2][1] = 8;
+//	a.m[2][2] = 7;
+//	a.m[2][3] = 6;
+//	a.m[3][0] = 5;
+//	a.m[3][1] = 4;
+//	a.m[3][2] = 3;
+//	a.m[3][3] = 2;
+//	
+//	b.m[0][0] = -2;
+//	b.m[0][1] = 1;
+//	b.m[0][2] = 2;
+//	b.m[0][3] = 3;
+//	b.m[1][0] = 3;
+//	b.m[1][1] = 2;
+//	b.m[1][2] = 1;
+//	b.m[1][3] = -1;
+//	b.m[2][0] = 4;
+//	b.m[2][1] = 3;
+//	b.m[2][2] = 6;
+//	b.m[2][3] = 5;
+//	b.m[3][0] = 1;
+//	b.m[3][1] = 2;
+//	b.m[3][2] = 7;
+//	b.m[3][3] = 8;
+//
+//	res = matrix4_multiply(&a, &b);
+//	test_print_matrix(res);
+//
+//}
+//
+
+void    test_print_tuple(t_tuple t)
 {
-	t_matrix4	a;
-	t_matrix4	b;
-	t_matrix4	res;
-
-	a.m[0][0] = 1;
-	a.m[0][1] = 2;
-	a.m[0][2] = 3;
-	a.m[0][3] = 4;
-	a.m[1][0] = 5;
-	a.m[1][1] = 6;
-	a.m[1][2] = 7;
-	a.m[1][3] = 8;
-	a.m[2][0] = 9;
-	a.m[2][1] = 8;
-	a.m[2][2] = 7;
-	a.m[2][3] = 6;
-	a.m[3][0] = 5;
-	a.m[3][1] = 4;
-	a.m[3][2] = 3;
-	a.m[3][3] = 2;
-	
-	b.m[0][0] = -2;
-	b.m[0][1] = 1;
-	b.m[0][2] = 2;
-	b.m[0][3] = 3;
-	b.m[1][0] = 3;
-	b.m[1][1] = 2;
-	b.m[1][2] = 1;
-	b.m[1][3] = -1;
-	b.m[2][0] = 4;
-	b.m[2][1] = 3;
-	b.m[2][2] = 6;
-	b.m[2][3] = 5;
-	b.m[3][0] = 1;
-	b.m[3][1] = 2;
-	b.m[3][2] = 7;
-	b.m[3][3] = 8;
-
-	res = matrix4_multiply(&a, &b);
-	test_print_matrix(res);
-
+    printf("x: %f y: %f z: %f w: %f\n", t.x, t.y, t.z, t.w);
 }
 
+//void    test_multiply_tuple_by_matrix()
+//{
+//    t_matrix4   m;
+//    t_tuple     t;
+//    t_tuple     res;
+//
+//    t = point(1, 2, 3);
+//    m = matrix4();
+//
+//    m.m[0][0] = 1;
+//    m.m[0][1] = 2;
+//    m.m[0][2] = 3;
+//    m.m[0][3] = 4;
+//    m.m[1][0] = 2;
+//    m.m[1][1] = 4;
+//    m.m[1][2] = 4;
+//    m.m[1][3] = 2;
+//    m.m[2][0] = 8;
+//    m.m[2][1] = 6;
+//    m.m[2][2] = 4;
+//    m.m[2][3] = 1;
+//    m.m[3][0] = 0;
+//    m.m[3][1] = 0;
+//    m.m[3][2] = 0;
+//    m.m[3][3] = 1;
+//
+//    res = matrix4_multiply_tuple(&m, &t);
+//    test_print_tuple(res);
+//}
+
+//void    test_identity_matrix()
+//{
+//    t_matrix4   m;
+//    t_matrix4   id;
+//    t_matrix4   reset;
+//    t_tuple     t;
+//    t_tuple     res;
+//
+//    m = matrix4();
+//
+//    m.m[0][0] = 0;
+//    m.m[0][1] = 1;
+//    m.m[0][2] = 2;
+//    m.m[0][3] = 4;
+//    m.m[1][0] = 1;
+//    m.m[1][1] = 2;
+//    m.m[1][2] = 4;
+//    m.m[1][3] = 8;
+//    m.m[2][0] = 2;
+//    m.m[2][1] = 4;
+//    m.m[2][2] = 8;
+//    m.m[2][3] = 16;
+//    m.m[3][0] = 4;
+//    m.m[3][1] = 8;
+//    m.m[3][2] = 16;
+//    m.m[3][3] = 32;
+//
+//    id = id_matrix4();
+//    reset = matrix4_multiply(&m, &id);
+//    test_print_matrix(reset);
+//
+////    t = tuple(1, 2, 3, 4);
+//    t = point(1, 2, 3);
+//    printf("w: %f\n", t.w);
+//    res = matrix4_multiply_tuple(&id, &t);
+//
+//    test_print_tuple(res);
+//
+//    printf("w: %f\n", res.w);
+//}
+
+//void    test_transpose_matrix()
+//{
+//    t_matrix4   m;
+//    t_matrix4   res;
+//
+//    m.m[0][0] = 0;
+//    m.m[0][1] = 9;
+//    m.m[0][2] = 3;
+//    m.m[0][3] = 0;
+//    m.m[1][0] = 9;
+//    m.m[1][1] = 8;
+//    m.m[1][2] = 0;
+//    m.m[1][3] = 8;
+//    m.m[2][0] = 1;
+//    m.m[2][1] = 8;
+//    m.m[2][2] = 5;
+//    m.m[2][3] = 3;
+//    m.m[3][0] = 0;
+//    m.m[3][1] = 0;
+//    m.m[3][2] = 5;
+//    m.m[3][3] = 8;
+//
+//    printf("before transpose\n");
+//    test_print_matrix(m);
+//
+//    res = transpose_matrix4(m);
+//    printf("afrter transpose\n");
+//    test_print_matrix(res);
+//
+//}
+//
+//void    test_transpose_identity_matrix()
+//{
+//    t_matrix4   id;
+//    t_matrix4    res;
+//
+//    id = id_matrix4();
+//
+//    printf("before transpose\n");
+//    test_print_matrix(id);
+//
+//    res = transpose_matrix4(id);
+//    printf("after transpose\n");
+//    test_print_matrix(res);
+//
+//}
+
+//void    test_determinent_of_2x2_matrix()
+//{
+//    t_matrix2   m;
+//    t_float     res;
+//
+//    m.m[0][0] = 1;
+//    m.m[0][1] = 5;
+//    m.m[1][0] = -3;
+//    m.m[1][1] = 2;
+//
+//    res = determinent_of_matrix2(&m);
+//    test_print_matrix2(m);
+//    printf("determinent: %f\n", res);
+//}
+//
+//void    test_submatrix4()
+//{
+//    t_matrix4   m4;
+//    t_matrix3   res;
+//
+//    m4 = matrix4();
+//
+//    m4.m[0][0] = -6;
+//    m4.m[0][1] = 1;
+//    m4.m[0][2] = 1;
+//    m4.m[0][3] = 6;
+//    m4.m[1][0] = -8;
+//    m4.m[1][1] = 5;
+//    m4.m[1][2] = 8;
+//    m4.m[1][3] = 6;
+//    m4.m[2][0] = -1;
+//    m4.m[2][1] = 0;
+//    m4.m[2][2] = 8;
+//    m4.m[2][3] = 2;
+//    m4.m[3][0] = -7;
+//    m4.m[3][1] = 1;
+//    m4.m[3][2] = -1;
+//    m4.m[3][3] = 1;
+//
+//    printf("matrix origin:\n");
+//    test_print_matrix(m4);
+//    res = submatrix4(m4, 2, 1);
+//    printf("submatrix:\n");
+//    test_print_matrix3(res);
+//}
+
+//void    test_submatrix3()
+//{
+//    t_matrix3   m3;
+//    t_matrix2   res;
+//
+//    m3 = matrix3();
+//
+//    m3.m[0][0] = 1;
+//    m3.m[0][1] = 5;
+//    m3.m[0][2] = 0;
+//
+//    m3.m[1][0] = -3;
+//    m3.m[1][1] = 2;
+//    m3.m[1][2] = 7;
+//
+//    m3.m[2][0] = 0;
+//    m3.m[2][1] = 6;
+//    m3.m[2][2] = -3;
+//    printf("matrix origin:\n");
+//    test_print_matrix3(m3);
+//    res = submatrix3(m3 , 0, 2);
+//    printf("submatrix:\n");
+//    test_print_matrix2(res);
+//}
+//
+
+//void    test_minor()
+//{
+//    t_matrix3   m;
+//    t_float     res;
+//
+//    m = matrix3();
+//
+//    m.m[0][0] = 3;
+//    m.m[0][1] = 5;
+//    m.m[0][2] = 0;
+//
+//    m.m[1][0] = 2;
+//    m.m[1][1] = -1;
+//    m.m[1][2] = -7;
+//
+//    m.m[2][0] = 6;
+//    m.m[2][1] = -1;
+//    m.m[2][2] = 5;
+//
+//    test_print_matrix3(m);
+//
+//    res = minor(m, 1, 0);
+//    printf("minor: %f\n", res);
+//}
+
+void    test_cofactor()
+{
+    t_matrix3   m;
+    t_float     res;
+
+    m.m[0][0] = 3;
+    m.m[0][1] = 5;
+    m.m[0][2] = 0;
+
+    m.m[1][0] = 2;
+    m.m[1][1] = -1;
+    m.m[1][2] = -7;
+
+    m.m[2][0] = 6;
+    m.m[2][1] = -1;
+    m.m[2][2] = 5;
+
+    res = cofactor3(m, 0, 0);
+    printf("cofactor 0, 0 res: %f\n", res);
+    res = cofactor3(m, 1, 0);
+    printf("cofactor 1, 0 res: %f\n", res);
+    res = cofactor3(m, 2, 0);
+    printf("cofactor 2, 0 res: %f\n", res);
+
+}
+void    test_determinent()
+{
+    t_matrix3   m;
+    t_float     res;
+
+    m.m[0][0] = 1;
+    m.m[0][1] = 2;
+    m.m[0][2] = 6;
+
+    m.m[1][0] = -5;
+    m.m[1][1] = 8;
+    m.m[1][2] = -4;
+
+    m.m[2][0] = 2;
+    m.m[2][1] = 6;
+    m.m[2][2] = 4;
+
+    res = cofactor3(m, 0, 0);
+    printf("cofactor 0, 0 res: %f\n", res);
+    res = cofactor3(m, 0, 1);
+    printf("cofactor 0, 1 res: %f\n", res);
+    res = cofactor3(m, 0, 2);
+    printf("cofactor 0, 2 res: %f\n", res);
+    res = determinent_of_matrix3(m);
+    printf("determinent of 3x3 matrix is %f\n", res);
+}
+
+void    test_determinent_of_4x4_matrix()
+{
+    t_matrix4   m;
+    t_float     res;
+
+    m.m[0][0] = -2;
+    m.m[0][1] = -8;
+    m.m[0][2] = 3;
+    m.m[0][3] = 5;
+
+    m.m[1][0] = -3;
+    m.m[1][1] = 1;
+    m.m[1][2] = 7;
+    m.m[1][3] = 3;
+
+    m.m[2][0] = 1;
+    m.m[2][1] = 2;
+    m.m[2][2] = -9;
+    m.m[2][3] = 6;
+
+    m.m[3][0] = -6;
+    m.m[3][1] = 7;
+    m.m[3][2] = 7;
+    m.m[3][3] = -9;
+
+    res = determinent_of_matrix4(m);
+    printf("determinent of matrix4 is %f\n", res);
+
+}
 int	main(int argc, char **argv)
 {
 	(void)argc;
 	(void)argv;
-	test_multiply_two_matrix4();
+test_determinent_of_4x4_matrix();
+//    test_determinent();
+//    test_cofactor();
+//    test_minor();
+
+//   test_submatrix3();
+//    test_submatrix4();
+//   test_determinent_of_2x2_matrix();
+//    test_transpose_identity_matrix();
+//    test_transpose_matrix();
+//    test_identity_matrix();
+//    test_multiply_tuple_by_matrix();
+//	test_multiply_two_matrix4();
 	
 //	test_matrix4_comparison_equal();
 
