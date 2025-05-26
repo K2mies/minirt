@@ -19,11 +19,11 @@
  *
  * @return		dot product of Vector a and Vector b
  */
-t_float	dot_product(t_tuple *a, t_tuple *b)
+t_float	dot_product(t_tuple a, t_tuple b)
 {
 	t_float	res;
 
-	res = (a->x * b->x) + (a->y * b->y) + (a->z * b->z) + (a->w * b->w);
+	res = (a.x * b.x) + (a.y * b.y) + (a.z * b.z) + (a.w * b.w);
 	return (res);
 }
 
@@ -35,16 +35,16 @@ t_float	dot_product(t_tuple *a, t_tuple *b)
  *
  * @return		cross product of Vector a and Vector b
  */
-t_tuple	cross_product(t_tuple *a, t_tuple *b)
+t_tuple	cross_product(t_tuple a, t_tuple b)
 {
 	t_tuple	res;
 	t_float	x;
 	t_float	y;
 	t_float	z;
 
-	x = (a->y * b->z) - (a->z * b->y);
-	y = (a->z * b->x) - (a->x * b->z);
-	z = (a->x * b->y) - (a->y * b->x);
+	x = (a.y * b.z) - (a.z * b.y);
+	y = (a.z * b.x) - (a.x * b.z);
+	z = (a.x * b.y) - (a.y * b.x);
 	res = vector(x, y, z);
 	return (res);
 }

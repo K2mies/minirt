@@ -24,7 +24,7 @@
  */
 t_tuple	tuple(t_float x, t_float y, t_float z, t_float w)
 {
-	t_tuple	tuple;
+	t_tuple tuple;
 
 	tuple.x = x;
 	tuple.y = y;

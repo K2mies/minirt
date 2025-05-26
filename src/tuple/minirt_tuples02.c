@@ -19,14 +19,14 @@
  *
  * @return		Tuple multiplied by scalar
  */
-t_tuple	multiply_tuple_by_scalar(t_tuple *tup, t_float scalar)
+t_tuple	multiply_tuple_by_scalar(t_tuple tup, t_float scalar)
 {
 	t_tuple	res;
 
-	res.x = tup->x * scalar;
-	res.y = tup->y * scalar;
-	res.z = tup->z * scalar;
-	res.w = tup->w * scalar;
+	res.x = tup.x * scalar;
+	res.y = tup.y * scalar;
+	res.z = tup.z * scalar;
+	res.w = tup.w * scalar;
 	return (res);
 }
 
@@ -38,13 +38,13 @@ t_tuple	multiply_tuple_by_scalar(t_tuple *tup, t_float scalar)
  *
  * @return		Tuple multiplied by scalar
  */
-t_tuple	devide_tuple_by_scalar(t_tuple *tup, t_float scalar)
+t_tuple	devide_tuple_by_scalar(t_tuple tup, t_float scalar)
 {
 	t_tuple	res;
 
-	res.x = tup->x / scalar;
-	res.y = tup->y / scalar;
-	res.z = tup->z / scalar;
-	res.w = tup->w / scalar;
+	res.x = tup.x / scalar;
+	res.y = tup.y / scalar;
+	res.z = tup.z / scalar;
+	res.w = tup.w / scalar;
 	return (res);
 }

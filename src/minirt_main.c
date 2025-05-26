@@ -664,7 +664,7 @@ void	test_print_matrix(t_matrix4 m)
 		x = -1;
 		while (++x < 4)
 		{
-			printf("%.1f ", m.m[y][x]);
+			printf("%.5f ", m.m[y][x]);
 		}
 		printf("\n");
 	}
@@ -1039,87 +1039,329 @@ void	test_print_tuple(t_tuple t)
 //  printf("minor: %f\n", res);
 //}
 
-void	test_cofactor()
+//void    test_cofactor()
+//{
+//    t_matrix3   m;
+//    t_float     res;
+//
+//    m.m[0][0] = 3;
+//    m.m[0][1] = 5;
+//    m.m[0][2] = 0;
+//
+//    m.m[1][0] = 2;
+//    m.m[1][1] = -1;
+//    m.m[1][2] = -7;
+//
+//    m.m[2][0] = 6;
+//    m.m[2][1] = -1;
+//    m.m[2][2] = 5;
+//
+//    res = cofactor3(m, 0, 0);
+//    printf("cofactor 0, 0 res: %f\n", res);
+//    res = cofactor3(m, 1, 0);
+//    printf("cofactor 1, 0 res: %f\n", res);
+//    res = cofactor3(m, 2, 0);
+//    printf("cofactor 2, 0 res: %f\n", res);
+//
+//}
+//void    test_determinent()
+//{
+//    t_matrix3   m;
+//    t_float     res;
+//
+//    m.m[0][0] = 1;
+//    m.m[0][1] = 2;
+//    m.m[0][2] = 6;
+//
+//    m.m[1][0] = -5;
+//    m.m[1][1] = 8;
+//    m.m[1][2] = -4;
+//
+//    m.m[2][0] = 2;
+//    m.m[2][1] = 6;
+//    m.m[2][2] = 4;
+//
+//    res = cofactor3(m, 0, 0);
+//    printf("cofactor 0, 0 res: %f\n", res);
+//    res = cofactor3(m, 0, 1);
+//    printf("cofactor 0, 1 res: %f\n", res);
+//    res = cofactor3(m, 0, 2);
+//    printf("cofactor 0, 2 res: %f\n", res);
+//    res = determinent_of_matrix3(m);
+//    printf("determinent of 3x3 matrix is %f\n", res);
+//}
+//
+//void    test_determinent_of_4x4_matrix()
+//{
+//    t_matrix4   m;
+//    t_float     res;
+//
+//    m.m[0][0] = -2;
+//    m.m[0][1] = -8;
+//    m.m[0][2] = 3;
+//    m.m[0][3] = 5;
+//
+//    m.m[1][0] = -3;
+//    m.m[1][1] = 1;
+//    m.m[1][2] = 7;
+//    m.m[1][3] = 3;
+//
+//    m.m[2][0] = 1;
+//    m.m[2][1] = 2;
+//    m.m[2][2] = -9;
+//    m.m[2][3] = 6;
+//
+//    m.m[3][0] = -6;
+//    m.m[3][1] = 7;
+//    m.m[3][2] = 7;
+//    m.m[3][3] = -9;
+//
+//    res = determinent_of_matrix4(m);
+//    printf("determinent of matrix4 is %f\n", res);
+//
+//}
+//void	test_is_matrix_invertable()
+//{
+//	t_matrix4	a;
+//	t_matrix4	b;
+//
+//	a.m[0][0] = 6;
+//	a.m[0][1] = 4;
+//	a.m[0][2] = 4;
+//	a.m[0][3] = 4;
+//	a.m[1][0] = 5;
+//	a.m[1][1] = 5;
+//	a.m[1][2] = 7;
+//	a.m[1][3] = 6;
+//	a.m[2][0] = 4;
+//	a.m[2][1] = -9;
+//	a.m[2][2] = 3;
+//	a.m[2][3] = -7;
+//	a.m[3][0] = 9;
+//	a.m[3][1] = 1;
+//	a.m[3][2] = 7;
+//	a.m[3][3] = -6;
+//
+//
+//	b.m[0][0] = -4;
+//	b.m[0][1] = 2;
+//	b.m[0][2] = -2;
+//	b.m[0][3] = -3;
+//	b.m[1][0] = 9;
+//	b.m[1][1] = 6;
+//	b.m[1][2] = 2;
+//	b.m[1][3] = 6;
+//	b.m[2][0] = 0;
+//	b.m[2][1] = -5;
+//	b.m[2][2] = 1;
+//	b.m[2][3] = -5;
+//	b.m[3][0] = 0;
+//	b.m[3][1] = 0;
+//	b.m[3][2] = 0;
+//	b.m[3][3] = 0;
+//
+//	if (is_matrix4_invertable(a))
+//		printf("matrix a is mutable\n");
+//	else
+//		printf("matrix a is not mutable\n");
+//
+//	if (is_matrix4_invertable(b))
+//		printf("matrix b is mutable\n");
+//	else
+//		printf("matrix b is not mutable\n");
+//}
+
+//void	test_inverse_matrix4()
+//{
+//	t_matrix4	a;
+//	t_matrix4	b;
+//	t_matrix4	res1;
+//	t_matrix4	res2;
+//	t_matrix4	res3;
+//
+//	a.m[0][0] = 3;
+//	a.m[0][1] = -9;
+//	a.m[0][2] = 7;
+//	a.m[0][3] = 3;
+//
+//	a.m[1][0] = 3;
+//	a.m[1][1] = -8;
+//	a.m[1][2] = 2;
+//	a.m[1][3] = -9;
+//
+//	a.m[2][0] = -4;
+//	a.m[2][1] = 4;
+//	a.m[2][2] = 4;
+//	a.m[2][3] = 1;
+//
+//	a.m[3][0] = -6;
+//	a.m[3][1] = 5;
+//	a.m[3][2] = -1;
+//	a.m[3][3] = 1;
+//
+//
+//	b.m[0][0] = 8;
+//	b.m[0][1] = 2;
+//	b.m[0][2] = 2;
+//	b.m[0][3] = 2;
+//
+//	b.m[1][0] = 3;
+//	b.m[1][1] = -1;
+//	b.m[1][2] = 7;
+//	b.m[1][3] = 0;
+//
+//	b.m[2][0] = 7;
+//	b.m[2][1] = 0;
+//	b.m[2][2] = 5;
+//	b.m[2][3] = 4;
+//
+//	b.m[3][0] = 6;
+//	b.m[3][1] = -2;
+//	b.m[3][2] = 0;
+//	b.m[3][3] = 5;
+//
+//	test_print_matrix(a);
+//	printf("\n");
+//	res1 = multiply_matrix4(&a, &b);
+//	res2 = inverse_matrix4(b);
+//	res3 = multiply_matrix4(&res1, &res2);
+//	test_print_matrix(res3);
+//}
+//void	test_create_color_from_channels()
+//{
+//	t_color	test;
+//
+//	test = color_from_channels(255, 255, 155);
+//	printf("r: %f g: %f b: %f a: %f\n", test.r, test.g, test.b, test.a);
+//}
+//void	test_translate()
+//{
+//	t_matrix4	transform;
+//	t_tuple		p;
+//
+//	transform = translation(5, -3, 2);
+//	transform = inverse_matrix4(transform);
+//	p = point(-3, 4, 5);
+//	p = multiply_matrix4_tuple(transform, p);
+//	test_print_tuple(p);
+//}
+//
+
+//void	test_scaling()
+//{
+//	t_matrix4	scale;
+//	t_tuple		p;
+//
+//	scale = scaling(-1, 1, 1);
+////	scale = inverse_matrix4(scale);
+//	p = point(2, 3, 4);
+//	p = multiply_matrix4_tuple(scale, p);
+//	test_print_tuple(p);
+//}
+
+//void	test_rotations()
+//{
+//	t_matrix4	half_quater = rotation_z(45);
+//	t_matrix4	full_quater = rotation_z(90);
+//	t_tuple p = point(0, 1, 0);
+////	half_quater = inverse_matrix4(half_quater);
+//	t_tuple	res = multiply_matrix4_tuple(half_quater, p);
+//	test_print_tuple(res);
+//	res = multiply_matrix4_tuple(full_quater, p);
+//	test_print_tuple(res);
+//}
+
+//void	test_shearing()
+//{
+//	t_matrix4	transform;
+//	t_tuple		p;
+//	t_float		proportions[] = {0, 0, 0, 0, 0, 1};
+//	transform = shearing(proportions);
+//	p = point(2, 3, 4);
+//	t_tuple	res = multiply_matrix4_tuple(transform, p);
+//	test_print_tuple(res);
+//}
+
+//void	test_chained_transformations()
+//{
+//	t_matrix4	rotx = rotation_x(90);
+//	t_matrix4	scale = scaling(5,5,5);
+//	t_matrix4	trans = translation(10, 5, 7);
+//	t_matrix4	transform;
+//	t_tuple		res;
+//
+//	transform = id_matrix4();
+//	res = point(1, 0, 1);
+//	transform = multiply_matrix4(trans, scale);
+//	transform = multiply_matrix4(transform, rotx);
+//	res = multiply_matrix4_tuple(transform, res);
+//	test_print_tuple(res);	
+//}
+
+//void	test_clock_face()
+//{
+////	t_float		rot_deg;
+//	t_canvas	*can;
+//	t_tuple		p;
+//	t_tuple		cp;
+////	t_tuple		offset_centre;
+//
+//	can = canvas(900 / 4, 550 / 4);
+////i	rot_deg = 360 / 12;
+//
+////	offset_centre = point(canvas->width / 2, canvas->height / 2, 0);
+//
+//	t_matrix4	centre_offset_matrix = translation(0, can->width / 2, can->height / 2);
+//	p = point(0, 50, 0);
+//	cp = multiply_matrix4_tuple(centre_offset_matrix, p);
+//
+//	t_color	red;
+//	red = color(1, 0, 0);
+//	write_pixel_to_canvas(can, (int)roundf(cp.y), (int)roundf(cp.z), &red);
+//	printf("point before rotation:\n x: %f y: %f z: %f\n", p.x, p.y, p.z);
+//	t_matrix4	rot_x = rotation_x(360 / 12);
+////	p = multiply_matrix4_tuple(rot_x, p);
+////	printf("point after rotation:\n x: %f y: %f z: %f\n", p.x, p.y, p.z);
+////	cp = multiply_matrix4_tuple(centre_offset_matrix,  p);
+////	write_pixel_to_canvas(can, (int)roundf(cp.y), (int)roundf(cp.z), &red);
+//	int	i = -1;
+//	while (++i < 11)
+//	{
+//		p = multiply_matrix4_tuple(rot_x, p);
+//		printf("point after rotation:\n x: %f y: %f z: %f\n", p.x, p.y, p.z);
+//		cp = multiply_matrix4_tuple(centre_offset_matrix,  p);
+//		write_pixel_to_canvas(can, (int)roundf(cp.y), (int)roundf(cp.z), &red);
+//	}
+//	canvas_to_ppm(can);
+//}
+
+//void	test_create_ray()
+//{
+//	t_ray r;
+//
+//	r = ray(point(0, 1, 0), vector(1, 10, 3));
+//
+//	printf("ray origin x: %f y: %f z: %f\n", r.origin.x, r.origin.y, r.origin.z);
+//	printf("ray direction x: %f y: %f z: %f\n", r.direction.x, r.direction.y, r.direction.z);
+//}
+
+void	test_compute_a_point_from_a_distance()
 {
-	t_matrix3   m;
-	t_float  res;
+	t_ray	r;
+	t_tuple	res;
 
-	m.m[0][0] = 3;
-	m.m[0][1] = 5;
-	m.m[0][2] = 0;
-
-	m.m[1][0] = 2;
-	m.m[1][1] = -1;
-	m.m[1][2] = -7;
-
-	m.m[2][0] = 6;
-	m.m[2][1] = -1;
-	m.m[2][2] = 5;
-
-	res = cofactor3(m, 0, 0);
-	printf("cofactor 0, 0 res: %f\n", res);
-	res = cofactor3(m, 1, 0);
-	printf("cofactor 1, 0 res: %f\n", res);
-	res = cofactor3(m, 2, 0);
-	printf("cofactor 2, 0 res: %f\n", res);
+	r = ray(point(2, 3, 4), vector(1, 0, 0));
+	res = position(r, 0);
+	test_print_tuple(res);
+	res = position(r, 1);
+	test_print_tuple(res);
+	res = position(r, -1);
+	test_print_tuple(res);
+	res = position(r, 2.5);
+	test_print_tuple(res);
 
 }
-void	test_determinent()
-{
-	t_matrix3   m;
-	t_float  res;
 
-	m.m[0][0] = 1;
-	m.m[0][1] = 2;
-	m.m[0][2] = 6;
-
-	m.m[1][0] = -5;
-	m.m[1][1] = 8;
-	m.m[1][2] = -4;
-
-	m.m[2][0] = 2;
-	m.m[2][1] = 6;
-	m.m[2][2] = 4;
-
-	res = cofactor3(m, 0, 0);
-	printf("cofactor 0, 0 res: %f\n", res);
-	res = cofactor3(m, 0, 1);
-	printf("cofactor 0, 1 res: %f\n", res);
-	res = cofactor3(m, 0, 2);
-	printf("cofactor 0, 2 res: %f\n", res);
-	res = determinent_of_matrix3(m);
-	printf("determinent of 3x3 matrix is %f\n", res);
-}
-
-void	test_determinent_of_4x4_matrix()
-{
-	t_matrix4   m;
-	t_float  res;
-
-	m.m[0][0] = -2;
-	m.m[0][1] = -8;
-	m.m[0][2] = 3;
-	m.m[0][3] = 5;
-
-	m.m[1][0] = -3;
-	m.m[1][1] = 1;
-	m.m[1][2] = 7;
-	m.m[1][3] = 3;
-
-	m.m[2][0] = 1;
-	m.m[2][1] = 2;
-	m.m[2][2] = -9;
-	m.m[2][3] = 6;
-
-	m.m[3][0] = -6;
-	m.m[3][1] = 7;
-	m.m[3][2] = 7;
-	m.m[3][3] = -9;
-
-	res = determinent_of_matrix4(m);
-	printf("determinent of matrix4 is %f\n", res);
-
-}
 int	main(int argc, char **argv)
 {
 	t_minirt rt;

@@ -19,13 +19,13 @@
  *
  * @return		color multiplied by scalar
  */
-t_color	multiply_color_by_scalar(t_color *col, t_float scalar)
+t_color	multiply_color_by_scalar(t_color col, t_float scalar)
 {
 	t_color	res;
 
-	res.r = col->r * scalar;
-	res.g = col->g * scalar;
-	res.b = col->b * scalar;
+	res.r = col.r * scalar;
+	res.g = col.g * scalar;
+	res.b = col.b * scalar;
 	res.a = 1.0;
 	convert_rgba_to_hex(&res);
 	return (res);
@@ -40,13 +40,13 @@ t_color	multiply_color_by_scalar(t_color *col, t_float scalar)
  *
  * @return	new color with the multiplied values
  */
-t_color	multiply_color(t_color *cola, t_color *colb)
+t_color	multiply_color(t_color cola, t_color colb)
 {
 	t_color	res;
 
-	res.r = cola->r * colb->r;
-	res.g = cola->g * colb->g;
-	res.b = cola->b * colb->b;
+	res.r = cola.r * colb.r;
+	res.g = cola.g * colb.g;
+	res.b = cola.b * colb.b;
 	res.a = 1.0;
 	convert_rgba_to_hex(&res);
 	return (res);

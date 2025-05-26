@@ -20,13 +20,13 @@
  *
  * @return		new color with the added values
  */
-t_color	add_colors(t_color *cola, t_color *colb)
+t_color	add_colors(t_color cola, t_color colb)
 {
 	t_color	res;
 
-	res.r = cola->r + colb->r;
-	res.g = cola->g + colb->g;
-	res.b = cola->b + colb->b;
+	res.r = cola.r + colb.r;
+	res.g = cola.g + colb.g;
+	res.b = cola.b + colb.b;
 	res.a = 1.0;
 	convert_rgba_to_hex(&res);
 	return (res);
@@ -41,13 +41,13 @@ t_color	add_colors(t_color *cola, t_color *colb)
  *
  * @return		new color with the subtracted values
  */
-t_color	sub_colors(t_color *cola, t_color *colb)
+t_color	sub_colors(t_color cola, t_color colb)
 {
 	t_color	res;
 
-	res.r = cola->r - colb->r;
-	res.g = cola->g - colb->g;
-	res.b = cola->b - colb->b;
+	res.r = cola.r - colb.r;
+	res.g = cola.g - colb.g;
+	res.b = cola.b - colb.b;
 	res.a = 1.0;
 	convert_rgba_to_hex(&res);
 	return (res);
