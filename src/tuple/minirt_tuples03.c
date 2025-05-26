@@ -18,12 +18,12 @@
  *
  * @return		magnitude of the given vector;
  */
-t_float	get_magnitude(t_tuple *vec)
+t_float	get_magnitude(t_tuple vec)
 {
 	t_float	mag;
 
-	mag = sqrt((vec->x * vec->x) + (vec->y * vec->y)
-			+ (vec->z * vec->z) + (vec->w * vec->w));
+	mag = sqrt((vec.x * vec.x) + (vec.y * vec.y)
+			+ (vec.z * vec.z) + (vec.w * vec.w));
 	return (mag);
 }
 
@@ -34,15 +34,15 @@ t_float	get_magnitude(t_tuple *vec)
  *
  * @return		returns normalised version of the tuple. 
  */
-t_tuple	normalize_vector(t_tuple *vec)
+t_tuple	normalize_vector(t_tuple vec)
 {
 	t_float	mag;
 	t_tuple	res;
 
 	mag = get_magnitude(vec);
-	res.x = vec->x / mag;
-	res.y = vec->y / mag;
-	res.z = vec->z / mag;
-	res.w = vec->w / mag;
+	res.x = vec.x / mag;
+	res.y = vec.y / mag;
+	res.z = vec.z / mag;
+	res.w = vec.w / mag;
 	return (res);
 }

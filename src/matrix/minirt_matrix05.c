@@ -63,7 +63,7 @@ t_float	cofactor4(t_matrix4 m, int row, int col)
 	t_float	res;
 
 	res = minor4(m, row, col);
-	if (row + col % 2 != 0)
+	if ((row + col) % 2 != 0)
 		res = -res;
 	return (res);
 }
@@ -82,7 +82,7 @@ t_float	cofactor3(t_matrix3 m, int row, int col)
 	t_float	res;
 
 	res = minor3(m, row, col);
-	if (row + col % 2 != 0)
+	if ((row + col) % 2 != 0)
 		res = -res;
 	return (res);
 }
