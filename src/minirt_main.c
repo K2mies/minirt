@@ -1227,19 +1227,45 @@ void    test_print_tuple(t_tuple t)
 //	res3 = multiply_matrix4(&res1, &res2);
 //	test_print_matrix(res3);
 //}
-void	test_create_color_from_channels()
-{
-	t_color	test;
+//void	test_create_color_from_channels()
+//{
+//	t_color	test;
+//
+//	test = color_from_channels(255, 255, 155);
+//	printf("r: %f g: %f b: %f a: %f\n", test.r, test.g, test.b, test.a);
+//}
+//void	test_translate()
+//{
+//	t_matrix4	transform;
+//	t_tuple		p;
+//
+//	transform = translation(5, -3, 2);
+//	transform = inverse_matrix4(transform);
+//	p = point(-3, 4, 5);
+//	p = multiply_matrix4_tuple(transform, p);
+//	test_print_tuple(p);
+//}
+//
 
-	test = color_from_channels(255, 255 , 155);
-	printf("r: %f g: %f b: %f a: %f\n", test.r, test.g, test.b, test.a);
+void	test_scaling()
+{
+	t_matrix4	scale;
+	t_tuple		p;
+
+	scale = scaling(2, 3, 4);
+	scale = inverse_matrix4(scale);
+	p = point(-4, 6, 8);
+	p = multiply_matrix4_tuple(scale, p);
+	test_print_tuple(p);
 }
 
 int	main(int argc, char **argv)
 {
 	(void)argc;
 	(void)argv;
-	test_create_color_from_channels();
+	test_scaling();
+//	test_translate();
+//	test_create_color_from_channels();
 //	test_inverse_matrix4();
 //	test_is_matrix_invertable();
 	//test_determinent_of_4x4_matrix();

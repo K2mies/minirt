@@ -192,4 +192,7 @@ t_float		cofactor3(t_matrix3 m, int row, int col);
 /* -------------------------------------------------------- minirt_matrix06.c */
 bool		is_matrix4_invertable(t_matrix4 m);
 t_matrix4	inverse_matrix4(t_matrix4 m);
+/* -------------------------------------------------------- minirt_matrix07.c */
+t_matrix4	translation(t_float x, t_float y, t_float z);
+t_matrix4	scaling(t_float x, t_float y, t_float z);
 #endif
