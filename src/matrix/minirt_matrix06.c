@@ -54,5 +54,5 @@ t_matrix4	inverse_matrix4(t_matrix4 m)
 			res.m[col][row] = c / determinent_of_matrix4(m);
 		}
 	}
-	return(res);
+	return (res);
 }
