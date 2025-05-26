@@ -51,3 +51,16 @@ t_color	color(t_float r, t_float g, t_float b)
 	convert_rgba_to_hex(&col);
 	return (col);
 }
+
+t_color	color_from_channels(uint8_t r, uint8_t g, uint8_t b)
+{
+	t_color	col;
+
+	col.ch[R] = r;
+	col.ch[G] = g;
+	col.ch[B] = b;
+	col.ch[A] = 255;
+	convert_channels_to_hex(&col);
+	convert_channels_to_rgba(&col);
+	return (col);
+}

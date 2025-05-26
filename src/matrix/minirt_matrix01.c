@@ -19,23 +19,23 @@
  *
  * @return		true if matrices are equal false if not
  */
-bool	compare_matrix4(t_matrix4 *a, t_matrix4 *b)
+bool	compare_matrix4(t_matrix4 a, t_matrix4 b)
 {
-	if (compare_floats(a->m[0][0], b->m[0][0])
-		&& compare_floats(a->m[0][1], b->m[0][1])
-		&& compare_floats(a->m[0][2], b->m[0][2])
-		&& compare_floats(a->m[0][3], b->m[0][3])
-		&& compare_floats(a->m[1][0], b->m[1][0])
-		&& compare_floats(a->m[1][2], b->m[1][2])
-		&& compare_floats(a->m[1][3], b->m[1][3])
-		&& compare_floats(a->m[2][0], b->m[2][0])
-		&& compare_floats(a->m[2][1], b->m[2][1])
-		&& compare_floats(a->m[2][2], b->m[2][2])
-		&& compare_floats(a->m[2][3], b->m[2][3])
-		&& compare_floats(a->m[3][0], b->m[3][0])
-		&& compare_floats(a->m[3][1], b->m[3][1])
-		&& compare_floats(a->m[3][2], b->m[3][2])
-		&& compare_floats(a->m[3][3], b->m[3][3]))
+	if (compare_floats(a.m[0][0], b.m[0][0])
+		&& compare_floats(a.m[0][1], b.m[0][1])
+		&& compare_floats(a.m[0][2], b.m[0][2])
+		&& compare_floats(a.m[0][3], b.m[0][3])
+		&& compare_floats(a.m[1][0], b.m[1][0])
+		&& compare_floats(a.m[1][2], b.m[1][2])
+		&& compare_floats(a.m[1][3], b.m[1][3])
+		&& compare_floats(a.m[2][0], b.m[2][0])
+		&& compare_floats(a.m[2][1], b.m[2][1])
+		&& compare_floats(a.m[2][2], b.m[2][2])
+		&& compare_floats(a.m[2][3], b.m[2][3])
+		&& compare_floats(a.m[3][0], b.m[3][0])
+		&& compare_floats(a.m[3][1], b.m[3][1])
+		&& compare_floats(a.m[3][2], b.m[3][2])
+		&& compare_floats(a.m[3][3], b.m[3][3]))
 		return (true);
 	return (false);
 }
@@ -48,17 +48,17 @@ bool	compare_matrix4(t_matrix4 *a, t_matrix4 *b)
  *
  * @return		true if matrices are equal false if not
  */
-bool	compare_matrix3(t_matrix3 *a, t_matrix3 *b)
+bool	compare_matrix3(t_matrix3 a, t_matrix3 b)
 {
-	if (compare_floats(a->m[0][0], b->m[0][0])
-		&& compare_floats(a->m[0][1], b->m[0][1])
-		&& compare_floats(a->m[0][2], b->m[0][2])
-		&& compare_floats(a->m[1][0], b->m[1][0])
-		&& compare_floats(a->m[1][1], b->m[1][1])
-		&& compare_floats(a->m[1][2], b->m[1][2])
-		&& compare_floats(a->m[2][0], b->m[2][0])
-		&& compare_floats(a->m[2][1], b->m[2][1])
-		&& compare_floats(a->m[2][2], b->m[2][2]))
+	if (compare_floats(a.m[0][0], b.m[0][0])
+		&& compare_floats(a.m[0][1], b.m[0][1])
+		&& compare_floats(a.m[0][2], b.m[0][2])
+		&& compare_floats(a.m[1][0], b.m[1][0])
+		&& compare_floats(a.m[1][1], b.m[1][1])
+		&& compare_floats(a.m[1][2], b.m[1][2])
+		&& compare_floats(a.m[2][0], b.m[2][0])
+		&& compare_floats(a.m[2][1], b.m[2][1])
+		&& compare_floats(a.m[2][2], b.m[2][2]))
 		return (true);
 	return (false);
 }
@@ -71,12 +71,12 @@ bool	compare_matrix3(t_matrix3 *a, t_matrix3 *b)
  *
  * @return		true if matrices are equal false if not
  */
-bool	compare_matrix2(t_matrix2 *a, t_matrix2 *b)
+bool	compare_matrix2(t_matrix2 a, t_matrix2 b)
 {
-	if (compare_floats(a->m[0][0], b->m[0][0])
-		&& compare_floats(a->m[0][1], b->m[0][1])
-		&& compare_floats(a->m[1][0], b->m[1][0])
-		&& compare_floats(a->m[1][1], b->m[1][1]))
+	if (compare_floats(a.m[0][0], b.m[0][0])
+		&& compare_floats(a.m[0][1], b.m[0][1])
+		&& compare_floats(a.m[1][0], b.m[1][0])
+		&& compare_floats(a.m[1][1], b.m[1][1]))
 		return (true);
 	return (false);
 }

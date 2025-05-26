@@ -20,15 +20,15 @@
  *
  * @return		true or false depending on wether they are equivilant or not
  */
-bool	compare_tuples(t_tuple *tupa, t_tuple *tupb)
+bool	compare_tuples(t_tuple tupa, t_tuple tupb)
 {
-	if (compare_floats(tupa->x, tupb->x) == false)
+	if (compare_floats(tupa.x, tupb.x) == false)
 		return (false);
-	if (compare_floats(tupa->y, tupb->y) == false)
+	if (compare_floats(tupa.y, tupb.y) == false)
 		return (false);
-	if (compare_floats(tupa->z, tupb->z) == false)
+	if (compare_floats(tupa.z, tupb.z) == false)
 		return (false);
-	if (compare_floats(tupa->w, tupb->w) == false)
+	if (compare_floats(tupa.w, tupb.w) == false)
 		return (false);
 	return (true);
 }
@@ -40,9 +40,9 @@ bool	compare_tuples(t_tuple *tupa, t_tuple *tupb)
  *
  * @return		true or false depending on wether it is a vector or not
  */
-bool	is_tuple_vector(t_tuple *tup)
+bool	is_tuple_vector(t_tuple tup)
 {
-	if (tup->w == 0)
+	if (tup.w == 0)
 		return (true);
 	return (false);
 }
@@ -54,9 +54,9 @@ bool	is_tuple_vector(t_tuple *tup)
  *
  * @return		true or false depending on wether it is a point or not
  */
-bool	is_tuple_point(t_tuple *tup)
+bool	is_tuple_point(t_tuple tup)
 {
-	if (tup->w == 1)
+	if (tup.w == 1)
 		return (true);
 	return (false);
 }
