@@ -6,11 +6,11 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:00:08 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/26 15:45:19 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/26 16:53:34 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minirt.h"
+#include "minirt.h"
 
 static int	valid_map_name(char *name)
 {
@@ -88,16 +88,17 @@ static void	split_data(t_minirt *rt, char **data)
 			rt_error(rt, "Allocation failure", 2);
 		}
 	}
-	i = -1;
-	while (full[++i])
-	{
-		printf("//////////\n");
-		int j = -1;
-		while (full[i][++j])
-		{
-			printf("Line %d Element %d: %s\n", i + 1, j + 1, full[i][j]);
-		}
-	}
+
+	// i = -1;
+	// while (full[++i])
+	// {
+	// 	printf("//////////\n");
+	// 	int j = -1;
+	// 	while (full[i][++j])
+	// 	{
+	// 		printf("Line %d Element %d: %s\n", i + 1, j + 1, full[i][j]);
+	// 	}
+	// }
 }
 
 void	open_file(t_minirt *rt, char **argv)

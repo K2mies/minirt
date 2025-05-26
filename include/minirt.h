@@ -70,7 +70,7 @@ typedef struct s_canvas
 	t_color	**pixels;
 }	t_canvas;
 
-/* -------------------------------------------------------------- matracies.c */
+/* -------------------------------------------------------------- matracies */
 // Typedef for 4X4 Matrix
 typedef struct s_matrix4
 {
@@ -102,6 +102,10 @@ typedef struct s_ray
 typedef struct s_minirt
 {
 	t_canvas	*canvas;
+	t_ambient	ambient;
+	t_camera	camera;
+	t_light		light;
+	t_object	*object;
 
 }	t_minirt;
 
@@ -228,6 +232,9 @@ void	argc_error(int argc);
 void	close_rt(t_minirt *rt, int ex);
 /* -------------------------------------------------------- utils/utils.c */
 void	free_big_array(char ***arr, int i);
+t_float	ft_atof(char *str);
+bool	validate_integer(char **arr);
+bool	ft_isfloat(char *str);
 
 /* ================================= PARSING ================================= */
 /* -------------------------------------------------------- parsing/validation.c */
