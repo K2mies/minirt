@@ -6,7 +6,7 @@
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 13:41:20 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/05/19 16:21:17 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/05/26 11:21:31 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
@@ -64,7 +64,7 @@ static void	create_ppm_pixels(int *fd, t_canvas *canvas)
 			free(num);
 		}
 	}
-    printf("w = %d h = %d\n", x, y);
+	printf("w = %d h = %d\n", x, y);
 }
 
 /**

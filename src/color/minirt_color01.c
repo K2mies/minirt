@@ -20,8 +20,8 @@
  */
 void	convert_rgba_to_hex(t_color *col)
 {
-    convert_rgba_to_channels(col);
-    convert_channels_to_hex(col);
+	convert_rgba_to_channels(col);
+	convert_channels_to_hex(col);
 }
 
 /**
@@ -30,8 +30,8 @@ void	convert_rgba_to_hex(t_color *col)
  *
  * @param col		color struct to update
  */
-void    convert_hex_to_rgba(t_color *col)
+void	convert_hex_to_rgba(t_color *col)
 {
-    convert_hex_to_channels(col);
-    convert_channels_to_rgba(col);
+	convert_hex_to_channels(col);
+	convert_channels_to_rgba(col);
 }

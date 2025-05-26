@@ -6,7 +6,7 @@
 /*   By: rhvidste <rhvidste@student.hive.email.com  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 15:56:55 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/05/25 18:00:28 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/05/26 11:36:07 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
@@ -21,32 +21,32 @@
  *
  * @return		the resulting 3x3 Submatrix
  */
-t_matrix3   submatrix4(t_matrix4 m, int row, int col)
+t_matrix3	submatrix4(t_matrix4 m, int row, int col)
 {
-    int         new_row;
-    int         new_col;
-    int         r;
-    int         c;
-    t_matrix3   res;
+	int			new_row;
+	int			new_col;
+	int			r;
+	int			c;
+	t_matrix3	res;
 
-    new_row = 0;
-    r = -1;
-    while (++r < 4)
-    {
-        if (r == row)
-            continue ;
-        new_col = 0;
-        c = -1;
-        while (++c < 4)
-        {
-            if (c == col)
-                continue;
-            res.m[new_row][new_col] = m.m[r][c];
-            new_col++;
-        }
-        new_row++;
-    }
-    return (res);
+	new_row = 0;
+	r = -1;
+	while (++r < 4)
+	{
+		if (r == row)
+			continue ;
+		new_col = 0;
+		c = -1;
+		while (++c < 4)
+		{
+			if (c == col)
+				continue ;
+			res.m[new_row][new_col] = m.m[r][c];
+			new_col++;
+		}
+		new_row++;
+	}
+	return (res);
 }
 
 /**
@@ -59,30 +59,30 @@ t_matrix3   submatrix4(t_matrix4 m, int row, int col)
  *
  * @return		the resulting 2x2 Submatrix
  */
-t_matrix2   submatrix3(t_matrix3 m, int row, int col)
+t_matrix2	submatrix3(t_matrix3 m, int row, int col)
 {
-    int         new_row;
-    int         new_col;
-    int         r;
-    int         c;
-    t_matrix2   res;
+	int			new_row;
+	int			new_col;
+	int			r;
+	int			c;
+	t_matrix2	res;
 
-    new_row = 0;
-    r = -1;
-    while (++r < 3)
-    {
-        if (r == row)
-            continue ;
-        new_col = 0;
-        c = -1;
-        while (++c < 3)
-        {
-            if (c == col)
-                continue;
-            res.m[new_row][new_col] = m.m[r][c];
-            new_col++;
-        }
-        new_row++;
-    }
-    return (res); 
+	new_row = 0;
+	r = -1;
+	while (++r < 3)
+	{
+		if (r == row)
+			continue ;
+		new_col = 0;
+		c = -1;
+		while (++c < 3)
+		{
+			if (c == col)
+				continue ;
+			res.m[new_row][new_col] = m.m[r][c];
+			new_col++;
+		}
+		new_row++;
+	}
+	return (res);
 }

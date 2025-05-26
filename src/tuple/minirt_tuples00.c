@@ -22,15 +22,15 @@
  *
  * @return		tuple of t_tuple type
  */
-t_tuple tuple(t_float x, t_float y, t_float z, t_float w)
+t_tuple	tuple(t_float x, t_float y, t_float z, t_float w)
 {
-    t_tuple tuple;
+	t_tuple	tuple;
 
-    tuple.x = x;
-    tuple.y = y;
-    tuple.z = z;
-    tuple.w = w;
-    return (tuple);
+	tuple.x = x;
+	tuple.y = y;
+	tuple.z = z;
+	tuple.w = w;
+	return (tuple);
 }
 
 /**

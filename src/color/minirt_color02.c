@@ -18,12 +18,12 @@
  *
  * @param col	point to the color struct
  */
-void    convert_channels_to_hex(t_color *col)
+void	convert_channels_to_hex(t_color *col)
 {
-    col->rgba = (uint32_t)((col->ch[R] << 24)
-                        | (col->ch[G] << 16)
-                        | (col->ch[B] << 8) 
-                        | (col->ch[A] << 0));
+	col->rgba = (uint32_t)((col->ch[R] << 24)
+			| (col->ch[G] << 16)
+			| (col->ch[B] << 8)
+			| (col->ch[A] << 0));
 }
 
 /**
@@ -51,12 +51,12 @@ void	convert_hex_to_channels(t_color *col)
  *
  * @param col	point to the color struct
  */
-void    convert_channels_to_rgba(t_color *col)
+void	convert_channels_to_rgba(t_color *col)
 {
-    col->r = col->ch[R] / 255.0f;
-    col->g = col->ch[G] / 255.0f;
-    col->b = col->ch[B] / 255.0f;
-    col->a = col->ch[A] / 255.0f;
+	col->r = col->ch[R] / 255.0f;
+	col->g = col->ch[G] / 255.0f;
+	col->b = col->ch[B] / 255.0f;
+	col->a = col->ch[A] / 255.0f;
 }
 
 /**
@@ -66,10 +66,10 @@ void    convert_channels_to_rgba(t_color *col)
  *
  * @param col	point to the color struct
  */
-void    convert_rgba_to_channels(t_color *col)
+void	convert_rgba_to_channels(t_color *col)
 {
-    col->ch[R] = (uint8_t)roundf(fminf(fmaxf(col->r * 255.0f, 0.0f), 255.0f));
-    col->ch[G] = (uint8_t)roundf(fminf(fmaxf(col->g * 255.0f, 0.0f), 255.0f));
-    col->ch[B] = (uint8_t)roundf(fminf(fmaxf(col->b * 255.0f, 0.0f), 255.0f));
-    col->ch[A] = (uint8_t)roundf(fminf(fmaxf(col->a * 255.0f, 0.0f), 255.0f));
+	col->ch[R] = (uint8_t)roundf(fminf(fmaxf(col->r * 255.0f, 0.0f), 255.0f));
+	col->ch[G] = (uint8_t)roundf(fminf(fmaxf(col->g * 255.0f, 0.0f), 255.0f));
+	col->ch[B] = (uint8_t)roundf(fminf(fmaxf(col->b * 255.0f, 0.0f), 255.0f));
+	col->ch[A] = (uint8_t)roundf(fminf(fmaxf(col->a * 255.0f, 0.0f), 255.0f));
 }

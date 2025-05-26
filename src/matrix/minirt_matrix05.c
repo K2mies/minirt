@@ -6,7 +6,7 @@
 /*   By: rhvidste <rhvidste@student.hive.email.com  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 18:00:40 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/05/25 19:03:09 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/05/26 11:38:44 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
@@ -20,14 +20,14 @@
  *
  * @return		the resulting minor (determinent of matrix2)
  */
-t_float minor4(t_matrix4 m, int row, int col)
+t_float	minor4(t_matrix4 m, int row, int col)
 {
-    t_matrix3   sub_m3;
-    t_float     res;
+	t_matrix3	sub_m3;
+	t_float		res;
 
-    sub_m3 = submatrix4(m, row, col);
-    res = determinent_of_matrix3(sub_m3);
-    return (res);
+	sub_m3 = submatrix4(m, row, col);
+	res = determinent_of_matrix3(sub_m3);
+	return (res);
 }
 
 /**
@@ -39,14 +39,14 @@ t_float minor4(t_matrix4 m, int row, int col)
  *
  * @return		the resulting minor (determinent of matrix2)
  */
-t_float minor3(t_matrix3 m, int row, int col)
+t_float	minor3(t_matrix3 m, int row, int col)
 {
-    t_matrix2   sub_m2;
-    t_float     res;
+	t_matrix2	sub_m2;
+	t_float		res;
 
-    sub_m2 = submatrix3(m, row, col);
-    res = determinent_of_matrix2(sub_m2);
-    return (res);
+	sub_m2 = submatrix3(m, row, col);
+	res = determinent_of_matrix2(sub_m2);
+	return (res);
 }
 
 /**
@@ -58,15 +58,16 @@ t_float minor3(t_matrix3 m, int row, int col)
  *
  * @return		the resulting cofactor (minor of matrixi3x3)
  */
-t_float cofactor4(t_matrix4 m, int row, int col)
+t_float	cofactor4(t_matrix4 m, int row, int col)
 {
-    t_float res;
+	t_float	res;
 
-    res = minor4(m, row, col);
-    if (row + col % 2 != 0)
-        res = -res;
-    return (res);
+	res = minor4(m, row, col);
+	if (row + col % 2 != 0)
+		res = -res;
+	return (res);
 }
+
 /**
  * Function to calculate the cofactor of a 3x3 matrix
  *
@@ -76,12 +77,12 @@ t_float cofactor4(t_matrix4 m, int row, int col)
  *
  * @return		the resulting cofactor (minor of matrixi3x3)
  */
-t_float cofactor3(t_matrix3 m, int row, int col)
+t_float	cofactor3(t_matrix3 m, int row, int col)
 {
-    t_float res;
+	t_float	res;
 
-    res = minor3(m, row, col);
-    if (row + col % 2 != 0)
-        res = -res;
-    return (res);
+	res = minor3(m, row, col);
+	if (row + col % 2 != 0)
+		res = -res;
+	return (res);
 }

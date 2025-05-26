@@ -6,11 +6,11 @@
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:11:13 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/05/12 12:58:25 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/05/26 11:50:54 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	MINIRT_H
+#ifndef MINIRT_H
 # define MINIRT_H
 
 /* =============================== HEADERS ================================== */
@@ -28,7 +28,6 @@
 # include <unistd.h>
 
 /* ================================ TYPEDEFS ================================ */
-
 
 /* ------------------------------------------------------------- custom types */
 // Custom typedef for float (so can be switched to double later for testing)
@@ -58,28 +57,28 @@ typedef struct s_color
 
 /* ------------------------------------------------------------------- canvas */
 // Typedef for Canvas
-typedef struct	s_canvas
+typedef struct s_canvas
 {
-    int         width;
-    int         height;
-    t_color     **pixels;
-}   t_canvas;
+	int		width;
+	int		height;
+	t_color	**pixels;
+}	t_canvas;
 
 /* -------------------------------------------------------------- matracies.c */
 // Typedef for 4X4 Matrix
-typedef struct	s_matrix4
+typedef struct s_matrix4
 {
 	t_float	m[4][4];
 }	t_matrix4;
 
 // Typedef for 3X3 Matrix
-typedef struct	s_matrix3
+typedef struct s_matrix3
 {
 	t_float	m[3][3];
 }	t_matrix3;
 
 // Typedef for 2X2 Matrix
-typedef struct	s_matrix2
+typedef struct s_matrix2
 {
 	t_float	m[2][2];
 }	t_matrix2;
@@ -88,13 +87,13 @@ typedef struct	s_matrix2
 // Typedef for Main data struct
 typedef struct s_minirt
 {
-    t_canvas    *canvas;
+	t_canvas	*canvas;
 
-}   t_minirt;
+}	t_minirt;
 
 /* ================================ ENUMS =================================== */
 //Enum for RGBA channels 
-enum	channel_type
+enum	e_channel_type
 {
 	A,
 	B,
@@ -107,7 +106,7 @@ enum	channel_type
 /* ================================= TUPLES ================================= */
 
 /* -------------------------------------------------------- minirt_tuples00.c */
-t_tuple     tuple(t_float x, t_float y, t_float z, t_float w);
+t_tuple		tuple(t_float x, t_float y, t_float z, t_float w);
 t_tuple		point(t_float x, t_float y, t_float z);
 t_tuple		vector(t_float x, t_float y, t_float z);
 /* -------------------------------------------------------- minirt_tuples01.c */
@@ -127,7 +126,7 @@ bool		is_tuple_point(t_tuple *tup);
 /* -------------------------------------------------------- minirt_tuples05.c */
 t_float		dot_product(t_tuple *a, t_tuple *b);
 t_tuple		cross_product(t_tuple *a, t_tuple *b);
-/* ---------------------------------------------------------- minirt_t_floats.c */
+/* -------------------------------------------------------- minirt_t_floats.c */
 bool		compare_floats(t_float a, t_float b);
 
 /* ================================ COLORS ================================== */
@@ -175,20 +174,20 @@ bool		compare_matrix3(t_matrix3 *a, t_matrix3 *b);
 bool		compare_matrix2(t_matrix2 *a, t_matrix2 *b);
 /* -------------------------------------------------------- minirt_matrix02.c */
 t_matrix4	matrix4_multiply(t_matrix4 *a, t_matrix4 *b);
-t_tuple     matrix4_multiply_tuple(t_matrix4 *m, t_tuple *t);
+t_tuple		matrix4_multiply_tuple(t_matrix4 *m, t_tuple *t);
 /* -------------------------------------------------------- minirt_matrix03.c */
-t_matrix4   transpose_matrix4(t_matrix4 m);
-t_float     determinent_of_matrix2(t_matrix2 m);
-t_float     determinent_of_matrix3(t_matrix3 m);
-t_float     determinent_of_matrix4(t_matrix4 m);
+t_matrix4	transpose_matrix4(t_matrix4 m);
+t_float		determinent_of_matrix2(t_matrix2 m);
+t_float		determinent_of_matrix3(t_matrix3 m);
+t_float		determinent_of_matrix4(t_matrix4 m);
 /* -------------------------------------------------------- minirt_matrix04.c */
-t_matrix3   submatrix4(t_matrix4 m, int row, int col);
-t_matrix2   submatrix3(t_matrix3 m, int row, int col);
+t_matrix3	submatrix4(t_matrix4 m, int row, int col);
+t_matrix2	submatrix3(t_matrix3 m, int row, int col);
 /* -------------------------------------------------------- minirt_matrix05.c */
-t_float     minor4(t_matrix4 m, int row, int col);
-t_float     minor3(t_matrix3 m, int row, int col);
-t_float     cofactor4(t_matrix4 m, int row, int col);
-t_float     cofactor3(t_matrix3 m, int row, int col);
+t_float		minor4(t_matrix4 m, int row, int col);
+t_float		minor3(t_matrix3 m, int row, int col);
+t_float		cofactor4(t_matrix4 m, int row, int col);
+t_float		cofactor3(t_matrix3 m, int row, int col);
 /* -------------------------------------------------------- minirt_matrix06.c */
-bool        is_matrix4_invertable(t_matrix4 m);
+bool		is_matrix4_invertable(t_matrix4 m);
 #endif
