@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:00:08 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/26 15:14:21 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/26 15:45:19 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,33 @@ static char **read_file_to_data(t_minirt *rt, int fd, char **data)
 
 static void	split_data(t_minirt *rt, char **data)
 {
+	char	***full;
+	int		i;
+
+	i = -1;
+	while (data[++i])
+		;
+	full = malloc((sizeof(char **) * i) + 1);
+	i = -1;
+	while (data[++i])
+	{
+		full[i] = ft_split(data[i], ' ');
+		if (!full[i])
+		{
+			free_big_array(full, i);
+			rt_error(rt, "Allocation failure", 2);
+		}
+	}
+	i = -1;
+	while (full[++i])
+	{
+		printf("//////////\n");
+		int j = -1;
+		while (full[i][++j])
+		{
+			printf("Line %d Element %d: %s\n", i + 1, j + 1, full[i][j]);
+		}
+	}
 }
 
 void	open_file(t_minirt *rt, char **argv)
@@ -78,8 +105,10 @@ void	open_file(t_minirt *rt, char **argv)
 	int	fd;
 	char	*path;
 	char	**data;
+	int		i;
 	
 	data = NULL;
+	i = -1;
 	if (valid_map_name(argv[1]))
 		rt_error(rt, "Invalid file type", 1);
 	if (ft_strchr(argv[1], '/'))
@@ -92,7 +121,5 @@ void	open_file(t_minirt *rt, char **argv)
 	}
 	fd = open_rt(rt, path);
 	data = read_file_to_data(rt, fd, data);
-	int i = -1;
-	while (data[++i])
-		printf("Line: %d | Data: %s\n", i + 1, data[i]);
+	split_data(rt, data);
 }

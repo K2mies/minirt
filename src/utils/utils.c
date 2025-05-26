@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/26 13:11:35 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/26 15:35:22 by mpierce          ###   ########.fr       */
+/*   Created: 2025/05/26 15:35:35 by mpierce           #+#    #+#             */
+/*   Updated: 2025/05/26 15:36:49 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minirt.h"
 
-void	rt_error(t_minirt *rt, char *msg, int err)
+void	free_big_array(char ***arr, int i)
 {
-	ft_dprintf(STDERR_FILENO, "Error\n%s\n", msg);
-	close_rt(rt, err);
+	int	j;
+
+	while (i--)
+	{
+		j = -1;
+		while (arr[i][++j])
+			free(arr[i][j]);
+		free(arr[i]);	
+	}
+	free(arr);
 }
