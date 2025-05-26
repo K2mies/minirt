@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_hex.c                                       :+:      :+:    :+:   */
+/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/15 15:36:32 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/05/15 15:44:32 by rhvidste         ###   ########.fr       */
+/*   Created: 2024/11/11 12:53:44 by mpierce           #+#    #+#             */
+/*   Updated: 2024/11/12 13:53:09 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
-void	ft_puthex(unsigned int n)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	char	hex_digits[] = "0123456789abcdef";
-	if (n >= 16)
-		ft_puthex(n / 16);
-	write (1, &hex_digits[n % 16], 1);
+	t_list	*last;
+
+	if (!new)
+		return ;
+	if (!*lst)
+	{
+		*lst = new;
+		return ;
+	}
+	last = ft_lstlast(*lst);
+	last->next = new;
 }

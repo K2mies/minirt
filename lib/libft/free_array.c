@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printpercent.c                                  :+:      :+:    :+:   */
+/*   free_array.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/18 14:39:58 by rhvidste          #+#    #+#             */
-/*   Updated: 2024/11/19 09:21:31 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/01/17 15:27:59 by mpierce           #+#    #+#             */
+/*   Updated: 2025/01/17 15:32:30 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "ft_print.h"
 
-int	ft_printpercent(void)
+void	free_array(char ***arr)
 {
-	int	len;
+	int	i;
 
-	len = write(1, "%", 1);
-	return (len);
+	i = 0;
+	while (*arr[i])
+	{
+		free(*arr[i]);
+		i++;
+	}
+	free(*arr);
+	*arr = NULL;
 }

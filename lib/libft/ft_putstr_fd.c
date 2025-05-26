@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/08 15:06:24 by rhvidste          #+#    #+#             */
-/*   Updated: 2024/11/14 09:59:57 by rhvidste         ###   ########.fr       */
+/*   Created: 2024/11/07 13:57:21 by mpierce           #+#    #+#             */
+/*   Updated: 2025/02/18 15:03:00 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	if (s == NULL)
+	if (!s || fd < 1)
 		return ;
 	write(fd, s, ft_strlen(s));
 }

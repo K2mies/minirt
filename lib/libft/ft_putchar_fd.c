@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/08 13:03:12 by rhvidste          #+#    #+#             */
-/*   Updated: 2024/11/08 16:17:52 by rhvidste         ###   ########.fr       */
+/*   Created: 2024/11/07 13:51:54 by mpierce           #+#    #+#             */
+/*   Updated: 2024/11/07 13:53:31 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

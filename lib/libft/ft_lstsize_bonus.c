@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printstr.c                                      :+:      :+:    :+:   */
+/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/15 16:52:29 by rhvidste          #+#    #+#             */
-/*   Updated: 2024/11/20 15:28:03 by rhvidste         ###   ########.fr       */
+/*   Created: 2024/11/11 12:46:57 by mpierce           #+#    #+#             */
+/*   Updated: 2024/11/12 13:54:52 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "ft_print.h"
 
-int	ft_printstr(const char *str)
+int	ft_lstsize(t_list *lst)
 {
-	int		len;
+	t_list	*current;
+	int		count;
 
-	len = 0;
-	if (str == NULL)
+	current = lst;
+	count = 0;
+	while (current != NULL)
 	{
-		len += write(1, "(null)", 6);
-		return (len);
+		count++;
+		current = current->next;
 	}
-	len = write(1, str, ft_strlen(str));
-	return (len);
+	return (count);
 }

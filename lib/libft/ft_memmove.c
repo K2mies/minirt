@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/29 14:11:12 by rhvidste          #+#    #+#             */
-/*   Updated: 2024/11/11 13:05:16 by rhvidste         ###   ########.fr       */
+/*   Created: 2024/10/31 14:36:39 by mpierce           #+#    #+#             */
+/*   Updated: 2024/11/12 12:25:52 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,28 @@
 
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	unsigned char	*temp;
-	unsigned char	*dst;
+	char		*newdest;
+	const char	*newsrc;
+	int			i;
 
-	temp = (unsigned char *)src;
-	dst = (unsigned char *)dest;
-	if (temp < dst)
+	if (!dest && !src)
+		return (dest);
+	newdest = (char *)dest;
+	newsrc = (char *)src;
+	i = 0;
+	if (dest > src)
 	{
 		while (n--)
-			dst[n] = temp[n];
+			newdest[n] = newsrc[n];
+		return (dest);
 	}
 	else
-		ft_memcpy(dest, src, n);
-	return (dst);
+	{
+		while (n--)
+		{
+			newdest[i] = newsrc[i];
+			i++;
+		}
+		return (dest);
+	}
 }

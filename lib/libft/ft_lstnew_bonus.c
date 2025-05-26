@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printchar.c                                     :+:      :+:    :+:   */
+/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/15 16:54:13 by rhvidste          #+#    #+#             */
-/*   Updated: 2024/11/20 15:27:37 by rhvidste         ###   ########.fr       */
+/*   Created: 2024/11/11 12:09:18 by mpierce           #+#    #+#             */
+/*   Updated: 2024/11/12 13:54:39 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "ft_print.h"
 
-int	ft_printchar(int c)
+t_list	*ft_lstnew(void *content)
 {
-	write(1, &c, 1);
-	return (1);
+	t_list	*elmt;
+
+	elmt = malloc(sizeof(t_list));
+	if (!elmt)
+		return (NULL);
+	elmt->content = content;
+	elmt->next = NULL;
+	return (elmt);
 }
