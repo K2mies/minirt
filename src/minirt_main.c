@@ -1122,8 +1122,12 @@ void	test_determinent_of_4x4_matrix()
 }
 int	main(int argc, char **argv)
 {
-	(void)argc;
+	t_minirt rt;
+
+	(void)rt;
 	(void)argv;
-	test_determinent_of_4x4_matrix();
+	if (argc != 2)
+		argc_error(argc);
+	open_file(&rt, argv);
 	return (0);
 }

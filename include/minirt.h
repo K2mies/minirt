@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:11:13 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/05/26 11:50:54 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/05/26 13:27:36 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <math.h>
 # include <fcntl.h>
 # include <unistd.h>
+# include <errno.h>
 
 /* ================================ TYPEDEFS ================================ */
 
@@ -190,4 +191,19 @@ t_float		cofactor4(t_matrix4 m, int row, int col);
 t_float		cofactor3(t_matrix3 m, int row, int col);
 /* -------------------------------------------------------- minirt_matrix06.c */
 bool		is_matrix4_invertable(t_matrix4 m);
+
+
+/* ================================= ERROR ================================= */
+/* -------------------------------------------------------- error/arg_error.c */
+void	rt_error(t_minirt *rt, char *msg, int err);
+void	argc_error(int argc);
+
+/* ================================= UTIL ================================= */
+/* -------------------------------------------------------- utils/close.c */
+void	close_rt(t_minirt *rt, int ex);
+
+/* ================================= PARSING ================================= */
+/* -------------------------------------------------------- parsing/validation.c */
+void	open_file(t_minirt *rt, char **argv);
+
 #endif
