@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:00:08 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/26 13:43:37 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/26 15:14:21 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,46 @@ static int open_rt(t_minirt *rt, char *path)
 	return (fd);
 }
 
-// static void read_file_to_data(t_minirt *rt, int fd)
-// {
-// 	char	**data;
-// 	char	*line;
+static char **read_file_to_data(t_minirt *rt, int fd, char **data)
+{
+	char	**temp;
+	char	*line;
+	size_t	new;
+	size_t old;
 
+	new = 2;
+	temp = NULL;
+	line = get_next_line(fd);
+	if (!line)
+		rt_error(rt, "Failed to read file", 2);
+	while (line)
+	{
+		old = new - 1;
+		data = ft_realloc(temp, (sizeof(char *)) * old, (sizeof(char *) * (new++)));
+		if (!data)
+		{
+			free_array(&temp);
+			rt_error(rt, "Allocation failure", 2);
+		}
+		temp = data;
+		data[new - 3] = line;
+		line = get_next_line(fd);
+	}
+	data[new - 2] = NULL;
+	return (data);
+}
 
-// }
+static void	split_data(t_minirt *rt, char **data)
+{
+}
 
 void	open_file(t_minirt *rt, char **argv)
 {
 	int	fd;
 	char	*path;
-
+	char	**data;
+	
+	data = NULL;
 	if (valid_map_name(argv[1]))
 		rt_error(rt, "Invalid file type", 1);
 	if (ft_strchr(argv[1], '/'))
@@ -64,5 +91,8 @@ void	open_file(t_minirt *rt, char **argv)
 			rt_error(rt, "ft_strjoin failure", 2);
 	}
 	fd = open_rt(rt, path);
-	// read_file_to_data(rt, fd);
+	data = read_file_to_data(rt, fd, data);
+	int i = -1;
+	while (data[++i])
+		printf("Line: %d | Data: %s\n", i + 1, data[i]);
 }

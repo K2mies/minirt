@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 15:36:56 by mpierce           #+#    #+#             */
-/*   Updated: 2025/02/17 17:51:04 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/26 14:37:01 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ int	dprint_invalid(char c, char null_check, int *invalid, int fd)
 int	dvalid_format(va_list args, const char *format, int i, int fd)
 {
 	int	fail_check;
-	int	invalid;
-	int count;
+	int	in;
+	int	count;
 
 	count = 0;
-	invalid = 0;
+	in = 0;
 	while (format[++i])
 	{
 		fail_check = 0;
@@ -58,7 +58,7 @@ int	dvalid_format(va_list args, const char *format, int i, int fd)
 			if (ft_memchr(FORMATS, format[i + 1], ft_strlen(FORMATS)))
 				fail_check = dformat_check(args, format[i++ + 1], fd);
 			else
-				fail_check = dprint_invalid(format[i], format[i + 1], &invalid, fd);
+				fail_check = dprint_invalid(format[i], format[i + 1], &in, fd);
 		}
 		else if (format[i] == '%' && format[i + 1] == 0)
 			break ;

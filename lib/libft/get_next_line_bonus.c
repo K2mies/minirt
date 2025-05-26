@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 15:50:29 by mpierce           #+#    #+#             */
-/*   Updated: 2025/02/18 15:03:24 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/26 14:42:42 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*get_next_line(int fd)
 		}
 		line = update(line, buffer[fd]);
 		if (!line)
-			return (GNL_ERROR);
+			return (NULL);
 		if (line[ft_strlen(line) - 1] == '\n')
 			return (line);
 	}

@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 16:41:13 by mpierce           #+#    #+#             */
-/*   Updated: 2025/02/06 12:37:26 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/26 14:39:23 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ static char	**ft_split2(char **split, char const *s, char *c, int index)
 			in_quotes = !in_quotes;
 		if (!ft_strchr(c, s[i]) && index < 0)
 			index = i;
-		else if ((ft_strchr(c, s[i]) || i == ft_strlen(s)) && \
-			index >= 0 && !in_quotes)
+		else if ((ft_strchr(c, s[i]) || i == ft_strlen(s))
+			&& index >= 0 && !in_quotes)
 		{
 			split[j] = makeword(s, index, i);
 			if (split[j++] == NULL)
