@@ -6,11 +6,11 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 12:51:03 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/26 12:58:13 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/26 16:53:57 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minirt.h"
+#include "minirt.h"
 
 void	argc_error(int argc)
 {

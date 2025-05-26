@@ -6,11 +6,11 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:04:59 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/26 13:05:55 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/26 16:53:57 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minirt.h"
+#include "minirt.h"
 
 void	close_rt(t_minirt *rt, int ex)
 {

@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:24:50 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/26 16:25:43 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/26 17:41:56 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	main(int argc, char **argv)
 
 	(void)rt;
 	(void)argv;
+	t_float f = ft_atof("123.456f");
+	printf("%f\n", f);
 	if (argc != 2)
 		argc_error(argc);
 	open_file(&rt, argv);

@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:11:13 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/05/26 16:25:42 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/26 18:01:04 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct s_canvas
 	t_color	**pixels;
 }	t_canvas;
 
-/* -------------------------------------------------------------- matracies.c */
+/* -------------------------------------------------------------- matracies */
 // Typedef for 4X4 Matrix
 typedef struct s_matrix4
 {
@@ -84,11 +84,50 @@ typedef struct s_matrix2
 	t_float	m[2][2];
 }	t_matrix2;
 
+/* -------------------------------------------------------------- File Data */
+// Typedef for ambient light
+typedef struct s_ambient
+{
+	t_float	ratio;
+	t_color	color;
+}	t_ambient;
+
+// Typedef for camera
+typedef struct s_camera
+{
+	t_tuple coord;
+	t_tuple	vector;
+	int		fov;
+}	t_camera;
+
+// Typedef for light source
+typedef struct s_light
+{
+	t_tuple coord;
+	t_float brightness;
+	t_color	color;
+}	t_light;
+
+// Typedef for objects
+typedef struct s_object
+{
+	int	type;
+	t_tuple coord;
+	t_tuple	vector;
+	t_float diameter;
+	t_float	height;
+	t_color	color;
+}	t_object;
+
 /* --------------------------------------------------------- main data struct */
 // Typedef for Main data struct
 typedef struct s_minirt
 {
 	t_canvas	*canvas;
+	t_ambient	ambient;
+	t_camera	camera;
+	t_light		light;
+	t_object	*object;
 
 }	t_minirt;
 
@@ -100,6 +139,14 @@ enum	e_channel_type
 	B,
 	G,
 	R,
+};
+
+//Enum for object types
+enum e_types
+{
+	OBJ_SPHERE,
+	OBJ_PLANE,
+	OBJ_CYLINDER
 };
 
 /* ============================== DEFINITIONS =============================== */
@@ -203,6 +250,9 @@ void	argc_error(int argc);
 void	close_rt(t_minirt *rt, int ex);
 /* -------------------------------------------------------- utils/utils.c */
 void	free_big_array(char ***arr, int i);
+t_float	ft_atof(char *str);
+bool	validate_integer(char **arr);
+bool	ft_isfloat(char *str);
 
 /* ================================= PARSING ================================= */
 /* -------------------------------------------------------- parsing/validation.c */
