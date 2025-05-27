@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 15:35:35 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/26 18:00:30 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/27 12:12:57 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ bool	ft_isfloat(char *str)
 	{
 		if ((str[i] >= '9' || str[i] <= '0') && str[i] != '.')
 			return (false);
+		i++;
 	}
 	return (true);
 }
@@ -98,8 +99,13 @@ bool	validate_integer(char **arr)
 	while (arr[++i])
 	{
 		j = -1;
-		if (!ft_isdigit(arr[i][++j]))
-			return (false);
+		while (arr[i][++j])
+		{
+			if (!ft_isdigit(arr[i][j]) && !(arr[i][j] == '.' || arr[i][j] == '-'))
+				return (false);
+		}
 	}
+	if (i != 3)
+		return (false);
 	return (true);
 }

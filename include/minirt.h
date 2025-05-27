@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:11:13 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/05/26 18:01:04 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/27 12:23:35 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,6 +257,10 @@ bool	ft_isfloat(char *str);
 /* ================================= PARSING ================================= */
 /* -------------------------------------------------------- parsing/validation.c */
 void	open_file(t_minirt *rt, char **argv);
+/* -------------------------------------------------------- parsing/utils.c */
+bool	validate_size(char **data, int size);
+/* -------------------------------------------------------- parsing/sorting.c */
+void	sort_data_types(t_minirt *rt, char ***full);
 
 t_matrix4	inverse_matrix4(t_matrix4 m);
 #endif
