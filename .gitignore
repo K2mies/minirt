@@ -4,3 +4,4 @@ obj/
 lib/MLX42
 lib/libft/*.o
 lib/libft/libft.a
+.vscode/

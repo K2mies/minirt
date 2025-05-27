@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 17:39:52 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/26 14:44:42 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/27 18:07:40 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int				print_prcnt(void);
 int				print_char(int c);
 int				print_str(char *str);
 int				print_int(int n);
-void			free_array(char ***arr);
+void			free_array(char **arr);
 int				ft_strcmp(char *s1, const char *s2);
 char			**ft_bigsplit(char const *s, char *c);
 int				ft_dprintf(int fd, const char *format, ...);

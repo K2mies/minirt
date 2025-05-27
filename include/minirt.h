@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:11:13 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/05/27 12:23:35 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/27 17:53:45 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ typedef struct s_minirt
 	t_ambient	ambient;
 	t_camera	camera;
 	t_light		light;
-	t_object	*object;
+	t_object	**object;
 
 }	t_minirt;
 
@@ -249,10 +249,14 @@ void	argc_error(int argc);
 /* -------------------------------------------------------- utils/close.c */
 void	close_rt(t_minirt *rt, int ex);
 /* -------------------------------------------------------- utils/utils.c */
-void	free_big_array(char ***arr, int i);
+void	free_big_array(char ***arr);
 t_float	ft_atof(char *str);
-bool	validate_integer(char **arr);
+bool	validate_array(char **arr);
 bool	ft_isfloat(char *str);
+/* -------------------------------------------------------- utils/memory.c */
+void	*rt_malloc(t_minirt *rt, size_t size);
+void	object_free(char **arr1, char **arr2, char **arr3);
+void	cleanup_rt(t_minirt *rt);
 
 /* ================================= PARSING ================================= */
 /* -------------------------------------------------------- parsing/validation.c */
@@ -261,6 +265,11 @@ void	open_file(t_minirt *rt, char **argv);
 bool	validate_size(char **data, int size);
 /* -------------------------------------------------------- parsing/sorting.c */
 void	sort_data_types(t_minirt *rt, char ***full);
+/* -------------------------------------------------------- parsing/object.c */
+void	load_cylinder(t_minirt *rt, char **data, int index);
+void	load_sphere(t_minirt *rt, char **data, int index);
+void	load_plane(t_minirt *rt, char **data, int index);
+void	object_error(t_minirt *rt, char **a1, char **a2, char **a3);
 
 t_matrix4	inverse_matrix4(t_matrix4 m);
 #endif

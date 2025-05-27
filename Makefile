@@ -6,7 +6,7 @@
 #    By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/13 13:18:47 by rhvidste          #+#    #+#              #
-#    Updated: 2025/05/27 12:22:36 by mpierce          ###   ########.fr        #
+#    Updated: 2025/05/27 17:29:03 by mpierce          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,9 +67,11 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				$(SRC_DIR)/parsing/validation.c										\
 				$(SRC_DIR)/parsing/sorting.c										\
 				$(SRC_DIR)/parsing/utils.c											\
+				$(SRC_DIR)/parsing/object.c											\
 				\
 				$(SRC_DIR)/utils/close.c											\
 				$(SRC_DIR)/utils/utils.c											\
+				$(SRC_DIR)/utils/memory.c											\
 
 
 #-----------------------------------------------------------------------------------#

@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:00:08 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/26 16:53:34 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/27 18:08:08 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static char **read_file_to_data(t_minirt *rt, int fd, char **data)
 		data = ft_realloc(temp, (sizeof(char *)) * old, (sizeof(char *) * (new++)));
 		if (!data)
 		{
-			free_array(&temp);
+			free_array(temp);
 			rt_error(rt, "Allocation failure", 2);
 		}
 		temp = data;
@@ -77,28 +77,19 @@ static void	split_data(t_minirt *rt, char **data)
 	i = -1;
 	while (data[++i])
 		;
-	full = malloc((sizeof(char **) * i) + 1);
+	full = malloc(sizeof(char **) * (i + 1));
 	i = -1;
 	while (data[++i])
 	{
 		full[i] = ft_split(data[i], ' ');
 		if (!full[i])
 		{
-			free_big_array(full, i);
+			free_big_array(full);
 			rt_error(rt, "Allocation failure", 2);
 		}
 	}
-
-	// i = -1;
-	// while (full[++i])
-	// {
-	// 	printf("//////////\n");
-	// 	int j = -1;
-	// 	while (full[i][++j])
-	// 	{
-	// 		printf("Line %d Element %d: %s\n", i + 1, j + 1, full[i][j]);
-	// 	}
-	// }
+	full[i] = NULL;
+	sort_data_types(rt, full);
 }
 
 void	open_file(t_minirt *rt, char **argv)
@@ -121,6 +112,9 @@ void	open_file(t_minirt *rt, char **argv)
 			rt_error(rt, "ft_strjoin failure", 2);
 	}
 	fd = open_rt(rt, path);
+	free(path);
 	data = read_file_to_data(rt, fd, data);
+	close(fd);
 	split_data(rt, data);
+	free_array(data);
 }
