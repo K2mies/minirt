@@ -1298,50 +1298,77 @@ void    test_print_tuple(t_tuple t)
 //	test_print_tuple(res);	
 //}
 
-void	test_clock_face()
-{
-//	t_float		rot_deg;
-	t_canvas	*can;
-	t_tuple		p;
-	t_tuple		cp;
-//	t_tuple		offset_centre;
-
-	can = canvas(900 / 4, 550 / 4);
-//i	rot_deg = 360 / 12;
-
-//	offset_centre = point(canvas->width / 2, canvas->height / 2, 0);
-
-	t_matrix4	centre_offset_matrix = translation(0, can->width / 2, can->height / 2);
-	p = point(0, 50, 0);
-	cp = multiply_matrix4_tuple(centre_offset_matrix, p);
-
-	t_color	red;
-	red = color(1, 0, 0);
-	write_pixel_to_canvas(can, (int)roundf(cp.y), (int)roundf(cp.z), &red);
-	printf("point before rotation:\n x: %f y: %f z: %f\n", p.x, p.y, p.z);
-	t_matrix4	rot_x = rotation_x(360 / 12);
-//	p = multiply_matrix4_tuple(rot_x, p);
-//	printf("point after rotation:\n x: %f y: %f z: %f\n", p.x, p.y, p.z);
-//	cp = multiply_matrix4_tuple(centre_offset_matrix,  p);
+//void	test_clock_face()
+//{
+////	t_float		rot_deg;
+//	t_canvas	*can;
+//	t_tuple		p;
+//	t_tuple		cp;
+////	t_tuple		offset_centre;
+//
+//	can = canvas(900 / 4, 550 / 4);
+////i	rot_deg = 360 / 12;
+//
+////	offset_centre = point(canvas->width / 2, canvas->height / 2, 0);
+//
+//	t_matrix4	centre_offset_matrix = translation(0, can->width / 2, can->height / 2);
+//	p = point(0, 50, 0);
+//	cp = multiply_matrix4_tuple(centre_offset_matrix, p);
+//
+//	t_color	red;
+//	red = color(1, 0, 0);
 //	write_pixel_to_canvas(can, (int)roundf(cp.y), (int)roundf(cp.z), &red);
-	int	i = -1;
-	while (++i < 11)
-	{
-		p = multiply_matrix4_tuple(rot_x, p);
-		printf("point after rotation:\n x: %f y: %f z: %f\n", p.x, p.y, p.z);
-		cp = multiply_matrix4_tuple(centre_offset_matrix,  p);
-		write_pixel_to_canvas(can, (int)roundf(cp.y), (int)roundf(cp.z), &red);
-	}
+//	printf("point before rotation:\n x: %f y: %f z: %f\n", p.x, p.y, p.z);
+//	t_matrix4	rot_x = rotation_x(360 / 12);
+////	p = multiply_matrix4_tuple(rot_x, p);
+////	printf("point after rotation:\n x: %f y: %f z: %f\n", p.x, p.y, p.z);
+////	cp = multiply_matrix4_tuple(centre_offset_matrix,  p);
+////	write_pixel_to_canvas(can, (int)roundf(cp.y), (int)roundf(cp.z), &red);
+//	int	i = -1;
+//	while (++i < 11)
+//	{
+//		p = multiply_matrix4_tuple(rot_x, p);
+//		printf("point after rotation:\n x: %f y: %f z: %f\n", p.x, p.y, p.z);
+//		cp = multiply_matrix4_tuple(centre_offset_matrix,  p);
+//		write_pixel_to_canvas(can, (int)roundf(cp.y), (int)roundf(cp.z), &red);
+//	}
+//	canvas_to_ppm(can);
+//}
 
+//void	test_create_ray()
+//{
+//	t_ray r;
+//
+//	r = ray(point(0, 1, 0), vector(1, 10, 3));
+//
+//	printf("ray origin x: %f y: %f z: %f\n", r.origin.x, r.origin.y, r.origin.z);
+//	printf("ray direction x: %f y: %f z: %f\n", r.direction.x, r.direction.y, r.direction.z);
+//}
 
-	canvas_to_ppm(can);
+void	test_compute_a_point_from_a_distance()
+{
+	t_ray	r;
+	t_tuple	res;
+
+	r = ray(point(2, 3, 4), vector(1, 0, 0));
+	res = position(r, 0);
+	test_print_tuple(res);
+	res = position(r, 1);
+	test_print_tuple(res);
+	res = position(r, -1);
+	test_print_tuple(res);
+	res = position(r, 2.5);
+	test_print_tuple(res);
+
 }
 
 int	main(int argc, char **argv)
 {
 	(void)argc;
 	(void)argv;
-	test_clock_face();
+	test_compute_a_point_from_a_distance();
+//	test_create_ray();
+//	test_clock_face();
 //	test_shearing();
 //	test_chained_transformations();
 

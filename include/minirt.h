@@ -88,6 +88,14 @@ typedef struct s_matrix2
 	t_float	m[2][2];
 }	t_matrix2;
 
+/* ------------------------------------------------------------------- rays.c */
+// Typedef for ray
+typedef struct s_ray
+{
+	t_tuple	origin;
+	t_tuple	direction;
+}	t_ray;
+
 /* --------------------------------------------------------- main data struct */
 // Typedef for Main data struct
 typedef struct s_minirt
@@ -223,4 +231,11 @@ t_matrix4	rotation_y(t_float deg);
 t_matrix4	rotation_z(t_float deg);
 /* ----------------------------------------------------- minirt_transform03.c */
 t_matrix4	shearing(t_float proportions[6]);
+
+/* ===========================+ RAY CASTING ================================= */
+
+/* ---------------------------------------------------------- minirt_ray00.c */
+t_ray		ray(t_tuple origin, t_tuple direction);
+t_tuple		position(t_ray ray, t_float t);
+
 #endif

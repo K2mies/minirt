@@ -65,6 +65,8 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				$(SRC_DIR)/transform/minirt_transform01.c							\
 				$(SRC_DIR)/transform/minirt_transform02.c							\
 				$(SRC_DIR)/transform/minirt_transform03.c							\
+				\
+				$(SRC_DIR)/ray/minirt_ray00.c										\
 
 
 #-----------------------------------------------------------------------------------#
