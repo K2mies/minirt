@@ -6,17 +6,19 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 15:35:35 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/27 12:12:57 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/27 17:52:27 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	free_big_array(char ***arr, int i)
+void	free_big_array(char ***arr)
 {
+	int	i;
 	int	j;
 
-	while (i--)
+	i = -1;
+	while (arr[++i])
 	{
 		j = -1;
 		while (arr[i][++j])
@@ -83,14 +85,14 @@ bool	ft_isfloat(char *str)
 		i++;
 	while (str[i])
 	{
-		if ((str[i] >= '9' || str[i] <= '0') && str[i] != '.')
+		if ((str[i] > '9' || str[i] < '0') && str[i] != '.')
 			return (false);
 		i++;
 	}
 	return (true);
 }
 
-bool	validate_integer(char **arr)
+bool	validate_array(char **arr)
 {
 	int	i;
 	int	j;
@@ -101,7 +103,7 @@ bool	validate_integer(char **arr)
 		j = -1;
 		while (arr[i][++j])
 		{
-			if (!ft_isdigit(arr[i][j]) && !(arr[i][j] == '.' || arr[i][j] == '-'))
+			if (!ft_isdigit(arr[i][j]) && !(arr[i][j] == '.' || arr[i][j] == '-' || arr[i][j] == '\n'))
 				return (false);
 		}
 	}
