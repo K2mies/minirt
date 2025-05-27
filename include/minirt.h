@@ -239,5 +239,9 @@ bool	ft_isfloat(char *str);
 /* ================================= PARSING ================================= */
 /* -------------------------------------------------------- parsing/validation.c */
 void	open_file(t_minirt *rt, char **argv);
+/* -------------------------------------------------------- parsing/utils.c */
+bool	validate_size(char **data, int size);
+/* -------------------------------------------------------- parsing/sorting.c */
+void	sort_data_types(t_minirt *rt, char ***full);
 
 #endif
