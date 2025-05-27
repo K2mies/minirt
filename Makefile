@@ -60,7 +60,11 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				$(SRC_DIR)/matrix/minirt_matrix04.c									\
 				$(SRC_DIR)/matrix/minirt_matrix05.c									\
 				$(SRC_DIR)/matrix/minirt_matrix06.c									\
-				$(SRC_DIR)/matrix/minirt_matrix07.c									\
+				\
+				$(SRC_DIR)/transform/minirt_transform00.c							\
+				$(SRC_DIR)/transform/minirt_transform01.c							\
+				$(SRC_DIR)/transform/minirt_transform02.c							\
+				$(SRC_DIR)/transform/minirt_transform03.c							\
 
 
 #-----------------------------------------------------------------------------------#

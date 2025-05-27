@@ -1247,23 +1247,106 @@ void    test_print_tuple(t_tuple t)
 //}
 //
 
-void	test_scaling()
-{
-	t_matrix4	scale;
-	t_tuple		p;
+//void	test_scaling()
+//{
+//	t_matrix4	scale;
+//	t_tuple		p;
+//
+//	scale = scaling(-1, 1, 1);
+////	scale = inverse_matrix4(scale);
+//	p = point(2, 3, 4);
+//	p = multiply_matrix4_tuple(scale, p);
+//	test_print_tuple(p);
+//}
 
-	scale = scaling(2, 3, 4);
-	scale = inverse_matrix4(scale);
-	p = point(-4, 6, 8);
-	p = multiply_matrix4_tuple(scale, p);
-	test_print_tuple(p);
+//void	test_rotations()
+//{
+//	t_matrix4	half_quater = rotation_z(45);
+//	t_matrix4	full_quater = rotation_z(90);
+//	t_tuple p = point(0, 1, 0);
+////	half_quater = inverse_matrix4(half_quater);
+//	t_tuple	res = multiply_matrix4_tuple(half_quater, p);
+//	test_print_tuple(res);
+//	res = multiply_matrix4_tuple(full_quater, p);
+//	test_print_tuple(res);
+//}
+
+//void	test_shearing()
+//{
+//	t_matrix4	transform;
+//	t_tuple		p;
+//	t_float		proportions[] = {0, 0, 0, 0, 0, 1};
+//	transform = shearing(proportions);
+//	p = point(2, 3, 4);
+//	t_tuple	res = multiply_matrix4_tuple(transform, p);
+//	test_print_tuple(res);
+//}
+
+//void	test_chained_transformations()
+//{
+//	t_matrix4	rotx = rotation_x(90);
+//	t_matrix4	scale = scaling(5,5,5);
+//	t_matrix4	trans = translation(10, 5, 7);
+//	t_matrix4	transform;
+//	t_tuple		res;
+//
+//	transform = id_matrix4();
+//	res = point(1, 0, 1);
+//	transform = multiply_matrix4(trans, scale);
+//	transform = multiply_matrix4(transform, rotx);
+//	res = multiply_matrix4_tuple(transform, res);
+//	test_print_tuple(res);	
+//}
+
+void	test_clock_face()
+{
+//	t_float		rot_deg;
+	t_canvas	*can;
+	t_tuple		p;
+	t_tuple		cp;
+//	t_tuple		offset_centre;
+
+	can = canvas(900 / 4, 550 / 4);
+//i	rot_deg = 360 / 12;
+
+//	offset_centre = point(canvas->width / 2, canvas->height / 2, 0);
+
+	t_matrix4	centre_offset_matrix = translation(0, can->width / 2, can->height / 2);
+	p = point(0, 50, 0);
+	cp = multiply_matrix4_tuple(centre_offset_matrix, p);
+
+	t_color	red;
+	red = color(1, 0, 0);
+	write_pixel_to_canvas(can, (int)roundf(cp.y), (int)roundf(cp.z), &red);
+	printf("point before rotation:\n x: %f y: %f z: %f\n", p.x, p.y, p.z);
+	t_matrix4	rot_x = rotation_x(360 / 12);
+//	p = multiply_matrix4_tuple(rot_x, p);
+//	printf("point after rotation:\n x: %f y: %f z: %f\n", p.x, p.y, p.z);
+//	cp = multiply_matrix4_tuple(centre_offset_matrix,  p);
+//	write_pixel_to_canvas(can, (int)roundf(cp.y), (int)roundf(cp.z), &red);
+	int	i = -1;
+	while (++i < 11)
+	{
+		p = multiply_matrix4_tuple(rot_x, p);
+		printf("point after rotation:\n x: %f y: %f z: %f\n", p.x, p.y, p.z);
+		cp = multiply_matrix4_tuple(centre_offset_matrix,  p);
+		write_pixel_to_canvas(can, (int)roundf(cp.y), (int)roundf(cp.z), &red);
+	}
+
+
+	canvas_to_ppm(can);
 }
 
 int	main(int argc, char **argv)
 {
 	(void)argc;
 	(void)argv;
-	test_scaling();
+	test_clock_face();
+//	test_shearing();
+//	test_chained_transformations();
+
+//	test_rotations();
+//	test_scaling();
 //	test_translate();
 //	test_create_color_from_channels();
 //	test_inverse_matrix4();

@@ -27,6 +27,11 @@
 # include <fcntl.h>
 # include <unistd.h>
 
+
+/* ================================= MACROS ================================= */
+
+#define M_PI 3.14159265358979323846
+
 /* ================================ TYPEDEFS ================================ */
 
 /* ------------------------------------------------------------- custom types */
@@ -100,6 +105,17 @@ enum	e_channel_type
 	G,
 	R,
 };
+
+//Enum for shearing proportions
+typedef enum	e_proportions
+{
+	XY,
+	XZ,
+	YX,
+	YZ,
+	ZX,
+	ZY
+}	t_proportions;
 
 /* ============================== DEFINITIONS =============================== */
 
@@ -193,6 +209,18 @@ t_float		cofactor3(t_matrix3 m, int row, int col);
 bool		is_matrix4_invertable(t_matrix4 m);
 t_matrix4	inverse_matrix4(t_matrix4 m);
 /* -------------------------------------------------------- minirt_matrix07.c */
+
+/* ============================ TRANSFORMS ================================== */
+
+/* ----------------------------------------------------- minirt_transform00.c */
 t_matrix4	translation(t_float x, t_float y, t_float z);
+/* ----------------------------------------------------- minirt_transform01.c */
 t_matrix4	scaling(t_float x, t_float y, t_float z);
+/* ----------------------------------------------------- minirt_transform02.c */
+double		deg_to_rad(t_float degrees);
+t_matrix4	rotation_x(t_float deg);
+t_matrix4	rotation_y(t_float deg);
+t_matrix4	rotation_z(t_float deg);
+/* ----------------------------------------------------- minirt_transform03.c */
+t_matrix4	shearing(t_float proportions[6]);
 #endif
