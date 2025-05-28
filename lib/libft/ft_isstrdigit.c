@@ -1,20 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_isstrdigit.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/26 13:11:35 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/29 16:18:01 by mpierce          ###   ########.fr       */
+/*   Created: 2025/05/29 14:41:13 by mpierce           #+#    #+#             */
+/*   Updated: 2025/05/29 16:01:33 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "libft.h"
 
-void	rt_error(t_minirt *rt, char *msg, int err)
+int	ft_isstrdigit(char *str)
 {
-	if (msg)
-		ft_dprintf(STDERR_FILENO, "Error\n%s\n", msg);
-	close_rt(rt, err);
+	int	i;
+
+	i = 0;
+	if (!str)
+		return (0);
+	if (str[0] == '-' || str[0] == '+')
+		i++;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
 }

@@ -6,7 +6,11 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:11:13 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/05/27 17:53:45 by mpierce          ###   ########.fr       */
+<<<<<<< HEAD
+/*   Updated: 2025/05/30 12:31:52 by mpierce          ###   ########.fr       */
+=======
+/*   Updated: 2025/05/30 14:03:12 by mpierce          ###   ########.fr       */
+>>>>>>> jules
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +35,7 @@
 
 /* ================================= MACROS ================================= */
 
-#define M_PI 3.14159265358979323846
+# define M_PI 3.14159265358979323846
 
 /* ================================ TYPEDEFS ================================ */
 
@@ -133,25 +137,45 @@ typedef struct s_ray
 	t_tuple	direction;
 }	t_ray;
 
+// Typedef for ray intersections
 typedef struct s_intersections
 {
 	t_float	t[2];
 	int		count;
 
 }	t_intersections;
+
+// Typedef for object intersection
+typedef struct s_intersection
+{
+	t_float		t;
+	t_object	object;
+}	t_intersection;
+
 /* --------------------------------------------------------- main data struct */
 // Typedef for Main data struct
 typedef struct s_minirt
 {
-	t_canvas	*canvas;
-	t_ambient	ambient;
-	t_camera	camera;
-	t_light		light;
-	t_object	**object;
+	t_canvas		*canvas;
+	t_ambient		ambient;
+	t_camera		camera;
+	t_light			light;
+	t_object		**object;
+	char			***full_data;
+	t_intersection	*intersections;
 
 }	t_minirt;
 
 /* ================================ ENUMS =================================== */
+
+//Enum for letters to use  with var arr ie: arr[a], arr[b] etc..
+typedef enum	e_letters
+{
+	a,
+	b,
+	c
+}	t_letters;
+
 //Enum for RGBA channels 
 enum	e_channel_type
 {
@@ -171,13 +195,6 @@ typedef enum	e_proportions
 	ZX,
 	ZY
 }	t_proportions;
-
-typedef enum	e_dot_products
-{
-	a,
-	b,
-	c
-}	t_dot_products;
 
 //Enum for object types
 enum e_types
@@ -312,12 +329,12 @@ t_object	sphere(t_tuple location, t_float radius);
 void		rt_error(t_minirt *rt, char *msg, int err);
 void		argc_error(int argc);
 
-/* ================================ UTIL ===+++============================== */
+/* =============================== UTILS ==================================== */
 
 /* ------------------------------------------------------------ utils/close.c */
 void		close_rt(t_minirt *rt, int ex);
 /* ------------------------------------------------------------ utils/utils.c */
-void		free_big_array(char ***arr);
+void		free_big_array(char ****arr);
 t_float		ft_atof(char *str);
 bool		validate_array(char **arr);
 bool		ft_isfloat(char *str);
@@ -330,8 +347,16 @@ void		cleanup_rt(t_minirt *rt);
 
 /* ------------------------------------------------------ parsing/validation.c */
 void		open_file(t_minirt *rt, char **argv);
+/* ------------------------------------------------------ parsing/validation_utils.c */
+int			valid_map_name(char *name);
+int			open_rt(t_minirt *rt, char *path);
+bool		is_in_range(t_float f, int min, int max);
+bool		validate_rgb(char **rgb);
+bool		file_entry_error(int a, int c, int l, int obj);
 /* ----------------------------------------------------------- parsing/utils.c */
 bool		validate_size(char **data, int size);
+void		data_null_check(t_minirt *rt, char **data, char **tmp, char *line);
+bool		rt_isstrdigit(char *str);
 /* --------------------------------------------------------- parsing/sorting.c */
 void		sort_data_types(t_minirt *rt, char ***full);
 /* ------------------------------------------------------==-- parsing/object.c */
@@ -339,5 +364,9 @@ void		load_cylinder(t_minirt *rt, char **data, int index);
 void		load_sphere(t_minirt *rt, char **data, int index);
 void		load_plane(t_minirt *rt, char **data, int index);
 void		object_error(t_minirt *rt, char **a1, char **a2, char **a3);
+
+/////////////Remove these///////////////
+void	print_3d_data_array(char ***arr);
+void	print_stored_data(t_minirt *rt);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:24:50 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/27 17:50:08 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/30 14:32:21 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1375,22 +1375,26 @@ void	test_print_tuple(t_tuple t)
 //}
 //
 
-//void	test_sphere_intersection_discriminant()
-//{
-//	t_intersections	res;
-////	t_float	discriminant;
-//	t_ray	r = ray(point(0, 1, -5), vector(0, 0, 1));
+void	test_sphere_intersection_discriminant(t_minirt *rt)
+{
+	t_intersections	res;
+//	t_float	discriminant;
+	t_ray	r = ray(point(0, 0, -5), vector(0, 0, 1));
+
+
 //	t_object	sp = sphere(point(0, 0, 0), 1);
-//	res = sphere_intersection(sp, r);
-//	printf("t1 = %f t2 = %f\n", res.t[0], res.t[1]);
-//
-//}
+	// t_object sp = *(rt->object[0]);
+	res = sphere_intersection(*rt->object[0], r);
+
+	printf("t1 = %f t2 = %f count: %d\n", res.t[0], res.t[1], res.count);
+
+}
 
 int	main(int argc, char **argv)
 {
-//	test_sphere_intersection_discriminant();
-//	(void)argc;
-//	(void)argv;
+	(void)argc;
+	(void)argv;
+//	test_sphere_intersection_discriminant(&rt);
 //	test_create_sphere();
 
 	t_minirt rt;
@@ -1399,7 +1403,10 @@ int	main(int argc, char **argv)
 	(void)argv;
 	if (argc != 2)
 		argc_error(argc);
-	open_file(&rt, argv);
+	rt.object = NULL;
+	rt.full_data = NULL;
+	open_file(&rt, argv);	
+	test_sphere_intersection_discriminant(&rt);
 	cleanup_rt(&rt);
 	return (0);
 }

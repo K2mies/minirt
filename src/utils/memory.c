@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 17:25:11 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/27 17:49:48 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/30 14:02:56 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	*rt_malloc(t_minirt *rt, size_t size)
 {
 	void	*mem;
 
-	mem = malloc(size);
+	mem = ft_calloc(1, size);
 	if (!mem)
 		rt_error(rt, "Allocation failure", 2);
 	return (mem);
@@ -60,4 +60,6 @@ void	cleanup_rt(t_minirt *rt)
 			free(rt->object[i]);
 		free(rt->object);
 	}
+	if (rt->full_data)
+		free_big_array(&rt->full_data);
 }

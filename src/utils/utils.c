@@ -6,31 +6,32 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 15:35:35 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/27 17:52:27 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/30 14:07:34 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	free_big_array(char ***arr)
+void	free_big_array(char ****arr)
 {
 	int	i;
 	int	j;
 
 	i = -1;
-	while (arr[++i])
+	while ((*arr)[++i])
 	{
 		j = -1;
-		while (arr[i][++j])
-			free(arr[i][j]);
-		free(arr[i]);	
+		while ((*arr)[i][++j])
+			free((*arr)[i][j]);
+		free((*arr)[i]);
 	}
-	free(arr);
+	free(*arr);
+	*arr = NULL;
 }
 
 t_float	ft_atof_dec(char *str, t_float num)
 {
-	t_float dec;
+	t_float	dec;
 	int		i;
 	int		pos;
 
@@ -76,6 +77,12 @@ t_float	ft_atof(char *str)
 	return (num);
 }
 
+/**
+ * 
+ * @param str String to be checked
+ * 
+ * @return True if string represents a float
+ */
 bool	ft_isfloat(char *str)
 {
 	int	i;
@@ -103,7 +110,8 @@ bool	validate_array(char **arr)
 		j = -1;
 		while (arr[i][++j])
 		{
-			if (!ft_isdigit(arr[i][j]) && !(arr[i][j] == '.' || arr[i][j] == '-' || arr[i][j] == '\n'))
+			if (!ft_isdigit(arr[i][j]) && !(arr[i][j] == '.' || arr[i][j] ==
+						'-' || arr[i][j] == '\n'))
 				return (false);
 		}
 	}
