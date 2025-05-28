@@ -1345,22 +1345,22 @@ void	test_print_tuple(t_tuple t)
 //	printf("ray direction x: %f y: %f z: %f\n", r.direction.x, r.direction.y, r.direction.z);
 //}
 
-void	test_compute_a_point_from_a_distance()
-{
-	t_ray	r;
-	t_tuple	res;
-
-	r = ray(point(2, 3, 4), vector(1, 0, 0));
-	res = position(r, 0);
-	test_print_tuple(res);
-	res = position(r, 1);
-	test_print_tuple(res);
-	res = position(r, -1);
-	test_print_tuple(res);
-	res = position(r, 2.5);
-	test_print_tuple(res);
-
-}
+//void	test_compute_a_point_from_a_distance()
+//{
+//	t_ray	r;
+//	t_tuple	res;
+//
+//	r = ray(point(2, 3, 4), vector(1, 0, 0));
+//	res = position(r, 0);
+//	test_print_tuple(res);
+//	res = position(r, 1);
+//	test_print_tuple(res);
+//	res = position(r, -1);
+//	test_print_tuple(res);
+//	res = position(r, 2.5);
+//	test_print_tuple(res);
+//
+//}
 
 int	main(int argc, char **argv)
 {
