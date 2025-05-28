@@ -312,7 +312,7 @@ t_object	sphere(t_tuple location, t_float radius);
 void		rt_error(t_minirt *rt, char *msg, int err);
 void		argc_error(int argc);
 
-/* ================================ UTIL ===+++============================== */
+/* =============================== UTILS ==================================== */
 
 /* ------------------------------------------------------------ utils/close.c */
 void		close_rt(t_minirt *rt, int ex);
