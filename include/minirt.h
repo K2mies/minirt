@@ -97,6 +97,40 @@ typedef struct s_ray
 	t_tuple	direction;
 }	t_ray;
 
+/* -------------------------------------------------------------- File Data */
+// Typedef for ambient light
+typedef struct s_ambient
+{
+	t_float	ratio;
+	t_color	color;
+}	t_ambient;
+
+// Typedef for camera
+typedef struct s_camera
+{
+	t_tuple coord;
+	t_tuple	vector;
+	int		fov;
+}	t_camera;
+
+// Typedef for light source
+typedef struct s_light
+{
+	t_tuple coord;
+	t_float brightness;
+	t_color	color;
+}	t_light;
+
+// Typedef for objects
+typedef struct s_object
+{
+	int	type;
+	t_tuple coord;
+	t_tuple	vector;
+	t_float diameter;
+	t_float	height;
+	t_color	color;
+}	t_object;
 /* --------------------------------------------------------- main data struct */
 // Typedef for Main data struct
 typedef struct s_minirt
@@ -129,6 +163,14 @@ typedef enum	e_proportions
 	ZX,
 	ZY
 }	t_proportions;
+
+//Enum for object types
+enum e_types
+{
+	OBJ_SPHERE,
+	OBJ_PLANE,
+	OBJ_CYLINDER
+};
 
 /* ============================== DEFINITIONS =============================== */
 
@@ -227,7 +269,7 @@ bool		is_matrix4_invertable(t_matrix4 m);
 void	rt_error(t_minirt *rt, char *msg, int err);
 void	argc_error(int argc);
 
-/* ================================= UTIL ================================= */
+/* ================================= UTILS ================================= */
 /* -------------------------------------------------------- utils/close.c */
 void	close_rt(t_minirt *rt, int ex);
 /* -------------------------------------------------------- utils/utils.c */
