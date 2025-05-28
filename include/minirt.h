@@ -100,6 +100,7 @@ typedef struct s_ambient
 // Typedef for camera
 typedef struct s_camera
 {
+
 	t_tuple origin;
 	t_tuple	vector;
 	int		fov;
@@ -117,6 +118,7 @@ typedef struct s_light
 typedef struct s_object
 {
 	int	type;
+
 	t_tuple origin;
 	t_tuple	vector;
 	t_float diameter;
