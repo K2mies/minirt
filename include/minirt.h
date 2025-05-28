@@ -89,6 +89,41 @@ typedef struct s_matrix2
 	t_float	m[2][2];
 }	t_matrix2;
 
+/* -------------------------------------------------------------- Scene Data */
+// Typedef for ambient light
+typedef struct s_ambient
+{
+	t_float	ratio;
+	t_color	color;
+}	t_ambient;
+
+// Typedef for camera
+typedef struct s_camera
+{
+	t_tuple coord;
+	t_tuple	vector;
+	int		fov;
+}	t_camera;
+
+// Typedef for light source
+typedef struct s_light
+{
+	t_tuple coord;
+	t_float brightness;
+	t_color	color;
+}	t_light;
+
+// Typedef for objects
+typedef struct s_object
+{
+	int	type;
+	t_tuple coord;
+	t_tuple	vector;
+	t_float diameter;
+	t_float	height;
+	t_color	color;
+}	t_object;
+
 /* ------------------------------------------------------------------- rays.c */
 // Typedef for ray
 typedef struct s_ray
@@ -130,6 +165,13 @@ typedef enum	e_proportions
 	ZY
 }	t_proportions;
 
+//Enum for object types
+enum e_types
+{
+	OBJ_SPHERE,
+	OBJ_PLANE,
+	OBJ_CYLINDER
+};
 /* ============================== DEFINITIONS =============================== */
 
 /* ================================= TUPLES ================================= */
