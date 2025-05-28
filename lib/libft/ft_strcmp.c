@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printchar.c                                     :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/15 16:54:13 by rhvidste          #+#    #+#             */
-/*   Updated: 2024/11/20 15:27:37 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/01/27 14:07:35 by mpierce           #+#    #+#             */
+/*   Updated: 2025/01/27 14:11:08 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "ft_print.h"
 
-int	ft_printchar(int c)
+int	ft_strcmp(char *s1, const char *s2)
 {
-	write(1, &c, 1);
-	return (1);
+	size_t			i;
+	unsigned char	*s1a;
+	unsigned char	*s2a;
+
+	i = 0;
+	s1a = (unsigned char *)s1;
+	s2a = (unsigned char *)s2;
+	while ((s1a[i] == s2a[i]) && (s1a[i] || s2a[i]))
+		i++;
+	return (s1a[i] - s2a[i]);
 }

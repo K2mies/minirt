@@ -3,38 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/04 11:51:35 by rhvidste          #+#    #+#             */
-/*   Updated: 2024/11/15 18:08:44 by rhvidste         ###   ########.fr       */
+/*   Created: 2024/11/01 12:07:36 by mpierce           #+#    #+#             */
+/*   Updated: 2024/11/08 15:05:31 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
 int	ft_atoi(const char *nptr)
 {
-	long		res;
-	int			sign;
+	int	i;
+	int	num;
+	int	neg;
 
-	res = 0;
-	sign = 1;
-	while (*nptr == 32 || (*nptr >= 9 && *nptr <= 13))
-		nptr++;
-	if (*nptr == '+' || *nptr == '-')
+	i = 0;
+	num = 0;
+	neg = 1;
+	while (nptr[i] == 32 || (nptr[i] >= 9 && nptr[i] <= 13))
+		i++;
+	if (nptr[i] == 45)
 	{
-		if (*nptr == '-')
-			sign *= -1;
-		nptr++;
+		neg *= -1;
+		i++;
 	}
-	while (*nptr >= '0' && *nptr <= '9')
+	else if (nptr[i] == 43)
+		i++;
+	while ((nptr[i] >= 48 && nptr[i] <= 57) && nptr[i])
 	{
-		res = res * 10 + *nptr - '0';
-		if (res < 0 && sign > 0)
-			return ((int)LONG_MAX);
-		if (res < 0 && sign < 0)
-			return ((int)LONG_MIN);
-		nptr++;
+		num = num * 10 + (nptr[i] - 48);
+		i++;
 	}
-	return ((res * sign));
+	return (num * neg);
 }

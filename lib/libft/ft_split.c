@@ -3,112 +3,107 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/07 10:14:01 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/01/23 16:19:54 by rhvidste         ###   ########.fr       */
+/*   Created: 2024/11/05 14:48:04 by mpierce           #+#    #+#             */
+/*   Updated: 2025/02/03 16:56:26 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void		*ft_free(char **strs, int count);
-static int		ft_word_count(const char *s, char c);
-static char		*ft_fill_word(const char *s, int start, int end);
-char			**ft_splitter(char **res, const char *s, char c);
-
-char	**ft_split(const char *s, char c)
+static int	wordcount(char const *s, char c)
 {
-	int			word_count;
-	char		**res;
+	int	i;
+	int	count;
+	int	trigger;
 
-	if (!s)
-		return (NULL);
-	word_count = ft_word_count(s, c);
-	res = ft_calloc(word_count + 1, sizeof(char *));
-	if (!res)
-		return (NULL);
-	res = ft_splitter(res, s, c);
-	return (res);
-}
-
-char	**ft_splitter(char **res, const char *s, char c)
-{
-	size_t	i;
-	size_t	j;
-	int		s_word;
-
-	s_word = -1;
 	i = 0;
-	j = 0;
+	count = 0;
+	trigger = 0;
 	while (s[i])
 	{
-		if (s[i] != c && s_word < 0)
-			s_word = i;
-		if ((s[i] == c || s[i + 1] == '\0') && s_word >= 0)
+		if (s[i] != c && trigger == 0)
 		{
-			if (s[i] == c)
-				res[j] = ft_fill_word(s, s_word, i);
-			else
-				res[j] = ft_fill_word(s, s_word, i + 1);
-			if (!(res[j++]))
-				return (ft_free(res, j));
-			s_word = -1;
-		}
-		i++;
-	}
-	res[j] = NULL;
-	return (res);
-}
-
-static void	*ft_free(char **strs, int count)
-{
-	int		i;
-
-	i = 0;
-	while (i < count)
-	{
-		free(strs[i]);
-		i++;
-	}
-	free(strs);
-	return (NULL);
-}
-
-static int	ft_word_count(const char *s, char c)
-{
-	int		count;
-	int		in_word;
-
-	count = 0;
-	in_word = 0;
-	while (*s)
-	{
-		if (*s != c && !in_word)
-		{
+			trigger = 1;
 			count++;
-			in_word = 1;
 		}
-		else if (*s == c)
-		{
-			in_word = 0;
-		}
-		s++;
+		else if (s[i] == c)
+			trigger = 0;
+		i++;
 	}
 	return (count);
 }
 
-static char	*ft_fill_word(const char *s, int start, int end)
+static char	*makeword(const char *s, int start, int end)
 {
 	char	*word;
 	int		i;
 
-	word = malloc(sizeof(char) * (end - start) + 1);
-	if (word == NULL)
-		return (NULL);
 	i = 0;
+	word = malloc((end - start + 1) * sizeof(char));
+	if (!word)
+		return (NULL);
 	while (start < end)
-		word[i++] = s[start++];
-	word[i] = '\0';
+	{
+		word[i] = s[start];
+		i++;
+		start++;
+	}
+	word[i] = 0;
 	return (word);
+}
+
+static int	arrclean(char **array, int index)
+{
+	if (array == NULL)
+		return (0);
+	while (index >= 0)
+	{
+		free(array[index]);
+		index--;
+	}
+	free(array);
+	return (0);
+}
+
+static char	**ft_split2(char **split, char const *s, char c, int index)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	while (i <= ft_strlen(s))
+	{
+		if (s[i] != c && index < 0)
+			index = i;
+		else if ((s[i] == c || i == ft_strlen(s)) && index >= 0)
+		{
+			split[j] = makeword(s, index, i);
+			if (split[j] == NULL)
+			{
+				arrclean(split, j);
+				return (0);
+			}
+			j++;
+			index = -1;
+		}
+		i++;
+	}
+	split[j] = 0;
+	return (split);
+}
+
+char	**ft_split(char const *s, char c)
+{
+	char	**split;
+
+	if (!s)
+		return (NULL);
+	split = malloc((wordcount(s, c) + 1) * (sizeof(char *)));
+	if (!split)
+		return (NULL);
+	ft_split2(split, s, c, -1);
+	return (split);
 }

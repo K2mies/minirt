@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/05 11:18:07 by rhvidste          #+#    #+#             */
-/*   Updated: 2024/11/12 17:49:22 by rhvidste         ###   ########.fr       */
+/*   Created: 2024/11/04 17:09:30 by mpierce           #+#    #+#             */
+/*   Updated: 2024/11/12 14:10:03 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,27 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char			*dest;
-	size_t			i;
-	size_t			j;
-	size_t			s1_len;
-	size_t			s2_len;
+	size_t	totallen;
+	char	*newstr;
 
-	if (s1 == NULL || s2 == NULL)
+	if (!s1 || !s2)
 		return (NULL);
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	dest = malloc(sizeof(char) * (s1_len + s2_len) + 1);
-	if (dest == NULL)
+	totallen = ((ft_strlen(s1) + ft_strlen(s2)) + 1);
+	newstr = malloc(totallen);
+	if (newstr == NULL)
 		return (NULL);
-	i = 0;
-	while (i < s1_len)
+	while (*s1 != 0)
 	{
-		dest[i] = s1[i];
-		i++;
+		*newstr = *s1;
+		newstr++;
+		s1++;
 	}
-	j = 0;
-	while (j < s2_len)
-		dest[i++] = s2[j++];
-	dest[i] = '\0';
-	return (dest);
+	while (*s2 != 0)
+	{
+		*newstr = *s2;
+		newstr++;
+		s2++;
+	}
+	*newstr = 0;
+	return (newstr - (totallen - 1));
 }

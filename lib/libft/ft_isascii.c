@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 17:21:25 by rhvidste          #+#    #+#             */
-/*   Updated: 2024/11/12 10:07:06 by rhvidste         ###   ########.fr       */
+/*   Created: 2024/10/29 12:59:29 by mpierce           #+#    #+#             */
+/*   Updated: 2024/10/29 14:01:05 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_isascii(int c)
 {
-	return (c >= 0 && c <= 127);
+	if (c >= 0 && c <= 127)
+		return (1);
+	else
+		return (0);
 }

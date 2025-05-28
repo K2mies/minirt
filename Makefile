@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+         #
+#    By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/13 13:18:47 by rhvidste          #+#    #+#              #
-#    Updated: 2025/05/13 17:05:09 by rhvidste         ###   ########.fr        #
+#    Updated: 2025/05/27 17:29:03 by mpierce          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,12 +61,17 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				$(SRC_DIR)/matrix/minirt_matrix05.c									\
 				$(SRC_DIR)/matrix/minirt_matrix06.c									\
 				\
-				$(SRC_DIR)/transform/minirt_transform00.c							\
-				$(SRC_DIR)/transform/minirt_transform01.c							\
-				$(SRC_DIR)/transform/minirt_transform02.c							\
-				$(SRC_DIR)/transform/minirt_transform03.c							\
+				$(SRC_DIR)/error/arg_error.c										\
+				$(SRC_DIR)/error/error.c											\
 				\
-				$(SRC_DIR)/ray/minirt_ray00.c										\
+				$(SRC_DIR)/parsing/validation.c										\
+				$(SRC_DIR)/parsing/sorting.c										\
+				$(SRC_DIR)/parsing/utils.c											\
+				$(SRC_DIR)/parsing/object.c											\
+				\
+				$(SRC_DIR)/utils/close.c											\
+				$(SRC_DIR)/utils/utils.c											\
+				$(SRC_DIR)/utils/memory.c											\
 
 
 #-----------------------------------------------------------------------------------#

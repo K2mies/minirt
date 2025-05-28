@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printstr.c                                      :+:      :+:    :+:   */
+/*   close.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/15 16:52:29 by rhvidste          #+#    #+#             */
-/*   Updated: 2024/11/20 15:28:03 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/05/26 13:04:59 by mpierce           #+#    #+#             */
+/*   Updated: 2025/05/26 16:53:57 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "ft_print.h"
+#include "minirt.h"
 
-int	ft_printstr(const char *str)
+void	close_rt(t_minirt *rt, int ex)
 {
-	int		len;
-
-	len = 0;
-	if (str == NULL)
-	{
-		len += write(1, "(null)", 6);
-		return (len);
-	}
-	len = write(1, str, ft_strlen(str));
-	return (len);
+	(void)rt;
+	exit(ex);
 }

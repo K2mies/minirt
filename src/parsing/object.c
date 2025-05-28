@@ -1,0 +1,98 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   object.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/27 12:26:37 by mpierce           #+#    #+#             */
+/*   Updated: 2025/05/27 17:53:35 by mpierce          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minirt.h"
+
+void	object_error(t_minirt *rt, char **a1, char **a2, char **a3)
+{
+	object_free(a1, a2, a3);
+	rt_error(rt, "Data error", 3);
+}
+
+void	load_plane(t_minirt *rt, char **data, int index)
+{
+	t_object	*plane;
+	char		**coord;
+	char		**vec;
+	char		**rgb;
+
+	if (!validate_size(data, 4))
+		rt_error(rt, "Plane data error", 3);
+	plane = rt_malloc(rt, sizeof(t_object));
+	plane->type = OBJ_PLANE;
+	coord = ft_split(data[1], ',');
+	vec = ft_split(data[2], ',');
+	rgb = ft_split(data[3], ',');
+	if (!coord || !vec || !rgb)
+		object_error(rt, coord, vec, rgb);
+	if (!validate_array(coord) || !validate_array(vec) || !validate_array(rgb))
+		object_error(rt, coord, vec, rgb);
+	plane->coord = point(ft_atof(coord[0]), ft_atof(coord[1]), ft_atof(coord[2]));
+	plane->vector = vector(ft_atof(vec[0]), ft_atof(vec[1]), ft_atof(vec[2]));
+	plane->color = color_from_channels(ft_atoi(rgb[0]), ft_atoi(rgb[1]), ft_atoi(rgb[2]));
+	rt->object[index] = plane;
+	object_free(coord, vec, rgb);
+}
+
+void	load_sphere(t_minirt *rt, char **data, int index)
+{
+	t_object	*sphere;
+	char		**coord;
+	char		**rgb;
+
+	if (!validate_size(data, 4))
+		rt_error(rt, "Sphere data error", 3);
+	sphere = rt_malloc(rt, sizeof(t_object));
+	sphere->type = OBJ_SPHERE;
+	coord = ft_split(data[1], ',');
+	rgb = ft_split(data[3], ',');
+	if (!coord || !rgb)
+		object_error(rt, coord, NULL, rgb);
+	if (!validate_array(coord) || !validate_array(rgb))
+		object_error(rt, coord, NULL, rgb);
+	sphere->coord = point(ft_atof(coord[0]), ft_atof(coord[1]), ft_atof(coord[2]));
+	if (!ft_isfloat(data[2]))
+		object_error(rt, coord, NULL, rgb);
+	sphere->diameter = ft_atof(data[2]);
+	sphere->color = color_from_channels(ft_atoi(rgb[0]), ft_atoi(rgb[1]), ft_atoi(rgb[2]));
+	rt->object[index] = sphere;
+	object_free(coord, rgb, NULL);
+}
+
+void	load_cylinder(t_minirt *rt, char **data, int index)
+{
+	t_object	*cylinder;
+	char		**coord;
+	char		**vec;
+	char		**rgb;
+
+	if (!validate_size(data, 6))
+		rt_error(rt, "Cylinder data error", 3);
+	cylinder = rt_malloc(rt, sizeof(t_object));
+	cylinder->type = OBJ_CYLINDER;
+	coord = ft_split(data[1], ',');
+	vec = ft_split(data[2], ',');
+	rgb = ft_split(data[5], ',');
+	if (!coord || !vec || !rgb)
+		object_error(rt, coord, vec, rgb);
+	if (!validate_array(coord) || !validate_array(vec) || !validate_array(rgb))
+		object_error(rt, coord, vec, rgb);
+	cylinder->coord = point(ft_atof(coord[0]), ft_atof(coord[1]), ft_atof(coord[2]));
+	cylinder->vector = vector(ft_atof(vec[0]), ft_atof(vec[1]), ft_atof(vec[2]));
+	if (!ft_isfloat(data[3]) || !ft_isfloat(data[4]))
+		object_error(rt, coord, vec, rgb);
+	cylinder->diameter = ft_atof(data[3]);
+	cylinder->height = ft_atof(data[4]);
+	cylinder->color = color_from_channels(ft_atoi(rgb[0]), ft_atoi(rgb[1]), ft_atoi(rgb[2]));
+	rt->object[index] = cylinder;
+	object_free(coord, vec, rgb);
+}

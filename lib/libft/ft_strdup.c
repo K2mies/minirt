@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/04 15:03:04 by rhvidste          #+#    #+#             */
-/*   Updated: 2024/11/11 14:56:19 by rhvidste         ###   ########.fr       */
+/*   Created: 2024/11/01 12:41:55 by mpierce           #+#    #+#             */
+/*   Updated: 2024/11/07 16:09:34 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,13 @@
 
 char	*ft_strdup(const char *s)
 {
-	unsigned char	*dest;
-	size_t			len;
-	size_t			i;
+	size_t	len;
+	char	*copy;
 
-	len = ft_strlen(s);
-	dest = malloc(sizeof(char) * len + 1);
-	if (dest == NULL)
+	len = ft_strlen(s) + 1;
+	copy = malloc(len);
+	if (copy == NULL)
 		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		dest[i] = s[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return ((char *)dest);
+	copy = ft_memcpy(copy, s, len);
+	return (copy);
 }

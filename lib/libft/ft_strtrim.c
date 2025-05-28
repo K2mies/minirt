@@ -3,47 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/05 16:04:55 by rhvidste          #+#    #+#             */
-/*   Updated: 2024/11/14 16:02:41 by rhvidste         ###   ########.fr       */
+/*   Created: 2024/11/05 12:04:09 by mpierce           #+#    #+#             */
+/*   Updated: 2024/11/12 12:56:22 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_check_set(char const c, char const *set)
-{
-	int		i;
-
-	i = 0;
-	while (set[i] != '\0')
-	{
-		if (set[i] == c)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	char	*dest;
-	size_t	start;
-	size_t	end;
+	int		start;
+	int		end;
+	char	*trimmed;
 
-	if (s1 == NULL)
+	if (!s1)
 		return (NULL);
 	start = 0;
-	end = ft_strlen(s1);
-	while (s1[start] && ft_check_set(s1[start], set))
+	end = ft_strlen(s1) - 1;
+	while (ft_strchr(set, s1[start]) && start <= end)
 		start++;
-	while (end > start && ft_check_set(s1[end - 1], set))
+	if (start > end)
+		return (ft_strdup(s1 + end + 1));
+	while (ft_strchr(set, s1[end]) && end >= 0)
 		end--;
-	dest = malloc(sizeof(char) * (end - start + 1));
-	if (dest == NULL)
+	trimmed = ft_calloc(end - start + 2, sizeof(char));
+	if (!trimmed)
 		return (NULL);
-	ft_strlcpy(dest, &s1[start], end - start + 1);
-	dest[end - start] = '\0';
-	return (dest);
+	ft_strlcpy(trimmed, &s1[start], end - start + 2);
+	return (trimmed);
 }

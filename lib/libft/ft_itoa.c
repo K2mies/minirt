@@ -3,62 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/07 15:51:34 by rhvidste          #+#    #+#             */
-/*   Updated: 2024/11/15 17:13:13 by rhvidste         ###   ########.fr       */
+/*   Created: 2024/11/05 16:52:29 by mpierce           #+#    #+#             */
+/*   Updated: 2024/11/12 14:14:34 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_len(long nbr);
+static int	intlen(int n)
+{
+	int	len;
+
+	len = 1;
+	if (n < 0)
+	{
+		n *= -1;
+		len++;
+	}
+	while (n > 9)
+	{
+		n /= 10;
+		len++;
+	}
+	return (len);
+}
 
 char	*ft_itoa(int n)
 {
-	int		len;
 	int		i;
-	char	*res;
-	long	nbr;
+	char	*str;
+	int		result;
 
-	len = ft_len(n);
-	res = malloc(sizeof(char) * len + 1);
-	nbr = (long)n;
-	if (!res)
+	if (n == INT_MIN)
+		return (ft_strdup("-2147483648"));
+	i = intlen(n);
+	result = n;
+	str = malloc((i + 1) * sizeof(char));
+	if (!str)
 		return (NULL);
-	if (nbr < 0)
-		nbr = -nbr;
-	i = len - 1;
-	while (nbr != 0)
+	str[i] = 0;
+	if (n < 0)
+		result *= -1;
+	while (i--)
 	{
-		res[i] = ((nbr % 10) + '0');
-		nbr = nbr / 10;
-		i--;
+		str[i] = (result % 10) + 48;
+		result /= 10;
 	}
 	if (n < 0)
-		res[0] = '-';
-	if (n == 0)
-		res[0] = '0';
-	res[len] = 0;
-	return (res);
-}
-
-static int	ft_len(long nbr)
-{
-	int	count;
-
-	count = 0;
-	if (nbr < 0)
-	{
-		count++;
-		nbr = -nbr;
-	}
-	if (nbr == 0)
-		count++;
-	while (nbr != 0)
-	{
-		nbr /= 10;
-		count++;
-	}
-	return (count);
+		str[0] = 45;
+	return (str);
 }

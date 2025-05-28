@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printpercent.c                                  :+:      :+:    :+:   */
+/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/18 14:39:58 by rhvidste          #+#    #+#             */
-/*   Updated: 2024/11/19 09:21:31 by rhvidste         ###   ########.fr       */
+/*   Created: 2024/11/11 12:09:18 by mpierce           #+#    #+#             */
+/*   Updated: 2024/11/12 13:54:39 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "ft_print.h"
 
-int	ft_printpercent(void)
+t_list	*ft_lstnew(void *content)
 {
-	int	len;
+	t_list	*elmt;
 
-	len = write(1, "%", 1);
-	return (len);
+	elmt = malloc(sizeof(t_list));
+	if (!elmt)
+		return (NULL);
+	elmt->content = content;
+	elmt->next = NULL;
+	return (elmt);
 }

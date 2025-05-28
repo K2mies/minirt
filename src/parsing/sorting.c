@@ -1,0 +1,135 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sorting.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/26 16:33:45 by mpierce           #+#    #+#             */
+/*   Updated: 2025/05/27 18:02:55 by mpierce          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minirt.h"
+
+static int	check_for_dups(t_minirt *rt, char ***full)
+{
+	int	i;
+	int	amb;
+	int	cam;
+	int	lig;
+
+	amb = 0;
+	cam = 0;
+	lig = 0;
+	i = -1;
+	while (full[++i])
+	{
+		if (!ft_strcmp(full[i][0], "A"))
+			amb++;
+		else if (!ft_strcmp(full[i][0], "C"))
+			cam++;
+		else if (!ft_strcmp(full[i][0], "L"))
+			lig++;
+	}
+	if (amb > 1)
+		rt_error(rt, "Ambient light max exceeded (1)", 1);
+	if (cam > 1)
+		rt_error(rt, "Camera max exceeded (1)", 1);
+	if (lig > 1)
+		rt_error(rt, "Light source max exceeded (1)", 1);
+	return (i);
+}
+
+static void	load_ambient(t_minirt *rt, char **data)
+{
+	t_ambient	ambient;
+	char		**rgb;
+
+	if (!validate_size(data, 3))
+		rt_error(rt, "Ambient data error", 3);
+	ambient.ratio = ft_atof(data[1]);
+	rgb = ft_split(data[2], ',');
+	if (!rgb)
+		rt_error(rt, "Allocation failure", 2);
+	if (!validate_array(rgb))
+		object_error(rt, NULL, NULL, rgb);
+	ambient.color = color_from_channels(ft_atoi(rgb[0]), ft_atoi(rgb[1]),
+		ft_atoi(rgb[2]));
+	rt->ambient = ambient;
+	object_free(NULL, NULL, rgb);
+}
+
+static void	load_light(t_minirt *rt, char **data)
+{
+	t_light	light;
+	char	**coord;
+	char	**rgb;
+
+	if (!validate_size(data, 4))
+		rt_error(rt, "Light data error", 3);
+	coord = ft_split(data[1], ',');
+	rgb = ft_split(data[3], ',');
+	if (!coord || !rgb)
+		object_error(rt, coord, NULL, rgb);
+	if (!validate_array(coord) || !validate_array(rgb))
+		object_error(rt, coord, NULL, rgb);
+	light.coord = point(ft_atof(coord[0]), ft_atof(coord[1]), ft_atof(coord[2]));
+	if (!ft_isfloat(data[2]))
+		object_error(rt, coord, NULL, rgb);
+	light.brightness = ft_atof(data[2]);
+	light.color = color_from_channels(ft_atoi(rgb[0]), ft_atoi(rgb[1]),
+		ft_atoi(rgb[2]));
+	rt->light = light;
+	object_free(coord, NULL, rgb);
+}
+
+static void	load_camera(t_minirt *rt, char **data)
+{
+	t_camera camera;
+	char	**coord;
+	char	**vec;
+	
+	if (!validate_size(data, 4))
+		rt_error(rt, "Camera data error", 3);
+	coord = ft_split(data[1], ',');
+	vec = ft_split(data[2], ',');
+	if (!coord || !vec)
+		object_error(rt, coord, vec, NULL);
+	if (!validate_array(coord) || !validate_array(vec))
+		object_error(rt, coord, vec, NULL);
+	camera.coord = point(ft_atof(coord[0]), ft_atof(coord[1]), ft_atof(coord[2]));
+	camera.vector = vector(ft_atof(vec[0]), ft_atof(vec[1]), ft_atof(vec[2]));
+	camera.fov = ft_atoi(data[3]);
+	rt->camera = camera;
+	object_free(coord, vec, NULL);
+}
+
+void	sort_data_types(t_minirt *rt, char ***full)
+{
+	int	i;
+	int	index;
+	
+	i = -1;
+	index = 0;
+	rt->object = rt_malloc(rt, (sizeof(t_object *) * (check_for_dups(rt, full) - 2)));
+	while (full[++i])
+	{
+		if (!ft_strcmp(full[i][0], "A"))
+			load_ambient(rt, full[i]);
+		else if (!ft_strcmp(full[i][0], "C"))
+			load_camera(rt, full[i]);
+		else if (!ft_strcmp(full[i][0], "L"))
+			load_light(rt, full[i]);
+		else if (!ft_strcmp(full[i][0], "pl"))
+			load_plane(rt, full[i], index++);
+		else if (!ft_strcmp(full[i][0], "sp"))
+			load_sphere(rt, full[i], index++);
+		else if (!ft_strcmp(full[i][0], "cy"))
+			load_cylinder(rt, full[i], index++);
+		else
+			rt_error(rt, "File contains invalid data type", 1);
+	}
+	rt->object[index] = NULL;
+	free_big_array(full);
+}

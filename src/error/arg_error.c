@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_hex.c                                       :+:      :+:    :+:   */
+/*   arg_error.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/15 15:36:32 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/05/15 15:44:32 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/05/26 12:51:03 by mpierce           #+#    #+#             */
+/*   Updated: 2025/05/26 16:53:57 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
-void	ft_puthex(unsigned int n)
+#include "minirt.h"
+
+void	argc_error(int argc)
 {
-	char	hex_digits[] = "0123456789abcdef";
-	if (n >= 16)
-		ft_puthex(n / 16);
-	write (1, &hex_digits[n % 16], 1);
+	if (argc < 2)
+		ft_dprintf(STDERR_FILENO, "Error\nPlease specify file to load...\n");
+	else if (argc > 2)
+		ft_dprintf(STDERR_FILENO, "Error\nToo many arguments (max 1)\n");
+	exit(1);
 }
