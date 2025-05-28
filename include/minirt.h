@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:11:13 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/05/26 15:36:53 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/27 17:53:45 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,4 +253,5 @@ void	load_sphere(t_minirt *rt, char **data, int index);
 void	load_plane(t_minirt *rt, char **data, int index);
 void	object_error(t_minirt *rt, char **a1, char **a2, char **a3);
 
+t_matrix4	inverse_matrix4(t_matrix4 m);
 #endif

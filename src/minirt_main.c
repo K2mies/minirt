@@ -9,8 +9,8 @@
 /*   Updated: 2025/05/27 17:50:08 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minirt.h"
-//static bool is_tuple_vector(t_tuple *tuple);
 
 //static void	test_return_point(t_float x, t_float y, t_float z)
 //{
