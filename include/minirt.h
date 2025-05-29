@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:11:13 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/05/29 12:06:09 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/29 17:29:11 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ typedef struct s_minirt
 	t_camera	camera;
 	t_light		light;
 	t_object	**object;
+	char		***full_data;
 
 }	t_minirt;
 
@@ -330,8 +331,16 @@ void		cleanup_rt(t_minirt *rt);
 
 /* ------------------------------------------------------ parsing/validation.c */
 void		open_file(t_minirt *rt, char **argv);
+/* ------------------------------------------------------ parsing/validation_utils.c */
+int			valid_map_name(char *name);
+int			open_rt(t_minirt *rt, char *path);
+bool		is_in_range(t_float f, int min, int max);
+bool		validate_rgb(char **rgb);
+bool		file_entry_error(int a, int c, int l);
 /* ----------------------------------------------------------- parsing/utils.c */
 bool		validate_size(char **data, int size);
+void		data_null_check(t_minirt *rt, char **data, char **tmp, char *line);
+bool		rt_isstrdigit(char *str);
 /* --------------------------------------------------------- parsing/sorting.c */
 void		sort_data_types(t_minirt *rt, char ***full);
 /* ------------------------------------------------------==-- parsing/object.c */
@@ -339,5 +348,9 @@ void		load_cylinder(t_minirt *rt, char **data, int index);
 void		load_sphere(t_minirt *rt, char **data, int index);
 void		load_plane(t_minirt *rt, char **data, int index);
 void		object_error(t_minirt *rt, char **a1, char **a2, char **a3);
+
+/////////////Remove these///////////////
+void	print_3d_data_array(char ***arr);
+void	print_stored_data(t_minirt *rt);
 
 #endif

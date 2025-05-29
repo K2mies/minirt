@@ -6,99 +6,113 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:00:08 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/27 18:08:08 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/29 17:28:10 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static int	valid_map_name(char *name)
+static void	check_object_values(t_minirt *rt, t_object *object)
+{
+	if (!is_in_range(object->color.r, 0, 1)
+		|| !is_in_range(object->color.g, 0, 1)
+		|| !is_in_range(object->color.b, 0, 1))
+		rt_error(rt, "Object RGB error", 3);
+	if (object->type != PLANE)
+	{
+		if (!is_in_range(object->vector.x, -1, 1)
+			|| !is_in_range(object->vector.y, -1, 1)
+			|| !is_in_range(object->vector.z, -1, 1))
+			rt_error(rt, "Object vector error", 3);
+	}
+}
+
+static void	check_data_values(t_minirt *rt)
 {
 	int	i;
 
-	i = ft_strlen(name);
-	if (i < 3)
-		return (1);
-	if (name[i - 1] == 't' && name[i - 2] == \
-		'r' && name[i - 3] == '.')
-		return (0);
-	return (1);
+	i = -1;
+	if (!is_in_range(rt->ambient.ratio, 0, 1))
+		rt_error(rt, "Ambient ratio error", 3);
+	if (!is_in_range(rt->ambient.color.r, 0, 1)
+		|| !is_in_range(rt->ambient.color.g, 0, 1)
+		|| !is_in_range(rt->ambient.color.b, 0, 1))
+		rt_error(rt, "Ambient RGB error", 3);
+	if (!is_in_range(rt->camera.vector.x, -1, 1)
+		|| !is_in_range(rt->camera.vector.y, -1, 1)
+		|| !is_in_range(rt->camera.vector.z, -1, 1))
+		rt_error(rt, "Camera vector error", 3);
+	if (!is_in_range(rt->camera.fov, 0, 180))
+		rt_error(rt, "Camera FOV error", 3);
+	if (!is_in_range(rt->light.brightness, 0, 1))
+		rt_error(rt, "Light brightness error", 3);
+	if (!is_in_range(rt->light.color.r, 0, 1) || !is_in_range(rt->light.color.g,
+			0, 1) || !is_in_range(rt->light.color.b, 0, 1))
+		rt_error(rt, "Light RGB error", 3);
+	while (rt->object[++i])
+		check_object_values(rt, rt->object[i]);
 }
 
-static int open_rt(t_minirt *rt, char *path)
+static char	**read_file_to_data(t_minirt *rt, int fd, char **data, char **temp)
 {
-	int	fd;
-
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-	{
-		if (errno == ENOENT)
-			rt_error(rt, "Scene not found", 1);
-		else
-			rt_error(rt, "Problem opening file", 3);
-	}
-	return (fd);
-}
-
-static char **read_file_to_data(t_minirt *rt, int fd, char **data)
-{
-	char	**temp;
 	char	*line;
 	size_t	new;
-	size_t old;
+	size_t	old;
 
 	new = 2;
-	temp = NULL;
 	line = get_next_line(fd);
-	if (!line)
-		rt_error(rt, "Failed to read file", 2);
 	while (line)
 	{
-		old = new - 1;
-		data = ft_realloc(temp, (sizeof(char *)) * old, (sizeof(char *) * (new++)));
-		if (!data)
+		if (line[0] != '\n')
 		{
-			free_array(temp);
-			rt_error(rt, "Allocation failure", 2);
+			old = new - 1;
+			data = ft_realloc(temp, (sizeof(char *)) * old, (sizeof(char *)
+						* (new++)));
+			data_null_check(rt, data, temp, line);
+			temp = data;
+			data[new - 3] = line;
 		}
-		temp = data;
-		data[new - 3] = line;
+		else
+			free(line);
 		line = get_next_line(fd);
 	}
+	if (!data)
+		return (NULL);
 	data[new - 2] = NULL;
 	return (data);
 }
 
 static void	split_data(t_minirt *rt, char **data)
 {
-	char	***full;
 	int		i;
 
 	i = -1;
 	while (data[++i])
 		;
-	full = malloc(sizeof(char **) * (i + 1));
+	rt->full_data = rt_malloc(rt, sizeof(char **) * (i + 1));
 	i = -1;
 	while (data[++i])
 	{
-		full[i] = ft_split(data[i], ' ');
-		if (!full[i])
+		rt->full_data[i] = ft_split(data[i], ' ');
+		if (!rt->full_data[i])
 		{
-			free_big_array(full);
+			free_big_array(rt->full_data);
 			rt_error(rt, "Allocation failure", 2);
 		}
 	}
-	full[i] = NULL;
-	sort_data_types(rt, full);
+	free_array(data);
+	rt->full_data[i] = NULL;
+	sort_data_types(rt, rt->full_data);
+	check_data_values(rt);
 }
 
 void	open_file(t_minirt *rt, char **argv)
 {
-	int	fd;
+	int		fd;
 	char	*path;
 	char	**data;
 	int		i;
-	
+
 	data = NULL;
 	i = -1;
 	if (valid_map_name(argv[1]))
@@ -113,8 +127,11 @@ void	open_file(t_minirt *rt, char **argv)
 	}
 	fd = open_rt(rt, path);
 	free(path);
-	data = read_file_to_data(rt, fd, data);
+	data = read_file_to_data(rt, fd, data, NULL);
 	close(fd);
+	if (!data)
+		rt_error(rt, "No file data found", 3);
 	split_data(rt, data);
-	free_array(data);
+	print_stored_data(rt);
+	cleanup_rt(rt);
 }

@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 17:39:52 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/27 18:07:40 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/29 14:43:47 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,6 @@ int				dprint_ptr(unsigned long int n, int fd);
 int				dprint_hex(unsigned int n, char format, int fd);
 unsigned int	ft_atoi_base(char *str, int base);
 void			*ft_realloc(void *mem, size_t old_size, size_t new_size);
+int				ft_isstrdigit(char *str);
 
 #endif

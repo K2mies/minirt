@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 14:20:20 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/26 14:35:40 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/29 14:28:59 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	*ft_realloc(void *mem, size_t old_size, size_t new_size)
 		free(mem);
 		return (NULL);
 	}
-	temp = malloc(new_size);
+	temp = ft_calloc(1, new_size);
 	if (!temp)
 		return (NULL);
 	if (!mem)
