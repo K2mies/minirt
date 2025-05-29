@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:24:50 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/27 17:50:08 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/29 16:31:35 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1399,7 +1399,9 @@ int	main(int argc, char **argv)
 	(void)argv;
 	if (argc != 2)
 		argc_error(argc);
-	open_file(&rt, argv);
-	cleanup_rt(&rt);
+	rt.object = NULL;
+	rt.full_data = NULL;
+	open_file(&rt, argv);	
+	printf("All values valid\n");
 	return (0);
 }

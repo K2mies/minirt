@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 15:35:35 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/27 17:52:27 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/29 17:27:18 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ void	free_big_array(char ***arr)
 		j = -1;
 		while (arr[i][++j])
 			free(arr[i][j]);
-		free(arr[i]);	
+		free(arr[i]);
 	}
 	free(arr);
 }
 
 t_float	ft_atof_dec(char *str, t_float num)
 {
-	t_float dec;
+	t_float	dec;
 	int		i;
 	int		pos;
 
@@ -76,6 +76,12 @@ t_float	ft_atof(char *str)
 	return (num);
 }
 
+/**
+ * 
+ * @param str String to be checked
+ * 
+ * @return True if string represents a float
+ */
 bool	ft_isfloat(char *str)
 {
 	int	i;
@@ -103,7 +109,8 @@ bool	validate_array(char **arr)
 		j = -1;
 		while (arr[i][++j])
 		{
-			if (!ft_isdigit(arr[i][j]) && !(arr[i][j] == '.' || arr[i][j] == '-' || arr[i][j] == '\n'))
+			if (!ft_isdigit(arr[i][j]) && !(arr[i][j] == '.' || arr[i][j] ==
+						'-' || arr[i][j] == '\n'))
 				return (false);
 		}
 	}

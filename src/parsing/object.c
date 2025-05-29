@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 12:26:37 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/27 17:53:35 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/29 17:33:11 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,13 @@ void	load_plane(t_minirt *rt, char **data, int index)
 		object_error(rt, origin, vec, rgb);
 	if (!validate_array(origin) || !validate_array(vec) || !validate_array(rgb))
 		object_error(rt, origin, vec, rgb);
-	plane->origin = point(ft_atof(origin[0]), ft_atof(origin[1]), ft_atof(origin[2]));
+	plane->origin = point(ft_atof(origin[0]), ft_atof(origin[1]),
+			ft_atof(origin[2]));
 	plane->vector = vector(ft_atof(vec[0]), ft_atof(vec[1]), ft_atof(vec[2]));
-	plane->color = color_from_channels(ft_atoi(rgb[0]), ft_atoi(rgb[1]), ft_atoi(rgb[2]));
+	if (!validate_rgb(rgb))
+		object_error(rt, origin, vec, rgb);
+	plane->color = color_from_channels(ft_atoi(rgb[0]), ft_atoi(rgb[1]),
+			ft_atoi(rgb[2]));
 	rt->object[index] = plane;
 	object_free(origin, vec, rgb);
 }
@@ -59,40 +63,44 @@ void	load_sphere(t_minirt *rt, char **data, int index)
 		object_error(rt, origin, NULL, rgb);
 	if (!validate_array(origin) || !validate_array(rgb))
 		object_error(rt, origin, NULL, rgb);
-	sphere->origin = point(ft_atof(origin[0]), ft_atof(origin[1]), ft_atof(origin[2]));
+	sphere->origin = point(ft_atof(origin[0]), ft_atof(origin[1]),
+			ft_atof(origin[2]));
 	if (!ft_isfloat(data[2]))
 		object_error(rt, origin, NULL, rgb);
 	sphere->diameter = ft_atof(data[2]);
-	sphere->color = color_from_channels(ft_atoi(rgb[0]), ft_atoi(rgb[1]), ft_atoi(rgb[2]));
+	if (!validate_rgb(rgb))
+		object_error(rt, origin, NULL, rgb);
+	sphere->color = color_from_channels(ft_atoi(rgb[0]), ft_atoi(rgb[1]),
+			ft_atoi(rgb[2]));
 	rt->object[index] = sphere;
 	object_free(origin, rgb, NULL);
 }
 
 void	load_cylinder(t_minirt *rt, char **data, int index)
 {
-	t_object	*cylinder;
+	t_object	*cyl;
 	char		**origin;
 	char		**vec;
 	char		**rgb;
 
 	if (!validate_size(data, 6))
 		rt_error(rt, "Cylinder data error", 3);
-	cylinder = rt_malloc(rt, sizeof(t_object));
-	cylinder->type = CYLINDER;
+	cyl = rt_malloc(rt, sizeof(t_object));
 	origin = ft_split(data[1], ',');
 	vec = ft_split(data[2], ',');
 	rgb = ft_split(data[5], ',');
-	if (!origin || !vec || !rgb)
+	if (!origin || !vec || !rgb || !validate_array(origin)
+		|| !validate_array(vec) || !validate_array(rgb) || !validate_rgb(rgb))
 		object_error(rt, origin, vec, rgb);
-	if (!validate_array(origin) || !validate_array(vec) || !validate_array(rgb))
-		object_error(rt, origin, vec, rgb);
-	cylinder->origin = point(ft_atof(origin[0]), ft_atof(origin[1]), ft_atof(origin[2]));
-	cylinder->vector = vector(ft_atof(vec[0]), ft_atof(vec[1]), ft_atof(vec[2]));
 	if (!ft_isfloat(data[3]) || !ft_isfloat(data[4]))
 		object_error(rt, origin, vec, rgb);
-	cylinder->diameter = ft_atof(data[3]);
-	cylinder->height = ft_atof(data[4]);
-	cylinder->color = color_from_channels(ft_atoi(rgb[0]), ft_atoi(rgb[1]), ft_atoi(rgb[2]));
-	rt->object[index] = cylinder;
+	*cyl = (t_object){.type = CYLINDER, .height = ft_atof(data[4]),
+		.diameter = ft_atof(data[3])};
+	cyl->origin = point(ft_atof(origin[0]), ft_atof(origin[1]),
+			ft_atof(origin[2]));
+	cyl->vector = vector(ft_atof(vec[0]), ft_atof(vec[1]), ft_atof(vec[2]));
+	cyl->color = color_from_channels(ft_atoi(rgb[0]), ft_atoi(rgb[1]),
+			ft_atoi(rgb[2]));
+	rt->object[index] = cyl;
 	object_free(origin, vec, rgb);
 }
