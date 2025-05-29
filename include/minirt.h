@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:11:13 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/05/27 17:53:45 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/29 12:04:34 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,15 +89,7 @@ typedef struct s_matrix2
 	t_float	m[2][2];
 }	t_matrix2;
 
-/* ------------------------------------------------------------------- rays.c */
-// Typedef for ray
-typedef struct s_ray
-{
-	t_tuple	origin;
-	t_tuple	direction;
-}	t_ray;
-
-/* -------------------------------------------------------------- File Data */
+/* -------------------------------------------------------------- Scene Data */
 // Typedef for ambient light
 typedef struct s_ambient
 {
@@ -108,7 +100,7 @@ typedef struct s_ambient
 // Typedef for camera
 typedef struct s_camera
 {
-	t_tuple coord;
+	t_tuple origin;
 	t_tuple	vector;
 	int		fov;
 }	t_camera;
@@ -116,7 +108,7 @@ typedef struct s_camera
 // Typedef for light source
 typedef struct s_light
 {
-	t_tuple coord;
+	t_tuple origin;
 	t_float brightness;
 	t_color	color;
 }	t_light;
@@ -125,12 +117,28 @@ typedef struct s_light
 typedef struct s_object
 {
 	int	type;
-	t_tuple coord;
+	t_tuple origin;
 	t_tuple	vector;
 	t_float diameter;
+	t_float	radius;
 	t_float	height;
 	t_color	color;
 }	t_object;
+
+/* ------------------------------------------------------------------- rays.c */
+// Typedef for ray
+typedef struct s_ray
+{
+	t_tuple	origin;
+	t_tuple	direction;
+}	t_ray;
+
+typedef struct s_intersections
+{
+	t_float	t[2];
+	int		count;
+
+}	t_intersections;
 /* --------------------------------------------------------- main data struct */
 // Typedef for Main data struct
 typedef struct s_minirt
@@ -164,12 +172,19 @@ typedef enum	e_proportions
 	ZY
 }	t_proportions;
 
+typedef enum	e_dot_products
+{
+	a,
+	b,
+	c
+}	t_dot_products;
+
 //Enum for object types
 enum e_types
 {
-	OBJ_SPHERE,
-	OBJ_PLANE,
-	OBJ_CYLINDER
+	SPHERE,
+	PLANE,
+	CYLINDER
 };
 
 /* ============================== DEFINITIONS =============================== */
@@ -262,38 +277,67 @@ t_float		cofactor4(t_matrix4 m, int row, int col);
 t_float		cofactor3(t_matrix3 m, int row, int col);
 /* -------------------------------------------------------- minirt_matrix06.c */
 bool		is_matrix4_invertable(t_matrix4 m);
+t_matrix4	inverse_matrix4(t_matrix4 m);
 
+/* ============================= TRANSFORMS ================================= */
 
-/* ================================= ERROR ================================= */
+/* ----------------------------------------------------- minirt_transform00.c */
+t_matrix4	translation(t_float x, t_float y, t_float z);
+/* ----------------------------------------------------- minirt_transform01.c */
+t_matrix4	scaling(t_float x, t_float y, t_float z);
+/* ----------------------------------------------------- minirt_transform02.c */
+double		deg_to_rad(t_float degrees);
+t_matrix4	rotation_x(t_float deg);
+t_matrix4	rotation_y(t_float deg);
+t_matrix4	rotation_z(t_float deg);
+/* ----------------------------------------------------- minirt_transform03.c */
+t_matrix4	shearing(t_float proportions[6]);
+
+/* ============================ RAY CASTING ================================= */
+
+/* ----------------------------------------------------------- minirt_ray00.c */
+t_ray				ray(t_tuple origin, t_tuple direction);
+t_tuple				position(t_ray ray, t_float t);
+/* ----------------------------------------------------------- minirt_ray01.c */
+t_intersections		sphere_intersection(t_object sphere, t_ray ray);
+
+/* ============================== OBJECTS =================================== */
+
+/* -------------------------------------------------------- minirt_object00.c */
+t_object	sphere(t_tuple location, t_float radius);
+
+/* =============================== ERROR ==================================== */
+
 /* -------------------------------------------------------- error/arg_error.c */
-void	rt_error(t_minirt *rt, char *msg, int err);
-void	argc_error(int argc);
+void		rt_error(t_minirt *rt, char *msg, int err);
+void		argc_error(int argc);
 
-/* ================================= UTILS ================================= */
-/* -------------------------------------------------------- utils/close.c */
-void	close_rt(t_minirt *rt, int ex);
-/* -------------------------------------------------------- utils/utils.c */
-void	free_big_array(char ***arr);
-t_float	ft_atof(char *str);
-bool	validate_array(char **arr);
-bool	ft_isfloat(char *str);
-/* -------------------------------------------------------- utils/memory.c */
-void	*rt_malloc(t_minirt *rt, size_t size);
-void	object_free(char **arr1, char **arr2, char **arr3);
-void	cleanup_rt(t_minirt *rt);
+/* ================================ UTIL ===+++============================== */
+
+/* ------------------------------------------------------------ utils/close.c */
+void		close_rt(t_minirt *rt, int ex);
+/* ------------------------------------------------------------ utils/utils.c */
+void		free_big_array(char ***arr);
+t_float		ft_atof(char *str);
+bool		validate_array(char **arr);
+bool		ft_isfloat(char *str);
+/* ----------------------------------------------------------- utils/memory.c */
+void		*rt_malloc(t_minirt *rt, size_t size);
+void		object_free(char **arr1, char **arr2, char **arr3);
+void		cleanup_rt(t_minirt *rt);
 
 /* ================================= PARSING ================================= */
-/* -------------------------------------------------------- parsing/validation.c */
-void	open_file(t_minirt *rt, char **argv);
-/* -------------------------------------------------------- parsing/utils.c */
-bool	validate_size(char **data, int size);
-/* -------------------------------------------------------- parsing/sorting.c */
-void	sort_data_types(t_minirt *rt, char ***full);
-/* -------------------------------------------------------- parsing/object.c */
-void	load_cylinder(t_minirt *rt, char **data, int index);
-void	load_sphere(t_minirt *rt, char **data, int index);
-void	load_plane(t_minirt *rt, char **data, int index);
-void	object_error(t_minirt *rt, char **a1, char **a2, char **a3);
 
-t_matrix4	inverse_matrix4(t_matrix4 m);
+/* ------------------------------------------------------ parsing/validation.c */
+void		open_file(t_minirt *rt, char **argv);
+/* ----------------------------------------------------------- parsing/utils.c */
+bool		validate_size(char **data, int size);
+/* --------------------------------------------------------- parsing/sorting.c */
+void		sort_data_types(t_minirt *rt, char ***full);
+/* ------------------------------------------------------==-- parsing/object.c */
+void		load_cylinder(t_minirt *rt, char **data, int index);
+void		load_sphere(t_minirt *rt, char **data, int index);
+void		load_plane(t_minirt *rt, char **data, int index);
+void		object_error(t_minirt *rt, char **a1, char **a2, char **a3);
+
 #endif

@@ -1,6 +1,6 @@
 [
  {
-  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
   "arguments": [
    "cc",
    "-Wextra",
@@ -20,7 +20,7 @@
   "file": "src/minirt_main.c"
  },
  {
-  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
   "arguments": [
    "cc",
    "-Wextra",
@@ -40,7 +40,7 @@
   "file": "src/tuple/minirt_tuples00.c"
  },
  {
-  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
   "arguments": [
    "cc",
    "-Wextra",
@@ -60,7 +60,7 @@
   "file": "src/tuple/minirt_tuples01.c"
  },
  {
-  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
   "arguments": [
    "cc",
    "-Wextra",
@@ -80,7 +80,7 @@
   "file": "src/tuple/minirt_tuples02.c"
  },
  {
-  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
   "arguments": [
    "cc",
    "-Wextra",
@@ -100,7 +100,7 @@
   "file": "src/tuple/minirt_tuples03.c"
  },
  {
-  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
   "arguments": [
    "cc",
    "-Wextra",
@@ -120,7 +120,7 @@
   "file": "src/tuple/minirt_tuples04.c"
  },
  {
-  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
   "arguments": [
    "cc",
    "-Wextra",
@@ -140,7 +140,7 @@
   "file": "src/tuple/minirt_tuples05.c"
  },
  {
-  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
   "arguments": [
    "cc",
    "-Wextra",
@@ -160,7 +160,7 @@
   "file": "src/tuple/minirt_floats.c"
  },
  {
-  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
   "arguments": [
    "cc",
    "-Wextra",
@@ -180,7 +180,7 @@
   "file": "src/color/minirt_color00.c"
  },
  {
-  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
   "arguments": [
    "cc",
    "-Wextra",
@@ -200,7 +200,7 @@
   "file": "src/color/minirt_color01.c"
  },
  {
-  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
   "arguments": [
    "cc",
    "-Wextra",
@@ -220,7 +220,7 @@
   "file": "src/color/minirt_color02.c"
  },
  {
-  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
   "arguments": [
    "cc",
    "-Wextra",
@@ -240,7 +240,7 @@
   "file": "src/color/minirt_color03.c"
  },
  {
-  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
   "arguments": [
    "cc",
    "-Wextra",
@@ -260,7 +260,7 @@
   "file": "src/color/minirt_color04.c"
  },
  {
-  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
   "arguments": [
    "cc",
    "-Wextra",
@@ -280,7 +280,7 @@
   "file": "src/canvas/minirt_canvas00.c"
  },
  {
-  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
   "arguments": [
    "cc",
    "-Wextra",
@@ -300,7 +300,7 @@
   "file": "src/canvas/minirt_canvas01.c"
  },
  {
-  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
   "arguments": [
    "cc",
    "-Wextra",
@@ -320,7 +320,7 @@
   "file": "src/ppm/minirt_ppm00.c"
  },
  {
-  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
   "arguments": [
    "cc",
    "-Wextra",
@@ -340,7 +340,7 @@
   "file": "src/matrix/minirt_matrix00.c"
  },
  {
-  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
   "arguments": [
    "cc",
    "-Wextra",
@@ -360,7 +360,7 @@
   "file": "src/matrix/minirt_matrix01.c"
  },
  {
-  "directory": "/Users/hvidsten/Documents/WORK/code/hive/Hivestuff/GIT/git_minirt",
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
   "arguments": [
    "cc",
    "-Wextra",
@@ -378,5 +378,385 @@
    "obj/matrix/minirt_matrix02.o"
   ],
   "file": "src/matrix/minirt_matrix02.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/matrix/minirt_matrix03.c",
+   "-o",
+   "obj/matrix/minirt_matrix03.o"
+  ],
+  "file": "src/matrix/minirt_matrix03.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/matrix/minirt_matrix04.c",
+   "-o",
+   "obj/matrix/minirt_matrix04.o"
+  ],
+  "file": "src/matrix/minirt_matrix04.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/matrix/minirt_matrix05.c",
+   "-o",
+   "obj/matrix/minirt_matrix05.o"
+  ],
+  "file": "src/matrix/minirt_matrix05.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/matrix/minirt_matrix06.c",
+   "-o",
+   "obj/matrix/minirt_matrix06.o"
+  ],
+  "file": "src/matrix/minirt_matrix06.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/transform/minirt_transform00.c",
+   "-o",
+   "obj/transform/minirt_transform00.o"
+  ],
+  "file": "src/transform/minirt_transform00.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/transform/minirt_transform01.c",
+   "-o",
+   "obj/transform/minirt_transform01.o"
+  ],
+  "file": "src/transform/minirt_transform01.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/transform/minirt_transform02.c",
+   "-o",
+   "obj/transform/minirt_transform02.o"
+  ],
+  "file": "src/transform/minirt_transform02.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/transform/minirt_transform03.c",
+   "-o",
+   "obj/transform/minirt_transform03.o"
+  ],
+  "file": "src/transform/minirt_transform03.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/ray/minirt_ray00.c",
+   "-o",
+   "obj/ray/minirt_ray00.o"
+  ],
+  "file": "src/ray/minirt_ray00.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/object/minirt_object00.c",
+   "-o",
+   "obj/object/minirt_object00.o"
+  ],
+  "file": "src/object/minirt_object00.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/error/arg_error.c",
+   "-o",
+   "obj/error/arg_error.o"
+  ],
+  "file": "src/error/arg_error.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/error/error.c",
+   "-o",
+   "obj/error/error.o"
+  ],
+  "file": "src/error/error.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/parsing/validation.c",
+   "-o",
+   "obj/parsing/validation.o"
+  ],
+  "file": "src/parsing/validation.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/parsing/sorting.c",
+   "-o",
+   "obj/parsing/sorting.o"
+  ],
+  "file": "src/parsing/sorting.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/parsing/utils.c",
+   "-o",
+   "obj/parsing/utils.o"
+  ],
+  "file": "src/parsing/utils.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/parsing/object.c",
+   "-o",
+   "obj/parsing/object.o"
+  ],
+  "file": "src/parsing/object.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/utils/close.c",
+   "-o",
+   "obj/utils/close.o"
+  ],
+  "file": "src/utils/close.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/utils/utils.c",
+   "-o",
+   "obj/utils/utils.o"
+  ],
+  "file": "src/utils/utils.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/utils/memory.c",
+   "-o",
+   "obj/utils/memory.o"
+  ],
+  "file": "src/utils/memory.c"
  }
 ]

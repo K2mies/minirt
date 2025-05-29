@@ -63,46 +63,46 @@ static void	load_ambient(t_minirt *rt, char **data)
 static void	load_light(t_minirt *rt, char **data)
 {
 	t_light	light;
-	char	**coord;
+	char	**origin;
 	char	**rgb;
 
 	if (!validate_size(data, 4))
 		rt_error(rt, "Light data error", 3);
-	coord = ft_split(data[1], ',');
+	origin = ft_split(data[1], ',');
 	rgb = ft_split(data[3], ',');
-	if (!coord || !rgb)
-		object_error(rt, coord, NULL, rgb);
-	if (!validate_array(coord) || !validate_array(rgb))
-		object_error(rt, coord, NULL, rgb);
-	light.coord = point(ft_atof(coord[0]), ft_atof(coord[1]), ft_atof(coord[2]));
+	if (!origin || !rgb)
+		object_error(rt, origin, NULL, rgb);
+	if (!validate_array(origin) || !validate_array(rgb))
+		object_error(rt, origin, NULL, rgb);
+	light.origin = point(ft_atof(origin[0]), ft_atof(origin[1]), ft_atof(origin[2]));
 	if (!ft_isfloat(data[2]))
-		object_error(rt, coord, NULL, rgb);
+		object_error(rt, origin, NULL, rgb);
 	light.brightness = ft_atof(data[2]);
 	light.color = color_from_channels(ft_atoi(rgb[0]), ft_atoi(rgb[1]),
 		ft_atoi(rgb[2]));
 	rt->light = light;
-	object_free(coord, NULL, rgb);
+	object_free(origin, NULL, rgb);
 }
 
 static void	load_camera(t_minirt *rt, char **data)
 {
 	t_camera camera;
-	char	**coord;
+	char	**origin;
 	char	**vec;
 	
 	if (!validate_size(data, 4))
 		rt_error(rt, "Camera data error", 3);
-	coord = ft_split(data[1], ',');
+	origin = ft_split(data[1], ',');
 	vec = ft_split(data[2], ',');
-	if (!coord || !vec)
-		object_error(rt, coord, vec, NULL);
-	if (!validate_array(coord) || !validate_array(vec))
-		object_error(rt, coord, vec, NULL);
-	camera.coord = point(ft_atof(coord[0]), ft_atof(coord[1]), ft_atof(coord[2]));
+	if (!origin || !vec)
+		object_error(rt, origin, vec, NULL);
+	if (!validate_array(origin) || !validate_array(vec))
+		object_error(rt, origin, vec, NULL);
+	camera.origin = point(ft_atof(origin[0]), ft_atof(origin[1]), ft_atof(origin[2]));
 	camera.vector = vector(ft_atof(vec[0]), ft_atof(vec[1]), ft_atof(vec[2]));
 	camera.fov = ft_atoi(data[3]);
 	rt->camera = camera;
-	object_free(coord, vec, NULL);
+	object_free(origin, vec, NULL);
 }
 
 void	sort_data_types(t_minirt *rt, char ***full)

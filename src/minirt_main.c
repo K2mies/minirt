@@ -1362,8 +1362,37 @@ void	test_print_tuple(t_tuple t)
 //
 //}
 
+//void	test_create_sphere()
+//{
+//	t_object	sp;
+//
+//	sp = sphere();
+//	printf("sphere coord: %f, %f, %f,\n sphere radius: %f\n", sp.coord.x, sp.coord.y, sp.coord.z, sp.radius);
+//
+//
+//	sp = sphere();
+//	printf("sphere coord: %f, %f, %f,\n sphere radius: %f\n", sp.coord.x, sp.coord.y, sp.coord.z, sp.radius);
+//}
+//
+
+//void	test_sphere_intersection_discriminant()
+//{
+//	t_intersections	res;
+////	t_float	discriminant;
+//	t_ray	r = ray(point(0, 1, -5), vector(0, 0, 1));
+//	t_object	sp = sphere(point(0, 0, 0), 1);
+//	res = sphere_intersection(sp, r);
+//	printf("t1 = %f t2 = %f\n", res.t[0], res.t[1]);
+//
+//}
+
 int	main(int argc, char **argv)
 {
+//	test_sphere_intersection_discriminant();
+//	(void)argc;
+//	(void)argv;
+//	test_create_sphere();
+
 	t_minirt rt;
 
 	(void)rt;
