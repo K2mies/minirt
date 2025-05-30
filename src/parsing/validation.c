@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:00:08 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/29 17:28:10 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/30 14:02:56 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ static void	split_data(t_minirt *rt, char **data)
 		rt->full_data[i] = ft_split(data[i], ' ');
 		if (!rt->full_data[i])
 		{
-			free_big_array(rt->full_data);
+			free_big_array(&rt->full_data);
 			rt_error(rt, "Allocation failure", 2);
 		}
 	}
@@ -133,5 +133,5 @@ void	open_file(t_minirt *rt, char **argv)
 		rt_error(rt, "No file data found", 3);
 	split_data(rt, data);
 	print_stored_data(rt);
-	cleanup_rt(rt);
+	free_big_array(&rt->full_data);
 }

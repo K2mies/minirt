@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:11:13 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/05/30 12:23:00 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/30 14:03:12 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 
 /* ================================= MACROS ================================= */
 
-#define M_PI 3.14159265358979323846
+# define M_PI 3.14159265358979323846
 
 /* ================================ TYPEDEFS ================================ */
 
@@ -133,26 +133,45 @@ typedef struct s_ray
 	t_tuple	direction;
 }	t_ray;
 
+// Typedef for ray intersections
 typedef struct s_intersections
 {
 	t_float	t[2];
 	int		count;
 
 }	t_intersections;
+
+// Typedef for object intersection
+typedef struct s_intersection
+{
+	t_float		t;
+	t_object	object;
+}	t_intersection;
+
 /* --------------------------------------------------------- main data struct */
 // Typedef for Main data struct
 typedef struct s_minirt
 {
-	t_canvas	*canvas;
-	t_ambient	ambient;
-	t_camera	camera;
-	t_light		light;
-	t_object	**object;
-	char		***full_data;
+	t_canvas		*canvas;
+	t_ambient		ambient;
+	t_camera		camera;
+	t_light			light;
+	t_object		**object;
+	char			***full_data;
+	t_intersection	*intersections;
 
 }	t_minirt;
 
 /* ================================ ENUMS =================================== */
+
+//Enum for letters to use  with var arr ie: arr[a], arr[b] etc..
+typedef enum	e_letters
+{
+	a,
+	b,
+	c
+}	t_letters;
+
 //Enum for RGBA channels 
 enum	e_channel_type
 {
@@ -172,13 +191,6 @@ typedef enum	e_proportions
 	ZX,
 	ZY
 }	t_proportions;
-
-typedef enum	e_dot_products
-{
-	a,
-	b,
-	c
-}	t_dot_products;
 
 //Enum for object types
 enum e_types
@@ -318,7 +330,7 @@ void		argc_error(int argc);
 /* ------------------------------------------------------------ utils/close.c */
 void		close_rt(t_minirt *rt, int ex);
 /* ------------------------------------------------------------ utils/utils.c */
-void		free_big_array(char ***arr);
+void		free_big_array(char ****arr);
 t_float		ft_atof(char *str);
 bool		validate_array(char **arr);
 bool		ft_isfloat(char *str);

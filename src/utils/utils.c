@@ -6,26 +6,27 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 15:35:35 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/29 17:27:18 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/30 14:07:34 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	free_big_array(char ***arr)
+void	free_big_array(char ****arr)
 {
 	int	i;
 	int	j;
 
 	i = -1;
-	while (arr[++i])
+	while ((*arr)[++i])
 	{
 		j = -1;
-		while (arr[i][++j])
-			free(arr[i][j]);
-		free(arr[i]);
+		while ((*arr)[i][++j])
+			free((*arr)[i][j]);
+		free((*arr)[i]);
 	}
-	free(arr);
+	free(*arr);
+	*arr = NULL;
 }
 
 t_float	ft_atof_dec(char *str, t_float num)
