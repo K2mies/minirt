@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 15:17:45 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/29 16:35:31 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/30 12:24:54 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ bool	validate_rgb(char **rgb)
 	return (true);
 }
 
-bool	file_entry_error(int a, int c, int l)
+bool	file_entry_error(int a, int c, int l, int obj)
 {
-	if (a != 1 || c != 1 || l != 1)
+	if (a != 1 || c != 1 || l != 1 || obj == 0)
 		ft_dprintf(STDERR_FILENO, "Error\n");
 	if (a < 1)
 		ft_dprintf(STDERR_FILENO, "Ambient data missing\n");
@@ -77,7 +77,9 @@ bool	file_entry_error(int a, int c, int l)
 		ft_dprintf(STDERR_FILENO, "Light data missing\n");
 	else if (l > 1)
 		ft_dprintf(STDERR_FILENO, "Light data max exceeded (1)\n");
-	if (a != 1 || c != 1 || l != 1)
+	else if (obj == 0)
+		ft_dprintf(STDERR_FILENO, "At least one object required\n");
+	if (a != 1 || c != 1 || l != 1 || obj == 0)
 		return (true);
 	return (false);
 }
