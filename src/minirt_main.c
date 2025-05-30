@@ -1377,6 +1377,7 @@ void	test_print_tuple(t_tuple t)
 
 void	test_sphere_intersection_discriminant(t_minirt *rt)
 {
+	(void)rt;
 	t_intersections	res;
 //	t_float	discriminant;
 	t_ray	r = ray(point(0, 0, -5), vector(0, 0, 1));
