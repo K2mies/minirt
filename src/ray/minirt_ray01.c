@@ -30,7 +30,7 @@ t_intersection intersection(t_float t, t_object obj)
  * @param ray		Ray to cast
  * @return	t_intersections	result of intersections
  */
-t_intersections	sphere_intersection(t_object sphere, t_ray ray)
+t_intersections	sphere_intersection(t_object sphere, t_ray ray, t_minirt *rt)
 {
 	t_tuple	sphere_to_ray;
 	t_float dp[3];

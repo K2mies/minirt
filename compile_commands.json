@@ -758,5 +758,65 @@
    "obj/utils/memory.o"
   ],
   "file": "src/utils/memory.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/ray/minirt_ray01.c",
+   "-o",
+   "obj/ray/minirt_ray01.o"
+  ],
+  "file": "src/ray/minirt_ray01.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/parsing/validation_utils.c",
+   "-o",
+   "obj/parsing/validation_utils.o"
+  ],
+  "file": "src/parsing/validation_utils.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/remove_this/julesprints.c",
+   "-o",
+   "obj/remove_this/julesprints.o"
+  ],
+  "file": "src/remove_this/julesprints.c"
  }
 ]

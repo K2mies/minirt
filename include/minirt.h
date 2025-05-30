@@ -6,11 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:11:13 by rhvidste          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/05/30 12:31:52 by mpierce          ###   ########.fr       */
-=======
 /*   Updated: 2025/05/30 14:03:12 by mpierce          ###   ########.fr       */
->>>>>>> jules
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,8 +157,10 @@ typedef struct s_minirt
 	t_camera		camera;
 	t_light			light;
 	t_object		**object;
+	int				n_obj;
 	char			***full_data;
-	t_intersection	*intersections;
+	t_intersection	*ts;
+	int				n_ts;
 
 }	t_minirt;
 
@@ -316,6 +314,7 @@ t_matrix4	shearing(t_float proportions[6]);
 t_ray				ray(t_tuple origin, t_tuple direction);
 t_tuple				position(t_ray ray, t_float t);
 /* ----------------------------------------------------------- minirt_ray01.c */
+t_intersection		intersection(t_float t, t_object obj);
 t_intersections		sphere_intersection(t_object sphere, t_ray ray);
 
 /* ============================== OBJECTS =================================== */
