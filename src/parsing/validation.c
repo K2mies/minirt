@@ -6,12 +6,19 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:00:08 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/30 17:15:06 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/30 17:42:31 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
+/**
+ * 
+ * @brief Checks values of object data are in range
+ * 
+ * @param rt Main struct
+ * @param object Specific object to be checked
+ * 
+ */
 static void	check_object_values(t_minirt *rt, t_object *object)
 {
 	if (!is_in_range(object->color.r, 0, 1)
@@ -26,7 +33,13 @@ static void	check_object_values(t_minirt *rt, t_object *object)
 			rt_error(rt, "Object vector error", 3);
 	}
 }
-
+/**
+ * 
+ * @brief Validates data in the struct is within value ranges
+ * 
+ * @param rt Main struct
+ * 
+ */
 static void	check_data_values(t_minirt *rt)
 {
 	int	i;
@@ -52,7 +65,17 @@ static void	check_data_values(t_minirt *rt)
 	while (rt->object[++i])
 		check_object_values(rt, rt->object[i]);
 }
-
+/**
+ * 
+ * @brief Reads the contents of the file to a 2D array.
+ * 		If line contains only newline it is skipped.
+ * 
+ * @param rt Main struct
+ * @param fd File descriptor for the open file
+ * @param data 2D array to hold the data, passed as NULL
+ * @param temp 2D array used to store the data before reallocating memory
+ * 
+ */
 static char	**read_file_to_data(t_minirt *rt, int fd, char **data, char **temp)
 {
 	char	*line;
@@ -81,7 +104,14 @@ static char	**read_file_to_data(t_minirt *rt, int fd, char **data, char **temp)
 	data[new - 2] = NULL;
 	return (data);
 }
-
+/**
+ * 
+ * @brief Splits the contents of each line of the file into separate elements
+ * 
+ * @param rt Main struct
+ * @param data 2D array containing each line of the file
+ * 
+ */
 static void	split_data(t_minirt *rt, char **data)
 {
 	int		i;
@@ -105,7 +135,14 @@ static void	split_data(t_minirt *rt, char **data)
 	sort_data_types(rt, rt->full_data);
 	check_data_values(rt);
 }
-
+/**
+ * 
+ * @brief Opens the specified file at the given path.
+ * 		If no path is specified then default to scenes directory.
+ * @param rt Main struct
+ * @param argv Command line argument containing file
+ * 
+ */
 void	open_file(t_minirt *rt, char **argv)
 {
 	int		fd;

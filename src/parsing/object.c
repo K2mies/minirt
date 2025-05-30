@@ -6,18 +6,36 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 12:26:37 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/29 17:33:11 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/30 17:36:36 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
+/**
+ * 
+ * @brief Helper function to free arrays and exit in event of error
+ * 
+ * @param rt Main struct
+ * @param a1 First array to free
+ * @param a2 Second array to free
+ * @param a3 Third array to free
+ * 
+ */
 void	object_error(t_minirt *rt, char **a1, char **a2, char **a3)
 {
 	object_free(a1, a2, a3);
 	rt_error(rt, "Data error", 3);
 }
 
+/**
+ * 
+ * @brief Load plane object data to struct
+ * 
+ * @param rt Main struct
+ * @param data 2D array containing object data
+ * @param index Index of the object array to be assigned
+ * 
+ */
 void	load_plane(t_minirt *rt, char **data, int index)
 {
 	t_object	*plane;
@@ -47,6 +65,15 @@ void	load_plane(t_minirt *rt, char **data, int index)
 	object_free(origin, vec, rgb);
 }
 
+/**
+ * 
+ * @brief Load sphere object data to struct
+ * 
+ * @param rt Main struct
+ * @param data 2D array containing object data
+ * @param index Index of the object array to be assigned
+ * 
+ */
 void	load_sphere(t_minirt *rt, char **data, int index)
 {
 	t_object	*sphere;
@@ -76,6 +103,15 @@ void	load_sphere(t_minirt *rt, char **data, int index)
 	object_free(origin, rgb, NULL);
 }
 
+/**
+ * 
+ * @brief Load cylinder object data to struct
+ * 
+ * @param rt Main struct
+ * @param data 2D array containing object data
+ * @param index Index of the object array to be assigned
+ * 
+ */
 void	load_cylinder(t_minirt *rt, char **data, int index)
 {
 	t_object	*cyl;

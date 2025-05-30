@@ -6,12 +6,18 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 15:35:35 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/30 14:07:34 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/30 17:39:31 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
+/**
+ * 
+ * @brief Frees all memory in a 3D array and sets value to NULL
+ * 
+ * @param arr Pointer to 3D array
+ * 
+ */
 void	free_big_array(char ****arr)
 {
 	int	i;
@@ -28,7 +34,14 @@ void	free_big_array(char ****arr)
 	free(*arr);
 	*arr = NULL;
 }
-
+/**
+ * 
+ * @brief Converts decimal part of a string to float
+ * 
+ * @param str String to be converted
+ * @param num Whole number part of the string converted
+ * 
+ */
 t_float	ft_atof_dec(char *str, t_float num)
 {
 	t_float	dec;
@@ -47,7 +60,13 @@ t_float	ft_atof_dec(char *str, t_float num)
 	num += dec / pow(10, pos);
 	return (num);
 }
-
+/**
+ * 
+ * @brief Convert string to float
+ * 
+ * @param str String to be converted
+ * 
+ */
 t_float	ft_atof(char *str)
 {
 	t_float	num;
@@ -98,7 +117,13 @@ bool	ft_isfloat(char *str)
 	}
 	return (true);
 }
-
+/**
+ * 
+ * @brief Checks that the array contains only integers (accepts floats)
+ * 
+ * @param arr 2D array of data to validate
+ * 
+ */
 bool	validate_array(char **arr)
 {
 	int	i;

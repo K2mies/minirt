@@ -6,12 +6,20 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 17:25:11 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/30 14:02:56 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/30 17:37:14 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
+/**
+ * 
+ * @brief Frees all data in 3 2D arrays
+ * 
+ * @param arr1 First array to free
+ * @param arr2 Second array to free
+ * @param arr3 Third array to free
+ * 
+ */
 void	object_free(char **arr1, char **arr2, char **arr3)
 {
 	int	i;
@@ -38,7 +46,14 @@ void	object_free(char **arr1, char **arr2, char **arr3)
 		free(arr3);
 	}
 }
-
+/**
+ * 
+ * @brief Helper function to allocate memory, sets to 0, and NULL check
+ * 
+ * @param rt Main struct
+ * @param size Size of the memory to be allocated
+ * 
+ */
 void	*rt_malloc(t_minirt *rt, size_t size)
 {
 	void	*mem;
@@ -48,7 +63,13 @@ void	*rt_malloc(t_minirt *rt, size_t size)
 		rt_error(rt, "Allocation failure", 2);
 	return (mem);
 }
-
+/**
+ * 
+ * @brief Function to clean up all memory in main struct
+ * 
+ * @param rt Main struct
+ * 
+ */
 void	cleanup_rt(t_minirt *rt)
 {
 	int	i;

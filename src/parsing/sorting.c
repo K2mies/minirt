@@ -6,12 +6,19 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:33:45 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/30 12:31:56 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/30 17:33:28 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
+/**
+ * 
+ * @brief Checks the occurances of each data type
+ * 
+ * @param rt Main struct
+ * @param full 3D array of file contents
+ * 
+ */
 static int	check_for_dups(t_minirt *rt, char ***full)
 {
 	int	i;
@@ -39,7 +46,14 @@ static int	check_for_dups(t_minirt *rt, char ***full)
 		rt_error(rt, NULL, 1);
 	return (i);
 }
-
+/**
+ * 
+ * @brief Load Ambient data into struct
+ * 
+ * @param rt Main struct
+ * @param data 2D array of Ambient data
+ * 
+ */
 static void	load_ambient(t_minirt *rt, char **data)
 {
 	t_ambient	ambient;
@@ -63,6 +77,14 @@ static void	load_ambient(t_minirt *rt, char **data)
 	object_free(NULL, NULL, rgb);
 }
 
+/**
+ * 
+ * @brief Load Light data into struct
+ * 
+ * @param rt Main struct
+ * @param data 2D array of Light data
+ * 
+ */
 static void	load_light(t_minirt *rt, char **data)
 {
 	t_light	light;
@@ -90,6 +112,14 @@ static void	load_light(t_minirt *rt, char **data)
 	object_free(origin, NULL, rgb);
 }
 
+/**
+ * 
+ * @brief Load Camera data into struct
+ * 
+ * @param rt Main struct
+ * @param data 2D array of Camera data
+ * 
+ */
 static void	load_camera(t_minirt *rt, char **data)
 {
 	t_camera	camera;
@@ -113,7 +143,14 @@ static void	load_camera(t_minirt *rt, char **data)
 	rt->camera = camera;
 	object_free(origin, vec, NULL);
 }
-
+/**
+ * 
+ * @brief Reads the array and assigns file contents to data structs
+ * 
+ * @param rt Main struct
+ * @param full 3D array containing all file data
+ * 
+ */
 void	sort_data_types(t_minirt *rt, char ***full)
 {
 	int	i;
