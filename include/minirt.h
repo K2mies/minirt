@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:11:13 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/05/29 17:33:38 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/30 12:31:52 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -336,7 +336,7 @@ int			valid_map_name(char *name);
 int			open_rt(t_minirt *rt, char *path);
 bool		is_in_range(t_float f, int min, int max);
 bool		validate_rgb(char **rgb);
-bool		file_entry_error(int a, int c, int l);
+bool		file_entry_error(int a, int c, int l, int obj);
 /* ----------------------------------------------------------- parsing/utils.c */
 bool		validate_size(char **data, int size);
 void		data_null_check(t_minirt *rt, char **data, char **tmp, char *line);

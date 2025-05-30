@@ -6,13 +6,13 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:33:45 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/29 17:33:46 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/05/30 12:31:56 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static int	check_for_dups(t_minirt *rt, char ***full)
+static int	check_for_dups(t_minirt *rt, char ***full, int obj)
 {
 	int	i;
 	int	amb;
@@ -31,8 +31,11 @@ static int	check_for_dups(t_minirt *rt, char ***full)
 			cam++;
 		else if (!ft_strcmp(full[i][0], "L"))
 			lig++;
+		else if (!ft_strcmp(full[i][0], "sp") || !ft_strcmp(full[i][0], "cy") 
+			|| !ft_strcmp(full[i][0], "pl"))
+			obj++;
 	}
-	if (file_entry_error(amb, cam, lig))
+	if (file_entry_error(amb, cam, lig, obj))
 		rt_error(rt, NULL, 1);
 	return (i);
 }
@@ -119,7 +122,7 @@ void	sort_data_types(t_minirt *rt, char ***full)
 	i = -1;
 	index = 0;
 	rt->object = rt_malloc(rt, (sizeof(t_object *)
-				* (check_for_dups(rt, full) - 2)));
+				* (check_for_dups(rt, full, 0) - 2)));
 	while (full[++i])
 	{
 		if (!ft_strcmp(full[i][0], "A"))
