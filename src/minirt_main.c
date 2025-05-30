@@ -1375,38 +1375,53 @@ void	test_print_tuple(t_tuple t)
 //}
 //
 
-void	test_sphere_intersection_discriminant(t_minirt *rt)
+//void	test_sphere_intersection_discriminant(t_minirt *rt)
+//{
+//	(void)rt;
+//	t_intersections	res;
+////	t_float	discriminant;
+//	t_ray	r = ray(point(0, 0, -5), vector(0, 0, 1));
+//
+//
+////	t_object	sp = sphere(point(0, 0, 0), 1);
+//	// t_object sp = *(rt->object[0]);
+//	res = sphere_intersection(*rt->object[0], r);
+//
+//	printf("t1 = %f t2 = %f count: %d\n", res.t[0], res.t[1], res.count);
+//
+//}
+//
+
+void	test_ray_intersections(t_minirt *rt)
 {
-	t_intersections	res;
-//	t_float	discriminant;
-	t_ray	r = ray(point(0, 0, -5), vector(0, 0, 1));
+	t_object	sp;
 
+	sp = sphere(vector(0, 0, 0), 1.0);
+	t_intersection	i1 = intersection(1, sp);
+	t_intersection	i2 = intersection(2, sp);
 
-//	t_object	sp = sphere(point(0, 0, 0), 1);
-	// t_object sp = *(rt->object[0]);
-	res = sphere_intersection(*rt->object[0], r);
+	rt->n_obj = 2;
+	rt->ts = rt_malloc(rt ,sizeof(t_intersection) * (rt->n_obj * 2));
+	rt->ts[0] = i1;
+	rt->ts[1] = i2;
 
-	printf("t1 = %f t2 = %f count: %d\n", res.t[0], res.t[1], res.count);
-
+	printf("ts[0].t = %f ts[1].t = %f\n", rt->ts[0].t, rt->ts[1].t);
 }
 
 int	main(int argc, char **argv)
 {
-	(void)argc;
-	(void)argv;
-//	test_sphere_intersection_discriminant(&rt);
-//	test_create_sphere();
+//	(void)argc;
+//	(void)argv;
 
 	t_minirt rt;
 
-	(void)rt;
-	(void)argv;
 	if (argc != 2)
 		argc_error(argc);
 	rt.object = NULL;
 	rt.full_data = NULL;
+	rt.n_obj = 0;
 	open_file(&rt, argv);	
-	test_sphere_intersection_discriminant(&rt);
+	test_ray_intersections(&rt);
 	cleanup_rt(&rt);
 	return (0);
 }

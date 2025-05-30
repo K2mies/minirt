@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-static int	check_for_dups(t_minirt *rt, char ***full, int obj)
+static int	check_for_dups(t_minirt *rt, char ***full)
 {
 	int	i;
 	int	amb;
@@ -33,9 +33,9 @@ static int	check_for_dups(t_minirt *rt, char ***full, int obj)
 			lig++;
 		else if (!ft_strcmp(full[i][0], "sp") || !ft_strcmp(full[i][0], "cy") 
 			|| !ft_strcmp(full[i][0], "pl"))
-			obj++;
+			rt->n_obj++;
 	}
-	if (file_entry_error(amb, cam, lig, obj))
+	if (file_entry_error(amb, cam, lig, rt->n_obj))
 		rt_error(rt, NULL, 1);
 	return (i);
 }
@@ -122,7 +122,7 @@ void	sort_data_types(t_minirt *rt, char ***full)
 	i = -1;
 	index = 0;
 	rt->object = rt_malloc(rt, (sizeof(t_object *)
-				* (check_for_dups(rt, full, 0) - 2)));
+				* (check_for_dups(rt, full) - 2)));
 	while (full[++i])
 	{
 		if (!ft_strcmp(full[i][0], "A"))
