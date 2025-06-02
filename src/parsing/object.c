@@ -61,7 +61,7 @@ void	load_plane(t_minirt *rt, char **data, int index)
 		object_error(rt, origin, vec, rgb);
 	plane->color = color_from_channels(ft_atoi(rgb[0]), ft_atoi(rgb[1]),
 			ft_atoi(rgb[2]));
-	rt->object[index] = plane;
+	rt->objs[index] = plane;
 	object_free(origin, vec, rgb);
 }
 
@@ -95,11 +95,13 @@ void	load_sphere(t_minirt *rt, char **data, int index)
 	if (!ft_isfloat(data[2]))
 		object_error(rt, origin, NULL, rgb);
 	sphere->diameter = ft_atof(data[2]);
+
 	if (!validate_rgb(rgb))
 		object_error(rt, origin, NULL, rgb);
+	sphere->radius = (sphere->diameter / 2);
 	sphere->color = color_from_channels(ft_atoi(rgb[0]), ft_atoi(rgb[1]),
 			ft_atoi(rgb[2]));
-	rt->object[index] = sphere;
+	rt->objs[index] = sphere;
 	object_free(origin, rgb, NULL);
 }
 
@@ -137,6 +139,6 @@ void	load_cylinder(t_minirt *rt, char **data, int index)
 	cyl->vector = vector(ft_atof(vec[0]), ft_atof(vec[1]), ft_atof(vec[2]));
 	cyl->color = color_from_channels(ft_atoi(rgb[0]), ft_atoi(rgb[1]),
 			ft_atoi(rgb[2]));
-	rt->object[index] = cyl;
+	rt->objs[index] = cyl;
 	object_free(origin, vec, rgb);
 }

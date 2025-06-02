@@ -19,14 +19,15 @@
  *
  * @return	t_object struct with type OBJ_SPHERE
  */
-t_object	sphere(t_tuple location, t_float radius)
+t_object	sphere(t_tuple location, t_float diameter, t_color col)
 {
 	t_object	sp;
 
 	sp.type = SPHERE;
-	sp.radius = radius;
-//	sp.radius = rand() % 20 + 1;
-	sp.diameter = sp.radius * 2;
+	sp.diameter = diameter;
+	sp.radius = sp.diameter / 2;
 	sp.origin = location;
+	sp.color = col;
+	sp.transform = id_matrix4();
 	return (sp);
 }

@@ -117,12 +117,13 @@ typedef struct s_light
 typedef struct s_object
 {
 	int	type;
-	t_tuple origin;
-	t_tuple	vector;
-	t_float diameter;
-	t_float	radius;
-	t_float	height;
-	t_color	color;
+	t_tuple		origin;
+	t_tuple		vector;
+	t_float		diameter;
+	t_float		radius;
+	t_float		height;
+	t_color		color;
+	t_matrix4	transform;
 }	t_object;
 
 /* ------------------------------------------------------------------- rays.c */
@@ -156,8 +157,8 @@ typedef struct s_minirt
 	t_ambient		ambient;
 	t_camera		camera;
 	t_light			light;
-	t_object		**object;
-	int				n_obj;
+	t_object		**objs;
+	int				n_objs;
 	char			***full_data;
 	t_intersection	*ts;
 	int				n_ts;
@@ -316,11 +317,15 @@ t_tuple				position(t_ray ray, t_float t);
 /* ----------------------------------------------------------- minirt_ray01.c */
 t_intersection		intersection(t_float t, t_object obj);
 t_intersections		sphere_intersection(t_object sphere, t_ray ray);
+void				world_intersect(t_minirt *rt, t_ray *ray);
+t_float				hit(t_minirt *rt);
+/* ----------------------------------------------------------- minirt_ray02.c */
+t_ray				transform(t_ray r, t_matrix4 m);
 
 /* ============================== OBJECTS =================================== */
 
 /* -------------------------------------------------------- minirt_object00.c */
-t_object	sphere(t_tuple location, t_float radius);
+t_object	sphere(t_tuple location, t_float diameter, t_color col);
 
 /* =============================== ERROR ==================================== */
 
@@ -341,24 +346,25 @@ bool		ft_isfloat(char *str);
 void		*rt_malloc(t_minirt *rt, size_t size);
 void		object_free(char **arr1, char **arr2, char **arr3);
 void		cleanup_rt(t_minirt *rt);
+/* -------------------------------------------------------- utils/quicksort.c */
+void		quicksort(t_intersection arr[], int low, int high);
+/* ================================= PARSING ================================ */
 
-/* ================================= PARSING ================================= */
-
-/* ------------------------------------------------------ parsing/validation.c */
+/* ----------------------------------------------------- parsing/validation.c */
 void		open_file(t_minirt *rt, char **argv);
-/* ------------------------------------------------------ parsing/validation_utils.c */
+/* ----------------------------------------------- parsing/validation_utils.c */
 int			valid_map_name(char *name);
 int			open_rt(t_minirt *rt, char *path);
 bool		is_in_range(t_float f, int min, int max);
 bool		validate_rgb(char **rgb);
 bool		file_entry_error(int a, int c, int l, int obj);
-/* ----------------------------------------------------------- parsing/utils.c */
+/* ---------------------------------------------------------- parsing/utils.c */
 bool		validate_size(char **data, int size);
 void		data_null_check(t_minirt *rt, char **data, char **tmp, char *line);
 bool		rt_isstrdigit(char *str);
 /* --------------------------------------------------------- parsing/sorting.c */
 void		sort_data_types(t_minirt *rt, char ***full);
-/* ------------------------------------------------------==-- parsing/object.c */
+/* ---------------------------------------------------------- parsing/object.c */
 void		load_cylinder(t_minirt *rt, char **data, int index);
 void		load_sphere(t_minirt *rt, char **data, int index);
 void		load_plane(t_minirt *rt, char **data, int index);

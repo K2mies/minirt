@@ -11,7 +11,14 @@
 /* ************************************************************************** */
 #include "minirt.h"
 
-
+/**
+ * @brief	creates a intersection
+ * creates and returns an intersection object
+ *
+ * @param t		intersection value
+ * @param obj	object being intersected
+ * @return		t_intersection	result of intersection
+ */
 t_intersection intersection(t_float t, t_object obj)
 {
 	t_intersection	res;
@@ -30,7 +37,7 @@ t_intersection intersection(t_float t, t_object obj)
  * @param ray		Ray to cast
  * @return	t_intersections	result of intersections
  */
-t_intersections	sphere_intersection(t_object sphere, t_ray ray, t_minirt *rt)
+t_intersections	sphere_intersection(t_object sphere, t_ray ray)
 {
 	t_tuple	sphere_to_ray;
 	t_float dp[3];
@@ -52,4 +59,65 @@ t_intersections	sphere_intersection(t_object sphere, t_ray ray, t_minirt *rt)
 	res.t[1] = (-dp[b] + sqrtf(discriminant)) / (2.0 * dp[a]);
 	res.count = 2;
 	return (res);
+}
+
+/**
+ * @brief	run intersection on all world objects
+ * creates a list of intersections for all objects
+ * int the world from one ray
+ *
+ * @param rt	pointer to main data struct
+ * @param ray		Ray to cast
+ */
+void	world_intersect(t_minirt *rt, t_ray *ray)
+{
+	int			i;
+	t_intersections	xs;
+
+	i = 0;
+	rt->n_ts = 0;
+	while (i < rt->n_objs)
+	{
+		if (rt->objs[i]->type == SPHERE)
+			xs = sphere_intersection(*rt->objs[i], *ray);
+		if (xs.count != 0)
+		{
+			rt->ts[rt->n_ts].t = xs.t[0];
+			rt->ts[rt->n_ts].object = *rt->objs[i];
+			++rt->n_ts;
+			rt->ts[rt->n_ts].t = xs.t[1];
+			rt->ts[rt->n_ts].object = *rt->objs[i];
+			++rt->n_ts;
+		}
+		++i;
+	}
+	quicksort(rt->ts, 0, rt->n_ts -1);
+}
+
+/**
+ * @brief	returns hit from list of intersections
+ * returns a hit float which is the lowest positive
+ * number from a list of intersection values
+ *
+ * @param rt	pointer to the main data struct
+ * @return		hit value from list of intersections
+ *				value with be -1 if none are found
+ */
+t_float	hit(t_minirt *rt)
+{
+	int		i;
+	t_float	res;
+
+	i = 0;
+	res = 0;
+	while (i < rt->n_ts)
+	{
+		if (rt->ts[i].t >= 0)
+		{
+			res = rt->ts[i].t;
+			return (res);
+		}
+		i++;
+	}
+	return (-1.f);
 }

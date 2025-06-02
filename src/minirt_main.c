@@ -1392,21 +1392,70 @@ void	test_print_tuple(t_tuple t)
 //}
 //
 
-void	test_ray_intersections(t_minirt *rt)
+//void	test_ray_intersections(t_minirt *rt)
+//{
+//	t_object	sp;
+//
+//	sp = sphere(vector(0, 0, 0), 1.0);
+//	t_intersection	i1 = intersection(1, sp);
+//	t_intersection	i2 = intersection(2, sp);
+//
+//	rt->n_objs = 2;
+//	rt->ts = rt_malloc(rt ,sizeof(t_intersection) * (rt->n_objs * 2));
+//	rt->ts[0] = i1;
+//	rt->ts[1] = i2;
+//
+//	printf("ts[0].t = %f ts[1].t = %f\n", rt->ts[0].t, rt->ts[1].t);
+//}
+//
+
+
+//void	test_world_intersect(t_minirt *rt)
+//{
+//
+//	rt->ts = rt_malloc(rt ,sizeof(t_intersection) * (rt->n_objs * 2));
+//	t_ray	r = ray(point(0, 0, -5), vector(0, 0, 1));
+//	world_intersect(rt, &r);
+//	int	i;
+//	i = 0;
+//	while (i < rt->n_ts)
+//	{
+//		printf("xs: %f\n", rt->ts[i].t);
+//		i++;
+//	}
+//}
+
+//void	test_hit(t_minirt *rt)
+//{
+//	t_float	res;
+//
+//	res = hit(rt);
+//	printf("hit is: %f\n", res);
+//}
+
+//void	test_sphere_intersection()
+//{
+//	t_object	s = sphere(point(0, 0, 0), 1);
+//	t_ray		r = ray(point(0, 1, -5), vector(0, 0, 1));
+//
+//	t_intersections ts = sphere_intersection(s, r);
+//	printf("t1: %f t2: %f\n", ts.t[0], ts.t[1]);
+//}
+//
+void	test_ray_trasformation()
 {
-	t_object	sp;
+	t_ray	r = ray(point(1, 2, 3), vector(0, 1, 0));
+	t_matrix4	m = translation(3, 4, 5);
+	t_ray	r2 = transform(r, m);
+	printf("r2.origin: x: %f y: %f z: %f\n", r2.origin.x, r2.origin.y, r2.origin.z);
+	printf("r2.direction: x: %f y: %f z: %f\n", r2.direction.x, r2.direction.y, r2.direction.z);
 
-	sp = sphere(vector(0, 0, 0), 1.0);
-	t_intersection	i1 = intersection(1, sp);
-	t_intersection	i2 = intersection(2, sp);
-
-	rt->n_obj = 2;
-	rt->ts = rt_malloc(rt ,sizeof(t_intersection) * (rt->n_obj * 2));
-	rt->ts[0] = i1;
-	rt->ts[1] = i2;
-
-	printf("ts[0].t = %f ts[1].t = %f\n", rt->ts[0].t, rt->ts[1].t);
+	m = scaling(2, 3, 4);
+	r2 = transform(r, m);
+	printf("r2.origin: x: %f y: %f z: %f\n", r2.origin.x, r2.origin.y, r2.origin.z);
+	printf("r2.direction: x: %f y: %f z: %f\n", r2.direction.x, r2.direction.y, r2.direction.z);
 }
+
 
 int	main(int argc, char **argv)
 {
@@ -1417,11 +1466,16 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		argc_error(argc);
-	rt.object = NULL;
+	rt.objs = NULL;
 	rt.full_data = NULL;
-	rt.n_obj = 0;
-	open_file(&rt, argv);	
-	test_ray_intersections(&rt);
+	rt.n_objs = 0;
+	rt.ts = NULL;
+	open_file(&rt, argv);
+	test_ray_trasformation();
+//	test_sphere_intersection();
+//	test_world_intersect(&rt);
+//	test_hit(&rt);
+//	test_ray_intersections(&rt);
 	cleanup_rt(&rt);
 	return (0);
 }
