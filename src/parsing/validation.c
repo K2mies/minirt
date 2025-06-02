@@ -62,8 +62,8 @@ static void	check_data_values(t_minirt *rt)
 	if (!is_in_range(rt->light.color.r, 0, 1) || !is_in_range(rt->light.color.g,
 			0, 1) || !is_in_range(rt->light.color.b, 0, 1))
 		rt_error(rt, "Light RGB error", 3);
-	while (rt->object[++i])
-		check_object_values(rt, rt->object[i]);
+	while (rt->objs[++i])
+		check_object_values(rt, rt->objs[i]);
 }
 /**
  * 
@@ -148,10 +148,8 @@ void	open_file(t_minirt *rt, char **argv)
 	int		fd;
 	char	*path;
 	char	**data;
-	int		i;
 
 	data = NULL;
-	i = -1;
 	if (valid_map_name(argv[1]))
 		rt_error(rt, "Invalid file type", 1);
 	if (ft_strchr(argv[1], '/'))
@@ -169,6 +167,6 @@ void	open_file(t_minirt *rt, char **argv)
 	if (!data)
 		rt_error(rt, "No file data found", 3);
 	split_data(rt, data);
-	print_stored_data(rt);
+	//print_stored_data(rt); 
 	free_big_array(&rt->full_data);
 }

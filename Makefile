@@ -68,6 +68,7 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				\
 				$(SRC_DIR)/ray/minirt_ray00.c										\
 				$(SRC_DIR)/ray/minirt_ray01.c										\
+				$(SRC_DIR)/ray/minirt_ray02.c										\
 				\
 				$(SRC_DIR)/object/minirt_object00.c									\
 				\
@@ -83,6 +84,7 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				$(SRC_DIR)/utils/close.c											\
 				$(SRC_DIR)/utils/utils.c											\
 				$(SRC_DIR)/utils/memory.c											\
+				$(SRC_DIR)/utils/quicksort.c										\
 				\
 				$(SRC_DIR)/remove_this/julesprints.c								\
 #-----------------------------------------------------------------------------------#
