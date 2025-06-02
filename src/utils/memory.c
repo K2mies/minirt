@@ -75,11 +75,16 @@ void	cleanup_rt(t_minirt *rt)
 	int	i;
 
 	i = -1;
-	if (rt->object)
+	if (rt->objs)
 	{
-		while (rt->object[++i])
-			free(rt->object[i]);
-		free(rt->object);
+		while (rt->objs[++i])
+			free(rt->objs[i]);
+		free(rt->objs);
+	}
+	i = -1;
+	if (rt->ts)
+	{
+		free(rt->ts);
 	}
 	if (rt->full_data)
 		free_big_array(&rt->full_data);
