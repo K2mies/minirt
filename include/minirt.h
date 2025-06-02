@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:11:13 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/05/30 17:47:37 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/06/02 17:08:21 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ typedef struct s_minirt
 	t_ambient		ambient;
 	t_camera		camera;
 	t_light			light;
-	t_object		**objs;
+	t_object		*objs;
 	int				n_objs;
 	char			***full_data;
 	t_intersection	*ts;

@@ -31,32 +31,33 @@ void	print_stored_data(t_minirt *rt)
 	printf("RGB: %f,%f,%f\n", rt->light.color.r, rt->light.color.g, rt->light.color.b);
 	printf("\n");
 	printf("///// Objects /////\n");
-	while (rt->objs[++i])
+	while (++i < rt->n_objs)
 	{
-		if (rt->objs[i]->type == SPHERE)
+		if (rt->objs[i].type == SPHERE)
 		{
-			printf("Type: %d (0 = Sphere, 1 = Plane, 2 = Cylinder)\n", rt->objs[i]->type);
-			printf("Origin: %f,%f,%f\n", rt->objs[i]->origin.x, rt->objs[i]->origin.y, rt->objs[i]->origin.z);
-			printf("Diameter: %f\n", rt->objs[i]->diameter);
-			printf("RGB: %f,%f,%f\n", rt->objs[i]->color.r, rt->objs[i]->color.g, rt->objs[i]->color.b);
+			printf("Type: %d (0 = Sphere, 1 = Plane, 2 = Cylinder)\n", rt->objs[i].type);
+			printf("Origin: %f,%f,%f\n", rt->objs[i].origin.x, rt->objs[i].origin.y, rt->objs[i].origin.z);
+			printf("Diameter: %f\n", rt->objs[i].diameter);
+			printf("Radius: %f\n", rt->objs[i].radius);
+			printf("RGB: %f,%f,%f\n", rt->objs[i].color.r, rt->objs[i].color.g, rt->objs[i].color.b);
 			printf("\n");
 		}
-		else if (rt->objs[i]->type == PLANE)
+		else if (rt->objs[i].type == PLANE)
 		{
-			printf("Type: %d (0 = Sphere, 1 = Plane, 2 = Cylinder)\n", rt->objs[i]->type);
-			printf("Origin: %f,%f,%f\n", rt->objs[i]->origin.x, rt->objs[i]->origin.y, rt->objs[i]->origin.z);
-			printf("Vector: %f,%f,%f\n", rt->objs[i]->vector.x, rt->objs[i]->vector.y, rt->objs[i]->vector.z);
-			printf("RGB: %f,%f,%f\n", rt->objs[i]->color.r, rt->objs[i]->color.g, rt->objs[i]->color.b);
+			printf("Type: %d (0 = Sphere, 1 = Plane, 2 = Cylinder)\n", rt->objs[i].type);
+			printf("Origin: %f,%f,%f\n", rt->objs[i].origin.x, rt->objs[i].origin.y, rt->objs[i].origin.z);
+			printf("Vector: %f,%f,%f\n", rt->objs[i].vector.x, rt->objs[i].vector.y, rt->objs[i].vector.z);
+			printf("RGB: %f,%f,%f\n", rt->objs[i].color.r, rt->objs[i].color.g, rt->objs[i].color.b);
 			printf("\n");
 		}
-		else if (rt->objs[i]->type == CYLINDER)
+		else if (rt->objs[i].type == CYLINDER)
 		{
-			printf("Type: %d (0 = Sphere, 1 = Plane, 2 = Cylinder)\n", rt->objs[i]->type);
-			printf("Origin: %f,%f,%f\n", rt->objs[i]->origin.x, rt->objs[i]->origin.y, rt->objs[i]->origin.z);
-			printf("Vector: %f,%f,%f\n", rt->objs[i]->vector.x, rt->objs[i]->vector.y, rt->objs[i]->vector.z);
-			printf("Diameter: %f\n", rt->objs[i]->diameter);
-			printf("Height: %f\n", rt->objs[i]->height);
-			printf("RGB: %f,%f,%f\n", rt->objs[i]->color.r, rt->objs[i]->color.g, rt->objs[i]->color.b);
+			printf("Type: %d (0 = Sphere, 1 = Plane, 2 = Cylinder)\n", rt->objs[i].type);
+			printf("Origin: %f,%f,%f\n", rt->objs[i].origin.x, rt->objs[i].origin.y, rt->objs[i].origin.z);
+			printf("Vector: %f,%f,%f\n", rt->objs[i].vector.x, rt->objs[i].vector.y, rt->objs[i].vector.z);
+			printf("Diameter: %f\n", rt->objs[i].diameter);
+			printf("Height: %f\n", rt->objs[i].height);
+			printf("RGB: %f,%f,%f\n", rt->objs[i].color.r, rt->objs[i].color.g, rt->objs[i].color.b);
 			printf("\n");
 		}
 	}

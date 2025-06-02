@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_object00.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 14:49:48 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/05/28 15:14:56 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/06/02 17:13:01 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minirt.h"
 
 /**

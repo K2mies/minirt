@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:00:08 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/30 17:42:31 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/06/02 17:27:08 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,17 @@
  * @param object Specific object to be checked
  * 
  */
-static void	check_object_values(t_minirt *rt, t_object *object)
+static void	check_object_values(t_minirt *rt, t_object object)
 {
-	if (!is_in_range(object->color.r, 0, 1)
-		|| !is_in_range(object->color.g, 0, 1)
-		|| !is_in_range(object->color.b, 0, 1))
+	if (!is_in_range(object.color.r, 0, 1)
+		|| !is_in_range(object.color.g, 0, 1)
+		|| !is_in_range(object.color.b, 0, 1))
 		rt_error(rt, "Object RGB error", 3);
-	if (object->type != PLANE)
+	if (object.type != SPHERE)
 	{
-		if (!is_in_range(object->vector.x, -1, 1)
-			|| !is_in_range(object->vector.y, -1, 1)
-			|| !is_in_range(object->vector.z, -1, 1))
+		if (!is_in_range(object.vector.x, -1, 1)
+			|| !is_in_range(object.vector.y, -1, 1)
+			|| !is_in_range(object.vector.z, -1, 1))
 			rt_error(rt, "Object vector error", 3);
 	}
 }
@@ -62,7 +62,7 @@ static void	check_data_values(t_minirt *rt)
 	if (!is_in_range(rt->light.color.r, 0, 1) || !is_in_range(rt->light.color.g,
 			0, 1) || !is_in_range(rt->light.color.b, 0, 1))
 		rt_error(rt, "Light RGB error", 3);
-	while (rt->objs[++i])
+	while (++i < rt->n_objs)
 		check_object_values(rt, rt->objs[i]);
 }
 /**
@@ -167,6 +167,6 @@ void	open_file(t_minirt *rt, char **argv)
 	if (!data)
 		rt_error(rt, "No file data found", 3);
 	split_data(rt, data);
-	//print_stored_data(rt); 
+	// print_stored_data(rt); 
 	free_big_array(&rt->full_data);
 }

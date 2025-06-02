@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_ray01.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 15:15:41 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/05/28 17:10:24 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/06/02 17:12:29 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minirt.h"
 
 /**
@@ -78,15 +79,15 @@ void	world_intersect(t_minirt *rt, t_ray *ray)
 	rt->n_ts = 0;
 	while (i < rt->n_objs)
 	{
-		if (rt->objs[i]->type == SPHERE)
-			xs = sphere_intersection(*rt->objs[i], *ray);
+		if (rt->objs[i].type == SPHERE)
+			xs = sphere_intersection(rt->objs[i], *ray);
 		if (xs.count != 0)
 		{
 			rt->ts[rt->n_ts].t = xs.t[0];
-			rt->ts[rt->n_ts].object = *rt->objs[i];
+			rt->ts[rt->n_ts].object = rt->objs[i];
 			++rt->n_ts;
 			rt->ts[rt->n_ts].t = xs.t[1];
-			rt->ts[rt->n_ts].object = *rt->objs[i];
+			rt->ts[rt->n_ts].object = rt->objs[i];
 			++rt->n_ts;
 		}
 		++i;

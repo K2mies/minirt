@@ -6,11 +6,12 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 17:25:11 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/30 17:37:14 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/06/02 17:13:12 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
 /**
  * 
  * @brief Frees all data in 3 2D arrays
@@ -76,11 +77,7 @@ void	cleanup_rt(t_minirt *rt)
 
 	i = -1;
 	if (rt->objs)
-	{
-		while (rt->objs[++i])
-			free(rt->objs[i]);
 		free(rt->objs);
-	}
 	i = -1;
 	if (rt->ts)
 	{

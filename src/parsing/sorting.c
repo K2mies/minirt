@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:33:45 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/30 17:33:28 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/06/02 17:14:58 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ void	sort_data_types(t_minirt *rt, char ***full)
 
 	i = -1;
 	index = 0;
-	rt->objs = rt_malloc(rt, (sizeof(t_object *)
+	rt->objs = rt_malloc(rt, (sizeof(t_object)
 				* (check_for_dups(rt, full) - 2)));
 	while (full[++i])
 	{
@@ -177,5 +177,4 @@ void	sort_data_types(t_minirt *rt, char ***full)
 		else
 			rt_error(rt, "File contains invalid data type", 1);
 	}
-	rt->objs[index] = NULL;
 }
