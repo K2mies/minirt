@@ -126,6 +126,14 @@ typedef struct s_object
 	t_matrix4	transform;
 }	t_object;
 
+// Typedef for wall
+typedef struct	s_wall
+{
+	t_tuple	origin;
+	t_float	width;
+	t_float	height;	
+}	t_wall;
+
 /* ------------------------------------------------------------------- rays.c */
 // Typedef for ray
 typedef struct s_ray
@@ -321,12 +329,14 @@ void				world_intersect(t_minirt *rt, t_ray *ray);
 t_float				hit(t_minirt *rt);
 /* ----------------------------------------------------------- minirt_ray02.c */
 t_ray				transform(t_ray r, t_matrix4 m);
+void				set_transform(t_object *s, t_matrix4 m);
 
 /* ============================== OBJECTS =================================== */
 
 /* -------------------------------------------------------- minirt_object00.c */
 t_object	sphere(t_tuple location, t_float diameter, t_color col);
-
+/* -------------------------------------------------------- minirt_object01.c */
+t_wall		wall(t_tuple position, t_float width, t_float height);
 /* =============================== ERROR ==================================== */
 
 /* -------------------------------------------------------- error/arg_error.c */
