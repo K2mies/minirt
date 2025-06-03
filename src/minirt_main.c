@@ -1442,20 +1442,81 @@ void	test_print_tuple(t_tuple t)
 //	printf("t1: %f t2: %f\n", ts.t[0], ts.t[1]);
 //}
 //
-void	test_ray_trasformation()
+//void	test_ray_trasformation()
+//{
+//	t_ray	r = ray(point(1, 2, 3), vector(0, 1, 0));
+//	t_matrix4	m = translation(3, 4, 5);
+//	t_ray	r2 = transform(r, m);
+//	printf("r2.origin: x: %f y: %f z: %f\n", r2.origin.x, r2.origin.y, r2.origin.z);
+//	printf("r2.direction: x: %f y: %f z: %f\n", r2.direction.x, r2.direction.y, r2.direction.z);
+//
+//	m = scaling(2, 3, 4);
+//	r2 = transform(r, m);
+//	printf("r2.origin: x: %f y: %f z: %f\n", r2.origin.x, r2.origin.y, r2.origin.z);
+//	printf("r2.direction: x: %f y: %f z: %f\n", r2.direction.x, r2.direction.y, r2.direction.z);
+//}
+//void	test_set_transform()
+//{
+//	t_ray	r = ray(point(0, 0, -5), vector(0, 0, 1));
+//	t_object	s = sphere(point(0, 0, 0), 2, color(1, 0, 0));
+//	set_transform(&s, translation(5, 0, 0));
+//	test_print_matrix(s.transform);
+//	t_intersections res = sphere_intersection(s, r);
+//	printf("res.count = %d res[0].t = %f res[1].t = %f\n",res.count, res.t[0], res.t[1]);
+//}
+
+void	test_trace_sphere(t_minirt *rt)
 {
-	t_ray	r = ray(point(1, 2, 3), vector(0, 1, 0));
-	t_matrix4	m = translation(3, 4, 5);
-	t_ray	r2 = transform(r, m);
-	printf("r2.origin: x: %f y: %f z: %f\n", r2.origin.x, r2.origin.y, r2.origin.z);
-	printf("r2.direction: x: %f y: %f z: %f\n", r2.direction.x, r2.direction.y, r2.direction.z);
+//	rt->objs[0].transform = scaling(1, 0.5, 1);
+	int			canvas_pixels = 100;
+	t_float		wall_size = 7.0;
+	t_wall		w = wall(point(0, 0, 10), wall_size, wall_size);
+	t_float		wall_z = w.origin.z;
+	t_canvas	can = *canvas(canvas_pixels, canvas_pixels);
+	t_float		pixel_size = wall_size / canvas_pixels;
+	t_float		half = wall_size / 2;
+	t_color		col = color(1, 0, 0);
+//	t_object	shape = sphere(point(0, 0, 0), 2.0, color(1, 0, 0));
+//	t_object	shape;
+	t_tuple		ray_origin = point(0, 0, -5);
+	t_tuple		position;
+	t_ray		r;
 
-	m = scaling(2, 3, 4);
-	r2 = transform(r, m);
-	printf("r2.origin: x: %f y: %f z: %f\n", r2.origin.x, r2.origin.y, r2.origin.z);
-	printf("r2.direction: x: %f y: %f z: %f\n", r2.direction.x, r2.direction.y, r2.direction.z);
+	t_float	world_y;
+	t_float	world_x;
+
+//	shape = rt->objs[0];
+	rt->ts =	rt_malloc(rt ,sizeof(t_intersection) * (rt->n_objs * 2));
+	int		x;
+	int		y;
+
+	y = 0;
+	while (y < canvas_pixels - 1)
+	{
+		world_y = half - pixel_size * y;
+		x = 0;
+		while (x < canvas_pixels - 1)
+		{
+			world_x = -half + pixel_size * x;
+			position = point(world_x, world_y, wall_z);
+			r = ray(ray_origin, normalize_vector(sub_tuples(position, ray_origin)));
+			world_intersect(rt, &r);
+			if (hit(rt) >= 0.f)
+			{
+				printf("hit!\n");
+				write_pixel_to_canvas(&can, x, y, &col);
+			}
+			else
+			{
+				printf("no hit\n");
+			}
+			x++;
+		}
+		y++;
+	}
+
+	canvas_to_ppm(&can);
 }
-
 
 int	main(int argc, char **argv)
 {
@@ -1471,11 +1532,7 @@ int	main(int argc, char **argv)
 	rt.n_objs = 0;
 	rt.ts = NULL;
 	open_file(&rt, argv);
-	test_ray_trasformation();
-//	test_sphere_intersection();
-//	test_world_intersect(&rt);
-//	test_hit(&rt);
-//	test_ray_intersections(&rt);
+	test_trace_sphere(&rt);
 	cleanup_rt(&rt);
 	return (0);
 }

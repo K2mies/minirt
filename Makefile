@@ -71,6 +71,7 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				$(SRC_DIR)/ray/minirt_ray02.c										\
 				\
 				$(SRC_DIR)/object/minirt_object00.c									\
+				$(SRC_DIR)/object/minirt_object01.c									\
 				\
 				$(SRC_DIR)/error/arg_error.c										\
 				$(SRC_DIR)/error/error.c											\
