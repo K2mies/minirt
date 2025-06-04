@@ -1465,59 +1465,162 @@ void	test_print_tuple(t_tuple t)
 //	printf("res.count = %d res[0].t = %f res[1].t = %f\n",res.count, res.t[0], res.t[1]);
 //}
 
-void	test_trace_sphere(t_minirt *rt)
+//void	test_trace_sphere(t_minirt *rt)
+//{
+////	rt->objs[0].transform = scaling(1, 0.5, 1);
+//	int			canvas_pixels = 100;
+//	t_float		wall_size = 7.0;
+//	t_wall		w = wall(point(0, 0, 10), wall_size, wall_size);
+//	t_float		wall_z = w.origin.z;
+//	t_canvas	can = *canvas(canvas_pixels, canvas_pixels);
+//	t_float		pixel_size = wall_size / canvas_pixels;
+//	t_float		half = wall_size / 2;
+//	t_color		col = color(1, 0, 0);
+////	t_object	shape = sphere(point(0, 0, 0), 2.0, color(1, 0, 0));
+////	t_object	shape;
+//	t_tuple		ray_origin = point(0, 0, -5);
+//	t_tuple		position;
+//	t_ray		r;
+//
+//	t_float	world_y;
+//	t_float	world_x;
+//
+////	shape = rt->objs[0];
+//	rt->ts =	rt_malloc(rt ,sizeof(t_intersection) * (rt->n_objs * 2));
+//	int		x;
+//	int		y;
+//
+//	y = 0;
+//	while (y < canvas_pixels - 1)
+//	{
+//		world_y = half - pixel_size * y;
+//		x = 0;
+//		while (x < canvas_pixels - 1)
+//		{
+//			world_x = -half + pixel_size * x;
+//			position = point(world_x, world_y, wall_z);
+//			r = ray(ray_origin, normalize_vector(sub_tuples(position, ray_origin)));
+//			world_intersect(rt, &r);
+//			if (hit(rt) >= 0.f)
+//			{
+//				printf("hit!\n");
+//				write_pixel_to_canvas(&can, x, y, &col);
+//			}
+//			else
+//			{
+//				printf("no hit\n");
+//			}
+//			x++;
+//		}
+//		y++;
+//	}
+//
+//	canvas_to_ppm(&can);
+//}
+
+//void	test_normal_at()
+//{
+//	t_object	sp = sphere(point(0, 0, 0), 2.0, color(1, 0, 0));
+//	set_transform(&sp, translation(0, 1, 0));
+//	t_tuple res = normal_at(sp, point(0, 1.70711, -0.70711));
+//
+//	printf("test1\n");
+//	printf("sphere normal: x: %.5f, y: %.5f z: %.5f w: %f\n", res.x, res.y, res.z, res.w);
+//
+//	t_matrix4	m = multiply_matrix4(scaling(1, 0.5, 1), rotation_z(36));
+//	set_transform(&sp, m);
+//	res = normal_at(sp, point(0, sqrt(2 / 2), -sqrt(2 / 2)));
+//
+//	printf("test2\n");
+//	printf("sphere normal: x: %.5f, y: %.5f z: %.5f w: %f\n", res.x, res.y, res.z, res.w);
+//}
+
+//void	test_reflect_vector()
+//{
+//	t_tuple	v = vector(1, -1, 0);
+//	t_tuple n = vector(0, 1, 0);
+//	t_tuple r = reflect(v, n);
+//	printf("test1\n");
+//	printf("reflected vector is: x: %f y: %f z: %f w: %f\n", r.x, r.y, r.z, r.w);
+//
+//	v = vector(0, -1, 0);
+//	n = vector(sqrt(2) / 2, sqrt(2) / 2, 0);
+//	r = reflect(v, n);
+//	printf("test2\n");
+//	printf("reflected vector is: x: %f y: %f z: %f w: %f\n", r.x, r.y, r.z, r.w);
+//}
+
+//void	test_light_and_material()
+//{
+//	t_light	light = point_light(point(0, 0, 0), 1.0, color(1, 1, 1));
+//	printf("light: x: %f y: %f z: %f\n", light.origin.x, light.origin.y, light.origin.z);
+//	printf("color: r: %f g: %f b: %f a: %f\n", light.color.r, light.color.g, light.color.b, light.color.a);
+//	t_float	p[4];
+//	p[ambient] = 0.1;
+//	p[diffuse] = 0.9;
+//	p[specular] = 0.9;
+//	p[shininess] = 200.0;
+//	t_material m = material(p, color(1, 1, 1));
+//	
+//	printf("ambient: %f diffuse: %f specular: %f shininess %f\n", m.ambient, m.diffuse, m.specular, m.shininess);
+//	printf("color: r: %f g: %f b: %f a: %f\n", m.color.r, m.color.g, m.color.b, m.color.a);
+//
+//	t_object	sp = sphere(point(0, 0, 0), 2.0, color(1, 0, 0));
+//}
+
+//void	test_lighting01()
+//{
+//	t_float	p[4];
+//	p[ambient] = 0.1;
+//	p[diffuse] = 0.9;
+//	p[specular] = 0.9;
+//	p[shininess] = 200.0;
+//	t_material m = material(p, color(1, 1, 1));
+//	t_tuple	v[3];
+//	v[pos] = point(0, 0, 0);
+//	v[eyev] = vector(0, 0, -1);
+//	v[normalv] = vector(0, 0, -1);
+//	t_light light = point_light(point(0, 0, -10), 1.0, color(1, 1, 1));
+//
+//	t_color	res = lighting(m, light, v);
+//	printf("res:\n r: %f g: %f b: %f a: %f\n", res.r, res.g, res.b, res.a);
+//}
+
+//void	test_lighting02()
+//{
+//	t_float	p[4];
+//	p[ambient] = 0.1;
+//	p[diffuse] = 0.9;
+//	p[specular] = 0.9;
+//	p[shininess] = 200.0;
+//	t_material m = material(p, color(1, 1, 1));
+//	t_tuple	v[3];
+//	v[pos] = point(0, 0, 0);
+//	v[eyev] = vector(0, sqrt(2 / 2), sqrt(2 / 2));
+//	v[normalv] = vector(0, 0, -1);
+//	t_light light = point_light(point(0, 0, -10), 1.0, color(1, 1, 1));
+//
+//	t_color	res = lighting(m, light, v);
+//	printf("res:\n r: %f g: %f b: %f a: %f\n", res.r, res.g, res.b, res.a);
+//}
+
+void	test_lighting03()
 {
-//	rt->objs[0].transform = scaling(1, 0.5, 1);
-	int			canvas_pixels = 100;
-	t_float		wall_size = 7.0;
-	t_wall		w = wall(point(0, 0, 10), wall_size, wall_size);
-	t_float		wall_z = w.origin.z;
-	t_canvas	can = *canvas(canvas_pixels, canvas_pixels);
-	t_float		pixel_size = wall_size / canvas_pixels;
-	t_float		half = wall_size / 2;
-	t_color		col = color(1, 0, 0);
-//	t_object	shape = sphere(point(0, 0, 0), 2.0, color(1, 0, 0));
-//	t_object	shape;
-	t_tuple		ray_origin = point(0, 0, -5);
-	t_tuple		position;
-	t_ray		r;
+	t_float	p[4];
+	p[ambient] = 0.1;
+	p[diffuse] = 0.9;
+	p[specular] = 0.9;
+	p[shininess] = 200.0;
+	t_material m = material(p, color(1, 1, 1));
+	t_tuple	v[3];
+	v[pos] = point(0, 0, 0);
+	v[eyev] = vector(0, 0, -1);
+	v[normalv] = vector(0, 0, -1);
+	t_light light = point_light(point(0, 10, -10), 1.0, color(1, 1, 1));
 
-	t_float	world_y;
-	t_float	world_x;
-
-//	shape = rt->objs[0];
-	rt->ts =	rt_malloc(rt ,sizeof(t_intersection) * (rt->n_objs * 2));
-	int		x;
-	int		y;
-
-	y = 0;
-	while (y < canvas_pixels - 1)
-	{
-		world_y = half - pixel_size * y;
-		x = 0;
-		while (x < canvas_pixels - 1)
-		{
-			world_x = -half + pixel_size * x;
-			position = point(world_x, world_y, wall_z);
-			r = ray(ray_origin, normalize_vector(sub_tuples(position, ray_origin)));
-			world_intersect(rt, &r);
-			if (hit(rt) >= 0.f)
-			{
-				printf("hit!\n");
-				write_pixel_to_canvas(&can, x, y, &col);
-			}
-			else
-			{
-				printf("no hit\n");
-			}
-			x++;
-		}
-		y++;
-	}
-
-	canvas_to_ppm(&can);
+	t_color	res = lighting(m, light, v);
+	printf("res:\n r: %.4f g: %.4f b: %.4f a: %.4f\n", res.r, res.g, res.b, res.a);
 }
-
 int	main(int argc, char **argv)
 {
 //	(void)argc;
@@ -1532,7 +1635,9 @@ int	main(int argc, char **argv)
 	rt.n_objs = 0;
 	rt.ts = NULL;
 	open_file(&rt, argv);
-	test_trace_sphere(&rt);
+	test_lighting03();
+//	test_lighting01();
+//	test_lighting02();
 	cleanup_rt(&rt);
 	return (0);
 }
