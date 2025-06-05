@@ -818,5 +818,145 @@
    "obj/remove_this/julesprints.o"
   ],
   "file": "src/remove_this/julesprints.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/ray/minirt_ray02.c",
+   "-o",
+   "obj/ray/minirt_ray02.o"
+  ],
+  "file": "src/ray/minirt_ray02.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/ray/minirt_ray03.c",
+   "-o",
+   "obj/ray/minirt_ray03.o"
+  ],
+  "file": "src/ray/minirt_ray03.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/ray/minirt_ray04.c",
+   "-o",
+   "obj/ray/minirt_ray04.o"
+  ],
+  "file": "src/ray/minirt_ray04.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/object/minirt_object01.c",
+   "-o",
+   "obj/object/minirt_object01.o"
+  ],
+  "file": "src/object/minirt_object01.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/object/minirt_object02.c",
+   "-o",
+   "obj/object/minirt_object02.o"
+  ],
+  "file": "src/object/minirt_object02.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/object/minirt_object03.c",
+   "-o",
+   "obj/object/minirt_object03.o"
+  ],
+  "file": "src/object/minirt_object03.c"
+ },
+ {
+  "directory": "/home/rhvidste/Documents/GIT/git_minirt",
+  "arguments": [
+   "cc",
+   "-Wextra",
+   "-Werror",
+   "-Wall",
+   "-I",
+   "./lib/libft",
+   "-I",
+   "./include",
+   "-I",
+   "./lib/MLX42/include",
+   "-c",
+   "src/utils/quicksort.c",
+   "-o",
+   "obj/utils/quicksort.o"
+  ],
+  "file": "src/utils/quicksort.c"
  }
 ]
