@@ -33,6 +33,12 @@
 
 # define M_PI 3.14159265358979323846
 
+# define RED	0xFF0000FF
+# define GREEN	0x00FF00FF
+# define BLUE	0x0000FFFF
+# define WHITE	0xFFFFFFFF
+# define BLACK	0x000000FF
+
 /* ================================ TYPEDEFS ================================ */
 
 /* ------------------------------------------------------------- custom types */
@@ -172,15 +178,18 @@ typedef struct s_intersection
 // Typedef for Main data struct
 typedef struct s_minirt
 {
+	char			***full_data;
 	t_canvas		*canvas;
 	t_ambient		ambient;
 	t_camera		camera;
 	t_light			light;
 	t_object		*objs;
 	int				n_objs;
-	char			***full_data;
-	t_intersection	*ts;
 	int				n_ts;
+	t_intersection	*ts;
+	mlx_t			*mlx;
+	int				mlx_d[2];
+	mlx_image_t		*img;
 
 }	t_minirt;
 
@@ -201,6 +210,13 @@ typedef struct	s_lighting_param
 }	t_lighting_param;
 
 /* ================================ ENUMS =================================== */
+
+typedef enum	e_dimensions
+{
+	width,
+	height
+}	t_dimensions;
+
 typedef enum	e_vectors
 {
 	pos,
@@ -252,9 +268,20 @@ enum e_types
 	CYLINDER
 };
 
-/* ============================== DEFINITIONS =============================== */
+typedef enum e_error
+{
+	ERROR_MLX,
+	ERROR_IMG
 
-/* ================================= TUPLES ================================= */
+}	t_error;
+/* ================================ ERROR MSG ================================ */
+
+# define MSG_ERROR_MLX		"ERROR: mlx init failed"
+# define MSG_ERROR_MLX_IMG	"ERROR: mlx img failed"
+
+/* =============================== DEFINITIONS =============================== */
+
+/* ================================= TUPLE`S ================================= */
 
 /* -------------------------------------------------------- minirt_tuples00.c */
 t_tuple		tuple(t_float x, t_float y, t_float z, t_float w);
@@ -387,6 +414,12 @@ t_wall		wall(t_tuple position, t_float width, t_float height);
 t_light		point_light(t_tuple origin, t_float brightness, t_color col);
 /* -------------------------------------------------------- minirt_object03.c */
 t_material	material(t_float param[4], t_color col);
+
+/* ================================ MLX ===================================== */
+
+/* ----------------------------------------------------------- minirt_mlx00.c */
+void		mlx_start(t_minirt *rt, int width, int height);
+void		color_fill(t_minirt *rt);
 
 /* =============================== ERROR ==================================== */
 

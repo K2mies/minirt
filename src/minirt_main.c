@@ -1622,15 +1622,97 @@ void	test_print_tuple(t_tuple t)
 //	printf("res:\n r: %.4f g: %.4f b: %.4f a: %.4f\n", res.r, res.g, res.b, res.a);
 //}
 
-void	test_trace_sphere(t_minirt *rt)
+//void	test_trace_sphere(t_minirt *rt)
+//{
+////	rt->objs[0].transform = scaling(1, 0.5, 1);
+//	t_float		scalar = 10.0;
+//	int			canvas_pixels = 100 * scalar;
+//	t_float		wall_size = 7.0 * scalar;
+//	t_wall		w = wall(point(0, 0, 10 * scalar), wall_size, wall_size);
+//	t_float		wall_z = w.origin.z;
+//	t_canvas	can = *canvas(canvas_pixels, canvas_pixels);
+//	t_float		pixel_size = wall_size / canvas_pixels;
+//	t_float		half = wall_size / 2;
+//	t_color		col = color(1, 0, 0);
+//	t_tuple		ray_origin = point(0, 0, -5 * scalar);
+////	t_tuple		position;
+//	t_tuple		v[3];
+//	t_ray		r;
+//
+//	t_float		hit_point;
+//
+//	t_float	world_y;
+//	t_float	world_x;
+//
+//	int		x;
+//	int		y;
+//
+////	rt->light = point_light(point(-10 * mul, 10 * mul, -10 * mul), 1.0,  color(1, 1, 1));
+//	rt->objs[0] = sphere(point(0, 0, 0), 2.0 * scalar , color(1, 0, 0));
+////	rt->objs[0].transform = scaling(mul, mul, mul);
+//	rt->ts =	rt_malloc(rt ,sizeof(t_intersection) * (rt->n_objs * 2));
+//
+//	//MATERIAL SETTINGS----------------------------------------------------------------- /*
+////	rt->objs[0].material.ambient = 0.1;
+//	rt->objs[0].material.ambient = 0.1;
+////	rt->objs[0].material.duffuse = 0.9;
+//	rt->objs[0].material.diffuse = 0.9;
+////	rt->objs[0].material.specular = 0.9;
+//	rt->objs[0].material.specular = 0.9;
+////	rt->objs[0].material.specular = 200.0;
+//	rt->objs[0].material.shininess = 200.0;	
+//	//CHANGE THE COLOR OF THE OBJECT AND MATERIAL
+//	t_color change_color = color(1, 0, 0.784);
+//	rt->objs[0].color = change_color;
+//	rt->objs[0].material.color  = change_color;
+//	//LIGHT SETTINGS---------------------------------------------------------------------- /*
+//	rt->light.origin = point(-10 * scalar, 10 * scalar, -10 * scalar);
+//	rt->light.color = color(1, 1, 1);
+//	rt->light.brightness = 1.0;
+//	rt->light.color = multiply_color_by_scalar(rt->light.color, rt->light.brightness);
+//
+//	y = 0;
+//	while (y < canvas_pixels - 1)
+//	{
+//		world_y = half - pixel_size * y;
+//		x = 0;
+//		while (x < canvas_pixels - 1)
+//		{
+//			world_x = -half + pixel_size * x;
+//			v[pos] = point(world_x, world_y, wall_z);
+//			r = ray(ray_origin, normalize_vector(sub_tuples(v[pos], ray_origin)));
+//			world_intersect(rt, &r);
+//			hit_point = hit(rt);
+//			if (hit_point >= 0.f)
+//			{
+//				v[pos] = position(r,  hit_point);
+//				v[normalv] = normal_at(rt->objs[0], v[pos]);
+//				v[eyev] = negate_tuple(r.direction);
+//				col = lighting(rt->objs[0].material, rt->light, v);
+////				printf("hit!\n");
+//				write_pixel_to_canvas(&can, x, y, &col);
+//			}
+////			else
+////			{
+////				printf("no hit\n");
+////			}
+//			x++;
+//		}
+//		y++;
+//	}
+//
+//	canvas_to_ppm(&can);
+//}
+
+void	test_trace_sphere_mlx(t_minirt *rt)
 {
 //	rt->objs[0].transform = scaling(1, 0.5, 1);
-	t_float		scalar = 1.0;
+	t_float		scalar = 5.0;
 	int			canvas_pixels = 100 * scalar;
 	t_float		wall_size = 7.0 * scalar;
 	t_wall		w = wall(point(0, 0, 10 * scalar), wall_size, wall_size);
 	t_float		wall_z = w.origin.z;
-	t_canvas	can = *canvas(canvas_pixels, canvas_pixels);
+//	t_canvas	can = *canvas(canvas_pixels, canvas_pixels);
 	t_float		pixel_size = wall_size / canvas_pixels;
 	t_float		half = wall_size / 2;
 	t_color		col = color(1, 0, 0);
@@ -1647,6 +1729,8 @@ void	test_trace_sphere(t_minirt *rt)
 	int		x;
 	int		y;
 
+	mlx_start(rt, canvas_pixels, canvas_pixels);
+//	mlx_loop(rt->mlx);
 //	rt->light = point_light(point(-10 * mul, 10 * mul, -10 * mul), 1.0,  color(1, 1, 1));
 	rt->objs[0] = sphere(point(0, 0, 0), 2.0 * scalar , color(1, 0, 0));
 //	rt->objs[0].transform = scaling(mul, mul, mul);
@@ -1658,7 +1742,7 @@ void	test_trace_sphere(t_minirt *rt)
 //	rt->objs[0].material.duffuse = 0.9;
 	rt->objs[0].material.diffuse = 0.9;
 //	rt->objs[0].material.specular = 0.9;
-	rt->objs[0].material.specular = 0.1;
+	rt->objs[0].material.specular = 0.9;
 //	rt->objs[0].material.specular = 200.0;
 	rt->objs[0].material.shininess = 200.0;	
 	//CHANGE THE COLOR OF THE OBJECT AND MATERIAL
@@ -1670,6 +1754,9 @@ void	test_trace_sphere(t_minirt *rt)
 	rt->light.color = color(1, 1, 1);
 	rt->light.brightness = 1.0;
 	rt->light.color = multiply_color_by_scalar(rt->light.color, rt->light.brightness);
+
+	color_fill(rt);
+//	mlx_loop(rt->mlx);
 
 	y = 0;
 	while (y < canvas_pixels - 1)
@@ -1690,7 +1777,8 @@ void	test_trace_sphere(t_minirt *rt)
 				v[eyev] = negate_tuple(r.direction);
 				col = lighting(rt->objs[0].material, rt->light, v);
 //				printf("hit!\n");
-				write_pixel_to_canvas(&can, x, y, &col);
+//				write_pixel_to_canvas(&can, x, y, &col);
+				mlx_put_pixel(rt->img, x, y, col.rgba);
 			}
 //			else
 //			{
@@ -1699,9 +1787,11 @@ void	test_trace_sphere(t_minirt *rt)
 			x++;
 		}
 		y++;
-	}
-
-	canvas_to_ppm(&can);
+	}	
+	mlx_loop(rt->mlx);
+	mlx_delete_image(rt->mlx, rt->img);
+	mlx_terminate(rt->mlx);
+//	canvas_to_ppm(&can);
 }
 int	main(int argc, char **argv)
 {
@@ -1717,7 +1807,7 @@ int	main(int argc, char **argv)
 	rt.n_objs = 0;
 	rt.ts = NULL;
 	open_file(&rt, argv);
-	test_trace_sphere(&rt);
+	test_trace_sphere_mlx(&rt);
 	cleanup_rt(&rt);
 	return (0);
 }
