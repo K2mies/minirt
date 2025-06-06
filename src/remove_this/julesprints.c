@@ -40,6 +40,21 @@ void	print_stored_data(t_minirt *rt)
 			printf("Diameter: %f\n", rt->objs[i].diameter);
 			printf("Radius: %f\n", rt->objs[i].radius);
 			printf("RGB: %f,%f,%f\n", rt->objs[i].color.r, rt->objs[i].color.g, rt->objs[i].color.b);
+			printf("- Material -\nRGB: %f,%f,%f | Ambient: %f | Diffuse: %f | Specular: %f | Shininess: %f\n", rt->objs[i].material.color.r, rt->objs[i].material.color.g, rt->objs[i].material.color.b, rt->objs[i].material.ambient, rt->objs[i].material.diffuse, rt->objs[i].material.specular, rt->objs[i].material.shininess);
+			printf("- Matrix4 -\n");
+			int a = -1;
+			while (++a < 4)
+			{
+				int b = -1;
+				while (++b < 4)
+				{
+					printf("%f", rt->objs[i].transform.m[a][b]);
+					if (b != 3)
+						printf(",");
+					else
+						printf("\n");
+				}
+			}
 			printf("\n");
 		}
 		else if (rt->objs[i].type == PLANE)
@@ -48,6 +63,21 @@ void	print_stored_data(t_minirt *rt)
 			printf("Origin: %f,%f,%f\n", rt->objs[i].origin.x, rt->objs[i].origin.y, rt->objs[i].origin.z);
 			printf("Vector: %f,%f,%f\n", rt->objs[i].vector.x, rt->objs[i].vector.y, rt->objs[i].vector.z);
 			printf("RGB: %f,%f,%f\n", rt->objs[i].color.r, rt->objs[i].color.g, rt->objs[i].color.b);
+			printf("- Material -\nRGB: %f,%f,%f | Ambient: %f | Diffuse: %f | Specular: %f | Shininess: %f\n", rt->objs[i].material.color.r, rt->objs[i].material.color.g, rt->objs[i].material.color.b, rt->objs[i].material.ambient, rt->objs[i].material.diffuse, rt->objs[i].material.specular, rt->objs[i].material.shininess);
+			printf("- Matrix4 -\n");
+			int a = -1;
+			while (++a < 4)
+			{
+				int b = -1;
+				while (++b < 4)
+				{
+					printf("%f", rt->objs[i].transform.m[a][b]);
+					if (b != 3)
+						printf(",");
+					else
+						printf("\n");
+				}
+			}
 			printf("\n");
 		}
 		else if (rt->objs[i].type == CYLINDER)
@@ -58,6 +88,21 @@ void	print_stored_data(t_minirt *rt)
 			printf("Diameter: %f\n", rt->objs[i].diameter);
 			printf("Height: %f\n", rt->objs[i].height);
 			printf("RGB: %f,%f,%f\n", rt->objs[i].color.r, rt->objs[i].color.g, rt->objs[i].color.b);
+			printf("- Material -\nRGB: %f,%f,%f | Ambient: %f | Diffuse: %f | Specular: %f | Shininess: %f\n", rt->objs[i].material.color.r, rt->objs[i].material.color.g, rt->objs[i].material.color.b, rt->objs[i].material.ambient, rt->objs[i].material.diffuse, rt->objs[i].material.specular, rt->objs[i].material.shininess);
+			printf("- Matrix4 -\n");
+			int a = -1;
+			while (++a < 4)
+			{
+				int b = -1;
+				while (++b < 4)
+				{
+					printf("%f", rt->objs[i].transform.m[a][b]);
+					if (b != 3)
+						printf(",");
+					else
+						printf("\n");
+				}
+			}
 			printf("\n");
 		}
 	}

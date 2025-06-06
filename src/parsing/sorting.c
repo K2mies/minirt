@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:33:45 by mpierce           #+#    #+#             */
-/*   Updated: 2025/06/02 17:14:58 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/06/06 12:33:17 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,10 @@ static void	load_ambient(t_minirt *rt, char **data)
  */
 static void	load_light(t_minirt *rt, char **data)
 {
-	t_light	light;
 	char	**origin;
 	char	**rgb;
+	t_tuple	src;
+	t_color	color;
 
 	if (!validate_size(data, 4))
 		rt_error(rt, "Light data error", 3);
@@ -99,16 +100,15 @@ static void	load_light(t_minirt *rt, char **data)
 		object_error(rt, origin, NULL, rgb);
 	if (!validate_array(origin) || !validate_array(rgb))
 		object_error(rt, origin, NULL, rgb);
-	light.origin = point(ft_atof(origin[0]), ft_atof(origin[1]),
+	src = point(ft_atof(origin[0]), ft_atof(origin[1]),
 			ft_atof(origin[2]));
 	if (!ft_isfloat(data[2]))
 		object_error(rt, origin, NULL, rgb);
-	light.brightness = ft_atof(data[2]);
 	if (!validate_rgb(rgb))
 		object_error(rt, origin, NULL, rgb);
-	light.color = color_from_channels(ft_atoi(rgb[0]), ft_atoi(rgb[1]),
+	color = color_from_channels(ft_atoi(rgb[0]), ft_atoi(rgb[1]),
 			ft_atoi(rgb[2]));
-	rt->light = light;
+	rt->light = point_light(src, ft_atof(data[2]), color);
 	object_free(origin, NULL, rgb);
 }
 
