@@ -33,6 +33,12 @@
 
 # define M_PI 3.14159265358979323846
 
+# define RED	0xFF0000FF
+# define GREEN	0x00FF00FF
+# define BLUE	0x0000FFFF
+# define WHITE	0xFFFFFFFF
+# define BLACK	0x000000FF
+
 /* ================================ TYPEDEFS ================================ */
 
 /* ------------------------------------------------------------- custom types */
@@ -70,7 +76,7 @@ typedef struct s_canvas
 	t_color	**pixels;
 }	t_canvas;
 
-/* -------------------------------------------------------------- matracies */
+/* ---------------------------------------------------------------- matracies */
 // Typedef for 4X4 Matrix
 typedef struct s_matrix4
 {
@@ -89,7 +95,17 @@ typedef struct s_matrix2
 	t_float	m[2][2];
 }	t_matrix2;
 
-/* -------------------------------------------------------------- Scene Data */
+/* -----------------------------------------------------------------materials */
+// Typedef for phong material
+typedef struct	s_material
+{
+	t_color	color;
+	t_float	ambient;
+	t_float	diffuse;
+	t_float	specular;
+	t_float	shininess;
+}	t_material;
+/* --------------------------------------------------------------- Scene Data */
 // Typedef for ambient light
 typedef struct s_ambient
 {
@@ -123,6 +139,7 @@ typedef struct s_object
 	t_float		radius;
 	t_float		height;
 	t_color		color;
+	t_material	material;
 	t_matrix4	transform;
 }	t_object;
 
@@ -134,7 +151,7 @@ typedef struct	s_wall
 	t_float	height;	
 }	t_wall;
 
-/* ------------------------------------------------------------------- rays.c */
+/* --------------------------------------------------------------------- rays */
 // Typedef for ray
 typedef struct s_ray
 {
@@ -161,20 +178,60 @@ typedef struct s_intersection
 // Typedef for Main data struct
 typedef struct s_minirt
 {
+	char			***full_data;
 	t_canvas		*canvas;
 	t_ambient		ambient;
 	t_camera		camera;
 	t_light			light;
 	t_object		*objs;
 	int				n_objs;
-	char			***full_data;
-	t_intersection	*ts;
 	int				n_ts;
+	t_intersection	*ts;
+	mlx_t			*mlx;
+	int				mlx_d[2];
+	mlx_image_t		*img;
 
 }	t_minirt;
 
+/* -------------------------------------- function specific paramater structs */
+// Typedef for lighting function paramaters
+typedef struct	s_lighting_param
+{
+	t_color	ambient;
+	t_color	diffuse;
+	t_color	specular;
+	t_color	effective_color;
+	t_tuple	reflectv;
+	t_tuple	lightv;
+	t_float	light_dot_normal;
+	t_float	reflect_dot_eye;
+	t_float	factor;
+
+}	t_lighting_param;
+
 /* ================================ ENUMS =================================== */
 
+typedef enum	e_dimensions
+{
+	width,
+	height
+}	t_dimensions;
+
+typedef enum	e_vectors
+{
+	pos,
+	eyev,
+	normalv
+}	t_vectors;
+
+//Enum for phong material paramaters
+typedef enum	e_phong
+{
+	ambient,
+	diffuse,
+	specular,
+	shininess
+}	t_phong;
 //Enum for letters to use  with var arr ie: arr[a], arr[b] etc..
 typedef enum	e_letters
 {
@@ -211,9 +268,20 @@ enum e_types
 	CYLINDER
 };
 
-/* ============================== DEFINITIONS =============================== */
+typedef enum e_error
+{
+	ERROR_MLX,
+	ERROR_IMG
 
-/* ================================= TUPLES ================================= */
+}	t_error;
+/* ================================ ERROR MSG ================================ */
+
+# define MSG_ERROR_MLX		"ERROR: mlx init failed"
+# define MSG_ERROR_MLX_IMG	"ERROR: mlx img failed"
+
+/* =============================== DEFINITIONS =============================== */
+
+/* ================================= TUPLE`S ================================= */
 
 /* -------------------------------------------------------- minirt_tuples00.c */
 t_tuple		tuple(t_float x, t_float y, t_float z, t_float w);
@@ -254,6 +322,7 @@ void		convert_hex_to_channels(t_color *col);
 void		convert_channels_to_rgba(t_color *col);
 void		convert_rgba_to_channels(t_color *col);
 /* --------------------------------------------------------- minirt_color03.c */
+t_color		add_three_colors(t_color cola, t_color colb, t_color colc);
 t_color		add_colors(t_color cola, t_color colb);
 t_color		sub_colors(t_color cola, t_color colb);
 /* --------------------------------------------------------- minirt_color04.c */
@@ -330,13 +399,28 @@ t_float				hit(t_minirt *rt);
 /* ----------------------------------------------------------- minirt_ray02.c */
 t_ray				transform(t_ray r, t_matrix4 m);
 void				set_transform(t_object *s, t_matrix4 m);
-
+/* ----------------------------------------------------------- minirt_ray03.c */
+t_tuple				normal_at(t_object sp, t_tuple world_point);
+t_tuple				reflect(t_tuple in, t_tuple normal);
+/* ----------------------------------------------------------- minirt_ray04.c */
+t_color				lighting(t_material m, t_light light, t_tuple v[3]);
 /* ============================== OBJECTS =================================== */
 
 /* -------------------------------------------------------- minirt_object00.c */
 t_object	sphere(t_tuple location, t_float diameter, t_color col);
 /* -------------------------------------------------------- minirt_object01.c */
 t_wall		wall(t_tuple position, t_float width, t_float height);
+/* -------------------------------------------------------- minirt_object02.c */
+t_light		point_light(t_tuple origin, t_float brightness, t_color col);
+/* -------------------------------------------------------- minirt_object03.c */
+t_material	material(t_float param[4], t_color col);
+
+/* ================================ MLX ===================================== */
+
+/* ----------------------------------------------------------- minirt_mlx00.c */
+void		mlx_start(t_minirt *rt, int width, int height);
+void		color_fill(t_minirt *rt);
+
 /* =============================== ERROR ==================================== */
 
 /* -------------------------------------------------------- error/arg_error.c */

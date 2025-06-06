@@ -23,12 +23,18 @@
 t_object	sphere(t_tuple location, t_float diameter, t_color col)
 {
 	t_object	sp;
+	t_float		p[4];
 
+	p[ambient] = 0.1;
+	p[diffuse] = 0.9;
+	p[specular] = 0.9;
+	p[shininess] = 200.0;
 	sp.type = SPHERE;
 	sp.diameter = diameter;
 	sp.radius = sp.diameter / 2;
 	sp.origin = location;
 	sp.color = col;
+	sp.material = material(p, col);
 	sp.transform = id_matrix4();
 	return (sp);
 }
