@@ -1730,10 +1730,9 @@ void	test_trace_sphere_mlx(t_minirt *rt)
 	int		y;
 
 	mlx_start(rt, canvas_pixels, canvas_pixels);
-//	mlx_loop(rt->mlx);
-//	rt->light = point_light(point(-10 * mul, 10 * mul, -10 * mul), 1.0,  color(1, 1, 1));
+	color_fill(rt);
+
 	rt->objs[0] = sphere(point(0, 0, 0), 2.0 * scalar , color(1, 0, 0));
-//	rt->objs[0].transform = scaling(mul, mul, mul);
 	rt->ts =	rt_malloc(rt ,sizeof(t_intersection) * (rt->n_objs * 2));
 
 	//MATERIAL SETTINGS----------------------------------------------------------------- /*
@@ -1754,9 +1753,6 @@ void	test_trace_sphere_mlx(t_minirt *rt)
 	rt->light.color = color(1, 1, 1);
 	rt->light.brightness = 1.0;
 	rt->light.color = multiply_color_by_scalar(rt->light.color, rt->light.brightness);
-
-	color_fill(rt);
-//	mlx_loop(rt->mlx);
 
 	y = 0;
 	while (y < canvas_pixels - 1)
@@ -1787,7 +1783,7 @@ void	test_trace_sphere_mlx(t_minirt *rt)
 			x++;
 		}
 		y++;
-	}	
+	}
 	mlx_loop(rt->mlx);
 	mlx_delete_image(rt->mlx, rt->img);
 	mlx_terminate(rt->mlx);
