@@ -174,6 +174,31 @@ typedef struct s_intersection
 	t_object	object;
 }	t_intersection;
 
+//Typedef fpr computations
+//the v[3] array consists of
+//v[pos]
+//v[eyev]
+//v[normalv]
+typedef struct	s_computations
+{
+	t_float		t;
+	t_object	object;
+	t_tuple		v[3];
+	bool		inside;
+}	t_computations;
+
+/* -------------------------------------------------------------------- world */
+// Typedef for world
+typedef struct	s_world
+{
+	t_light			light;
+	t_object		*objs;
+	t_intersection	*ts;
+	int				n_objs;
+	int				n_ts;
+	t_computations	*cs;
+
+}	t_world;
 /* --------------------------------------------------------- main data struct */
 // Typedef for Main data struct
 typedef struct s_minirt
@@ -187,8 +212,8 @@ typedef struct s_minirt
 	int				n_objs;
 	int				n_ts;
 	t_intersection	*ts;
-	mlx_t			*mlx;
 	int				mlx_d[2];
+	mlx_t			*mlx;
 	mlx_image_t		*img;
 
 }	t_minirt;
@@ -394,8 +419,7 @@ t_tuple				position(t_ray ray, t_float t);
 /* ----------------------------------------------------------- minirt_ray01.c */
 t_intersection		intersection(t_float t, t_object obj);
 t_intersections		sphere_intersection(t_object sphere, t_ray ray);
-void				world_intersect(t_minirt *rt, t_ray *ray);
-t_float				hit(t_minirt *rt);
+void				world_intersect(t_world *w, t_ray ray);
 /* ----------------------------------------------------------- minirt_ray02.c */
 t_ray				transform(t_ray r, t_matrix4 m);
 void				set_transform(t_object *s, t_matrix4 m);
@@ -404,6 +428,10 @@ t_tuple				normal_at(t_object sp, t_tuple world_point);
 t_tuple				reflect(t_tuple in, t_tuple normal);
 /* ----------------------------------------------------------- minirt_ray04.c */
 t_color				lighting(t_material m, t_light light, t_tuple v[3]);
+/* ----------------------------------------------------------- minirt_ray05.c */
+t_computations		prepare_computations(t_intersection i, t_ray r);
+/* ----------------------------------------------------------- minirt_ray05.c */
+t_float				hit(t_minirt *rt);
 /* ============================== OBJECTS =================================== */
 
 /* -------------------------------------------------------- minirt_object00.c */
@@ -414,7 +442,8 @@ t_wall		wall(t_tuple position, t_float width, t_float height);
 t_light		point_light(t_tuple origin, t_float brightness, t_color col);
 /* -------------------------------------------------------- minirt_object03.c */
 t_material	material(t_float param[4], t_color col);
-
+/* -------------------------------------------------------- minirt_object04.c */
+t_world		world(t_minirt *rt);
 /* ================================ MLX ===================================== */
 
 /* ----------------------------------------------------------- minirt_mlx00.c */

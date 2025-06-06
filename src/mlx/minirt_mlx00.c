@@ -11,6 +11,11 @@
 /* ************************************************************************** */
 #include "minirt.h"
 
+/**
+ * @brief	fills img buffer with black
+ * fills the img buffer with black
+ * @param rt		pointer to main data struct
+ */
 void	color_fill(t_minirt *rt)
 {
 	int	x;
@@ -29,7 +34,13 @@ void	color_fill(t_minirt *rt)
 	}
 }
 
-
+/**
+ * @brief	inits mlx
+ * initialises the mlx settings
+ * @param rt		pointer to main data struct
+ * @param x			x dimension
+ * @param y			y domension
+ */
 void	mlx_start(t_minirt *rt, int x, int y)
 {
 //	mlx_set_setting(MLX_MAXIMIZED, true);

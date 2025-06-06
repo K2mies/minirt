@@ -71,55 +71,27 @@ t_intersections	sphere_intersection(t_object sphere, t_ray ray)
  * @param rt	pointer to main data struct
  * @param ray		Ray to cast
  */
-void	world_intersect(t_minirt *rt, t_ray *ray)
+void	world_intersect(t_world *w, t_ray ray)
 {
 	int			i;
 	t_intersections	xs;
 
 	i = 0;
-	rt->n_ts = 0;
-	while (i < rt->n_objs)
+	w->n_ts = 0;
+	while (i < w->n_objs)
 	{
-		if (rt->objs[i].type == SPHERE)
-			xs = sphere_intersection(rt->objs[i], *ray);
+		if (w->objs[i].type == SPHERE)
+			xs = sphere_intersection(w->objs[i], ray);
 		if (xs.count != 0)
 		{
-			rt->ts[rt->n_ts].t = xs.t[0];
-			rt->ts[rt->n_ts].object = rt->objs[i];
-			++rt->n_ts;
-			rt->ts[rt->n_ts].t = xs.t[1];
-			rt->ts[rt->n_ts].object = rt->objs[i];
-			++rt->n_ts;
+			w->ts[w->n_ts].t = xs.t[0];
+			w->ts[w->n_ts].object = w->objs[i];
+			++w->n_ts;
+			w->ts[w->n_ts].t = xs.t[1];
+			w->ts[w->n_ts].object = w->objs[i];
+			++w->n_ts;
 		}
 		++i;
 	}
-	quicksort(rt->ts, 0, rt->n_ts -1);
-}
-
-/**
- * @brief	returns hit from list of intersections
- * returns a hit float which is the lowest positive
- * number from a list of intersection values
- *
- * @param rt	pointer to the main data struct
- * @return		hit value from list of intersections
- *				value with be -1 if none are found
- */
-t_float	hit(t_minirt *rt)
-{
-	int		i;
-	t_float	res;
-
-	i = 0;
-	res = 0;
-	while (i < rt->n_ts)
-	{
-		if (rt->ts[i].t >= 0)
-		{
-			res = rt->ts[i].t;
-			return (res);
-		}
-		i++;
-	}
-	return (-1.f);
+	quicksort(w->ts, 0, w->n_ts -1);
 }
