@@ -11,6 +11,12 @@
 /* ************************************************************************** */
 #include "minirt.h"
 
+/**
+ * @brief	creates and returns a world object
+ * creates and populates from rt a word object
+ * @param rt		Pointer to main data struct
+ * @return			t_world object
+ */
 t_world	world(t_minirt *rt)
 {
 	t_world	w;

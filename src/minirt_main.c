@@ -1790,29 +1790,61 @@ void	test_print_tuple(t_tuple t)
 ////	canvas_to_ppm(&can);
 //}
 
-void	test_world(t_minirt *rt)
-{
-	t_world	w;
-
-	w = world(rt);
-	w.objs[0].material.ambient = 1;
-	w.objs[0].material.color = color(0.8, 1.0, 0.6);
-	w.objs[0].material.diffuse = 0.7;
-	w.objs[0].material.specular = 0.2;
-
-	w.objs[1].transform = scaling(0.5, 0.5, 0.5);
-	w.objs[1].material.ambient = 1;
+//void	test_world(t_minirt *rt)
+//{
+//	t_world	w;
+//
+//	w = world(rt);
+//	w.objs[0].material.ambient = 1;
+//	w.objs[0].material.color = color(0.8, 1.0, 0.6);
+//	w.objs[0].material.diffuse = 0.7;
+//	w.objs[0].material.specular = 0.2;
+//
+//	w.objs[1].transform = scaling(0.5, 0.5, 0.5);
 //	w.objs[1].material.ambient = 1;
+//	t_color	new = color(1, 1, 1);
+//	w.objs[1].color = new;
+//	w.objs[1].material.color = new;
+//
+//	t_ray	r = ray(point(0, 0, 0.75), vector(0, 0, -1));
+//	t_color	res = color_at(w, r);
+//	printf("res color: r: %f g: %f b: %f\n", res.r, res.g, res.b);
+//	t_color	c = w.objs[0].material.color;
+//	printf("outer color: r: %f g: %f b: %f\n", c.r, c.g, c.b);
+//	c = w.objs[1].material.color;
+//	printf("inner color: r: %f g: %f b: %f\n", c.r, c.g, c.b);
+//}
 
-	t_ray	r = ray(point(0, 0, 0.75), vector(0, 0, -1));
-	t_color	res = color_at(w, r);
-	printf("res color: r: %f g: %f b: %f\n", res.r, res.g, res.b);
-	t_color	c = w.objs[0].material.color;
-	printf("outer color: r: %f g: %f b: %f\n", c.r, c.g, c.b);
-	c = w.objs[1].material.color;
-	printf("inner color: r: %f g: %f b: %f\n", c.r, c.g, c.b);
+//void	test_view_transform()
+//{
+//	t_tuple	from = point(1, 3, 2);
+//	t_tuple	to = point(4, -2, 8);
+//	t_tuple	up = vector(1, 1, 0);
+//
+//	t_matrix4	t;
+//	t = view_transform(from, to ,up);
+//	test_print_matrix(t);
+//}
+
+//void	test_camera_creation()
+//{
+//	t_camera	cam;
+//
+//	cam = camera(125, 200, M_PI / 2);
+//	printf("cam.h_size: %f\n", cam.dim[h]);
+//	printf("cam.w_size: %f\n", cam.dim[w]);
+//	printf("can.fov: %f\n", cam.fov);
+//	test_print_matrix(cam.transform);
+//	printf("cam pixel size: %f\n", cam.pixel_size);
+//}
+void	test_ray_for_pixel()
+{
+	t_camera	c = camera(201, 101, M_PI / 2);
+	t_ray		r = ray_for_pixel(c, 100, 50);
+
+	printf("r.origin = x: %f y: %f z: %f\n", r.origin.x, r.origin.y, r.origin.z);
+	printf("r.direction = x: %f y: %f z: %f\n", r.direction.x, r.direction.y, r.direction.z);
 }
-
 int	main(int argc, char **argv)
 {
 //	(void)argc;
@@ -1827,7 +1859,7 @@ int	main(int argc, char **argv)
 	rt.n_objs = 0;
 	rt.ts = NULL;
 	open_file(&rt, argv);
-	test_world(&rt);
+	test_ray_for_pixel();
 	cleanup_rt(&rt);
 	return (0);
 }

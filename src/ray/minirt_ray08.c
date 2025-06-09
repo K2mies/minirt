@@ -1,0 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minirt_ray08.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/09 16:51:07 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/06/09 17:17:30 by rhvidste         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+#include "minirt.h"
+
+t_ray	ray_for_pixel(t_camera cam, t_float px, t_float py)
+{
+	t_ray_for_pixel_param	p;
+	t_matrix4	m;
+
+	p.offset[x] = (px + 0.5) * cam.pixel_size;
+	p.offset[y] = (py + 0.5) * cam.pixel_size;
+	p.world[x] = cam.half[w] - p.offset[x];
+	p.world[y] = cam.half[h] - p.offset[y];
+	m = inverse_matrix4(cam.transform);
+	p.pixel = multiply_matrix4_tuple(m , point(p.world[x], p.world[y], -1));
+	p.origin = multiply_matrix4_tuple(m , point(0, 0, 0));
+	p.direction = normalize_vector(sub_tuples(p.pixel, p.origin));
+	return (ray(p.origin, p.direction));
+}

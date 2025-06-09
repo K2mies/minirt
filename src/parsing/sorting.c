@@ -139,7 +139,7 @@ static void	load_camera(t_minirt *rt, char **data)
 	camera.vector = vector(ft_atof(vec[0]), ft_atof(vec[1]), ft_atof(vec[2]));
 	if (!rt_isstrdigit(data[3]))
 		object_error(rt, origin, vec, NULL);
-	camera.fov = ft_atoi(data[3]);
+	camera.fov = ft_atof(data[3]);
 	rt->camera = camera;
 	object_free(origin, vec, NULL);
 }

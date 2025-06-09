@@ -116,9 +116,15 @@ typedef struct s_ambient
 // Typedef for camera
 typedef struct s_camera
 {
-	t_tuple origin;
-	t_tuple	vector;
-	int		fov;
+	t_tuple		origin;
+	t_tuple		vector;
+	t_matrix4	transform;
+	t_float		dim[2];
+	t_float		fov;
+	t_float		half_view;
+	t_float		aspect;
+	t_float		half[2];
+	t_float		pixel_size;
 }	t_camera;
 
 // Typedef for light source
@@ -219,7 +225,27 @@ typedef struct s_minirt
 
 }	t_minirt;
 
-/* -------------------------------------- function specific paramater structs */
+/* ============================== PARAMATERS ================================ */
+
+typedef	struct	s_ray_for_pixel_param
+{
+	t_float	offset[2];
+	t_float	world[2];
+	t_tuple	pixel;
+	t_tuple	origin;
+	t_tuple	direction;
+
+}	t_ray_for_pixel_param;
+
+// Typedef for view transform paramaters
+typedef struct	s_view_transform_param
+{
+	t_tuple		forward;
+	t_tuple		upn;
+	t_tuple		left;
+	t_tuple		true_up;
+	t_matrix4	orientation;
+}	t_view_transform_param;
 // Typedef for lighting function paramaters
 typedef struct	s_lighting_param
 {
@@ -237,12 +263,21 @@ typedef struct	s_lighting_param
 
 /* ================================ ENUMS =================================== */
 
+//Enum for img dimensions
+typedef enum	e_dim
+{
+	h,
+	w
+}	t_dim;
+
+//Enum for dimensions
 typedef enum	e_dimensions
 {
 	width,
 	height
 }	t_dimensions;
 
+//Enum for vectors
 typedef enum	e_vectors
 {
 	pos,
@@ -258,6 +293,15 @@ typedef enum	e_phong
 	specular,
 	shininess
 }	t_phong;
+
+//Enum for axis
+typedef enum	e_axis
+{
+	x,
+	y,
+	z
+}	t_axis;
+
 //Enum for letters to use  with var arr ie: arr[a], arr[b] etc..
 typedef enum	e_letters
 {
@@ -411,6 +455,8 @@ t_matrix4	rotation_y(t_float deg);
 t_matrix4	rotation_z(t_float deg);
 /* ----------------------------------------------------- minirt_transform03.c */
 t_matrix4	shearing(t_float proportions[6]);
+/* ----------------------------------------------------- minirt_transform04.c */
+t_matrix4	view_transform(t_tuple from, t_tuple to, t_tuple up);
 
 /* ============================ RAY CASTING ================================= */
 
@@ -436,6 +482,8 @@ t_intersection		hit(t_world *w);
 t_color				shade_hit(t_world w, t_computations comps);
 /* ----------------------------------------------------------- minirt_ray07.c */
 t_color				color_at(t_world w, t_ray r);
+/* ----------------------------------------------------------- minirt_ray08.c */
+t_ray				ray_for_pixel(t_camera cam, t_float px, t_float py);
 /* ============================== OBJECTS =================================== */
 
 /* -------------------------------------------------------- minirt_object00.c */
@@ -448,6 +496,8 @@ t_light		point_light(t_tuple origin, t_float brightness, t_color col);
 t_material	material(t_float param[4], t_color col);
 /* -------------------------------------------------------- minirt_object04.c */
 t_world		world(t_minirt *rt);
+/* -------------------------------------------------------- minirt_object05.c */
+t_camera	camera(int h_size, int w_size, t_float fov);
 /* ================================ MLX ===================================== */
 
 /* ----------------------------------------------------------- minirt_mlx00.c */
