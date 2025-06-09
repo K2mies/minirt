@@ -197,6 +197,7 @@ typedef struct	s_world
 	int				n_objs;
 	int				n_ts;
 	t_computations	*cs;
+	int				hit_index;
 
 }	t_world;
 /* --------------------------------------------------------- main data struct */
@@ -430,8 +431,11 @@ t_tuple				reflect(t_tuple in, t_tuple normal);
 t_color				lighting(t_material m, t_light light, t_tuple v[3]);
 /* ----------------------------------------------------------- minirt_ray05.c */
 t_computations		prepare_computations(t_intersection i, t_ray r);
-/* ----------------------------------------------------------- minirt_ray05.c */
-t_float				hit(t_minirt *rt);
+/* ----------------------------------------------------------- minirt_ray06.c */
+t_intersection		hit(t_world *w);
+t_color				shade_hit(t_world w, t_computations comps);
+/* ----------------------------------------------------------- minirt_ray07.c */
+t_color				color_at(t_world w, t_ray r);
 /* ============================== OBJECTS =================================== */
 
 /* -------------------------------------------------------- minirt_object00.c */

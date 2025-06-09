@@ -16,27 +16,28 @@
  * returns a hit float which is the lowest positive
  * number from a list of intersection values
  *
- * @param rt	pointer to the main data struct
+ * @param w		pointer to the world object to calculate hit
  * @return		hit value from list of intersections
  *				value with be -1 if none are found
  */
-t_float	hit(t_minirt *rt)
+t_intersection	hit(t_world *w)
 {
 	int		i;
-	t_float	res;
+	t_intersection	res;
 
 	i = 0;
-	res = 0;
-	while (i < rt->n_ts)
+	while (i < w->n_ts)
 	{
-		if (rt->ts[i].t >= 0)
+		if (w->ts[i].t >= 0)
 		{
-			res = rt->ts[i].t;
+			w->hit_index = i;
+			res = w->ts[i];
 			return (res);
 		}
 		i++;
 	}
-	return (-1.f);
+	res.t = -1;
+	return (res);
 }
 
 t_color	shade_hit(t_world w, t_computations comps)

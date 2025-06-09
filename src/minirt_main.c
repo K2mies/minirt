@@ -1795,28 +1795,22 @@ void	test_world(t_minirt *rt)
 	t_world	w;
 
 	w = world(rt);
+	w.objs[0].material.ambient = 1;
 	w.objs[0].material.color = color(0.8, 1.0, 0.6);
 	w.objs[0].material.diffuse = 0.7;
 	w.objs[0].material.specular = 0.2;
 
 	w.objs[1].transform = scaling(0.5, 0.5, 0.5);
+	w.objs[1].material.ambient = 1;
+//	w.objs[1].material.ambient = 1;
 
-	t_ray	r = ray(point(0, 0, 0), vector(0, 0, 1));
-	world_intersect(&w,r);
-	int	i;
-	i = -1;
-	while (++i < w.n_ts)
-	{
-		w.cs[i] = prepare_computations(w.ts[i], r);
-//		t_computations comps = prepare_computations(w.ts[i], r);
-//		printf("comps.t = %f\n", comps.t);
-//		printf("comps.v[pos] = x: %f y: %f z: %f\n", comps.v[pos].x, comps.v[pos].y, comps.v[pos].z);
-//		printf("comps.v[eyev] = x: %f y: %f z: %f\n", comps.v[eyev].x, comps.v[eyev].y, comps.v[eyev].z);
-//		printf("comps.v[normalv] = x: %f y: %f z: %f\n", comps.v[normalv].x, comps.v[normalv].y, comps.v[normalv].z);
-		//printf("w.ts[%d].t = %f\n", i, w.ts[i].t);
-	}
-	
-
+	t_ray	r = ray(point(0, 0, 0.75), vector(0, 0, -1));
+	t_color	res = color_at(w, r);
+	printf("res color: r: %f g: %f b: %f\n", res.r, res.g, res.b);
+	t_color	c = w.objs[0].material.color;
+	printf("outer color: r: %f g: %f b: %f\n", c.r, c.g, c.b);
+	c = w.objs[1].material.color;
+	printf("inner color: r: %f g: %f b: %f\n", c.r, c.g, c.b);
 }
 
 int	main(int argc, char **argv)

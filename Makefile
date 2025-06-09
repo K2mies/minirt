@@ -13,6 +13,7 @@
 NAME		= 	miniRT
 
 CC			= 	cc
+#CFLAGS		= 	-Wextra -Werror -Wall -O2 -flto
 CFLAGS		= 	-Wextra -Werror -Wall
 DEBUG_FLAGS	=	-g
 #-----------------------------------------------------------------------------------#
@@ -73,6 +74,7 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				$(SRC_DIR)/ray/minirt_ray04.c										\
 				$(SRC_DIR)/ray/minirt_ray05.c										\
 				$(SRC_DIR)/ray/minirt_ray06.c										\
+				$(SRC_DIR)/ray/minirt_ray07.c										\
 				\
 				$(SRC_DIR)/object/minirt_object00.c									\
 				$(SRC_DIR)/object/minirt_object01.c									\
