@@ -316,7 +316,7 @@ enum	e_channel_type
 	A,
 	B,
 	G,
-	R,
+	R
 };
 
 //Enum for shearing proportions
@@ -404,7 +404,9 @@ t_color		multiply_color(t_color cola, t_color colb);
 /* -------------------------------------------------------- minirt_canvas00.c */
 t_canvas	*canvas(int width, int height);
 /* -------------------------------------------------------- minirt_canvas01.c */
-void		write_pixel_to_canvas(t_canvas *canvas, int x, int y, t_color *col);
+void		write_pixel_to_canvas(t_canvas *canvas, int x, int y, t_color col);
+/* -------------------------------------------------------- minirt_canvas02.c */
+t_canvas	*render(t_camera cam, t_world world);
 
 /* ================================== PPM =================================== */
 
@@ -496,6 +498,7 @@ t_light		point_light(t_tuple origin, t_float brightness, t_color col);
 t_material	material(t_float param[4], t_color col);
 /* -------------------------------------------------------- minirt_object04.c */
 t_world		world(t_minirt *rt);
+t_world		default_world(t_minirt *rt);
 /* -------------------------------------------------------- minirt_object05.c */
 t_camera	camera(int h_size, int w_size, t_float fov);
 /* ================================ MLX ===================================== */

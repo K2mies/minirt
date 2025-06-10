@@ -1837,13 +1837,118 @@ void	test_print_tuple(t_tuple t)
 //	test_print_matrix(cam.transform);
 //	printf("cam pixel size: %f\n", cam.pixel_size);
 //}
-void	test_ray_for_pixel()
-{
-	t_camera	c = camera(201, 101, M_PI / 2);
-	t_ray		r = ray_for_pixel(c, 100, 50);
+//void	test_ray_for_pixel()
+//{
+//	t_camera	c = camera(201, 101, deg_to_rad(90));
+////	t_ray		r = ray_for_pixel(c, 100, 50);
+//
+//	t_matrix4	rot_y = rotation_y(45);
+//	t_matrix4	trans = translation(0, -2, 5);
+//	c.transform = multiply_matrix4(rot_y, trans);
+//	t_ray		r = ray_for_pixel(c, 100, 50);
+//	printf("r.origin = x: %f y: %f z: %f\n", r.origin.x, r.origin.y, r.origin.z);
+//	printf("r.direction = x: %f y: %f z: %f\n", r.direction.x, r.direction.y, r.direction.z);
+//	printf("cam.pixel_size: %.2f\n", c.pixel_size);
+//	printf("square of 2/2 is %f\n", sqrtf(2) / 2);
+//}
 
-	printf("r.origin = x: %f y: %f z: %f\n", r.origin.x, r.origin.y, r.origin.z);
-	printf("r.direction = x: %f y: %f z: %f\n", r.direction.x, r.direction.y, r.direction.z);
+//void	test_render_world_with_camera(t_minirt	*rt)
+//{
+//	t_world		w;
+//	t_camera	c;
+//	t_tuple		from;
+//	t_tuple		to;
+//	t_tuple		up;
+//	t_canvas	*img;
+//	
+//	w = default_world(rt);
+////	w = world(rt);
+////	w.objs[0].color	= color(0.8, 1.0, 0.6);
+////	w.objs[0].material.color = color(0.8, 1.0, 0.6);
+////	w.objs[0].material.diffuse = 0.7;
+////	w.objs[0].material.specular = 0.2;
+////	
+////	w.objs[1].transform = scaling(0.5, 0.5, 0.5);
+//
+//	c = camera(11, 11, deg_to_rad(90));
+//	from = point(0, 0, -5);
+//	to = point(0, 0, 0);
+//	up = vector(0, 1, 0);
+//	c.transform = view_transform(from, to, up);
+//	img = render(c, w);
+//	t_color	col = img->pixels[5][5];
+//	printf("col: r: %f g: %f b: %f\n", col.r, col.g, col.b);
+//
+//	canvas_to_ppm(img);
+//}
+
+void	test_render_scene(t_minirt *rt)
+{
+	t_canvas	*img;
+	t_camera	cam;
+	t_world		w;
+	t_matrix4	tm;
+	t_matrix4	tm2;
+	t_matrix4	tm3;
+	t_matrix4	tm4;
+	t_matrix4	tm5;
+
+	w = world(rt);
+	w.objs[0].transform = scaling(10, 0.01, 10);
+	w.objs[0].color	= color(1, 0.9, 0.9);
+	w.objs[0].material.color = color(1, 0.9, 0.9);
+	w.objs[0].material.specular = 0;
+
+	tm = id_matrix4();
+	tm = multiply_matrix4(tm, scaling(10, 0.01, 10));
+	tm = multiply_matrix4(tm, rotation_x(90));
+	tm = multiply_matrix4(tm, rotation_y(-45));
+	tm = multiply_matrix4(tm, translation(0, 0, 5));
+	w.objs[1].transform = tm;
+	w.objs[1].color = w.objs[0].color;
+	w.objs[1].material = w.objs[0].material;
+
+	tm2 = id_matrix4();
+	tm2 = multiply_matrix4(tm, scaling(10, 0.01, 10));
+	tm2 = multiply_matrix4(tm, rotation_x(90));
+	tm2 = multiply_matrix4(tm, rotation_y(45));
+	tm2 = multiply_matrix4(tm, translation(0, 0, 5));
+	w.objs[2].transform = tm2;
+	w.objs[2].color = w.objs[0].color;
+	w.objs[2].material.color = w.objs[0].material.color;
+	
+	tm3 = id_matrix4();
+	tm3 = multiply_matrix4(tm3, translation(-0.5, 1, 0.5));
+	w.objs[3].transform = tm3;
+	w.objs[3].color = color(0.1, 1, 0.5);
+	w.objs[3].material.color = color(0.1, 1, 0.5);
+	
+	tm4 = id_matrix4();
+	tm4 = multiply_matrix4(tm4, scaling(0.5, 0.5, 0.5));
+	tm4 = multiply_matrix4(tm4, translation(1.5, 0.5, -0.5));
+	w.objs[4].transform = tm4;
+	w.objs[4].color = color(0.5, 1, 0.1);
+	w.objs[4].material.color = color(0.5, 1, 0.1);
+	w.objs[4].material.diffuse = 0.7;
+	w.objs[4].material.specular = 0.3;
+
+	tm5 = id_matrix4();
+	tm5 = multiply_matrix4(tm5, scaling(0.33, 0.33, 0.33));
+	tm5 = multiply_matrix4(tm5, translation(-1.5, 0.33, -0.75));
+	w.objs[5].transform = tm5;
+	w.objs[5].color = color(1, 0.8, 0.1);
+	w.objs[5].material.color = color(1, 0.8, 0.1);
+	w.objs[5].material.diffuse = 0.7;
+	w.objs[5].material.specular = 0.3;
+
+	w.light = point_light(point(-10, 10, -10), 1.0, color(1, 1, 1));
+
+	cam = camera(50 , 100, deg_to_rad(60));
+	cam.transform = view_transform(point(0, 1.5, -5), point(-1, -1, 0), vector(0, 1, 0));
+	
+	img = render(cam, w);
+	canvas_to_ppm(img);
+
 }
 int	main(int argc, char **argv)
 {
@@ -1859,7 +1964,7 @@ int	main(int argc, char **argv)
 	rt.n_objs = 0;
 	rt.ts = NULL;
 	open_file(&rt, argv);
-	test_ray_for_pixel();
+	test_render_scene(&rt);
 	cleanup_rt(&rt);
 	return (0);
 }

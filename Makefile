@@ -13,8 +13,8 @@
 NAME		= 	miniRT
 
 CC			= 	cc
-#CFLAGS		= 	-Wextra -Werror -Wall -O2 -flto
-CFLAGS		= 	-Wextra -Werror -Wall
+CFLAGS		= 	-Wextra -Werror -Wall -O2 -flto
+#CFLAGS		= 	-Wextra -Werror -Wall
 DEBUG_FLAGS	=	-g
 #-----------------------------------------------------------------------------------#
 LIBLMX_DIR	=	./lib/MLX42
@@ -51,6 +51,7 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				\
 				$(SRC_DIR)/canvas/minirt_canvas00.c									\
 				$(SRC_DIR)/canvas/minirt_canvas01.c									\
+				$(SRC_DIR)/canvas/minirt_canvas02.c									\
 				\
 				$(SRC_DIR)/ppm/minirt_ppm00.c										\
 				\

@@ -30,3 +30,25 @@ t_world	world(t_minirt *rt)
 	return(w);
 }
 
+/**
+ * @brief	creates a default world object
+ * creates and populates a default world which is assumed to have two sphear
+ * objects and a light. Also assumes that .rt file is default file
+ * @param rt		Pointer to main data struct
+ * @return			t_world object
+ */
+t_world	default_world(t_minirt *rt)
+{
+	t_world	w;
+	t_color	col;
+
+	w = world(rt);
+	col = color(0.8, 1.0, 0.6);
+	w.objs[0].color = col;
+	w.objs[0].material.color = col;
+	w.objs[0].material.diffuse = 0.7;
+	w.objs[0].material.specular = 0.2;
+	w.objs[1].transform = scaling(0.5, 0.5, 0.5);
+	w.light = point_light(point(-10, 10, -10), 1.0, color(1, 1, 1));
+	return (w);
+}

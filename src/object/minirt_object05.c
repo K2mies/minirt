@@ -12,6 +12,28 @@
 #include "minirt.h"
 
 /**
+ * @brief	Helper function to calculate pixel size on canvas
+ * calculates the size of a pixel on the canvas
+ * @param cam		pointer to the camera object to operate on
+ */
+static void	calculate_pixel_size(t_camera *cam)
+{
+	cam->half_view = tan(cam->fov / 2);
+	cam->aspect = cam->dim[width] / cam->dim[height];
+	if (cam->aspect >= 1)
+	{
+		cam->half[width] = cam->half_view;
+		cam->half[height] = cam->half_view / cam->aspect;
+	}
+	else
+	{
+		cam->half[width] = cam->half_view * cam->aspect;
+		cam->half[height] = cam->half_view;
+	}
+	cam->pixel_size = (cam->half[width] * 2) / cam->dim[width];
+}
+
+/**
  * @brief	creates and returns a camera object
  * creates and asigned properties to a camera object
  * @param vsize		height of camera
@@ -22,22 +44,10 @@ t_camera	camera(int h_size, int w_size, t_float fov)
 {
 	t_camera	cam;
 
-	cam.dim[h] = h_size;
-	cam.dim[w] = w_size;
+	cam.dim[height] = h_size;
+	cam.dim[width] = w_size;
 	cam.fov = fov;
 	cam.transform = id_matrix4();
-	cam.half_view = tan(cam.fov / 2);
-	cam.aspect = cam.dim[w] / cam.dim[h];
-	if (cam.aspect >= 1)
-	{
-		cam.half[w] = cam.half_view;
-		cam.half[h] = cam.half_view / cam.aspect;
-	}
-	else
-	{
-		cam.half[w] = cam.half_view * cam.aspect;
-		cam.half[h] = cam.half_view;
-	}
-	cam.pixel_size = (cam.half[w] * 2) / cam.dim[w];
+	calculate_pixel_size(&cam);
 	return (cam);
 }
