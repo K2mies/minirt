@@ -1887,6 +1887,7 @@ void	test_render_scene(t_minirt *rt)
 	t_canvas	*img;
 	t_camera	cam;
 	t_world		w;
+	t_matrix4	temp;
 	t_matrix4	tm;
 	t_matrix4	tm2;
 	t_matrix4	tm3;
@@ -1894,25 +1895,39 @@ void	test_render_scene(t_minirt *rt)
 	t_matrix4	tm5;
 
 	w = world(rt);
-	w.objs[0].transform = scaling(10, 0.01, 10);
+//	w.objs[0].transform = scaling(10, 0.01, 10);
+	temp = id_matrix4();
+	temp = multiply_matrix4(temp, translation(-1, 0, 0));
+	temp = multiply_matrix4(temp, rotation_x(90));
+	temp = multiply_matrix4(temp, rotation_z(45));
+//	temp = multiply_matrix4(temp, scaling(10, 0.01, 10));
+	temp = multiply_matrix4(temp, scaling(2, 0.3, 2));
+	w.objs[0].transform = temp;
 	w.objs[0].color	= color(1, 0.9, 0.9);
 	w.objs[0].material.color = color(1, 0.9, 0.9);
 	w.objs[0].material.specular = 0;
 
 	tm = id_matrix4();
-	tm = multiply_matrix4(tm, scaling(10, 0.01, 10));
-	tm = multiply_matrix4(tm, rotation_x(90));
-	tm = multiply_matrix4(tm, rotation_y(-45));
-	tm = multiply_matrix4(tm, translation(0, 0, 5));
+//	tm = multiply_matrix4(tm, translation(0, 0, 5));
+//	tm = multiply_matrix4(tm, rotation_x(90));
+//	tm = multiply_matrix4(tm, rotation_z(-45));
+//	tm = multiply_matrix4(tm, scaling(2, 0.3, 2));
+//	tm = multiply_matrix4(tm, scaling(10, 0.01, 10));
+//	tm = multiply_matrix4(tm, scaling(10, 0.01, 10));
+//	tm = multiply_matrix4(tm, rotation_x(90));
+//	tm = multiply_matrix4(tm, rotation_y(-45));
+//	tm = multiply_matrix4(tm, translation(0, 0, 5));
 	w.objs[1].transform = tm;
-	w.objs[1].color = w.objs[0].color;
+	w.objs[1].color = multiply_color_by_scalar(w.objs[0].color, 0.3);
 	w.objs[1].material = w.objs[0].material;
+	w.objs[1].material.color = multiply_color_by_scalar(w.objs[0].material.color, 0.3);
 
 	tm2 = id_matrix4();
-	tm2 = multiply_matrix4(tm, scaling(10, 0.01, 10));
-	tm2 = multiply_matrix4(tm, rotation_x(90));
-	tm2 = multiply_matrix4(tm, rotation_y(45));
-	tm2 = multiply_matrix4(tm, translation(0, 0, 5));
+//	tm2 = multiply_matrix4(tm, translation(0, 0, 5));
+//	tm2 = multiply_matrix4(tm, rotation_x(90));
+//	tm2 = multiply_matrix4(tm, rotation_z(45));
+//	tm2 = multiply_matrix4(tm, scaling(10, 0.01, 10));
+	tm2 = multiply_matrix4(tm2, scaling(2, 0.3, 2));
 	w.objs[2].transform = tm2;
 	w.objs[2].color = w.objs[0].color;
 	w.objs[2].material.color = w.objs[0].material.color;
@@ -1924,8 +1939,8 @@ void	test_render_scene(t_minirt *rt)
 	w.objs[3].material.color = color(0.1, 1, 0.5);
 	
 	tm4 = id_matrix4();
-	tm4 = multiply_matrix4(tm4, scaling(0.5, 0.5, 0.5));
 	tm4 = multiply_matrix4(tm4, translation(1.5, 0.5, -0.5));
+	tm4 = multiply_matrix4(tm4, scaling(0.5, 0.5, 0.5));
 	w.objs[4].transform = tm4;
 	w.objs[4].color = color(0.5, 1, 0.1);
 	w.objs[4].material.color = color(0.5, 1, 0.1);
@@ -1933,8 +1948,8 @@ void	test_render_scene(t_minirt *rt)
 	w.objs[4].material.specular = 0.3;
 
 	tm5 = id_matrix4();
-	tm5 = multiply_matrix4(tm5, scaling(0.33, 0.33, 0.33));
 	tm5 = multiply_matrix4(tm5, translation(-1.5, 0.33, -0.75));
+	tm5 = multiply_matrix4(tm5, scaling(0.33, 0.33, 0.33));
 	w.objs[5].transform = tm5;
 	w.objs[5].color = color(1, 0.8, 0.1);
 	w.objs[5].material.color = color(1, 0.8, 0.1);
@@ -1943,12 +1958,11 @@ void	test_render_scene(t_minirt *rt)
 
 	w.light = point_light(point(-10, 10, -10), 1.0, color(1, 1, 1));
 
-	cam = camera(50 , 100, deg_to_rad(60));
+	cam = camera(50 * 4 , 100 * 4, deg_to_rad(60));
 	cam.transform = view_transform(point(0, 1.5, -5), point(-1, -1, 0), vector(0, 1, 0));
 	
 	img = render(cam, w);
 	canvas_to_ppm(img);
-
 }
 int	main(int argc, char **argv)
 {
