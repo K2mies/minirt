@@ -44,11 +44,12 @@ t_intersections	sphere_intersection(t_object sphere, t_ray ray)
 	t_float dp[3];
 	t_float	discriminant;
 	t_intersections	res;
+	t_ray	ray2;
 
-	ray = transform(ray, inverse_matrix4(sphere.transform));
-	sphere_to_ray = sub_tuples(ray.origin, sphere.origin);	
-	dp[a] = dot_product(ray.direction, ray.direction);
-	dp[b] = 2.0 * dot_product(ray.direction, sphere_to_ray);
+	ray2 = transform(ray, inverse_matrix4(sphere.transform));
+	sphere_to_ray = sub_tuples(ray2.origin, sphere.origin);	
+	dp[a] = dot_product(ray2.direction, ray2.direction);
+	dp[b] = 2.0 * dot_product(ray2.direction, sphere_to_ray);
 	dp[c] = dot_product(sphere_to_ray, sphere_to_ray)
 			- (sphere.radius * sphere.radius);
 	discriminant = (dp[b] * dp[b]) - (4.0 * dp[a] * dp[c]);

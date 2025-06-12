@@ -18,8 +18,8 @@ t_ray	ray_for_pixel(t_camera cam, t_float px, t_float py)
 
 	p.offset[x] = (px + 0.5) * cam.pixel_size;
 	p.offset[y] = (py + 0.5) * cam.pixel_size;
-	p.world[x] = cam.half[height] - p.offset[x];
-	p.world[y] = cam.half[width] - p.offset[y];
+	p.world[x] = cam.half[width] - p.offset[x];
+	p.world[y] = cam.half[height] - p.offset[y];
 	m = inverse_matrix4(cam.transform);
 	p.pixel = multiply_matrix4_tuple(m , point(p.world[x], p.world[y], -1));
 	p.origin = multiply_matrix4_tuple(m , point(0, 0, 0));
