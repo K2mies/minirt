@@ -18,7 +18,7 @@
  */
 static void	calculate_pixel_size(t_camera *cam)
 {
-	cam->half_view = tan(cam->fov / 2);
+	cam->half_view = tanf(cam->fov / 2.f);
 	cam->aspect = cam->dim[width] / cam->dim[height];
 	if (cam->aspect >= 1)
 	{
@@ -30,7 +30,7 @@ static void	calculate_pixel_size(t_camera *cam)
 		cam->half[width] = cam->half_view * cam->aspect;
 		cam->half[height] = cam->half_view;
 	}
-	cam->pixel_size = (cam->half[width] * 2) / cam->dim[width];
+	cam->pixel_size = (cam->half[width] * 2.f) / cam->dim[width];
 }
 
 /**
