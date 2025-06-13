@@ -27,11 +27,18 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <errno.h>
+# include <stdbool.h>
+//# include <float.h>
 
 
 /* ================================= MACROS ================================= */
 
 # define M_PI 3.14159265358979323846
+//# define EPSILON	0.00001
+# define EPSILON	0.01
+//# define EPSILON	1e-6
+//# define EPSILON	1.19209290e-07F
+//# define EPSILON	DBL_EPSILON
 
 # define RED	0xFF0000FF
 # define GREEN	0x00FF00FF
@@ -190,6 +197,7 @@ typedef struct	s_computations
 	t_float		t;
 	t_object	object;
 	t_tuple		v[3];
+	t_tuple		over_point;
 	bool		inside;
 }	t_computations;
 
@@ -258,6 +266,7 @@ typedef struct	s_lighting_param
 	t_float	light_dot_normal;
 	t_float	reflect_dot_eye;
 	t_float	factor;
+	bool	in_shadow;
 
 }	t_lighting_param;
 
@@ -407,6 +416,7 @@ t_canvas	*canvas(int width, int height);
 void		write_pixel_to_canvas(t_canvas *canvas, int x, int y, t_color col);
 /* -------------------------------------------------------- minirt_canvas02.c */
 t_canvas	*render(t_camera cam, t_world world);
+void		mlx_render(t_minirt *rt, t_camera cam, t_world world);
 
 /* ================================== PPM =================================== */
 
@@ -476,7 +486,8 @@ void				set_transform(t_object *s, t_matrix4 m);
 t_tuple				normal_at(t_object sp, t_tuple world_point);
 t_tuple				reflect(t_tuple in, t_tuple normal);
 /* ----------------------------------------------------------- minirt_ray04.c */
-t_color				lighting(t_material m, t_light light, t_tuple v[3]);
+t_color				lighting(t_lighting_param p, t_material m, t_light light, t_tuple v[3]);
+bool				is_shadowed(t_world world, t_tuple point);
 /* ----------------------------------------------------------- minirt_ray05.c */
 t_computations		prepare_computations(t_intersection i, t_ray r);
 /* ----------------------------------------------------------- minirt_ray06.c */

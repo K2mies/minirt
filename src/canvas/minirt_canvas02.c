@@ -40,3 +40,30 @@ t_canvas	*render(t_camera cam, t_world world)
 	}
 	return (img);
 }
+
+/**
+ * @brief	renders an img to mlx window
+ * writes a pixel to mlx img per pixel
+ * @param rt		Pointer to main data struct
+ * @param cam		camera object for operations
+ * @param world		world object for operations
+ */
+void	mlx_render(t_minirt *rt, t_camera cam, t_world world)
+{
+	t_color col;
+	t_ray	ray;
+	int	y;
+	int	x;
+
+	y = -1;
+	while (++y < cam.dim[height])
+	{
+		x = -1;
+		while (++x < cam.dim[width])
+		{
+			ray = ray_for_pixel(cam, x, y);
+			col = color_at(world, ray);
+			mlx_put_pixel(rt->img, x, y, col.rgba);
+		}
+	}
+}

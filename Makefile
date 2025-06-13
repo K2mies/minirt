@@ -13,7 +13,7 @@
 NAME		= 	miniRT
 
 CC			= 	cc
-CFLAGS		= 	-Wextra -Werror -Wall -O2 -flto
+CFLAGS		= 	-Wextra -Werror -Wall -O3 -flto
 #CFLAGS		= 	-Wextra -Werror -Wall
 DEBUG_FLAGS	=	-g
 #-----------------------------------------------------------------------------------#

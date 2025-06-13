@@ -40,10 +40,20 @@ t_intersection	hit(t_world *w)
 	return (res);
 }
 
+/**
+ * @brief	calculates shading for hit intersection
+ * returns a color calculated  from the shading
+ *
+ * @param w		world object to calculate hit
+ * @param comps	computation paramaters
+ * @return		color for shaded pixel
+ */
 t_color	shade_hit(t_world w, t_computations comps)
 {
-	t_color	res;
+	t_lighting_param	param;
+	t_color				res;
 
-	res = lighting(comps.object.material, w.light, comps.v);
+	param.in_shadow = is_shadowed(w, comps.over_point);
+	res = lighting(param, comps.object.material, w.light, comps.v);
 	return (res);
 }
