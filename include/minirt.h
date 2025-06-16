@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:11:13 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/02 17:08:21 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/06/16 11:51:31 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@
 
 /* ================================ TYPEDEFS ================================ */
 
+/* --------------------------------------------------------------------- refs */
+typedef struct s_ray		t_ray;
 /* ------------------------------------------------------------- custom types */
 // Custom typedef for float (so can be switched to double later for testing)
 typedef float	t_float;
@@ -102,6 +104,14 @@ typedef struct s_matrix2
 	t_float	m[2][2];
 }	t_matrix2;
 
+/* --------------------------------------------------------------------- rays */
+// Typedef for ray
+typedef struct s_ray
+{
+	t_tuple	origin;
+	t_tuple	direction;
+}	t_ray;
+
 /* -----------------------------------------------------------------materials */
 // Typedef for phong material
 typedef struct	s_material
@@ -154,6 +164,7 @@ typedef struct s_object
 	t_color		color;
 	t_material	material;
 	t_matrix4	transform;
+	t_ray		saved_ray;
 }	t_object;
 
 // Typedef for wall
@@ -164,13 +175,7 @@ typedef struct	s_wall
 	t_float	height;	
 }	t_wall;
 
-/* --------------------------------------------------------------------- rays */
-// Typedef for ray
-typedef struct s_ray
-{
-	t_tuple	origin;
-	t_tuple	direction;
-}	t_ray;
+/* --------------------------------------------------------------- intersections */
 
 // Typedef for ray intersections
 typedef struct s_intersections
@@ -187,6 +192,7 @@ typedef struct s_intersection
 	t_object	object;
 }	t_intersection;
 
+/* ---------------------------------------------------------------- computations */
 //Typedef fpr computations
 //the v[3] array consists of
 //v[pos]
@@ -477,40 +483,44 @@ t_ray				ray(t_tuple origin, t_tuple direction);
 t_tuple				position(t_ray ray, t_float t);
 /* ----------------------------------------------------------- minirt_ray01.c */
 t_intersection		intersection(t_float t, t_object obj);
-t_intersections		sphere_intersection(t_object sphere, t_ray ray);
 void				world_intersect(t_world *w, t_ray ray);
 /* ----------------------------------------------------------- minirt_ray02.c */
+t_intersections		sphere_intersection(t_object *sphere, t_ray ray);
+/* ----------------------------------------------------------- minirt_ray03.c */
 t_ray				transform(t_ray r, t_matrix4 m);
 void				set_transform(t_object *s, t_matrix4 m);
-/* ----------------------------------------------------------- minirt_ray03.c */
-t_tuple				normal_at(t_object sp, t_tuple world_point);
-t_tuple				reflect(t_tuple in, t_tuple normal);
 /* ----------------------------------------------------------- minirt_ray04.c */
+t_tuple				normal_at_sphere(t_object obj, t_tuple world_point);
+t_tuple				normal_at_plane(t_object obj, t_tuple world_point);
+t_tuple				reflect(t_tuple in, t_tuple normal);
+/* ----------------------------------------------------------- minirt_ray05.c */
 t_color				lighting(t_lighting_param p, t_material m, t_light light, t_tuple v[3]);
 bool				is_shadowed(t_world world, t_tuple point);
-/* ----------------------------------------------------------- minirt_ray05.c */
-t_computations		prepare_computations(t_intersection i, t_ray r);
 /* ----------------------------------------------------------- minirt_ray06.c */
+t_computations		prepare_computations(t_intersection i, t_ray r);
+/* ----------------------------------------------------------- minirt_ray07.c */
 t_intersection		hit(t_world *w);
 t_color				shade_hit(t_world w, t_computations comps);
-/* ----------------------------------------------------------- minirt_ray07.c */
-t_color				color_at(t_world w, t_ray r);
 /* ----------------------------------------------------------- minirt_ray08.c */
+t_color				color_at(t_world w, t_ray r);
+/* ----------------------------------------------------------- minirt_ray09.c */
 t_ray				ray_for_pixel(t_camera cam, t_float px, t_float py);
 /* ============================== OBJECTS =================================== */
 
 /* -------------------------------------------------------- minirt_object00.c */
 t_object	sphere(t_tuple location, t_float diameter, t_color col);
 /* -------------------------------------------------------- minirt_object01.c */
-t_wall		wall(t_tuple position, t_float width, t_float height);
+t_object	plane(t_tuple origin, t_color col);
 /* -------------------------------------------------------- minirt_object02.c */
-t_light		point_light(t_tuple origin, t_float brightness, t_color col);
+t_wall		wall(t_tuple position, t_float width, t_float height);
 /* -------------------------------------------------------- minirt_object03.c */
-t_material	material(t_float param[4], t_color col);
+t_light		point_light(t_tuple origin, t_float brightness, t_color col);
 /* -------------------------------------------------------- minirt_object04.c */
+t_material	material(t_float param[4], t_color col);
+/* -------------------------------------------------------- minirt_object05.c */
 t_world		world(t_minirt *rt);
 t_world		default_world(t_minirt *rt);
-/* -------------------------------------------------------- minirt_object05.c */
+/* -------------------------------------------------------- minirt_object06.c */
 t_camera	camera(int h_size, int w_size, t_float fov);
 /* ================================ MLX ===================================== */
 

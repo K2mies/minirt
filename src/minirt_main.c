@@ -2343,19 +2343,38 @@ void	test_scene00(t_minirt *rt)
 	canvas_to_ppm(img);
 }
 
-void	test_in_shadow(t_minirt *rt)
+//void	test_in_shadow(t_minirt *rt)
+//{
+//	t_world	w;
+//	t_tuple	p;
+//
+//	w = default_world(rt);
+//	p = point(-2, 2, -2);
+//	if (is_shadowed(w, p) == 0)
+//		printf("is shadowed: false\n");
+//	else
+//		printf("is shadowed: true\n");
+//}
+
+void	test_intersection(t_minirt	*rt)
 {
-	t_world	w;
-	t_tuple	p;
+	(void)rt;
+//	t_matrix4	m;
+	t_ray	r = ray(point(0, 0, -5), vector(0, 0, 1));
+//	t_object	sp = sphere(point(0, 0, 0), 2, color(1, 0, 0));
+	t_object	p = plane(point(0, 0, 0), color(0, 0, 1));
+//	t_world	w = world(rt);
+//	m = multiply_matrix4(scaling(1, 0.5, 1), rotation_z(36));
+//	set_transform(&sp, m);
+	set_transform(&p, translation(5, 0, 0));
+	intersect(&p, r);
+	test_print_tuple(p.saved_ray.origin);
+	printf("\n");
+	test_print_tuple(p.saved_ray.direction);
+	printf("\n");
 
-	w = default_world(rt);
-	p = point(-2, 2, -2);
-	if (is_shadowed(w, p) == 0)
-		printf("is shadowed: false\n");
-	else
-		printf("is shadowed: true\n");
+
 }
-
 int	main(int argc, char **argv)
 {
 //	(void)argc;
@@ -2370,7 +2389,7 @@ int	main(int argc, char **argv)
 	rt.n_objs = 0;
 	rt.ts = NULL;
 	open_file(&rt, argv);
-	test_scene00(&rt);
+	test_intersection(&rt);
 	cleanup_rt(&rt);
 	return (0);
 }

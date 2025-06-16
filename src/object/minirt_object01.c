@@ -5,27 +5,26 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/03 12:38:29 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/03 14:32:08 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/06/16 12:56:11 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/06/16 13:52:11 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
 
-/**
- * @brief	creates and returns a wall object
- * creates a wall object to use to calculate projections
- *
- * @param origin	Point that is the origin of the wall
- * @param width		Width of the wall
- * @param height	Height of the wall
- * @return			t_wall object
- */
-t_wall	wall(t_tuple origin, t_float width, t_float height)
+t_object	plane(t_tuple origin, t_color col)
 {
-	t_wall	w;
+	t_object	p;
+	t_float		param[4];
 
-	w.origin = origin;
-	w.width = width;
-	w.height = height;
-	return (w);
+	param[ambient] = 0.1;
+	param[diffuse] = 0.9;
+	param[specular] = 0.9;
+	param[shininess] = 200.0;
+	p.type = PLANE;
+	p.origin = origin;
+	p.vector = vector(0, 1, 0);
+	p.color = col;
+	p.material = material(param, col);
+	p.transform = id_matrix4();
+	return (p);
 }

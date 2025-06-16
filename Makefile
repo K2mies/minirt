@@ -78,6 +78,7 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				$(SRC_DIR)/ray/minirt_ray06.c										\
 				$(SRC_DIR)/ray/minirt_ray07.c										\
 				$(SRC_DIR)/ray/minirt_ray08.c										\
+				$(SRC_DIR)/ray/minirt_ray09.c										\
 				\
 				$(SRC_DIR)/object/minirt_object00.c									\
 				$(SRC_DIR)/object/minirt_object01.c									\
@@ -85,6 +86,7 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				$(SRC_DIR)/object/minirt_object03.c									\
 				$(SRC_DIR)/object/minirt_object04.c									\
 				$(SRC_DIR)/object/minirt_object05.c									\
+				$(SRC_DIR)/object/minirt_object06.c									\
 				\
 				$(SRC_DIR)/mlx/minirt_mlx00.c										\
 				\
