@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "minirt.h"
 
-void	write_pixel_to_canvas(t_canvas *canvas, int x, int y, t_color *col)
+void	write_pixel_to_canvas(t_canvas *canvas, int x, int y, t_color col)
 {
-	set_color(&canvas->pixels[y][x], col->r, col->g, col->b);
+	set_color(&canvas->pixels[y][x], col.r, col.g, col.b);
 }

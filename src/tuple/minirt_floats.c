@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "minirt.h"
 
-#define EPSILON	0.00001
+//#define EPSILON	0.00001
 
 /**
  * Function to compare if two floats

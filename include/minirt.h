@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:11:13 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/02 17:08:21 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/06/16 11:51:31 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,18 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <errno.h>
+# include <stdbool.h>
+//# include <float.h>
 
 
 /* ================================= MACROS ================================= */
 
 # define M_PI 3.14159265358979323846
+//# define EPSILON	0.00001
+# define EPSILON	0.01
+//# define EPSILON	1e-6
+//# define EPSILON	1.19209290e-07F
+//# define EPSILON	DBL_EPSILON
 
 # define RED	0xFF0000FF
 # define GREEN	0x00FF00FF
@@ -41,6 +48,8 @@
 
 /* ================================ TYPEDEFS ================================ */
 
+/* --------------------------------------------------------------------- refs */
+typedef struct s_ray		t_ray;
 /* ------------------------------------------------------------- custom types */
 // Custom typedef for float (so can be switched to double later for testing)
 typedef float	t_float;
@@ -95,6 +104,14 @@ typedef struct s_matrix2
 	t_float	m[2][2];
 }	t_matrix2;
 
+/* --------------------------------------------------------------------- rays */
+// Typedef for ray
+typedef struct s_ray
+{
+	t_tuple	origin;
+	t_tuple	direction;
+}	t_ray;
+
 /* -----------------------------------------------------------------materials */
 // Typedef for phong material
 typedef struct	s_material
@@ -116,9 +133,15 @@ typedef struct s_ambient
 // Typedef for camera
 typedef struct s_camera
 {
-	t_tuple origin;
-	t_tuple	vector;
-	int		fov;
+	t_tuple		origin;
+	t_tuple		vector;
+	t_matrix4	transform;
+	t_float		dim[2];
+	t_float		fov;
+	t_float		half_view;
+	t_float		aspect;
+	t_float		half[2];
+	t_float		pixel_size;
 }	t_camera;
 
 // Typedef for light source
@@ -141,6 +164,7 @@ typedef struct s_object
 	t_color		color;
 	t_material	material;
 	t_matrix4	transform;
+	t_ray		saved_ray;
 }	t_object;
 
 // Typedef for wall
@@ -151,13 +175,7 @@ typedef struct	s_wall
 	t_float	height;	
 }	t_wall;
 
-/* --------------------------------------------------------------------- rays */
-// Typedef for ray
-typedef struct s_ray
-{
-	t_tuple	origin;
-	t_tuple	direction;
-}	t_ray;
+/* --------------------------------------------------------------- intersections */
 
 // Typedef for ray intersections
 typedef struct s_intersections
@@ -174,6 +192,34 @@ typedef struct s_intersection
 	t_object	object;
 }	t_intersection;
 
+/* ---------------------------------------------------------------- computations */
+//Typedef fpr computations
+//the v[3] array consists of
+//v[pos]
+//v[eyev]
+//v[normalv]
+typedef struct	s_computations
+{
+	t_float		t;
+	t_object	object;
+	t_tuple		v[3];
+	t_tuple		over_point;
+	bool		inside;
+}	t_computations;
+
+/* -------------------------------------------------------------------- world */
+// Typedef for world
+typedef struct	s_world
+{
+	t_light			light;
+	t_object		*objs;
+	t_intersection	*ts;
+	int				n_objs;
+	int				n_ts;
+	t_computations	*cs;
+	int				hit_index;
+
+}	t_world;
 /* --------------------------------------------------------- main data struct */
 // Typedef for Main data struct
 typedef struct s_minirt
@@ -187,13 +233,33 @@ typedef struct s_minirt
 	int				n_objs;
 	int				n_ts;
 	t_intersection	*ts;
-	mlx_t			*mlx;
 	int				mlx_d[2];
+	mlx_t			*mlx;
 	mlx_image_t		*img;
 
 }	t_minirt;
 
-/* -------------------------------------- function specific paramater structs */
+/* ============================== PARAMATERS ================================ */
+
+typedef	struct	s_ray_for_pixel_param
+{
+	t_float	offset[2];
+	t_float	world[2];
+	t_tuple	pixel;
+	t_tuple	origin;
+	t_tuple	direction;
+
+}	t_ray_for_pixel_param;
+
+// Typedef for view transform paramaters
+typedef struct	s_view_transform_param
+{
+	t_tuple		forward;
+	t_tuple		upn;
+	t_tuple		left;
+	t_tuple		true_up;
+	t_matrix4	orientation;
+}	t_view_transform_param;
 // Typedef for lighting function paramaters
 typedef struct	s_lighting_param
 {
@@ -206,17 +272,27 @@ typedef struct	s_lighting_param
 	t_float	light_dot_normal;
 	t_float	reflect_dot_eye;
 	t_float	factor;
+	bool	in_shadow;
 
 }	t_lighting_param;
 
 /* ================================ ENUMS =================================== */
 
+//Enum for img dimensions
+typedef enum	e_dim
+{
+	h,
+	w
+}	t_dim;
+
+//Enum for dimensions
 typedef enum	e_dimensions
 {
 	width,
 	height
 }	t_dimensions;
 
+//Enum for vectors
 typedef enum	e_vectors
 {
 	pos,
@@ -232,6 +308,15 @@ typedef enum	e_phong
 	specular,
 	shininess
 }	t_phong;
+
+//Enum for axis
+typedef enum	e_axis
+{
+	x,
+	y,
+	z
+}	t_axis;
+
 //Enum for letters to use  with var arr ie: arr[a], arr[b] etc..
 typedef enum	e_letters
 {
@@ -246,7 +331,7 @@ enum	e_channel_type
 	A,
 	B,
 	G,
-	R,
+	R
 };
 
 //Enum for shearing proportions
@@ -334,7 +419,10 @@ t_color		multiply_color(t_color cola, t_color colb);
 /* -------------------------------------------------------- minirt_canvas00.c */
 t_canvas	*canvas(int width, int height);
 /* -------------------------------------------------------- minirt_canvas01.c */
-void		write_pixel_to_canvas(t_canvas *canvas, int x, int y, t_color *col);
+void		write_pixel_to_canvas(t_canvas *canvas, int x, int y, t_color col);
+/* -------------------------------------------------------- minirt_canvas02.c */
+t_canvas	*render(t_camera cam, t_world world);
+void		mlx_render(t_minirt *rt, t_camera cam, t_world world);
 
 /* ================================== PPM =================================== */
 
@@ -385,6 +473,8 @@ t_matrix4	rotation_y(t_float deg);
 t_matrix4	rotation_z(t_float deg);
 /* ----------------------------------------------------- minirt_transform03.c */
 t_matrix4	shearing(t_float proportions[6]);
+/* ----------------------------------------------------- minirt_transform04.c */
+t_matrix4	view_transform(t_tuple from, t_tuple to, t_tuple up);
 
 /* ============================ RAY CASTING ================================= */
 
@@ -393,28 +483,49 @@ t_ray				ray(t_tuple origin, t_tuple direction);
 t_tuple				position(t_ray ray, t_float t);
 /* ----------------------------------------------------------- minirt_ray01.c */
 t_intersection		intersection(t_float t, t_object obj);
-t_intersections		sphere_intersection(t_object sphere, t_ray ray);
-void				world_intersect(t_minirt *rt, t_ray *ray);
-t_float				hit(t_minirt *rt);
+t_intersections		object_intersection(t_object *obj, t_ray ray);
+void				world_intersect(t_world *w, t_ray ray);
 /* ----------------------------------------------------------- minirt_ray02.c */
+t_intersections		sphere_intersection(t_object *sphere, t_ray ray);
+t_intersections		plane_intersection(t_object *plane, t_ray ray);
+/* ----------------------------------------------------------- minirt_ray03.c */
 t_ray				transform(t_ray r, t_matrix4 m);
 void				set_transform(t_object *s, t_matrix4 m);
-/* ----------------------------------------------------------- minirt_ray03.c */
-t_tuple				normal_at(t_object sp, t_tuple world_point);
-t_tuple				reflect(t_tuple in, t_tuple normal);
 /* ----------------------------------------------------------- minirt_ray04.c */
-t_color				lighting(t_material m, t_light light, t_tuple v[3]);
+t_tuple				normal_at(t_object obj, t_tuple world_point);
+t_tuple				normal_at_sphere(t_object obj, t_tuple world_point);
+t_tuple				normal_at_plane(t_object obj);
+/* ----------------------------------------------------------- minirt_ray05.c */
+t_tuple				reflect(t_tuple in, t_tuple normal);
+/* ----------------------------------------------------------- minirt_ray06.c */
+t_color				lighting(t_lighting_param p, t_material m, t_light light, t_tuple v[3]);
+bool				is_shadowed(t_world world, t_tuple point);
+/* ----------------------------------------------------------- minirt_ray07.c */
+t_computations		prepare_computations(t_intersection i, t_ray r);
+/* ----------------------------------------------------------- minirt_ray08.c */
+t_intersection		hit(t_world *w);
+t_color				shade_hit(t_world w, t_computations comps);
+/* ----------------------------------------------------------- minirt_ray09.c */
+t_color				color_at(t_world w, t_ray r);
+/* ----------------------------------------------------------- minirt_ray10.c */
+t_ray				ray_for_pixel(t_camera cam, t_float px, t_float py);
 /* ============================== OBJECTS =================================== */
 
 /* -------------------------------------------------------- minirt_object00.c */
 t_object	sphere(t_tuple location, t_float diameter, t_color col);
 /* -------------------------------------------------------- minirt_object01.c */
-t_wall		wall(t_tuple position, t_float width, t_float height);
+t_object	plane(t_tuple origin, t_tuple normal, t_color col);
 /* -------------------------------------------------------- minirt_object02.c */
-t_light		point_light(t_tuple origin, t_float brightness, t_color col);
+t_wall		wall(t_tuple position, t_float width, t_float height);
 /* -------------------------------------------------------- minirt_object03.c */
+t_light		point_light(t_tuple origin, t_float brightness, t_color col);
+/* -------------------------------------------------------- minirt_object04.c */
 t_material	material(t_float param[4], t_color col);
-
+/* -------------------------------------------------------- minirt_object05.c */
+t_world		world(t_minirt *rt);
+t_world		default_world(t_minirt *rt);
+/* -------------------------------------------------------- minirt_object06.c */
+t_camera	camera(int h_size, int w_size, t_float fov);
 /* ================================ MLX ===================================== */
 
 /* ----------------------------------------------------------- minirt_mlx00.c */
