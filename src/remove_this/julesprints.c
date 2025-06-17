@@ -23,7 +23,7 @@ void	print_stored_data(t_minirt *rt)
 	printf("///// Camera /////\n");
 	printf("Origin: %f,%f,%f\n", rt->camera.origin.x, rt->camera.origin.y, rt->camera.origin.z);
 	printf("Vector: %f,%f,%f\n", rt->camera.vector.x, rt->camera.vector.y, rt->camera.vector.z);
-	printf("FOV: %d\n", rt->camera.fov);
+	printf("FOV: %f\n", rt->camera.fov);
 	printf("\n");
 	printf("///// Light /////\n");
 	printf("Origin: %f,%f,%f\n", rt->light.origin.x, rt->light.origin.y, rt->light.origin.z);

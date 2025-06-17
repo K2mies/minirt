@@ -167,6 +167,6 @@ void	open_file(t_minirt *rt, char **argv)
 	if (!data)
 		rt_error(rt, "No file data found", 3);
 	split_data(rt, data);
-	print_stored_data(rt); 
+	//print_stored_data(rt); 
 	free_big_array(&rt->full_data);
 }

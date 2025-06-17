@@ -54,9 +54,9 @@
 //	}
 //}
 
-static void	swap(t_float *a, t_float *b)
+static void	swap(t_intersection *a, t_intersection *b)
 {
-	t_float tmp;
+	t_intersection tmp;
 
 	tmp = *a;
 	*a = *b;
@@ -77,11 +77,11 @@ static int	partition(t_intersection arr[], int low, int high)
 		if (arr[j].t <= pivote)
 		{
 			i++;
-			swap(&arr[i].t, &arr[j].t);
+			swap(&arr[i], &arr[j]);
 		}
 		j++;
 	}
-	swap(&arr[i + 1].t, &arr[high].t);
+	swap(&arr[i + 1], &arr[high]);
 	return (i + 1);
 }
 

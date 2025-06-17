@@ -1704,94 +1704,789 @@ void	test_print_tuple(t_tuple t)
 //	canvas_to_ppm(&can);
 //}
 
-void	test_trace_sphere_mlx(t_minirt *rt)
-{
-//	rt->objs[0].transform = scaling(1, 0.5, 1);
-	t_float		scalar = 5.0;
-	int			canvas_pixels = 100 * scalar;
-	t_float		wall_size = 7.0 * scalar;
-	t_wall		w = wall(point(0, 0, 10 * scalar), wall_size, wall_size);
-	t_float		wall_z = w.origin.z;
-//	t_canvas	can = *canvas(canvas_pixels, canvas_pixels);
-	t_float		pixel_size = wall_size / canvas_pixels;
-	t_float		half = wall_size / 2;
-	t_color		col = color(1, 0, 0);
-	t_tuple		ray_origin = point(0, 0, -5 * scalar);
-//	t_tuple		position;
-	t_tuple		v[3];
-	t_ray		r;
-
-	t_float		hit_point;
-
-	t_float	world_y;
-	t_float	world_x;
-
-	int		x;
-	int		y;
-
-	mlx_start(rt, canvas_pixels, canvas_pixels);
-//	mlx_loop(rt->mlx);
-//	rt->light = point_light(point(-10 * mul, 10 * mul, -10 * mul), 1.0,  color(1, 1, 1));
-	rt->objs[0] = sphere(point(0, 0, 0), 2.0 * scalar , color(1, 0, 0));
-//	rt->objs[0].transform = scaling(mul, mul, mul);
-	rt->ts =	rt_malloc(rt ,sizeof(t_intersection) * (rt->n_objs * 2));
-
-	//MATERIAL SETTINGS----------------------------------------------------------------- /*
+//void	test_trace_sphere_mlx(t_minirt *rt)
+//{
+////	rt->objs[0].transform = scaling(1, 0.5, 1);
+//	t_float		scalar = 5.0;
+//	int			canvas_pixels = 100 * scalar;
+//	t_float		wall_size = 7.0 * scalar;
+//	t_wall		w = wall(point(0, 0, 10 * scalar), wall_size, wall_size);
+//	t_float		wall_z = w.origin.z;
+////	t_canvas	can = *canvas(canvas_pixels, canvas_pixels);
+//	t_float		pixel_size = wall_size / canvas_pixels;
+//	t_float		half = wall_size / 2;
+//	t_color		col = color(1, 0, 0);
+//	t_tuple		ray_origin = point(0, 0, -5 * scalar);
+////	t_tuple		position;
+//	t_tuple		v[3];
+//	t_ray		r;
+//
+//	t_float		hit_point;
+//
+//	t_float	world_y;
+//	t_float	world_x;
+//
+//	int		x;
+//	int		y;
+//
+//	mlx_start(rt, canvas_pixels, canvas_pixels);
+//	color_fill(rt);
+//
+//	rt->objs[0] = sphere(point(0, 0, 0), 2.0 * scalar , color(1, 0, 0));
+//	rt->ts =	rt_malloc(rt ,sizeof(t_intersection) * (rt->n_objs * 2));
+//
+//	//MATERIAL SETTINGS----------------------------------------------------------------- /*
+////	rt->objs[0].material.ambient = 0.1;
 //	rt->objs[0].material.ambient = 0.1;
-	rt->objs[0].material.ambient = 0.1;
-//	rt->objs[0].material.duffuse = 0.9;
-	rt->objs[0].material.diffuse = 0.9;
+////	rt->objs[0].material.duffuse = 0.9;
+//	rt->objs[0].material.diffuse = 0.9;
+////	rt->objs[0].material.specular = 0.9;
 //	rt->objs[0].material.specular = 0.9;
-	rt->objs[0].material.specular = 0.9;
-//	rt->objs[0].material.specular = 200.0;
-	rt->objs[0].material.shininess = 200.0;	
-	//CHANGE THE COLOR OF THE OBJECT AND MATERIAL
-	t_color change_color = color(1, 0, 0.784);
-	rt->objs[0].color = change_color;
-	rt->objs[0].material.color  = change_color;
-	//LIGHT SETTINGS---------------------------------------------------------------------- /*
-	rt->light.origin = point(-10 * scalar, 10 * scalar, -10 * scalar);
-	rt->light.color = color(1, 1, 1);
-	rt->light.brightness = 1.0;
-	rt->light.color = multiply_color_by_scalar(rt->light.color, rt->light.brightness);
-
-	color_fill(rt);
-//	mlx_loop(rt->mlx);
-
-	y = 0;
-	while (y < canvas_pixels - 1)
-	{
-		world_y = half - pixel_size * y;
-		x = 0;
-		while (x < canvas_pixels - 1)
-		{
-			world_x = -half + pixel_size * x;
-			v[pos] = point(world_x, world_y, wall_z);
-			r = ray(ray_origin, normalize_vector(sub_tuples(v[pos], ray_origin)));
-			world_intersect(rt, &r);
-			hit_point = hit(rt);
-			if (hit_point >= 0.f)
-			{
-				v[pos] = position(r,  hit_point);
-				v[normalv] = normal_at(rt->objs[0], v[pos]);
-				v[eyev] = negate_tuple(r.direction);
-				col = lighting(rt->objs[0].material, rt->light, v);
-//				printf("hit!\n");
-//				write_pixel_to_canvas(&can, x, y, &col);
-				mlx_put_pixel(rt->img, x, y, col.rgba);
-			}
-//			else
+////	rt->objs[0].material.specular = 200.0;
+//	rt->objs[0].material.shininess = 200.0;	
+//	//CHANGE THE COLOR OF THE OBJECT AND MATERIAL
+//	t_color change_color = color(1, 0, 0.784);
+//	rt->objs[0].color = change_color;
+//	rt->objs[0].material.color  = change_color;
+//	//LIGHT SETTINGS---------------------------------------------------------------------- /*
+//	rt->light.origin = point(-10 * scalar, 10 * scalar, -10 * scalar);
+//	rt->light.color = color(1, 1, 1);
+//	rt->light.brightness = 1.0;
+//	rt->light.color = multiply_color_by_scalar(rt->light.color, rt->light.brightness);
+//
+//	y = 0;
+//	while (y < canvas_pixels - 1)
+//	{
+//		world_y = half - pixel_size * y;
+//		x = 0;
+//		while (x < canvas_pixels - 1)
+//		{
+//			world_x = -half + pixel_size * x;
+//			v[pos] = point(world_x, world_y, wall_z);
+//			r = ray(ray_origin, normalize_vector(sub_tuples(v[pos], ray_origin)));
+//			world_intersect(rt, &r);
+//			hit_point = hit(rt);
+//			if (hit_point >= 0.f)
 //			{
-//				printf("no hit\n");
+//				v[pos] = position(r,  hit_point);
+//				v[normalv] = normal_at(rt->objs[0], v[pos]);
+//				v[eyev] = negate_tuple(r.direction);
+//				col = lighting(rt->objs[0].material, rt->light, v);
+////				printf("hit!\n");
+////				write_pixel_to_canvas(&can, x, y, &col);
+//				mlx_put_pixel(rt->img, x, y, col.rgba);
 //			}
-			x++;
-		}
-		y++;
-	}	
-	mlx_loop(rt->mlx);
-	mlx_delete_image(rt->mlx, rt->img);
-	mlx_terminate(rt->mlx);
-//	canvas_to_ppm(&can);
+////			else
+////			{
+////				printf("no hit\n");
+////			}
+//			x++;
+//		}
+//		y++;
+//	}
+//	mlx_loop(rt->mlx);
+//	mlx_delete_image(rt->mlx, rt->img);
+//	mlx_terminate(rt->mlx);
+////	canvas_to_ppm(&can);
+//}
+
+//void	test_world(t_minirt *rt)
+//{
+//	t_world	w;
+//
+//	w = world(rt);
+//	w.objs[0].material.ambient = 1;
+//	w.objs[0].material.color = color(0.8, 1.0, 0.6);
+//	w.objs[0].material.diffuse = 0.7;
+//	w.objs[0].material.specular = 0.2;
+//
+//	w.objs[1].transform = scaling(0.5, 0.5, 0.5);
+//	w.objs[1].material.ambient = 1;
+//	t_color	new = color(1, 1, 1);
+//	w.objs[1].color = new;
+//	w.objs[1].material.color = new;
+//
+//	t_ray	r = ray(point(0, 0, 0.75), vector(0, 0, -1));
+//	t_color	res = color_at(w, r);
+//	printf("res color: r: %f g: %f b: %f\n", res.r, res.g, res.b);
+//	t_color	c = w.objs[0].material.color;
+//	printf("outer color: r: %f g: %f b: %f\n", c.r, c.g, c.b);
+//	c = w.objs[1].material.color;
+//	printf("inner color: r: %f g: %f b: %f\n", c.r, c.g, c.b);
+//}
+
+//void	test_view_transform()
+//{
+//	t_tuple	from = point(1, 3, 2);
+//	t_tuple	to = point(4, -2, 8);
+//	t_tuple	up = vector(1, 1, 0);
+//
+//	t_matrix4	t;
+//	t = view_transform(from, to ,up);
+//	test_print_matrix(t);
+//}
+
+//void	test_camera_creation()
+//{
+//	t_camera	cam;
+//
+//	cam = camera(125, 200, M_PI / 2);
+//	printf("cam.h_size: %f\n", cam.dim[h]);
+//	printf("cam.w_size: %f\n", cam.dim[w]);
+//	printf("can.fov: %f\n", cam.fov);
+//	test_print_matrix(cam.transform);
+//	printf("cam pixel size: %f\n", cam.pixel_size);
+//}
+//void	test_ray_for_pixel()
+//{
+//	t_camera	c = camera(201, 101, deg_to_rad(90));
+////	t_ray		r = ray_for_pixel(c, 100, 50);
+//
+//	t_matrix4	rot_y = rotation_y(45);
+//	t_matrix4	trans = translation(0, -2, 5);
+//	c.transform = multiply_matrix4(rot_y, trans);
+//	t_ray		r = ray_for_pixel(c, 100, 50);
+//	printf("r.origin = x: %f y: %f z: %f\n", r.origin.x, r.origin.y, r.origin.z);
+//	printf("r.direction = x: %f y: %f z: %f\n", r.direction.x, r.direction.y, r.direction.z);
+//	printf("cam.pixel_size: %.2f\n", c.pixel_size);
+//	printf("square of 2/2 is %f\n", sqrtf(2) / 2);
+//}
+
+//void	test_render_world_with_camera(t_minirt	*rt)
+//{
+//	t_world		w;
+//	t_camera	c;
+//	t_tuple		from;
+//	t_tuple		to;
+//	t_tuple		up;
+//	t_canvas	*img;
+//	
+//	w = default_world(rt);
+////	w = world(rt);
+////	w.objs[0].color	= color(0.8, 1.0, 0.6);
+////	w.objs[0].material.color = color(0.8, 1.0, 0.6);
+////	w.objs[0].material.diffuse = 0.7;
+////	w.objs[0].material.specular = 0.2;
+////	
+////	w.objs[1].transform = scaling(0.5, 0.5, 0.5);
+//
+//	c = camera(11, 11, deg_to_rad(90));
+//	from = point(0, 0, -5);
+//	to = point(0, 0, 0);
+//	up = vector(0, 1, 0);
+//	c.transform = view_transform(from, to, up);
+//	img = render(c, w);
+//	t_color	col = img->pixels[5][5];
+//	printf("col: r: %f g: %f b: %f\n", col.r, col.g, col.b);
+//
+//	canvas_to_ppm(img);
+//}
+
+//void	test_render_scene(t_minirt *rt)
+//{
+//	t_canvas	*img;
+//	t_camera	cam;
+//	t_world		w;
+//	t_matrix4	temp;
+//	t_matrix4	tm;
+//	t_matrix4	tm2;
+//	t_matrix4	tm3;
+//	t_matrix4	tm4;
+//	t_matrix4	tm5;
+//
+//	w = world(rt);
+////	w.objs[0].transform = scaling(10, 0.01, 10);
+//	temp = id_matrix4();
+////	temp = multiply_matrix4(temp, translation(-1, 0, 0));
+////	temp = multiply_matrix4(temp, rotation_x(90));
+////	temp = multiply_matrix4(temp, rotation_z(45));
+//	temp = multiply_matrix4(temp, scaling(10, 0.01, 10));
+////	temp = multiply_matrix4(temp, scaling(2, 0.3, 2));
+//	w.objs[0].transform = temp;
+//	w.objs[0].color	= color(1, 0.9, 0.9);
+//	w.objs[0].material.color = color(1, 0.9, 0.9);
+//	w.objs[0].material.specular = 0;
+//
+//	tm = id_matrix4();
+//	tm = multiply_matrix4(tm, translation(0, 0, 5));
+//	tm = multiply_matrix4(tm, rotation_x(90));
+//	tm = multiply_matrix4(tm, rotation_z(-45));
+////	tm = multiply_matrix4(tm, scaling(2, 0.3, 2));
+//	tm = multiply_matrix4(tm, scaling(10, 0.01, 10));
+////	tm = multiply_matrix4(tm, scaling(10, 0.01, 10));
+////	tm = multiply_matrix4(tm, rotation_x(90));
+////	tm = multiply_matrix4(tm, rotation_y(-45));
+////	tm = multiply_matrix4(tm, translation(0, 0, 5));
+//	w.objs[1].transform = tm;
+//	w.objs[1].color = multiply_color_by_scalar(w.objs[0].color, 0.3);
+//	w.objs[1].material = w.objs[0].material;
+//	w.objs[1].material.color = multiply_color_by_scalar(w.objs[0].material.color, 0.3);
+//
+//	tm2 = id_matrix4();
+//	tm2 = multiply_matrix4(tm, translation(0, 0, 5));
+//	tm2 = multiply_matrix4(tm, rotation_x(90));
+//	tm2 = multiply_matrix4(tm, rotation_z(45));
+////	tm2 = multiply_matrix4(tm, scaling(10, 0.01, 10));
+//	tm2 = multiply_matrix4(tm2, scaling(2, 0.3, 2));
+//	w.objs[2].transform = tm2;
+////	w.objs[2].color = w.objs[0].color;
+////	w.objs[2].material.color = w.objs[0].material.color;
+//	
+//	tm3 = id_matrix4();
+//	tm3 = multiply_matrix4(tm3, translation(-0.5, 1, 0.5));
+//	w.objs[3].transform = tm3;
+//	w.objs[3].color = color(0.1, 1, 0.5);
+//	w.objs[3].material.color = color(0.1, 1, 0.5);
+//	
+//	tm4 = id_matrix4();
+//	tm4 = multiply_matrix4(tm4, translation(1.5, 0.5, -0.5));
+//	tm4 = multiply_matrix4(tm4, scaling(0.5, 0.5, 0.5));
+//	w.objs[4].transform = tm4;
+//	w.objs[4].color = color(0.5, 1, 0.1);
+//	w.objs[4].material.color = color(0.5, 1, 0.1);
+//	w.objs[4].material.diffuse = 0.7;
+//	w.objs[4].material.specular = 0.3;
+//
+//	tm5 = id_matrix4();
+//	tm5 = multiply_matrix4(tm5, translation(-1.5, 0.33, -0.75));
+//	tm5 = multiply_matrix4(tm5, scaling(0.33, 0.33, 0.33));
+//	w.objs[5].transform = tm5;
+//	w.objs[5].color = color(1, 0.8, 0.1);
+//	w.objs[5].material.color = color(1, 0.8, 0.1);
+//	w.objs[5].material.diffuse = 0.7;
+//	w.objs[5].material.specular = 0.3;
+//
+//	w.light = point_light(point(-10, 10, -10), 1.0, color(1, 1, 1));
+//
+//	cam = camera(50 * 8 , 100 * 8, deg_to_rad(60));
+//	cam.transform = view_transform(point(0, 1.5, -5), point(0, 1, 0), vector(0, 1, 0));
+//	
+//	img = render(cam, w);
+//	canvas_to_ppm(img);
+//}
+
+//void	test_single_sphere(t_minirt *rt)
+//{
+//	t_canvas	*img;
+//	t_camera	cam;
+//	t_world		w;
+//	t_matrix4	m;
+//	t_float		scalar;
+//
+///* ================================ WORLD ================================ */
+//	w = world(rt);
+//	scalar = 7;
+//
+///* ================================ CAMERA =============================== */
+//	cam = camera(50 * scalar, 100 * scalar, deg_to_rad(60));
+//	cam.transform = view_transform(point(0, 1.5, -5), point(0, 1, 0), vector(0, 1, 0));
+//
+///* ============================== RIGHT WALL ============================= */
+//	m = id_matrix4();
+////	m = multiply_matrix4(m, translation( -2.5, 2.5, -6.5));
+//	m = multiply_matrix4(m, translation(0, 0, 5));
+//	m = multiply_matrix4(m, rotation_y(45));
+//	m = multiply_matrix4(m, rotation_x(90));
+////	m = multiply_matrix4(m, scaling(2, 0.3, 2));
+//	m = multiply_matrix4(m, scaling(10, 0.01, 10));
+//	w.objs[0].transform = m;
+//	w.objs[0].material.specular = 0;
+//
+///* ================================ FLOOR ================================ */
+//	m = id_matrix4();
+////	m = multiply_matrix4(m, scaling(2, 0.3, 2));
+//	m = multiply_matrix4(m, scaling(10, 0.01, 10));
+//	w.objs[1].transform = m;
+//	w.objs[1].material.specular = 0;
+//
+///* ============================== LEFT WALL ============================== */
+//	m = id_matrix4();
+//	m = multiply_matrix4(m, translation(0, 0, 5));
+//	m = multiply_matrix4(m, rotation_y(-45));
+//	m = multiply_matrix4(m, rotation_x(90));
+////	m = multiply_matrix4(m, scaling(2, 0.3, 2));
+//	m = multiply_matrix4(m, scaling(10, 0.01, 10));
+//	w.objs[2].transform = m;
+//	w.objs[2].material.specular = 0;
+//
+///* ============================== SPHERE 00 ============================== */
+///* ------------------------------------------------------------black sphere*/
+//	m = id_matrix4();
+//	m = multiply_matrix4(m, translation(0, 1, 0));
+//	w.objs[3].transform = m;
+////	w.objs[3].material.diffuse = 0.7;
+////	w.objs[3].material.specular = 0.3;
+//
+///* ============================== SPHERE 01 ============================== */
+//	m = id_matrix4();
+//	m = multiply_matrix4(m, translation(0.9, 0.5, -0.75));
+//	m = multiply_matrix4(m, scaling(0.33, 0.33, 0.33));
+//	w.objs[4].transform = m;
+//	
+///* ============================== RENDERING ============================== */
+//	img = render(cam, w);
+//	canvas_to_ppm(img);
+//}
+
+//void	test_scene00(t_minirt *rt)
+//{
+//	t_canvas	*img;
+//	t_camera	cam;
+//	t_world		w;
+//	t_matrix4	m;
+//	t_float		scalar;
+//	t_color		col;
+///* ================================ WORLD ================================ */
+//	w = world(rt);
+//	scalar = 12;
+//
+///* ================================ CAMERA =============================== */
+//	cam = camera(50 * scalar, 100 * scalar, deg_to_rad(60));
+//	cam.transform = view_transform(point(0, 1.5, -5), point(0, 1, 0), vector(0, 1, 0));
+//
+///* ================================ FLOOR ================================ */
+///* --------------------------------------------------------------transforms*/
+//	m = id_matrix4();
+//	m = multiply_matrix4(m, scaling(10, 0.01, 10));
+//	w.objs[0].transform = m;
+///* ----------------------------------------------------------------material*/
+//	col = color(1, 0.9, 0.9);
+//	w.objs[0].color = col;
+//	w.objs[0].material.color = col;
+//
+///* ============================== LEFT WALL ============================== */
+///* --------------------------------------------------------------transforms*/
+//	m = id_matrix4();
+//	m = multiply_matrix4(m, translation(0, 0, 5));
+//	m = multiply_matrix4(m, rotation_y(-45));
+//	m = multiply_matrix4(m, rotation_x(90));
+//	m = multiply_matrix4(m, scaling(10, 0.01, 10));
+//	w.objs[1].transform = m;
+///* ----------------------------------------------------------------material*/
+//	col = color(1, 0.9, 0.9);
+//	w.objs[1].color = col;
+//	w.objs[1].material.color = col;
+//
+///* ============================= RIGHT WALL ============================== */
+///* --------------------------------------------------------------transforms*/
+//	m = id_matrix4();
+//	m = multiply_matrix4(m, translation(0, 0, 5));
+//	m = multiply_matrix4(m, rotation_y(45));
+//	m = multiply_matrix4(m, rotation_x(90));
+//	m = multiply_matrix4(m, scaling(10, 0.01, 10));
+//	w.objs[2].transform = m;
+///* ----------------------------------------------------------------material*/
+//	col = color(1, 0.9, 0.9);
+//	w.objs[2].color = col;
+//	w.objs[2].material.color = col;
+//
+///* ============================= BIG SPHERE ============================== */
+///* --------------------------------------------------------------transforms*/
+//	m = id_matrix4();
+//	m = multiply_matrix4(m, translation(-0.5, 1, 0.5));
+//	w.objs[3].transform = m;
+///* -------------------------------------------------------------------color*/
+//	col = color(0.1, 1, 0.5);
+//	w.objs[3].color = col;
+//	w.objs[3].material.color = col;
+///* ----------------------------------------------------------------material*/
+//	w.objs[3].material.diffuse = 0.7;
+//	w.objs[3].material.specular = 0.3;
+//
+///* ========================== MIDDLE SPHERE ============================== */
+///* --------------------------------------------------------------transforms*/
+//	m = id_matrix4();
+//	m = multiply_matrix4(m, translation(1.5, 0.5, -0.5));
+//	m = multiply_matrix4(m, scaling(0.5, 0.5, 0.5));
+//	w.objs[4].transform = m;
+///* -------------------------------------------------------------------color*/
+//	col = color(0.5, 1, 0.1);
+//	w.objs[4].color = col;
+//	w.objs[4].material.color = col;
+///* ----------------------------------------------------------------material*/
+//	w.objs[4].material.diffuse = 0.7;
+//	w.objs[4].material.specular = 0.3;
+//
+///* =========================== SMALL SPHERE ============================== */
+///* --------------------------------------------------------------transforms*/
+//	m = id_matrix4();
+//	m = multiply_matrix4(m, translation(-1.5, 0.33, -0.75));
+//	m = multiply_matrix4(m, scaling(0.33, 0.33, 0.33));
+//	w.objs[5].transform = m;
+///* -------------------------------------------------------------------color*/
+//	col = color(1, 0.8, 0.1);
+//	w.objs[5].color = col;
+//	w.objs[5].material.color = col;
+///* ----------------------------------------------------------------material*/
+//	w.objs[5].material.diffuse = 0.7;
+//	w.objs[5].material.specular = 0.3;
+///* ============================== RENDERING ============================== */
+//	img = render(cam, w);
+//	canvas_to_ppm(img);
+//}
+
+//void	test_scene01(t_minirt *rt)
+//{
+//	// TEST FOR MLX RENDERING.
+////	t_canvas	*img;
+//	t_camera	cam;
+//	t_world		w;
+//	t_matrix4	m;
+//	t_float		scalar;
+//	t_color		col;
+///* ================================ WORLD ================================ */
+//	w = world(rt);
+//	scalar = 5;
+//
+//	t_float	width;
+//	t_float	height;
+//
+//	width = 50 * scalar;
+//	height = 100 * scalar;
+///* ================================= MLX ================================= */
+//	mlx_start(rt, height, width);
+////	mlx_loop(rt->mlx);
+//	color_fill(rt);
+//
+///* ================================ CAMERA =============================== */
+//	cam = camera(width, height, deg_to_rad(60));
+//	cam.transform = view_transform(point(0, 1.5, -5), point(0, 1, 0), vector(0, 1, 0));
+//
+///* ================================ FLOOR ================================ */
+///* --------------------------------------------------------------transforms*/
+//	m = id_matrix4();
+//	m = multiply_matrix4(m, scaling(10, 0.01, 10));
+//	w.objs[0].transform = m;
+///* ----------------------------------------------------------------material*/
+//	col = color(1, 0.9, 0.9);
+////	col = color(0, 0, 1);
+//	w.objs[0].color = col;
+//	w.objs[0].material.color = col;
+//
+///* ============================== LEFT WALL ============================== */
+///* --------------------------------------------------------------transforms*/
+//	m = id_matrix4();
+//	m = multiply_matrix4(m, translation(0, 0, 5));
+//	m = multiply_matrix4(m, rotation_y(-45));
+//	m = multiply_matrix4(m, rotation_x(90));
+//	m = multiply_matrix4(m, scaling(10, 0.01, 10));
+//	w.objs[1].transform = m;
+///* ----------------------------------------------------------------material*/
+//	col = color(1, 0.9, 0.9);
+////	col = color(1, 0, 0);
+//	w.objs[1].color = col;
+//	w.objs[1].material.color = col;
+//
+///* ============================= RIGHT WALL ============================== */
+///* --------------------------------------------------------------transforms*/
+//	m = id_matrix4();
+//	m = multiply_matrix4(m, translation(0, 0, 5));
+//	m = multiply_matrix4(m, rotation_y(45));
+//	m = multiply_matrix4(m, rotation_x(90));
+//	m = multiply_matrix4(m, scaling(10, 0.01, 10));
+//	w.objs[2].transform = m;
+///* ----------------------------------------------------------------material*/
+//	col = color(1, 0.9, 0.9);
+////	col = color(0, 1, 0);
+//	w.objs[2].color = col;
+//	w.objs[2].material.color = col;
+//
+///* ============================= BIG SPHERE ============================== */
+///* --------------------------------------------------------------transforms*/
+//	m = id_matrix4();
+//	m = multiply_matrix4(m, translation(-0.5, 1, 0.5));
+//	w.objs[3].transform = m;
+///* -------------------------------------------------------------------color*/
+////	col = color(0.1, 1, 0.5);
+//	col = color(0, 1, 0);
+//	w.objs[3].color = col;
+//	w.objs[3].material.color = col;
+///* ----------------------------------------------------------------material*/
+//	w.objs[3].material.diffuse = 0.7;
+//	w.objs[3].material.specular = 0.3;
+//
+///* ========================== MIDDLE SPHERE ============================== */
+///* --------------------------------------------------------------transforms*/
+//	m = id_matrix4();
+//	m = multiply_matrix4(m, translation(1.5, 0.5, -0.5));
+//	m = multiply_matrix4(m, scaling(0.5, 0.5, 0.5));
+//	w.objs[4].transform = m;
+///* -------------------------------------------------------------------color*/
+//	col = color(0.5, 1, 0.1);
+////	col = color(1, 0, 0);
+//	w.objs[4].color = col;
+//	w.objs[4].material.color = col;
+///* ----------------------------------------------------------------material*/
+//	w.objs[4].material.diffuse = 0.7;
+//	w.objs[4].material.specular = 0.3;
+//
+///* =========================== SMALL SPHERE ============================== */
+///* --------------------------------------------------------------transforms*/
+//	m = id_matrix4();
+//	m = multiply_matrix4(m, translation(-1.5, 0.33, -0.75));
+//	m = multiply_matrix4(m, scaling(0.33, 0.33, 0.33));
+//	w.objs[5].transform = m;
+///* -------------------------------------------------------------------color*/
+//	col = color(1, 0.8, 0.1);
+////	col = color(0, 0, 1);
+//	w.objs[5].color = col;
+//	w.objs[5].material.color = col;
+///* ----------------------------------------------------------------material*/
+//	w.objs[5].material.diffuse = 0.7;
+//	w.objs[5].material.specular = 0.3;
+///* ============================== RENDERING ============================== */
+//	mlx_render(rt, cam, w);
+//	mlx_loop(rt->mlx);
+//	mlx_delete_image(rt->mlx, rt->img);
+//	mlx_terminate(rt->mlx);
+//}
+
+void	test_scene00(t_minirt *rt)
+{
+	t_canvas	*img;
+	t_camera	cam;
+	t_world		w;
+	t_matrix4	m;
+	t_float		scalar;
+	t_color		col;
+/* ================================ WORLD ================================ */
+	w = world(rt);
+	scalar = 3;
+/* ================================ CAMERA =============================== */
+	cam = camera(50 * scalar, 100 * scalar, deg_to_rad(60));
+	cam.transform = view_transform(point(0, 1.5, -5), point(0, 1, 0), vector(0, 1, 0));
+
+/* ================================ FLOOR ================================ */
+/* --------------------------------------------------------------transforms*/
+	m = id_matrix4();
+	m = multiply_matrix4(m, scaling(10, 0.01, 10));
+	w.objs[0].transform = m;
+/* ----------------------------------------------------------------material*/
+	col = color(1, 0.9, 0.9);
+//	col = color(1, 0, 0);
+	w.objs[0].color = col;
+	w.objs[0].material.color = col;
+
+/* ============================== LEFT WALL ============================== */
+/* --------------------------------------------------------------transforms*/
+	m = id_matrix4();
+	m = multiply_matrix4(m, translation(0, 0, 5));
+	m = multiply_matrix4(m, rotation_y(-45));
+	m = multiply_matrix4(m, rotation_x(90));
+	m = multiply_matrix4(m, scaling(10, 0.01, 10));
+	w.objs[1].transform = m;
+/* ----------------------------------------------------------------material*/
+	col = color(1, 0.9, 0.9);
+//	col = color(0, 1, 0);
+	w.objs[1].color = col;
+	w.objs[1].material.color = col;
+
+/* ============================= RIGHT WALL ============================== */
+/* --------------------------------------------------------------transforms*/
+	m = id_matrix4();
+	m = multiply_matrix4(m, translation(0, 0, 5));
+	m = multiply_matrix4(m, rotation_y(45));
+	m = multiply_matrix4(m, rotation_x(90));
+	m = multiply_matrix4(m, scaling(10, 0.01, 10));
+	w.objs[2].transform = m;
+/* ----------------------------------------------------------------material*/
+	col = color(1, 0.9, 0.9);
+//	col = color(0, 0, 1);
+	w.objs[2].color = col;
+	w.objs[2].material.color = col;
+
+/* ============================= BIG SPHERE ============================== */
+/* --------------------------------------------------------------transforms*/
+	m = id_matrix4();
+	m = multiply_matrix4(m, translation(-0.5, 1, 0.5));
+	w.objs[3].transform = m;
+/* -------------------------------------------------------------------color*/
+	col = color(0.1, 1, 0.5);
+//	col = color(1, 0, 0);
+	w.objs[3].color = col;
+	w.objs[3].material.color = col;
+/* ----------------------------------------------------------------material*/
+	w.objs[3].material.diffuse = 0.7;
+	w.objs[3].material.specular = 0.3;
+
+/* ========================== MIDDLE SPHERE ============================== */
+/* --------------------------------------------------------------transforms*/
+	m = id_matrix4();
+	m = multiply_matrix4(m, translation(1.5, 0.5, -0.5));
+	m = multiply_matrix4(m, scaling(0.5, 0.5, 0.5));
+	w.objs[4].transform = m;
+/* -------------------------------------------------------------------color*/
+	col = color(0.5, 1, 0.1);
+//	col = color(0, 1, 0);
+	w.objs[4].color = col;
+	w.objs[4].material.color = col;
+/* ----------------------------------------------------------------material*/
+	w.objs[4].material.diffuse = 0.7;
+	w.objs[4].material.specular = 0.3;
+
+/* =========================== SMALL SPHERE ============================== */
+/* --------------------------------------------------------------transforms*/
+	m = id_matrix4();
+	m = multiply_matrix4(m, translation(-1.5, 0.33, -0.75));
+	m = multiply_matrix4(m, scaling(0.33, 0.33, 0.33));
+	w.objs[5].transform = m;
+/* -------------------------------------------------------------------color*/
+	col = color(1, 0.8, 0.1);
+//	col = color(0, 0, 1);
+	w.objs[5].color = col;
+	w.objs[5].material.color = col;
+/* ----------------------------------------------------------------material*/
+	w.objs[5].material.diffuse = 0.7;
+	w.objs[5].material.specular = 0.3;
+/* ============================== RENDERING ============================== */
+	img = render(cam, w);
+	canvas_to_ppm(img);
+}
+
+//void	test_in_shadow(t_minirt *rt)
+//{
+//	t_world	w;
+//	t_tuple	p;
+//
+//	w = default_world(rt);
+//	p = point(-2, 2, -2);
+//	if (is_shadowed(w, p) == 0)
+//		printf("is shadowed: false\n");
+//	else
+//		printf("is shadowed: true\n");
+//}
+
+//void	test_intersection(t_minirt	*rt)
+//{
+//	(void)rt;
+////	t_matrix4	m;
+//	t_ray	r = ray(point(0, 0, -5), vector(0, 0, 1));
+////	t_object	sp = sphere(point(0, 0, 0), 2, color(1, 0, 0));
+//	t_object	p = plane(point(0, 0, 0), color(0, 0, 1));
+////	t_world	w = world(rt);
+////	m = multiply_matrix4(scaling(1, 0.5, 1), rotation_z(36));
+////	set_transform(&sp, m);
+//	set_transform(&p, translation(5, 0, 0));
+//	intersect(&p, r);
+//	test_print_tuple(p.saved_ray.origin);
+//	printf("\n");
+//	test_print_tuple(p.saved_ray.direction);
+//	printf("\n");
+//
+//
+//}
+
+//void	test_normal_at()
+//{
+//	t_object	p = plane(point(0, 0, 0), vector(0, 1, 0), color(0, 0, 1));
+//	set_transform(&p, translation(0, 2, 0));
+//	t_tuple n1 = normal_at_plane(p);
+//	t_tuple n2 = normal_at_plane(p);
+//	t_tuple n3 = normal_at_plane(p);
+//	test_print_tuple(n1);
+//	printf("\n");
+//	test_print_tuple(n2);
+//	printf("\n");
+//	test_print_tuple(n3);
+//	printf("\n");
+//}
+
+//void	test_plane_intersect()
+//{
+//	t_object	p = plane(point(0, 0, 0), vector(0, 1, 0), color(0, 0, 1));
+//	t_ray	r = ray(point(0, -1, 0), vector(0, 1, 0));
+//	t_intersections	xs = plane_intersection(&p, r);
+//	printf("count: %d\n", xs.count);
+//	printf("t[0] = %f\n", xs.t[0]);
+//	printf("t[1] = %f\n", xs.t[1]);
+//}
+void	test_scene01(t_minirt *rt)
+{
+	t_canvas	*img;
+	t_camera	cam;
+	t_world		w;
+	t_matrix4	m;
+	t_float		scalar;
+	t_color		col;
+/* ================================ WORLD ================================ */
+	w = world(rt);
+	scalar = 3;
+/* ================================ CAMERA =============================== */
+	cam = camera(50 * scalar, 100 * scalar, deg_to_rad(60));
+	cam.transform = view_transform(point(0, 1.5, -5), point(0, 1, 0), vector(0, 1, 0));
+
+/* ================================ FLOOR ================================ */
+/* --------------------------------------------------------------transforms*/
+//	m = id_matrix4();
+//	m = multiply_matrix4(m, scaling(10, 0.01, 10));
+//	w.objs[0].transform = m;
+/* ----------------------------------------------------------------material*/
+	w.objs[0] = plane(point(0, 0, 0), vector(0, 1, 0), color(1, 0, 0));
+	col = color(1, 0.9, 0.9);
+//	col = color(1, 0, 0);
+	w.objs[0].color = col;
+	w.objs[0].material.color = col;
+/* ===============================+ WALL00 =============================== */
+/* --------------------------------------------------------------transforms*/
+	w.objs[1] = plane(point(0, 0, 0), vector(0, 1, 0), color(1, 0, 0));
+	m = id_matrix4();
+//	m = multiply_matrix4(m, scaling(10, 0.01, 10));
+	m = multiply_matrix4(m, translation(0, 0, 3.5));
+	m = multiply_matrix4(m, rotation_x(90));
+	w.objs[1].transform = m;
+/* ----------------------------------------------------------------material*/
+//	col = color(1, 0.9, 0.9);
+	col = color(1, 0, 0);
+	w.objs[1].color = col;
+	w.objs[1].material.color = col;
+
+
+/* ============================= BIG SPHERE ============================== */
+/* --------------------------------------------------------------transforms*/
+	m = id_matrix4();
+	m = multiply_matrix4(m, translation(-0.5, 1, 0.5));
+	w.objs[2].transform = m;
+/* -------------------------------------------------------------------color*/
+	col = color(0.1, 1, 0.5);
+//	col = color(1, 0, 0);
+	w.objs[2].color = col;
+	w.objs[2].material.color = col;
+/* ----------------------------------------------------------------material*/
+	w.objs[2].material.diffuse = 0.7;
+	w.objs[2].material.specular = 0.3;
+
+/* ========================== MIDDLE SPHERE ============================== */
+/* --------------------------------------------------------------transforms*/
+	m = id_matrix4();
+	m = multiply_matrix4(m, translation(1.5, 0.5, -0.5));
+	m = multiply_matrix4(m, scaling(0.5, 0.5, 0.5));
+	w.objs[3].transform = m;
+/* -------------------------------------------------------------------color*/
+	col = color(0.5, 1, 0.1);
+//	col = color(0, 1, 0);
+	w.objs[3].color = col;
+	w.objs[3].material.color = col;
+/* ----------------------------------------------------------------material*/
+	w.objs[3].material.diffuse = 0.7;
+	w.objs[3].material.specular = 0.3;
+
+/* =========================== SMALL SPHERE ============================== */
+/* --------------------------------------------------------------transforms*/
+	m = id_matrix4();
+	m = multiply_matrix4(m, translation(-1.5, 0.33, -0.75));
+	m = multiply_matrix4(m, scaling(0.33, 0.33, 0.33));
+	w.objs[4].transform = m;
+/* -------------------------------------------------------------------color*/
+	col = color(1, 0.8, 0.1);
+//	col = color(0, 0, 1);
+	w.objs[4].color = col;
+	w.objs[4].material.color = col;
+/* ----------------------------------------------------------------material*/
+	w.objs[4].material.diffuse = 0.7;
+	w.objs[4].material.specular = 0.3;
+/* ============================== RENDERING ============================== */
+	img = render(cam, w);
+	canvas_to_ppm(img);
 }
 int	main(int argc, char **argv)
 {
@@ -1807,7 +2502,7 @@ int	main(int argc, char **argv)
 	rt.n_objs = 0;
 	rt.ts = NULL;
 	open_file(&rt, argv);
-	test_trace_sphere_mlx(&rt);
+	test_scene01(&rt);
 	cleanup_rt(&rt);
 	return (0);
 }
