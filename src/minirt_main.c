@@ -2400,7 +2400,156 @@ void	test_scene00(t_minirt *rt)
 //	printf("t[0] = %f\n", xs.t[0]);
 //	printf("t[1] = %f\n", xs.t[1]);
 //}
-void	test_scene01(t_minirt *rt)
+//void	test_scene01(t_minirt *rt)
+//{
+//	t_canvas	*img;
+//	t_camera	cam;
+//	t_world		w;
+//	t_matrix4	m;
+//	t_float		scalar;
+//	t_color		col;
+///* ================================ WORLD ================================ */
+//	w = world(rt);
+//	scalar = 3;
+///* ================================ CAMERA =============================== */
+//	cam = camera(50 * scalar, 100 * scalar, deg_to_rad(60));
+//	cam.transform = view_transform(point(0, 1.5, -5), point(0, 1, 0), vector(0, 1, 0));
+//
+///* ================================= LIGHT =============================== */
+//	w.light = point_light(point(0, 2.49, 0), 1.0, color(1, 1, 1));
+///* ================================ FLOOR ================================ */
+///* --------------------------------------------------------------transforms*/
+////	m = id_matrix4();
+////	m = multiply_matrix4(m, scaling(10, 0.01, 10));
+////	w.objs[0].transform = m;
+///* ----------------------------------------------------------------material*/
+////	w.objs[0] = plane(point(0, 0, 0), vector(0, 1, 0), color(1, 0, 0));
+//	col = color(1, 0.9, 0.9);
+////	col = color(1, 0, 0);
+//	w.objs[0].color = col;
+//	w.objs[0].material.color = col;
+//	w.objs[0].material.specular = 0;
+//
+///* ================================= ROOF ================================ */
+///* --------------------------------------------------------------transforms*/
+//	m = id_matrix4();
+////	m = multiply_matrix4(m, scaling(10, 0.01, 10));
+//	m = multiply_matrix4(m, translation(0, 2.5, 0));
+//	m = multiply_matrix4(m, rotation_x(180));
+//	w.objs[1].transform = m;
+///* ----------------------------------------------------------------material*/
+////	w.objs[0] = plane(point(0, 0, 0), vector(0, 1, 0), color(1, 0, 0));
+//	col = color(1, 0.9, 0.9);
+////	col = color(1, 0, 0);
+//	w.objs[1].color = col;
+//	w.objs[1].material.color = col;
+//	w.objs[1].material.specular = 0;
+//
+//
+///* =============================== WALL_BACK ============================= */
+///* --------------------------------------------------------------transforms*/
+////	w.objs[1] = plane(point(0, 0, 0), vector(0, 1, 0), color(1, 0, 0));
+//	m = id_matrix4();
+////	m = multiply_matrix4(m, scaling(10, 0.01, 10));
+//	m = multiply_matrix4(m, translation(0, 0, 2.5));
+//	m = multiply_matrix4(m, rotation_x(90));
+//	w.objs[2].transform = m;
+///* ----------------------------------------------------------------material*/
+//	col = color(1, 0.9, 0.9);
+////	col = color(1, 0, 0);
+//	w.objs[2].color = col;
+//	w.objs[2].material.color = col;
+//	w.objs[2].material.specular = 0;
+//
+///* =============================== WALL_LEFT ============================= */
+///* --------------------------------------------------------------transforms*/
+////	w.objs[2] = plane(point(0, 0, 0), vector(0, 1, 0), color(0, 0, 1));
+//	m = id_matrix4();
+////	m = multiply_matrix4(m, scaling(10, 0.01, 10));
+//	m = multiply_matrix4(m, translation(-2, 0, 0));
+//	m = multiply_matrix4(m, rotation_y(90));
+//	m = multiply_matrix4(m, rotation_x(90));
+//	w.objs[3].transform = m;
+///* ----------------------------------------------------------------material*/
+//	col = color(1, 0.9, 0.9);
+////	col = color(0, 0, 1);
+//	w.objs[3].color = col;
+//	w.objs[3].material.color = col;
+//	w.objs[3].material.specular = 0;
+//
+///* ============================== WALL_RIGHT ============================= */
+///* --------------------------------------------------------------transforms*/
+////	w.objs[2] = plane(point(0, 0, 0), vector(0, 1, 0), color(0, 0, 1));
+//	m = id_matrix4();
+////	m = multiply_matrix4(m, scaling(10, 0.01, 10));
+//	m = multiply_matrix4(m, translation(2, 0, 0));
+//	m = multiply_matrix4(m, rotation_y(90));
+//	m = multiply_matrix4(m, rotation_x(90));
+//	w.objs[4].transform = m;
+///* ----------------------------------------------------------------material*/
+//	col = color(1, 0.9, 0.9);
+////	col = color(0, 1, 0);
+//	w.objs[4].color = col;
+//	w.objs[4].material.color = col;
+//	w.objs[4].material.specular = 0;
+//
+//
+///* ============================= BIG SPHERE ============================== */
+///* --------------------------------------------------------------transforms*/
+//	m = id_matrix4();
+//	m = multiply_matrix4(m, translation(-0.5, 1, 0.5));
+//	w.objs[5].transform = m;
+///* -------------------------------------------------------------------color*/
+//	col = color(0.1, 1, 0.5);
+////	col = color(1, 0, 0);
+//	w.objs[5].color = col;
+//	w.objs[5].material.color = col;
+///* ----------------------------------------------------------------material*/
+//	w.objs[5].material.diffuse = 0.7;
+//	w.objs[5].material.specular = 0.3;
+//
+///* ========================== MIDDLE SPHERE ============================== */
+///* --------------------------------------------------------------transforms*/
+//	m = id_matrix4();
+//	m = multiply_matrix4(m, translation(1.5, 0.5, -0.5));
+//	m = multiply_matrix4(m, scaling(0.5, 0.5, 0.5));
+//	w.objs[6].transform = m;
+///* -------------------------------------------------------------------color*/
+//	col = color(0.5, 1, 0.1);
+////	col = color(0, 1, 0);
+//	w.objs[6].color = col;
+//	w.objs[6].material.color = col;
+///* ----------------------------------------------------------------material*/
+//	w.objs[6].material.diffuse = 0.7;
+//	w.objs[6].material.specular = 0.3;
+//
+///* =========================== SMALL SPHERE ============================== */
+///* --------------------------------------------------------------transforms*/
+//	m = id_matrix4();
+//	m = multiply_matrix4(m, translation(-1.5, 0.33, -0.75));
+//	m = multiply_matrix4(m, scaling(0.33, 0.33, 0.33));
+//	w.objs[7].transform = m;
+///* -------------------------------------------------------------------color*/
+//	col = color(1, 0.8, 0.1);
+////	col = color(0, 0, 1);
+//	w.objs[7].color = col;
+//	w.objs[7].material.color = col;
+///* ----------------------------------------------------------------material*/
+//	w.objs[7].material.diffuse = 0.7;
+//	w.objs[7].material.specular = 0.3;
+///* ============================== RENDERING ============================== */
+//	img = render(cam, w);
+//	canvas_to_ppm(img);
+//}
+//
+//
+void	test_print_color(t_color col)
+{
+	printf("col 0-1 r: %f g: %f b: %f a: %f\n", col.r, col.g, col.b, col.a);
+	printf("col 255: r: %d g: %d b: %d a: %d\n", col.ch[R], col.ch[G], col.ch[B], col.ch[A]);
+}
+
+void	test_striped_pattern(t_minirt *rt)
 {
 	t_canvas	*img;
 	t_camera	cam;
@@ -2416,95 +2565,128 @@ void	test_scene01(t_minirt *rt)
 	cam.transform = view_transform(point(0, 1.5, -5), point(0, 1, 0), vector(0, 1, 0));
 
 /* ================================= LIGHT =============================== */
-	w.light = point_light(point(0, 10, -10), 1.0, color(1, 1, 1));
+	w.light = point_light(point(0, 2.49, 0), 1.0, color(1, 1, 1));
 /* ================================ FLOOR ================================ */
 /* --------------------------------------------------------------transforms*/
 //	m = id_matrix4();
 //	m = multiply_matrix4(m, scaling(10, 0.01, 10));
 //	w.objs[0].transform = m;
 /* ----------------------------------------------------------------material*/
-	w.objs[0] = plane(point(0, 0, 0), vector(0, 1, 0), color(1, 0, 0));
+//	w.objs[0] = plane(point(0, 0, 0), vector(0, 1, 0), color(1, 0, 0));
 	col = color(1, 0.9, 0.9);
 //	col = color(1, 0, 0);
 	w.objs[0].color = col;
 	w.objs[0].material.color = col;
+	w.objs[0].material.ambient = 1;
+	w.objs[0].material.diffuse = 0;
+	w.objs[0].material.specular = 0;
+	w.objs[0].material.has_pattern = true;
+	w.objs[0].material.pattern = stripe_pattern(color(1, 1, 1), color(0, 0, 0));
+
+/* ================================= ROOF ================================ */
+/* --------------------------------------------------------------transforms*/
+	m = id_matrix4();
+//	m = multiply_matrix4(m, scaling(10, 0.01, 10));
+	m = multiply_matrix4(m, translation(0, 2.5, 0));
+	m = multiply_matrix4(m, rotation_x(180));
+	w.objs[1].transform = m;
+/* ----------------------------------------------------------------material*/
+//	w.objs[0] = plane(point(0, 0, 0), vector(0, 1, 0), color(1, 0, 0));
+	col = color(1, 0.9, 0.9);
+//	col = color(1, 0, 0);
+	w.objs[1].color = col;
+	w.objs[1].material.color = col;
+	w.objs[1].material.ambient = 1;
+	w.objs[1].material.diffuse = 0;
+	w.objs[1].material.specular = 0;
+	w.objs[1].material.has_pattern = true;
+	w.objs[1].material.pattern = stripe_pattern(color(1, 1, 1), color(0, 0, 0));
+
 
 /* =============================== WALL_BACK ============================= */
 /* --------------------------------------------------------------transforms*/
-	w.objs[1] = plane(point(0, 0, 0), vector(0, 1, 0), color(1, 0, 0));
+//	w.objs[1] = plane(point(0, 0, 0), vector(0, 1, 0), color(1, 0, 0));
 	m = id_matrix4();
 //	m = multiply_matrix4(m, scaling(10, 0.01, 10));
 	m = multiply_matrix4(m, translation(0, 0, 2.5));
 	m = multiply_matrix4(m, rotation_x(90));
-	w.objs[1].transform = m;
+	w.objs[2].transform = m;
 /* ----------------------------------------------------------------material*/
-//	col = color(1, 0.9, 0.9);
-	col = color(1, 0, 0);
-	w.objs[1].color = col;
-	w.objs[1].material.color = col;
+	col = color(1, 0.9, 0.9);
+//	col = color(1, 0, 0);
+	w.objs[2].color = col;
+	w.objs[2].material.color = col;
+	w.objs[2].material.ambient = 1;
+	w.objs[2].material.diffuse = 0;
+	w.objs[2].material.specular = 0;
+	w.objs[2].material.has_pattern = true;
+	w.objs[2].material.pattern = stripe_pattern(color(1, 1, 1), color(0, 0, 0));
 
 /* =============================== WALL_LEFT ============================= */
 /* --------------------------------------------------------------transforms*/
-	w.objs[2] = plane(point(0, 0, 0), vector(0, 1, 0), color(0, 0, 1));
+//	w.objs[2] = plane(point(0, 0, 0), vector(0, 1, 0), color(0, 0, 1));
 	m = id_matrix4();
 //	m = multiply_matrix4(m, scaling(10, 0.01, 10));
 	m = multiply_matrix4(m, translation(-2, 0, 0));
 	m = multiply_matrix4(m, rotation_y(90));
 	m = multiply_matrix4(m, rotation_x(90));
-	w.objs[2].transform = m;
+	w.objs[3].transform = m;
 /* ----------------------------------------------------------------material*/
-//	col = color(1, 0.9, 0.9);
-	col = color(0, 0, 1);
-	w.objs[2].color = col;
-	w.objs[2].material.color = col;
+	col = color(1, 0.9, 0.9);
+//	col = color(0, 0, 1);
+	w.objs[3].color = col;
+	w.objs[3].material.color = col;
+	w.objs[3].material.ambient = 1;
+	w.objs[3].material.diffuse = 0;
+	w.objs[3].material.specular = 0;
+	w.objs[3].material.has_pattern = true;
+	w.objs[3].material.pattern = stripe_pattern(color(1, 1, 1), color(0, 0, 0));
+
+/* ============================== WALL_RIGHT ============================= */
+/* --------------------------------------------------------------transforms*/
+//	w.objs[2] = plane(point(0, 0, 0), vector(0, 1, 0), color(0, 0, 1));
+	m = id_matrix4();
+//	m = multiply_matrix4(m, scaling(10, 0.01, 10));
+	m = multiply_matrix4(m, translation(2, 0, 0));
+	m = multiply_matrix4(m, rotation_y(90));
+	m = multiply_matrix4(m, rotation_x(90));
+	w.objs[4].transform = m;
+/* ----------------------------------------------------------------material*/
+	col = color(1, 0.9, 0.9);
+//	col = color(0, 1, 0);
+	w.objs[4].color = col;
+	w.objs[4].material.color = col;
+	w.objs[4].material.ambient = 1;
+	w.objs[4].material.diffuse = 0;
+	w.objs[4].material.specular = 0;
+	w.objs[4].material.has_pattern = true;
+	w.objs[4].material.pattern = stripe_pattern(color(1, 1, 1), color(0, 0, 0));
+
 
 /* ============================= BIG SPHERE ============================== */
 /* --------------------------------------------------------------transforms*/
 	m = id_matrix4();
 	m = multiply_matrix4(m, translation(-0.5, 1, 0.5));
-	w.objs[3].transform = m;
+	w.objs[5].transform = m;
 /* -------------------------------------------------------------------color*/
 	col = color(0.1, 1, 0.5);
 //	col = color(1, 0, 0);
-	w.objs[3].color = col;
-	w.objs[3].material.color = col;
-/* ----------------------------------------------------------------material*/
-	w.objs[3].material.diffuse = 0.7;
-	w.objs[3].material.specular = 0.3;
-
-/* ========================== MIDDLE SPHERE ============================== */
-/* --------------------------------------------------------------transforms*/
-	m = id_matrix4();
-	m = multiply_matrix4(m, translation(1.5, 0.5, -0.5));
-	m = multiply_matrix4(m, scaling(0.5, 0.5, 0.5));
-	w.objs[4].transform = m;
-/* -------------------------------------------------------------------color*/
-	col = color(0.5, 1, 0.1);
-//	col = color(0, 1, 0);
-	w.objs[4].color = col;
-	w.objs[4].material.color = col;
-/* ----------------------------------------------------------------material*/
-	w.objs[4].material.diffuse = 0.7;
-	w.objs[4].material.specular = 0.3;
-
-/* =========================== SMALL SPHERE ============================== */
-/* --------------------------------------------------------------transforms*/
-	m = id_matrix4();
-	m = multiply_matrix4(m, translation(-1.5, 0.33, -0.75));
-	m = multiply_matrix4(m, scaling(0.33, 0.33, 0.33));
-	w.objs[5].transform = m;
-/* -------------------------------------------------------------------color*/
-	col = color(1, 0.8, 0.1);
-//	col = color(0, 0, 1);
 	w.objs[5].color = col;
 	w.objs[5].material.color = col;
 /* ----------------------------------------------------------------material*/
-	w.objs[5].material.diffuse = 0.7;
-	w.objs[5].material.specular = 0.3;
+//	w.objs[5].material.diffuse = 0.7;
+//	w.objs[5].material.specular = 0.3;
+	w.objs[5].material.ambient = 1;
+	w.objs[5].material.diffuse = 0;
+	w.objs[5].material.specular = 0;
+	w.objs[5].material.has_pattern = true;
+	w.objs[5].material.pattern = stripe_pattern(color(1, 1, 1), color(0, 0, 0));
+
 /* ============================== RENDERING ============================== */
 	img = render(cam, w);
 	canvas_to_ppm(img);
 }
+
 int	main(int argc, char **argv)
 {
 //	(void)argc;
@@ -2519,7 +2701,7 @@ int	main(int argc, char **argv)
 	rt.n_objs = 0;
 	rt.ts = NULL;
 	open_file(&rt, argv);
-	test_scene01(&rt);
+	test_striped_pattern(&rt);
 	cleanup_rt(&rt);
 	return (0);
 }

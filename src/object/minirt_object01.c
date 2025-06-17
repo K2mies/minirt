@@ -25,6 +25,7 @@ t_object	plane(t_tuple origin, t_tuple normal, t_color col)
 	p.vector = normal;
 	p.color = col;
 	p.material = material(param, col);
+	p.material.has_pattern = false;
 	p.transform = id_matrix4();
 	return (p);
 }

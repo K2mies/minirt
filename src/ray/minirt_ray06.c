@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_ray04.c                                     :+:      :+:    :+:   */
+/*   minirt_ray06.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 14:47:00 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/04 17:12:51 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/06/17 16:32:49 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
@@ -66,6 +66,8 @@ t_color	lighting(t_lighting_param p, t_material m, t_light light, t_tuple v[3])
 //	t_lighting_param	p;
 	t_color				res;
 
+	if (m.has_pattern == true)
+		m.color = stripe_at(&m.pattern, v[pos]);
 	apply_lighting(&p, m, light, v);
 	res = add_three_colors(p.ambient, p.diffuse, p.specular);
 	return (res);

@@ -28,7 +28,7 @@ t_computations prepare_computations(t_intersection i, t_ray r)
 	}
 	else
 		comps.inside = false;
-	over_point = multiply_tuple_by_scalar(comps.v[normalv], EPSILON);
+	over_point = multiply_tuple_by_scalar(comps.v[normalv], SHADOW_BIAS);
 	comps.over_point = add_tuples(comps.v[pos], over_point);
 	return (comps);
 }

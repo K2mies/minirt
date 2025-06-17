@@ -35,6 +35,7 @@ t_object	sphere(t_tuple location, t_float diameter, t_color col)
 	sp.origin = location;
 	sp.color = col;
 	sp.material = material(p, col);
+	sp.material.has_pattern = false;
 	sp.transform = id_matrix4();
 	return (sp);
 }

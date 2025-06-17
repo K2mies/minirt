@@ -34,8 +34,8 @@
 /* ================================= MACROS ================================= */
 
 # define M_PI 3.14159265358979323846
-# define EPSILON	0.00001f
-//# define EPSILON	0.01
+# define EPSILON		0.00001f
+# define SHADOW_BIAS	0.01f
 //# define EPSILON	1e-6
 //# define EPSILON	1.19209290e-07F
 //# define EPSILON	DBL_EPSILON
@@ -50,6 +50,7 @@
 
 /* --------------------------------------------------------------------- refs */
 typedef struct s_ray		t_ray;
+typedef struct	s_pattern	t_pattern;
 /* ------------------------------------------------------------- custom types */
 // Custom typedef for float (so can be switched to double later for testing)
 typedef float	t_float;
@@ -113,15 +114,25 @@ typedef struct s_ray
 }	t_ray;
 
 /* -----------------------------------------------------------------materials */
+// Typedef for pattern
+typedef struct	s_pattern
+{
+	t_color	a;
+	t_color	b;
+}	t_pattern;
+
 // Typedef for phong material
 typedef struct	s_material
 {
-	t_color	color;
-	t_float	ambient;
-	t_float	diffuse;
-	t_float	specular;
-	t_float	shininess;
+	t_color		color;
+	bool		has_pattern;
+	t_pattern	pattern;
+	t_float		ambient;
+	t_float		diffuse;
+	t_float		specular;
+	t_float		shininess;
 }	t_material;
+
 /* --------------------------------------------------------------- Scene Data */
 // Typedef for ambient light
 typedef struct s_ambient
@@ -220,6 +231,8 @@ typedef struct	s_world
 	int				hit_index;
 
 }	t_world;
+
+/* =========================== MAIN DATA STRUCT ============================= */
 /* --------------------------------------------------------- main data struct */
 // Typedef for Main data struct
 typedef struct s_minirt
@@ -413,7 +426,10 @@ t_color		sub_colors(t_color cola, t_color colb);
 /* --------------------------------------------------------- minirt_color04.c */
 t_color		multiply_color_by_scalar(t_color col, t_float scalar);
 t_color		multiply_color(t_color cola, t_color colb);
-
+/* --------------------------------------------------------- minirt_color05.c */
+t_pattern	stripe_pattern(t_color a, t_color b);
+t_color		stripe_at(t_pattern *pat, t_tuple point);
+	
 /* ================================ CANVAS ================================== */
 
 /* -------------------------------------------------------- minirt_canvas00.c */
