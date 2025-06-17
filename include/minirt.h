@@ -34,8 +34,8 @@
 /* ================================= MACROS ================================= */
 
 # define M_PI 3.14159265358979323846
-//# define EPSILON	0.00001
-# define EPSILON	0.01
+# define EPSILON	0.00001f
+//# define EPSILON	0.01
 //# define EPSILON	1e-6
 //# define EPSILON	1.19209290e-07F
 //# define EPSILON	DBL_EPSILON
