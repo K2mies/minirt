@@ -2415,6 +2415,8 @@ void	test_scene01(t_minirt *rt)
 	cam = camera(50 * scalar, 100 * scalar, deg_to_rad(60));
 	cam.transform = view_transform(point(0, 1.5, -5), point(0, 1, 0), vector(0, 1, 0));
 
+/* ================================= LIGHT =============================== */
+	w.light = point_light(point(0, 10, -10), 1.0, color(1, 1, 1));
 /* ================================ FLOOR ================================ */
 /* --------------------------------------------------------------transforms*/
 //	m = id_matrix4();
@@ -2426,12 +2428,13 @@ void	test_scene01(t_minirt *rt)
 //	col = color(1, 0, 0);
 	w.objs[0].color = col;
 	w.objs[0].material.color = col;
-/* ===============================+ WALL00 =============================== */
+
+/* =============================== WALL_BACK ============================= */
 /* --------------------------------------------------------------transforms*/
 	w.objs[1] = plane(point(0, 0, 0), vector(0, 1, 0), color(1, 0, 0));
 	m = id_matrix4();
 //	m = multiply_matrix4(m, scaling(10, 0.01, 10));
-	m = multiply_matrix4(m, translation(0, 0, 3.5));
+	m = multiply_matrix4(m, translation(0, 0, 2.5));
 	m = multiply_matrix4(m, rotation_x(90));
 	w.objs[1].transform = m;
 /* ----------------------------------------------------------------material*/
@@ -2440,50 +2443,64 @@ void	test_scene01(t_minirt *rt)
 	w.objs[1].color = col;
 	w.objs[1].material.color = col;
 
+/* =============================== WALL_LEFT ============================= */
+/* --------------------------------------------------------------transforms*/
+	w.objs[2] = plane(point(0, 0, 0), vector(0, 1, 0), color(0, 0, 1));
+	m = id_matrix4();
+//	m = multiply_matrix4(m, scaling(10, 0.01, 10));
+	m = multiply_matrix4(m, translation(-2, 0, 0));
+	m = multiply_matrix4(m, rotation_y(90));
+	m = multiply_matrix4(m, rotation_x(90));
+	w.objs[2].transform = m;
+/* ----------------------------------------------------------------material*/
+//	col = color(1, 0.9, 0.9);
+	col = color(0, 0, 1);
+	w.objs[2].color = col;
+	w.objs[2].material.color = col;
 
 /* ============================= BIG SPHERE ============================== */
 /* --------------------------------------------------------------transforms*/
 	m = id_matrix4();
 	m = multiply_matrix4(m, translation(-0.5, 1, 0.5));
-	w.objs[2].transform = m;
+	w.objs[3].transform = m;
 /* -------------------------------------------------------------------color*/
 	col = color(0.1, 1, 0.5);
 //	col = color(1, 0, 0);
-	w.objs[2].color = col;
-	w.objs[2].material.color = col;
-/* ----------------------------------------------------------------material*/
-	w.objs[2].material.diffuse = 0.7;
-	w.objs[2].material.specular = 0.3;
-
-/* ========================== MIDDLE SPHERE ============================== */
-/* --------------------------------------------------------------transforms*/
-	m = id_matrix4();
-	m = multiply_matrix4(m, translation(1.5, 0.5, -0.5));
-	m = multiply_matrix4(m, scaling(0.5, 0.5, 0.5));
-	w.objs[3].transform = m;
-/* -------------------------------------------------------------------color*/
-	col = color(0.5, 1, 0.1);
-//	col = color(0, 1, 0);
 	w.objs[3].color = col;
 	w.objs[3].material.color = col;
 /* ----------------------------------------------------------------material*/
 	w.objs[3].material.diffuse = 0.7;
 	w.objs[3].material.specular = 0.3;
 
-/* =========================== SMALL SPHERE ============================== */
+/* ========================== MIDDLE SPHERE ============================== */
 /* --------------------------------------------------------------transforms*/
 	m = id_matrix4();
-	m = multiply_matrix4(m, translation(-1.5, 0.33, -0.75));
-	m = multiply_matrix4(m, scaling(0.33, 0.33, 0.33));
+	m = multiply_matrix4(m, translation(1.5, 0.5, -0.5));
+	m = multiply_matrix4(m, scaling(0.5, 0.5, 0.5));
 	w.objs[4].transform = m;
 /* -------------------------------------------------------------------color*/
-	col = color(1, 0.8, 0.1);
-//	col = color(0, 0, 1);
+	col = color(0.5, 1, 0.1);
+//	col = color(0, 1, 0);
 	w.objs[4].color = col;
 	w.objs[4].material.color = col;
 /* ----------------------------------------------------------------material*/
 	w.objs[4].material.diffuse = 0.7;
 	w.objs[4].material.specular = 0.3;
+
+/* =========================== SMALL SPHERE ============================== */
+/* --------------------------------------------------------------transforms*/
+	m = id_matrix4();
+	m = multiply_matrix4(m, translation(-1.5, 0.33, -0.75));
+	m = multiply_matrix4(m, scaling(0.33, 0.33, 0.33));
+	w.objs[5].transform = m;
+/* -------------------------------------------------------------------color*/
+	col = color(1, 0.8, 0.1);
+//	col = color(0, 0, 1);
+	w.objs[5].color = col;
+	w.objs[5].material.color = col;
+/* ----------------------------------------------------------------material*/
+	w.objs[5].material.diffuse = 0.7;
+	w.objs[5].material.specular = 0.3;
 /* ============================== RENDERING ============================== */
 	img = render(cam, w);
 	canvas_to_ppm(img);
