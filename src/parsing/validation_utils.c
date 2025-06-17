@@ -6,11 +6,12 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 15:17:45 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/30 17:43:39 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/06/17 13:44:34 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
 /**
  * 
  * @brief Checks name of the file ends with .rt
@@ -30,6 +31,7 @@ int	valid_map_name(char *name)
 		return (0);
 	return (1);
 }
+
 /**
  * 
  * @brief Opens the file specified by path
@@ -52,6 +54,7 @@ int	open_rt(t_minirt *rt, char *path)
 	}
 	return (fd);
 }
+
 /**
  * 
  * @brief Checks a given float is within specified range
@@ -67,6 +70,7 @@ bool	is_in_range(t_float f, int min, int max)
 		return (false);
 	return (true);
 }
+
 /**
  * 
  * @brief Validates the range of rgb values (0-255)
@@ -87,6 +91,7 @@ bool	validate_rgb(char **rgb)
 		return (false);
 	return (true);
 }
+
 /**
  * 
  * @brief Checks if data types occur to often or if required data is missing

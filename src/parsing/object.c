@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 12:26:37 by mpierce           #+#    #+#             */
-/*   Updated: 2025/06/02 17:09:11 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/06/17 13:46:57 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,13 @@ void	object_error(t_minirt *rt, char **a1, char **a2, char **a3)
  */
 void	load_plane(t_minirt *rt, char **data, int index)
 {
-	t_object	plane;
+	t_object	pl;
 	char		**origin;
 	char		**vec;
 	char		**rgb;
 
 	if (!validate_size(data, 4))
 		rt_error(rt, "Plane data error", 3);
-	plane.type = PLANE;
 	origin = ft_split(data[1], ',');
 	vec = ft_split(data[2], ',');
 	rgb = ft_split(data[3], ',');
@@ -53,14 +52,13 @@ void	load_plane(t_minirt *rt, char **data, int index)
 		object_error(rt, origin, vec, rgb);
 	if (!validate_array(origin) || !validate_array(vec) || !validate_array(rgb))
 		object_error(rt, origin, vec, rgb);
-	plane.origin = point(ft_atof(origin[0]), ft_atof(origin[1]),
-			ft_atof(origin[2]));
-	plane.vector = vector(ft_atof(vec[0]), ft_atof(vec[1]), ft_atof(vec[2]));
 	if (!validate_rgb(rgb))
 		object_error(rt, origin, vec, rgb);
-	plane.color = color_from_channels(ft_atoi(rgb[0]), ft_atoi(rgb[1]),
-			ft_atoi(rgb[2]));
-	rt->objs[index] = plane;
+	pl = plane(point(ft_atof(origin[0]), ft_atof(origin[1]),
+				ft_atof(origin[2])), vector(ft_atof(vec[0]), ft_atof(vec[1]),
+				ft_atof(vec[2])), color_from_channels(ft_atoi(rgb[0]),
+				ft_atoi(rgb[1]), ft_atoi(rgb[2])));
+	rt->objs[index] = pl;
 	object_free(origin, vec, rgb);
 }
 
@@ -97,7 +95,7 @@ void	load_sphere(t_minirt *rt, char **data, int index)
 	if (!validate_rgb(rgb))
 		object_error(rt, origin, NULL, rgb);
 	sp = sphere(loc, diameter, color_from_channels(ft_atoi(rgb[0]),
-			ft_atoi(rgb[1]), ft_atoi(rgb[2])));
+				ft_atoi(rgb[1]), ft_atoi(rgb[2])));
 	rt->objs[index] = sp;
 	object_free(origin, rgb, NULL);
 }

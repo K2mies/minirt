@@ -6,11 +6,12 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:33:45 by mpierce           #+#    #+#             */
-/*   Updated: 2025/06/06 12:33:17 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/06/17 13:44:17 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
 /**
  * 
  * @brief Checks the occurances of each data type
@@ -38,7 +39,7 @@ static int	check_for_dups(t_minirt *rt, char ***full)
 			cam++;
 		else if (!ft_strcmp(full[i][0], "L"))
 			lig++;
-		else if (!ft_strcmp(full[i][0], "sp") || !ft_strcmp(full[i][0], "cy") 
+		else if (!ft_strcmp(full[i][0], "sp") || !ft_strcmp(full[i][0], "cy")
 			|| !ft_strcmp(full[i][0], "pl"))
 			rt->n_objs++;
 	}
@@ -46,6 +47,7 @@ static int	check_for_dups(t_minirt *rt, char ***full)
 		rt_error(rt, NULL, 1);
 	return (i);
 }
+
 /**
  * 
  * @brief Load Ambient data into struct
@@ -143,6 +145,7 @@ static void	load_camera(t_minirt *rt, char **data)
 	rt->camera = camera;
 	object_free(origin, vec, NULL);
 }
+
 /**
  * 
  * @brief Reads the array and assigns file contents to data structs

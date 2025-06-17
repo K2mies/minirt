@@ -6,11 +6,12 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:00:08 by mpierce           #+#    #+#             */
-/*   Updated: 2025/06/06 12:44:18 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/06/17 13:43:42 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
 /**
  * 
  * @brief Checks values of object data are in range
@@ -33,6 +34,7 @@ static void	check_object_values(t_minirt *rt, t_object object)
 			rt_error(rt, "Object vector error", 3);
 	}
 }
+
 /**
  * 
  * @brief Validates data in the struct is within value ranges
@@ -65,6 +67,7 @@ static void	check_data_values(t_minirt *rt)
 	while (++i < rt->n_objs)
 		check_object_values(rt, rt->objs[i]);
 }
+
 /**
  * 
  * @brief Reads the contents of the file to a 2D array.
@@ -104,6 +107,7 @@ static char	**read_file_to_data(t_minirt *rt, int fd, char **data, char **temp)
 	data[new - 2] = NULL;
 	return (data);
 }
+
 /**
  * 
  * @brief Splits the contents of each line of the file into separate elements
@@ -135,6 +139,7 @@ static void	split_data(t_minirt *rt, char **data)
 	sort_data_types(rt, rt->full_data);
 	check_data_values(rt);
 }
+
 /**
  * 
  * @brief Opens the specified file at the given path.
