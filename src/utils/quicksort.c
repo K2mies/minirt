@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   quicksort.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 11:05:36 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/02 11:17:42 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/06/09 14:28:53 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "minirt.h"
+
 
 //static void	swap(int *a, int *b)
 //{
