@@ -2356,24 +2356,49 @@ void	test_scene00(t_minirt *rt)
 //		printf("is shadowed: true\n");
 //}
 
-void	test_intersection(t_minirt	*rt)
+//void	test_intersection(t_minirt	*rt)
+//{
+//	(void)rt;
+////	t_matrix4	m;
+//	t_ray	r = ray(point(0, 0, -5), vector(0, 0, 1));
+////	t_object	sp = sphere(point(0, 0, 0), 2, color(1, 0, 0));
+//	t_object	p = plane(point(0, 0, 0), color(0, 0, 1));
+////	t_world	w = world(rt);
+////	m = multiply_matrix4(scaling(1, 0.5, 1), rotation_z(36));
+////	set_transform(&sp, m);
+//	set_transform(&p, translation(5, 0, 0));
+//	intersect(&p, r);
+//	test_print_tuple(p.saved_ray.origin);
+//	printf("\n");
+//	test_print_tuple(p.saved_ray.direction);
+//	printf("\n");
+//
+//
+//}
+
+//void	test_normal_at()
+//{
+//	t_object	p = plane(point(0, 0, 0), vector(0, 1, 0), color(0, 0, 1));
+//	set_transform(&p, translation(0, 2, 0));
+//	t_tuple n1 = normal_at_plane(p);
+//	t_tuple n2 = normal_at_plane(p);
+//	t_tuple n3 = normal_at_plane(p);
+//	test_print_tuple(n1);
+//	printf("\n");
+//	test_print_tuple(n2);
+//	printf("\n");
+//	test_print_tuple(n3);
+//	printf("\n");
+//}
+
+void	test_plane_intersect()
 {
-	(void)rt;
-//	t_matrix4	m;
-	t_ray	r = ray(point(0, 0, -5), vector(0, 0, 1));
-//	t_object	sp = sphere(point(0, 0, 0), 2, color(1, 0, 0));
-	t_object	p = plane(point(0, 0, 0), color(0, 0, 1));
-//	t_world	w = world(rt);
-//	m = multiply_matrix4(scaling(1, 0.5, 1), rotation_z(36));
-//	set_transform(&sp, m);
-	set_transform(&p, translation(5, 0, 0));
-	intersect(&p, r);
-	test_print_tuple(p.saved_ray.origin);
-	printf("\n");
-	test_print_tuple(p.saved_ray.direction);
-	printf("\n");
-
-
+	t_object	p = plane(point(0, 0, 0), vector(0, 1, 0), color(0, 0, 1));
+	t_ray	r = ray(point(0, -1, 0), vector(0, 1, 0));
+	t_intersections	xs = plane_intersection(&p, r);
+	printf("count: %d\n", xs.count);
+	printf("t[0] = %f\n", xs.t[0]);
+	printf("t[1] = %f\n", xs.t[1]);
 }
 int	main(int argc, char **argv)
 {
@@ -2389,7 +2414,7 @@ int	main(int argc, char **argv)
 	rt.n_objs = 0;
 	rt.ts = NULL;
 	open_file(&rt, argv);
-	test_intersection(&rt);
+	test_plane_intersect();
 	cleanup_rt(&rt);
 	return (0);
 }

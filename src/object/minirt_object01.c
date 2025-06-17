@@ -6,12 +6,12 @@
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 12:56:11 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/16 13:52:11 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/06/17 11:37:41 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
 
-t_object	plane(t_tuple origin, t_color col)
+t_object	plane(t_tuple origin, t_tuple normal, t_color col)
 {
 	t_object	p;
 	t_float		param[4];
@@ -22,7 +22,7 @@ t_object	plane(t_tuple origin, t_color col)
 	param[shininess] = 200.0;
 	p.type = PLANE;
 	p.origin = origin;
-	p.vector = vector(0, 1, 0);
+	p.vector = normal;
 	p.color = col;
 	p.material = material(param, col);
 	p.transform = id_matrix4();

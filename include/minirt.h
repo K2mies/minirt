@@ -483,34 +483,38 @@ t_ray				ray(t_tuple origin, t_tuple direction);
 t_tuple				position(t_ray ray, t_float t);
 /* ----------------------------------------------------------- minirt_ray01.c */
 t_intersection		intersection(t_float t, t_object obj);
+t_intersections		object_intersection(t_object *obj, t_ray ray);
 void				world_intersect(t_world *w, t_ray ray);
 /* ----------------------------------------------------------- minirt_ray02.c */
 t_intersections		sphere_intersection(t_object *sphere, t_ray ray);
+t_intersections		plane_intersection(t_object *plane, t_ray ray);
 /* ----------------------------------------------------------- minirt_ray03.c */
 t_ray				transform(t_ray r, t_matrix4 m);
 void				set_transform(t_object *s, t_matrix4 m);
 /* ----------------------------------------------------------- minirt_ray04.c */
+t_tuple				normal_at(t_object obj, t_tuple world_point);
 t_tuple				normal_at_sphere(t_object obj, t_tuple world_point);
-t_tuple				normal_at_plane(t_object obj, t_tuple world_point);
-t_tuple				reflect(t_tuple in, t_tuple normal);
+t_tuple				normal_at_plane(t_object obj);
 /* ----------------------------------------------------------- minirt_ray05.c */
+t_tuple				reflect(t_tuple in, t_tuple normal);
+/* ----------------------------------------------------------- minirt_ray06.c */
 t_color				lighting(t_lighting_param p, t_material m, t_light light, t_tuple v[3]);
 bool				is_shadowed(t_world world, t_tuple point);
-/* ----------------------------------------------------------- minirt_ray06.c */
-t_computations		prepare_computations(t_intersection i, t_ray r);
 /* ----------------------------------------------------------- minirt_ray07.c */
+t_computations		prepare_computations(t_intersection i, t_ray r);
+/* ----------------------------------------------------------- minirt_ray08.c */
 t_intersection		hit(t_world *w);
 t_color				shade_hit(t_world w, t_computations comps);
-/* ----------------------------------------------------------- minirt_ray08.c */
-t_color				color_at(t_world w, t_ray r);
 /* ----------------------------------------------------------- minirt_ray09.c */
+t_color				color_at(t_world w, t_ray r);
+/* ----------------------------------------------------------- minirt_ray10.c */
 t_ray				ray_for_pixel(t_camera cam, t_float px, t_float py);
 /* ============================== OBJECTS =================================== */
 
 /* -------------------------------------------------------- minirt_object00.c */
 t_object	sphere(t_tuple location, t_float diameter, t_color col);
 /* -------------------------------------------------------- minirt_object01.c */
-t_object	plane(t_tuple origin, t_color col);
+t_object	plane(t_tuple origin, t_tuple normal, t_color col);
 /* -------------------------------------------------------- minirt_object02.c */
 t_wall		wall(t_tuple position, t_float width, t_float height);
 /* -------------------------------------------------------- minirt_object03.c */

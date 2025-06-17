@@ -29,6 +29,25 @@ t_intersection intersection(t_float t, t_object obj)
 }
 
 /**
+ * @brief	returns intersection of local object
+ * creates and returns an intersection  of object
+ *
+ * @param obj	object being intersected
+ * @param ray	ray to intersect
+ * @return		t_intersection	result of intersection
+ */
+t_intersections object_intersection(t_object *obj, t_ray ray)
+{
+	t_intersections xs;
+
+	if (obj->type == SPHERE)
+		xs = sphere_intersection(obj, ray);
+	if (obj->type == PLANE)
+		xs = plane_intersection(obj, ray);
+	return (xs);
+}
+
+/**
  * @brief	run intersection on all world objects
  * creates a list of intersections for all objects
  * int the world from one ray
@@ -45,8 +64,9 @@ void	world_intersect(t_world *w, t_ray ray)
 	w->n_ts = 0;
 	while (i < w->n_objs)
 	{
-		if (w->objs[i].type == SPHERE)
-			xs = sphere_intersection(&w->objs[i], ray);
+//		if (w->objs[i].type == SPHERE)
+//			xs = sphere_intersection(&w->objs[i], ray);
+		xs = object_intersection(&w->objs[i], ray);
 		if (xs.count != 0)
 		{
 			w->ts[w->n_ts].t = xs.t[0];

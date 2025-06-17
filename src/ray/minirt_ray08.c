@@ -1,37 +1,59 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_ray07.c                                     :+:      :+:    :+:   */
+/*   minirt_ray06.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/09 10:34:33 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/09 11:15:41 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/06/06 16:06:50 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/06/06 16:41:22 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
 
 /**
- * @brief	fetches color at intersection point
- * returns a color from the hit point of an intersection
- * taking into account all the lighting computations
- * @param w			wpr;d object to operate on
- * @param r			ray to cast for intersections
- * @return			t_color returned color;
+ * @brief	returns hit from list of intersections
+ * returns a hit float which is the lowest positive
+ * number from a list of intersection values
+ *
+ * @param w		pointer to the world object to calculate hit
+ * @return		hit value from list of intersections
+ *				value with be -1 if none are found
  */
-t_color	color_at(t_world w, t_ray r)
+t_intersection	hit(t_world *w)
 {
-	t_intersection	hit_point;
-	t_color			res;
+	int		i;
+	t_intersection	res;
 
-	world_intersect(&w, r);
-	hit_point = hit(&w);
-	if(hit_point.t >= 0)
+	i = 0;
+	while (i < w->n_ts)
 	{
-		w.cs[w.hit_index] = prepare_computations(hit_point, r);
-		res = shade_hit(w, w.cs[w.hit_index]);
+		if (w->ts[i].t >= 0)
+		{
+			w->hit_index = i;
+			res = w->ts[i];
+			return (res);
+		}
+		i++;
 	}
-	else
-		res = color(0, 0, 0);
+	res.t = -1;
+	return (res);
+}
+
+/**
+ * @brief	calculates shading for hit intersection
+ * returns a color calculated  from the shading
+ *
+ * @param w		world object to calculate hit
+ * @param comps	computation paramaters
+ * @return		color for shaded pixel
+ */
+t_color	shade_hit(t_world w, t_computations comps)
+{
+	t_lighting_param	param;
+	t_color				res;
+
+	param.in_shadow = is_shadowed(w, comps.over_point);
+	res = lighting(param, comps.object.material, w.light, comps.v);
 	return (res);
 }
