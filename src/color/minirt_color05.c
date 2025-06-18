@@ -12,6 +12,17 @@
 #include "minirt.h"
 
 /**
+ * Function to set pattern transformation matrix
+ *
+ * @param pat	pointer to pattern struct
+ * @param m		matrix to set
+ */
+void	set_pattern_transform(t_pattern *pat, t_matrix4 m)
+{
+	pat->transform = m;
+}
+
+/**
  * Function to create a stripe pattern object
  * based on two color values
  *
@@ -19,27 +30,31 @@
  * @param b		color b
  * @return		t_pattern type struct
  */
-t_pattern	stripe_pattern(t_color a, t_color b)
+t_pattern	pattern(t_color a, t_color b, int type)
 {
 	t_pattern	pat;
 
+	pat.type = type;
 	pat.a = a;
 	pat.b = b;
+	pat.transform = id_matrix4();
 	return (pat);
 }
 
 /**
- * Returns a color based on x pos on pattern
+ * determints which pattern at object fucntion will be called
  *
- * @param pat	pointer to the pattern type
- * @param p		point to check
- * @return		t_color type struct
+ * @param pattern			the pattern to operate on
+ * @param obj				the object to operate on
+ * @param world_point		the world point to be converted to pattern point
+ * @return					t_color type struct
  */
-t_color	stripe_at(t_pattern *pat, t_tuple point)
+t_color	pattern_at(t_pattern pat, t_object obj, t_tuple world_point)
 {
-//	if((int)point.x % 2 == 0)
-	if((int)floorf(point.x) % 2 == 0)
-		return (pat->a);
-	else
-		return (pat->b);
+	t_color	res;
+	if (obj.material.pattern.type == STRIPE)
+		res = stripe_at_object(pat, obj, world_point);
+	if (obj.material.pattern.type == GRADIENT)
+		res = gradient_at_object(pat, obj, world_point);
+	return (res);
 }

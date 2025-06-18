@@ -117,8 +117,10 @@ typedef struct s_ray
 // Typedef for pattern
 typedef struct	s_pattern
 {
-	t_color	a;
-	t_color	b;
+	int			type;
+	t_color		a;
+	t_color		b;
+	t_matrix4	transform;
 }	t_pattern;
 
 // Typedef for phong material
@@ -276,16 +278,17 @@ typedef struct	s_view_transform_param
 // Typedef for lighting function paramaters
 typedef struct	s_lighting_param
 {
-	t_color	ambient;
-	t_color	diffuse;
-	t_color	specular;
-	t_color	effective_color;
-	t_tuple	reflectv;
-	t_tuple	lightv;
-	t_float	light_dot_normal;
-	t_float	reflect_dot_eye;
-	t_float	factor;
-	bool	in_shadow;
+	t_object	obj;
+	t_color		ambient;
+	t_color		diffuse;
+	t_color		specular;
+	t_color		effective_color;
+	t_tuple		reflectv;
+	t_tuple		lightv;
+	t_float		light_dot_normal;
+	t_float		reflect_dot_eye;
+	t_float		factor;
+	bool		in_shadow;
 
 }	t_lighting_param;
 
@@ -358,14 +361,21 @@ typedef enum	e_proportions
 	ZY
 }	t_proportions;
 
-//Enum for object types
-enum e_types
+//Enum for object shape/object types
+enum e_shape_types
 {
 	SPHERE,
 	PLANE,
 	CYLINDER
 };
 
+//Enum for pattern types
+enum e_pattern_types
+{
+	STRIPE,
+	GRADIENT,
+	CHECKERED,
+};
 typedef enum e_error
 {
 	ERROR_MLX,
@@ -427,9 +437,16 @@ t_color		sub_colors(t_color cola, t_color colb);
 t_color		multiply_color_by_scalar(t_color col, t_float scalar);
 t_color		multiply_color(t_color cola, t_color colb);
 /* --------------------------------------------------------- minirt_color05.c */
-t_pattern	stripe_pattern(t_color a, t_color b);
-t_color		stripe_at(t_pattern *pat, t_tuple point);
-	
+void		set_pattern_transform(t_pattern *pat, t_matrix4 m);
+t_pattern	pattern(t_color a, t_color b, int type);
+t_color		pattern_at(t_pattern	pat, t_object obj, t_tuple world_point);
+/* --------------------------------------------------------- minirt_color06.c */
+t_color		stripe_at(t_pattern pat, t_tuple point);
+t_color		stripe_at_object(t_pattern pattern, t_object obj, t_tuple world_point);
+/* --------------------------------------------------------- minirt_color07.c */
+t_color		gradient_at(t_pattern gradient, t_tuple point);
+t_color		gradient_at_object(t_pattern pattern, t_object obj, t_tuple world_point);
+
 /* ================================ CANVAS ================================== */
 
 /* -------------------------------------------------------- minirt_canvas00.c */
@@ -520,7 +537,7 @@ bool				is_shadowed(t_world world, t_tuple point);
 t_computations		prepare_computations(t_intersection i, t_ray r);
 /* ----------------------------------------------------------- minirt_ray08.c */
 t_intersection		hit(t_world *w);
-t_color				shade_hit(t_world w, t_computations comps);
+t_color				shade_hit(t_world w, t_computations comps, t_object obj);
 /* ----------------------------------------------------------- minirt_ray09.c */
 t_color				color_at(t_world w, t_ray r);
 /* ----------------------------------------------------------- minirt_ray10.c */

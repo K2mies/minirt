@@ -29,7 +29,7 @@ t_color	color_at(t_world w, t_ray r)
 	if(hit_point.t >= 0)
 	{
 		w.cs[w.hit_index] = prepare_computations(hit_point, r);
-		res = shade_hit(w, w.cs[w.hit_index]);
+		res = shade_hit(w, w.cs[w.hit_index], hit_point.object);
 	}
 	else
 		res = color(0, 0, 0);
