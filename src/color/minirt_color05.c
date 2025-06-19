@@ -56,5 +56,9 @@ t_color	pattern_at(t_pattern pat, t_object obj, t_tuple world_point)
 		res = stripe_at_object(pat, obj, world_point);
 	if (obj.material.pattern.type == GRADIENT)
 		res = gradient_at_object(pat, obj, world_point);
+	if (obj.material.pattern.type == RING)
+		res = ring_at_object(pat, obj, world_point);
+	if (obj.material.pattern.type == CHECKER)
+		res = checker_at_object(pat, obj, world_point);
 	return (res);
 }

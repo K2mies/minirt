@@ -20,7 +20,6 @@
  */
 t_color	stripe_at(t_pattern pat, t_tuple point)
 {
-//	if((int)point.x % 2 == 0)
 	if((int)floorf(point.x) % 2 == 0)
 		return (pat.a);
 	else

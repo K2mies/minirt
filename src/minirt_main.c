@@ -2586,13 +2586,14 @@ void	test_striped_pattern(t_minirt *rt)
 //	w.objs[0].material.diffuse = 0;
 	w.objs[0].material.specular = 0;
 	w.objs[0].material.has_pattern = true;
-	w.objs[0].material.pattern = pattern(color(1, 0, 0), color(0, 0, 1), GRADIENT);
+	w.objs[0].material.pattern = pattern(color(0, 0, 0), color(1, 0.9, 0.9), CHECKER);
 //	w.objs[0].material.pattern = pattern(col_a, col_b, STRIPE);
 	pm = id_matrix4();
-	pm = multiply_matrix4(pm, translation(7, 0, 0));
+//	pm = multiply_matrix4(pm, translation(0, 0, 7));
 ////	pm = multiply_matrix4(pm, rotation_x(45));
 ////	pm = multiply_matrix4(pm, rotation_y(-65));
-	pm = multiply_matrix4(pm, scaling(5, 5, 5));
+//	pm = multiply_matrix4(pm, rotation_y(90));
+	pm = multiply_matrix4(pm, scaling(0.5, 0.5, 0.5));
 	w.objs[0].material.pattern.transform = pm;
 
 /* ================================= ROOF ================================ */
@@ -2612,7 +2613,7 @@ void	test_striped_pattern(t_minirt *rt)
 //	w.objs[1].material.diffuse = 0;
 	w.objs[1].material.specular = 0;
 	w.objs[1].material.has_pattern = true;
-	w.objs[1].material.pattern = pattern(col_a, col_b, STRIPE);
+	w.objs[1].material.pattern = pattern(col_a, col_b, GRADIENT);
 
 
 /* =============================== WALL_BACK ============================= */
@@ -2632,11 +2633,12 @@ void	test_striped_pattern(t_minirt *rt)
 //	w.objs[2].material.diffuse = 0;
 	w.objs[2].material.specular = 0;
 	w.objs[2].material.has_pattern = true;
-	w.objs[2].material.pattern = pattern(col_a, col_b, STRIPE);
+//	w.objs[2].material.pattern = pattern(color(1, 0, 0), color(0, 0, 1), GRADIENT);
+	w.objs[2].material.pattern = pattern(color(0, 0, 0), color(1, 0.9, 0.9), CHECKER);
 	pm = id_matrix4();
-	pm = multiply_matrix4(pm, translation(0, 5, 0));
+//	pm = multiply_matrix4(pm, translation(0, 5, 0));
 //	pm = multiply_matrix4(pm, rotation_x(45));
-//	pm = multiply_matrix4(pm, rotation_y(-65));
+//	pm = multiply_matrix4(pm, rotation_z(90));
 	pm = multiply_matrix4(pm, scaling(0.5, 0.5, 0.5));
 	w.objs[2].material.pattern.transform = pm;
 
@@ -2685,6 +2687,8 @@ void	test_striped_pattern(t_minirt *rt)
 /* --------------------------------------------------------------transforms*/
 	m = id_matrix4();
 	m = multiply_matrix4(m, translation(-0.5, 1, 0.5));
+	m = multiply_matrix4(m, rotation_y(-25));
+	m = multiply_matrix4(m, rotation_x(135));
 	w.objs[5].transform = m;
 /* -------------------------------------------------------------------color*/
 	col = color(0.1, 1, 0.5);
@@ -2699,12 +2703,14 @@ void	test_striped_pattern(t_minirt *rt)
 //	w.objs[5].material.diffuse = 0;
 //	w.objs[5].material.specular = 0;
 	w.objs[5].material.has_pattern = true;
-	w.objs[5].material.pattern = pattern(color(1, 0, 0), color(0, 0, 1), GRADIENT);
-	pm = id_matrix4();
+//	w.objs[5].material.pattern = pattern(color(0.788, 0, 1), color(1, 0.38, 0), RING);
+	w.objs[5].material.pattern = pattern(color(0, 0, 1), color(1, 0, 0), GRADIENT);
 	pm = multiply_matrix4(pm, translation(5, 0, 0));
-//	pm = multiply_matrix4(pm, rotation_x(45));
+//	pm = multiply_matrix4(pm, rotation_z(90));
 //	pm = multiply_matrix4(pm, rotation_y(-65));
-	pm = multiply_matrix4(pm, scaling(2, 2, 2));
+//	pm = multiply_matrix4(pm, scaling(0.1, 0.1, 0.1));
+	pm = multiply_matrix4(pm, scaling(7, 7, 7));
+
 	w.objs[5].material.pattern.transform = pm;
 
 	/* ========================== MIDDLE SPHERE ============================== */
@@ -2724,13 +2730,15 @@ void	test_striped_pattern(t_minirt *rt)
 	w.objs[6].material.diffuse = 0.7;
 	w.objs[6].material.specular = 0.3;
 	w.objs[6].material.has_pattern = true;
-	w.objs[6].material.pattern = pattern(col_a, col_b, STRIPE);
+//	w.objs[6].material.pattern = pattern(col_a, col_b, STRIPE);
 //	pm = id_matrix4();
 //	pm = multiply_matrix4(pm, scaling(0.1, 0.1, 0.1));
 //	pm = multiply_matrix4(pm, rotation_x(45));
 //	pm = multiply_matrix4(pm, rotation_y(135));
 //	w.objs[6].material.pattern.transform = pm;
-	w.objs[6].material.pattern = pattern(color(1, 0, 0), color(0, 0, 1), GRADIENT);
+//	w.objs[6].material.pattern = pattern(color(0, 0, 1), color(1, 0, 0), GRADIENT);
+	//
+	w.objs[6].material.pattern = pattern(color(0.788, 0, 1), color(1, 0.38, 0), GRADIENT);
 	pm = id_matrix4();
 	pm = multiply_matrix4(pm, translation(5, 0, 0));
 //	pm = multiply_matrix4(pm, rotation_x(45));
@@ -2758,7 +2766,9 @@ void	test_striped_pattern(t_minirt *rt)
 //	pm = multiply_matrix4(pm, rotation_x(45));
 //	pm = multiply_matrix4(pm, rotation_y(45));
 //	w.objs[7].material.pattern.transform = pm;
-	w.objs[7].material.pattern = pattern(color(1, 0, 0), color(0, 0, 1), GRADIENT);
+//	w.objs[7].material.pattern = pattern(color(0, 0, 1), color(1, 0, 0), GRADIENT);
+	//
+	w.objs[7].material.pattern = pattern(color(0.788, 0, 1), color(1, 0.38, 0), GRADIENT);
 	pm = id_matrix4();
 	pm = multiply_matrix4(pm, translation(5, 0, 0));
 //	pm = multiply_matrix4(pm, rotation_x(45));

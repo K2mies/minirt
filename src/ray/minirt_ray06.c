@@ -63,12 +63,10 @@ static void	apply_lighting(t_lighting_param *p, t_material m, t_light light, t_t
  */
 t_color	lighting(t_lighting_param p, t_material m, t_light light, t_tuple v[3])
 {
-//	t_lighting_param	p;
 	t_color				res;
 
 	if (m.has_pattern == true)
 		m.color	= pattern_at(m.pattern, p.obj, v[pos]);
-//		m.color = stripe_at_object(m.pattern, p.obj, v[pos]);
 	apply_lighting(&p, m, light, v);
 	res = add_three_colors(p.ambient, p.diffuse, p.specular);
 	return (res);

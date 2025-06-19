@@ -6,7 +6,7 @@
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 15:37:45 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/18 16:50:45 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/06/19 16:57:43 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
@@ -27,8 +27,8 @@ t_color gradient_at(t_pattern gradient, t_tuple point)
 
 	distance = sub_colors(gradient.b, gradient.a);
 	fraction = point.x - floorf(point.x);
-	res = add_colors(gradient.a, distance);
-	res = multiply_color_by_scalar(res, fraction);
+	res = multiply_color_by_scalar(distance, fraction);
+	res = add_colors(gradient.a, res);
 	return (res);
 }
 

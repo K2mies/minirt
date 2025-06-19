@@ -51,6 +51,8 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				$(SRC_DIR)/color/minirt_color05.c									\
 				$(SRC_DIR)/color/minirt_color06.c									\
 				$(SRC_DIR)/color/minirt_color07.c									\
+				$(SRC_DIR)/color/minirt_color08.c									\
+				$(SRC_DIR)/color/minirt_color09.c									\
 				\
 				$(SRC_DIR)/canvas/minirt_canvas00.c									\
 				$(SRC_DIR)/canvas/minirt_canvas01.c									\

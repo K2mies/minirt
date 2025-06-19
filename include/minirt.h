@@ -36,9 +36,7 @@
 # define M_PI 3.14159265358979323846
 # define EPSILON		0.00001f
 # define SHADOW_BIAS	0.01f
-//# define EPSILON	1e-6
-//# define EPSILON	1.19209290e-07F
-//# define EPSILON	DBL_EPSILON
+# define PATTERN_SHIFT	0.01f
 
 # define RED	0xFF0000FF
 # define GREEN	0x00FF00FF
@@ -374,7 +372,8 @@ enum e_pattern_types
 {
 	STRIPE,
 	GRADIENT,
-	CHECKERED,
+	RING,
+	CHECKER
 };
 typedef enum e_error
 {
@@ -446,6 +445,13 @@ t_color		stripe_at_object(t_pattern pattern, t_object obj, t_tuple world_point);
 /* --------------------------------------------------------- minirt_color07.c */
 t_color		gradient_at(t_pattern gradient, t_tuple point);
 t_color		gradient_at_object(t_pattern pattern, t_object obj, t_tuple world_point);
+/* --------------------------------------------------------- minirt_color08.c */
+t_color		ring_at(t_pattern ring, t_tuple p);
+t_color		ring_at_object(t_pattern pattern, t_object obj, t_tuple world_point);
+
+/* --------------------------------------------------------- minirt_color09.c */
+t_color		checker_at(t_pattern check, t_tuple p);
+t_color		checker_at_object(t_pattern pattern, t_object obj, t_tuple world_point);
 
 /* ================================ CANVAS ================================== */
 
