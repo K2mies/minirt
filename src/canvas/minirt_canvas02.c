@@ -19,13 +19,12 @@
  */
 t_canvas	*render(t_camera cam, t_world world)
 {
-	t_canvas	*img;
-	t_color		col;
-	t_ray		ray;
-	int			x;
-	int			y;
+	t_render_param	p;
+	int				x;
+	int				y;
 
-	img = canvas(cam.dim[width], cam.dim[height]);
+	p.img = canvas(cam.dim[width], cam.dim[height]);
+	p.bounce_limit = BOUNCE_LIMIT;
 
 	y = -1;
 	while (++y < cam.dim[height])
@@ -33,12 +32,12 @@ t_canvas	*render(t_camera cam, t_world world)
 		x = -1;
 		while (++x < cam.dim[width])
 		{
-			ray = ray_for_pixel(cam, x, y);
-			col = color_at(world, ray);	
-			write_pixel_to_canvas(img, x, y, col);
+			p.ray = ray_for_pixel(cam, x, y);
+			p.col = color_at(world, p.ray, &p.bounce_limit);	
+			write_pixel_to_canvas(p.img, x, y, p.col);
 		}
 	}
-	return (img);
+	return (p.img);
 }
 
 /**
@@ -50,20 +49,22 @@ t_canvas	*render(t_camera cam, t_world world)
  */
 void	mlx_render(t_minirt *rt, t_camera cam, t_world world)
 {
-	t_color col;
-	t_ray	ray;
+//	t_color col;
+//	t_ray	ray;
+	t_render_param	p;
 	int	y;
 	int	x;
 
+	p.bounce_limit = BOUNCE_LIMIT;
 	y = -1;
 	while (++y < cam.dim[height])
 	{
 		x = -1;
 		while (++x < cam.dim[width])
 		{
-			ray = ray_for_pixel(cam, x, y);
-			col = color_at(world, ray);
-			mlx_put_pixel(rt->img, x, y, col.rgba);
+			p.ray = ray_for_pixel(cam, x, y);
+			p.col = color_at(world, p.ray, &p.bounce_limit);
+			mlx_put_pixel(rt->img, x, y, p.col.rgba);
 		}
 	}
 }

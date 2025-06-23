@@ -48,13 +48,15 @@ t_intersection	hit(t_world *w)
  * @param comps	computation paramaters
  * @return		color for shaded pixel
  */
-t_color	shade_hit(t_world w, t_computations comps, t_object	obj)
+t_color	shade_hit(t_world w, t_computations comps, t_object	obj, int *remaining)
 {
 	t_lighting_param	param;
-	t_color				res;
+	t_color				surface;
+	t_color				reflected;
 
 	param.in_shadow = is_shadowed(w, comps.over_point);
 	param.obj = obj;
-	res = lighting(param, comps.object.material, w.light, comps.v);
-	return (res);
+	surface = lighting(param, comps.object.material, w.light, comps.v);
+	reflected = reflected_color(w, comps, remaining);
+	return (add_colors(surface, reflected));
 }
