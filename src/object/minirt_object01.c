@@ -14,13 +14,15 @@
 t_object	plane(t_tuple origin, t_tuple normal, t_color col)
 {
 	t_object	p;
-	t_float		param[5];
+	t_float		param[7];
 
 	param[ambient] = 0.1;
 	param[diffuse] = 0.9;
 	param[specular] = 0.9;
 	param[shininess] = 200.0;
 	param[reflective] = 0;
+	param[transparency] = 0;
+	param[refractive_index] = 1.0;
 	p.type = PLANE;
 	p.origin = origin;
 	p.vector = normal;

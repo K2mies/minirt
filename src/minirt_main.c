@@ -2562,7 +2562,7 @@ void	test_reflection(t_minirt *rt)
 //	t_color		col_b;
 /* ================================ WORLD ================================ */
 	w = world(rt);
-	scalar = 10;
+	scalar = 3;
 //	col_a = color(0.71, 0, 0.29);
 //	col_b = color(1, 1, 1);
 /* ================================ CAMERA =============================== */
@@ -2587,7 +2587,7 @@ void	test_reflection(t_minirt *rt)
 	w.objs[0].material.specular = 0;
 	w.objs[0].material.has_pattern = true;
 	w.objs[0].material.pattern = pattern(color(0, 0, 0), color(1, 0.9, 0.9), CHECKER);
-	w.objs[0].material.reflective = 0.5;
+	w.objs[0].material.reflective = 0;
 //	w.objs[0].material.pattern = pattern(col_a, col_b, STRIPE);
 	pm = id_matrix4();
 //	pm = multiply_matrix4(pm, translation(0, 0, 7));
@@ -2637,6 +2637,7 @@ void	test_reflection(t_minirt *rt)
 	w.objs[2].material.has_pattern = true;
 //	w.objs[2].material.pattern = pattern(color(1, 0, 0), color(0, 0, 1), GRADIENT);
 	w.objs[2].material.pattern = pattern(color(0, 0, 0), color(1, 0.9, 0.9), CHECKER);
+	w.objs[2].material.reflective = 0;
 	pm = id_matrix4();
 //	pm = multiply_matrix4(pm, translation(0, 5, 0));
 //	pm = multiply_matrix4(pm, rotation_x(45));

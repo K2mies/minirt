@@ -23,7 +23,7 @@
  * @param col			Color of material
  * @return				t_material object
  */
-t_material material(t_float param[5], t_color col)
+t_material material(t_float param[7], t_color col)
 {
 	t_material m;
 
@@ -33,5 +33,7 @@ t_material material(t_float param[5], t_color col)
 	m.specular = param[specular];
 	m.shininess = param[shininess];
 	m.reflective = param[reflective];
+	m.transparency = param[transparency];
+	m.refractive_index = param[refractive_index];
 	return (m);
 }

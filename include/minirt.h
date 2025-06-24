@@ -128,6 +128,8 @@ typedef struct	s_material
 	t_color		color;
 	bool		has_pattern;
 	t_pattern	pattern;
+	t_float		transparency;
+	t_float		refractive_index;
 	t_float		reflective;
 	t_float		ambient;
 	t_float		diffuse;
@@ -214,10 +216,13 @@ typedef struct s_intersection
 //v[reflectv]
 typedef struct	s_computations
 {
+
 	t_float		t;
-	t_object	object;
+	t_float		n[2];
 	t_tuple		v[5];
+	t_object	object;
 	t_tuple		over_point;
+	t_tuple		under_point;
 	bool		inside;
 }	t_computations;
 
@@ -334,7 +339,9 @@ typedef enum	e_phong
 	diffuse,
 	specular,
 	shininess,
-	reflective
+	reflective,
+	transparency,
+	refractive_index
 }	t_phong;
 
 //Enum for axis
@@ -576,7 +583,7 @@ t_wall		wall(t_tuple position, t_float width, t_float height);
 /* -------------------------------------------------------- minirt_object03.c */
 t_light		point_light(t_tuple origin, t_float brightness, t_color col);
 /* -------------------------------------------------------- minirt_object04.c */
-t_material	material(t_float param[5], t_color col);
+t_material	material(t_float param[7], t_color col);
 /* -------------------------------------------------------- minirt_object05.c */
 t_world		world(t_minirt *rt);
 t_world		default_world(t_minirt *rt);
