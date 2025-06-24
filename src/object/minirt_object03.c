@@ -26,7 +26,7 @@ t_light	point_light(t_tuple origin, t_float brightness, t_color col)
 
 	light.origin = origin;
 	light.brightness = brightness;
-	light.color = col;
+	light.color = multiply_color_by_scalar(col, light.brightness);
 	return (light);
 		
 }

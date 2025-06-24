@@ -2587,7 +2587,7 @@ void	test_reflection(t_minirt *rt)
 	w.objs[0].material.specular = 0;
 	w.objs[0].material.has_pattern = true;
 	w.objs[0].material.pattern = pattern(color(0, 0, 0), color(1, 0.9, 0.9), CHECKER);
-	w.objs[0].material.reflective = 0;
+	w.objs[0].material.reflective = 0.5;
 //	w.objs[0].material.pattern = pattern(col_a, col_b, STRIPE);
 	pm = id_matrix4();
 //	pm = multiply_matrix4(pm, translation(0, 0, 7));
@@ -2706,7 +2706,7 @@ void	test_reflection(t_minirt *rt)
 //	w.objs[5].material.ambient = 1;
 //	w.objs[5].material.diffuse = 0;
 //	w.objs[5].material.specular = 0;
-	w.objs[5].material.has_pattern = false;
+	w.objs[5].material.has_pattern = true;
 	w.objs[5].material.reflective = 0.5;
 //	w.objs[5].material.pattern = pattern(color(0.788, 0, 1), color(1, 0.38, 0), RING);
 	w.objs[5].material.pattern = pattern(color(0, 0, 1), color(1, 0, 0), GRADIENT);
