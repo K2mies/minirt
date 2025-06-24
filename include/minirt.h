@@ -34,11 +34,10 @@
 /* ================================= MACROS ================================= */
 
 # define M_PI 3.14159265358979323846
-# define EPSILON	0.00001f
-//# define EPSILON	0.01
-//# define EPSILON	1e-6
-//# define EPSILON	1.19209290e-07F
-//# define EPSILON	DBL_EPSILON
+# define EPSILON		0.00001f
+# define SHADOW_BIAS	0.01f
+# define PATTERN_SHIFT	0.01f
+# define BOUNCE_LIMIT	4
 
 # define RED	0xFF0000FF
 # define GREEN	0x00FF00FF
@@ -50,6 +49,7 @@
 
 /* --------------------------------------------------------------------- refs */
 typedef struct s_ray		t_ray;
+typedef struct	s_pattern	t_pattern;
 /* ------------------------------------------------------------- custom types */
 // Custom typedef for float (so can be switched to double later for testing)
 typedef float	t_float;
@@ -113,15 +113,30 @@ typedef struct s_ray
 }	t_ray;
 
 /* -----------------------------------------------------------------materials */
+// Typedef for pattern
+typedef struct	s_pattern
+{
+	int			type;
+	t_color		a;
+	t_color		b;
+	t_matrix4	transform;
+}	t_pattern;
+
 // Typedef for phong material
 typedef struct	s_material
 {
-	t_color	color;
-	t_float	ambient;
-	t_float	diffuse;
-	t_float	specular;
-	t_float	shininess;
+	t_color		color;
+	bool		has_pattern;
+	t_pattern	pattern;
+	t_float		transparency;
+	t_float		refractive_index;
+	t_float		reflective;
+	t_float		ambient;
+	t_float		diffuse;
+	t_float		specular;
+	t_float		shininess;
 }	t_material;
+
 /* --------------------------------------------------------------- Scene Data */
 // Typedef for ambient light
 typedef struct s_ambient
@@ -198,12 +213,16 @@ typedef struct s_intersection
 //v[pos]
 //v[eyev]
 //v[normalv]
+//v[reflectv]
 typedef struct	s_computations
 {
+
 	t_float		t;
+	t_float		n[2];
+	t_tuple		v[5];
 	t_object	object;
-	t_tuple		v[3];
 	t_tuple		over_point;
+	t_tuple		under_point;
 	bool		inside;
 }	t_computations;
 
@@ -220,6 +239,8 @@ typedef struct	s_world
 	int				hit_index;
 
 }	t_world;
+
+/* =========================== MAIN DATA STRUCT ============================= */
 /* --------------------------------------------------------- main data struct */
 // Typedef for Main data struct
 typedef struct s_minirt
@@ -263,18 +284,28 @@ typedef struct	s_view_transform_param
 // Typedef for lighting function paramaters
 typedef struct	s_lighting_param
 {
-	t_color	ambient;
-	t_color	diffuse;
-	t_color	specular;
-	t_color	effective_color;
-	t_tuple	reflectv;
-	t_tuple	lightv;
-	t_float	light_dot_normal;
-	t_float	reflect_dot_eye;
-	t_float	factor;
-	bool	in_shadow;
+	t_object	obj;
+	t_color		ambient;
+	t_color		diffuse;
+	t_color		specular;
+	t_color		effective_color;
+	t_tuple		reflectv;
+	t_tuple		lightv;
+	t_float		light_dot_normal;
+	t_float		reflect_dot_eye;
+	t_float		factor;
+	bool		in_shadow;
 
 }	t_lighting_param;
+
+typedef struct	s_render_param
+{
+	t_canvas	*img;
+	t_color		col;
+	t_ray		ray;
+	int			bounce_limit;
+
+}	t_render_param;
 
 /* ================================ ENUMS =================================== */
 
@@ -297,7 +328,8 @@ typedef enum	e_vectors
 {
 	pos,
 	eyev,
-	normalv
+	normalv,
+	reflectv
 }	t_vectors;
 
 //Enum for phong material paramaters
@@ -306,7 +338,10 @@ typedef enum	e_phong
 	ambient,
 	diffuse,
 	specular,
-	shininess
+	shininess,
+	reflective,
+	transparency,
+	refractive_index
 }	t_phong;
 
 //Enum for axis
@@ -345,14 +380,22 @@ typedef enum	e_proportions
 	ZY
 }	t_proportions;
 
-//Enum for object types
-enum e_types
+//Enum for object shape/object types
+enum e_shape_types
 {
 	SPHERE,
 	PLANE,
 	CYLINDER
 };
 
+//Enum for pattern types
+enum e_pattern_types
+{
+	STRIPE,
+	GRADIENT,
+	RING,
+	CHECKER
+};
 typedef enum e_error
 {
 	ERROR_MLX,
@@ -413,6 +456,26 @@ t_color		sub_colors(t_color cola, t_color colb);
 /* --------------------------------------------------------- minirt_color04.c */
 t_color		multiply_color_by_scalar(t_color col, t_float scalar);
 t_color		multiply_color(t_color cola, t_color colb);
+/* --------------------------------------------------------- minirt_color05.c */
+void		set_pattern_transform(t_pattern *pat, t_matrix4 m);
+t_pattern	pattern(t_color a, t_color b, int type);
+t_color		pattern_at(t_pattern	pat, t_object obj, t_tuple world_point);
+/* --------------------------------------------------------- minirt_color06.c */
+t_color		stripe_at(t_pattern pat, t_tuple point);
+t_color		stripe_at_object(t_pattern pattern, t_object obj, t_tuple world_point);
+/* --------------------------------------------------------- minirt_color07.c */
+t_color		gradient_at(t_pattern gradient, t_tuple point);
+t_color		gradient_at_object(t_pattern pattern, t_object obj, t_tuple world_point);
+/* --------------------------------------------------------- minirt_color08.c */
+t_color		ring_at(t_pattern ring, t_tuple p);
+t_color		ring_at_object(t_pattern pattern, t_object obj, t_tuple world_point);
+
+/* --------------------------------------------------------- minirt_color09.c */
+t_color		checker_at(t_pattern check, t_tuple p);
+t_color		checker_at_object(t_pattern pattern, t_object obj, t_tuple world_point);
+
+/* --------------------------------------------------------- minirt_color10.c */
+t_color		reflected_color(t_world world, t_computations comps, int *remaining);
 
 /* ================================ CANVAS ================================== */
 
@@ -504,9 +567,9 @@ bool				is_shadowed(t_world world, t_tuple point);
 t_computations		prepare_computations(t_intersection i, t_ray r);
 /* ----------------------------------------------------------- minirt_ray08.c */
 t_intersection		hit(t_world *w);
-t_color				shade_hit(t_world w, t_computations comps);
+t_color				shade_hit(t_world w, t_computations comps, t_object obj, int *remaining);
 /* ----------------------------------------------------------- minirt_ray09.c */
-t_color				color_at(t_world w, t_ray r);
+t_color				color_at(t_world w, t_ray r, int *remaining);
 /* ----------------------------------------------------------- minirt_ray10.c */
 t_ray				ray_for_pixel(t_camera cam, t_float px, t_float py);
 /* ============================== OBJECTS =================================== */
@@ -520,7 +583,7 @@ t_wall		wall(t_tuple position, t_float width, t_float height);
 /* -------------------------------------------------------- minirt_object03.c */
 t_light		point_light(t_tuple origin, t_float brightness, t_color col);
 /* -------------------------------------------------------- minirt_object04.c */
-t_material	material(t_float param[4], t_color col);
+t_material	material(t_float param[7], t_color col);
 /* -------------------------------------------------------- minirt_object05.c */
 t_world		world(t_minirt *rt);
 t_world		default_world(t_minirt *rt);
