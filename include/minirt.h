@@ -38,6 +38,7 @@
 # define SHADOW_BIAS	0.01f
 # define PATTERN_SHIFT	0.01f
 # define BOUNCE_LIMIT	4
+# define MAX_CONTAINERS 6
 
 # define RED	0xFF0000FF
 # define GREEN	0x00FF00FF
@@ -205,9 +206,16 @@ typedef struct s_intersection
 {
 	t_float		t;
 	t_object	object;
+	int			obj_index;
 }	t_intersection;
 
-/* ---------------------------------------------------------------- computations */
+/* -------------------------------------------------------------------- containers */
+typedef struct	s_obj_container
+{
+	t_object	*objs[MAX_CONTAINERS];
+	int			n_obj;
+}				t_obj_container;
+/* ------------------------------------------------------------- computations */
 //Typedef fpr computations
 //the v[3] array consists of
 //v[pos]
@@ -564,18 +572,21 @@ t_tuple				reflect(t_tuple in, t_tuple normal);
 t_color				lighting(t_lighting_param p, t_material m, t_light light, t_tuple v[3]);
 bool				is_shadowed(t_world world, t_tuple point);
 /* ----------------------------------------------------------- minirt_ray07.c */
-t_computations		prepare_computations(t_intersection i, t_ray r);
+t_computations		prepare_computations(t_world w, t_intersection i, t_ray r);
 /* ----------------------------------------------------------- minirt_ray08.c */
+void				prepare_refraction_calculations(t_world w, t_computations *comps, t_intersection *target);
+/* ----------------------------------------------------------- minirt_ray09.c */
 t_intersection		hit(t_world *w);
 t_color				shade_hit(t_world w, t_computations comps, t_object obj, int *remaining);
-/* ----------------------------------------------------------- minirt_ray09.c */
-t_color				color_at(t_world w, t_ray r, int *remaining);
 /* ----------------------------------------------------------- minirt_ray10.c */
+t_color				color_at(t_world w, t_ray r, int *remaining);
+/* ----------------------------------------------------------- minirt_ray11.c */
 t_ray				ray_for_pixel(t_camera cam, t_float px, t_float py);
 /* ============================== OBJECTS =================================== */
 
 /* -------------------------------------------------------- minirt_object00.c */
 t_object	sphere(t_tuple location, t_float diameter, t_color col);
+t_object	glass_sphere(t_tuple location, t_float diameter, t_color col);
 /* -------------------------------------------------------- minirt_object01.c */
 t_object	plane(t_tuple origin, t_tuple normal, t_color col);
 /* -------------------------------------------------------- minirt_object02.c */
@@ -616,6 +627,13 @@ void		object_free(char **arr1, char **arr2, char **arr3);
 void		cleanup_rt(t_minirt *rt);
 /* -------------------------------------------------------- utils/quicksort.c */
 void		quicksort(t_intersection arr[], int low, int high);
+/* ------------------------------------------------------- utils/containers.c */
+
+void		update_container(t_obj_container *container, t_object *obj);
+bool		is_inside_container(t_obj_container *container, t_object *obj, int *index);
+void		remove_from_container(t_obj_container *container, int index);
+void		add_to_container(t_obj_container *container, t_object *obj);
+t_float		get_refractive_index(t_obj_container *con);
 /* ================================= PARSING ================================ */
 
 /* ----------------------------------------------------- parsing/validation.c */

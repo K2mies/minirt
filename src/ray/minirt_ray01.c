@@ -71,9 +71,11 @@ void	world_intersect(t_world *w, t_ray ray)
 		{
 			w->ts[w->n_ts].t = xs.t[0];
 			w->ts[w->n_ts].object = w->objs[i];
+			w->ts[w->n_ts].obj_index = i;
 			++w->n_ts;
 			w->ts[w->n_ts].t = xs.t[1];
 			w->ts[w->n_ts].object = w->objs[i];
+			w->ts[w->n_ts].obj_index = i;
 			++w->n_ts;
 		}
 		++i;

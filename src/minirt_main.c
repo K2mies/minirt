@@ -2816,6 +2816,59 @@ void	test_reflection(t_minirt *rt)
 //
 //}
 
+void	test_refraction_comp(t_minirt *rt)
+{
+	t_world		w;
+	t_matrix4	m;
+
+	w = world(rt);
+
+	w.objs[0] = glass_sphere(point(0, 0, 0), 2, color(1, 1 ,1));
+	w.objs[0].material.refractive_index = 1.5;
+	m = id_matrix4();
+	m = multiply_matrix4(m, scaling(2, 2, 2));
+	w.objs[0].transform = m;
+
+	
+	w.objs[1] = glass_sphere(point(0, 0, 0), 2, color(1, 1 ,1));
+	w.objs[1].material.refractive_index = 2.0;
+	m = id_matrix4();
+	m = multiply_matrix4(m, translation(0, 0, -0.25));
+	w.objs[1].transform = m;
+	
+	w.objs[2] = glass_sphere(point(0, 0, 0), 2, color(1, 1 ,1));
+	w.objs[2].material.refractive_index = 2.5;
+	m = id_matrix4();
+	m = multiply_matrix4(m, translation(0, 0, 0.25));
+	w.objs[2].transform = m;
+
+	t_ray	r = ray(point(0, 0, -4), vector(0, 0, 1));
+	world_intersect(&w, r);
+	hit(&w);
+	int	index = 0;
+	t_computations comps; 
+	comps = prepare_computations(w, w.ts[index], r);
+	printf("|	index	|	n1	|	n2	|\n");
+	printf("|	%d	|	%.2f	|	%.2f	|\n", index, comps.n[0], comps.n[1]);
+	index = 1;
+	comps = prepare_computations(w, w.ts[index], r);
+	printf("|	%d	|	%.2f	|	%.2f	|\n", index, comps.n[0], comps.n[1]);
+	index = 2;
+	comps = prepare_computations(w, w.ts[index], r);
+	printf("|	%d	|	%.2f	|	%.2f	|\n", index, comps.n[0], comps.n[1]);
+	index = 3;
+	comps = prepare_computations(w, w.ts[index], r);
+	printf("|	%d	|	%.2f	|	%.2f	|\n", index, comps.n[0], comps.n[1]);
+	index = 4;
+	comps = prepare_computations(w, w.ts[index], r);
+	printf("|	%d	|	%.2f	|	%.2f	|\n", index, comps.n[0], comps.n[1]);
+	index = 5;
+	comps = prepare_computations(w, w.ts[index], r);
+	printf("|	%d	|	%.2f	|	%.2f	|\n", index, comps.n[0], comps.n[1]);
+	printf("hit index is %d\n", w.hit_index);
+
+}
+
 int	main(int argc, char **argv)
 {
 //	(void)argc;
@@ -2830,9 +2883,7 @@ int	main(int argc, char **argv)
 	rt.n_objs = 0;
 	rt.ts = NULL;
 	open_file(&rt, argv);
-	test_reflection(&rt);
-//	test_reflected_color(&rt);
-//	test_striped_pattern(&rt);
+	test_refraction_comp(&rt);
 	cleanup_rt(&rt);
 	return (0);
 }
