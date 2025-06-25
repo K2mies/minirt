@@ -1,62 +1,66 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_ray06.c                                     :+:      :+:    :+:   */
+/*   minirt_ray08.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/06 16:06:50 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/06 16:41:22 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/06/25 14:14:53 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/06/25 14:15:11 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
 
-/**
- * @brief	returns hit from list of intersections
- * returns a hit float which is the lowest positive
- * number from a list of intersection values
- *
- * @param w		pointer to the world object to calculate hit
- * @return		hit value from list of intersections
- *				value with be -1 if none are found
- */
-t_intersection	hit(t_world *w)
+
+//void	prepare_refraction_calculations(t_world w, t_computations *comps, t_intersection *target)
+//{
+//	t_obj_container	container;
+//	t_object		*obj;
+//	int				i;
+//
+//	container.n_obj = 0;
+//
+//	i = -1;
+//	while (++i < w.n_ts)
+//	{
+//		obj = &w.objs[w.ts[i].obj_index];
+//		if (&w.ts[i] == target)
+//		{
+//			comps->n[0] = get_refractive_index(&container);
+//			update_container(&container, obj);
+//			comps->n[1] = get_refractive_index(&container);
+//			return;
+//		}
+//		update_container(&container, obj);
+//	}
+//}
+
+void	prepare_refraction_calculations(t_world w, t_computations *comps, t_intersection *target)
 {
+	t_obj_container	container;
 	int		i;
-	t_intersection	res;
 
-	i = 0;
-	while (i < w->n_ts)
+	(void)target;
+	container.n_obj = 0;
+//	hit(&w);
+	i = -1;
+	while (++i < w.n_ts)
 	{
-		if (w->ts[i].t >= 0)
+		if (i == w.hit_index)
 		{
-			w->hit_index = i;
-			res = w->ts[i];
-			return (res);
+			if (container.n_obj <= 0)
+				comps->n[0] = 1.0;
 		}
-		i++;
+		else
+			comps->n[0] = get_refractive_index(&container);
+		update_container(&container, &w.ts[i].object);
+		if (i == w.hit_index)
+		{
+			if (container.n_obj <= 0)
+				comps->n[1] = 1.0;
+			else
+				comps->n[1] = get_refractive_index(&container);
+		}
 	}
-	res.t = -1;
-	return (res);
-}
 
-/**
- * @brief	calculates shading for hit intersection
- * returns a color calculated  from the shading
- *
- * @param w		world object to calculate hit
- * @param comps	computation paramaters
- * @return		color for shaded pixel
- */
-t_color	shade_hit(t_world w, t_computations comps, t_object	obj, int *remaining)
-{
-	t_lighting_param	param;
-	t_color				surface;
-	t_color				reflected;
-
-	param.in_shadow = is_shadowed(w, comps.over_point);
-	param.obj = obj;
-	surface = lighting(param, comps.object.material, w.light, comps.v);
-	reflected = reflected_color(w, comps, remaining);
-	return (add_colors(surface, reflected));
 }
