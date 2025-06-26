@@ -238,7 +238,7 @@ typedef struct	s_computations
 // Typedef for world
 typedef struct	s_world
 {
-	t_light			light;
+	t_light			*light;
 	t_object		*objs;
 	t_intersection	*ts;
 	int				n_objs;

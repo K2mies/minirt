@@ -49,6 +49,6 @@ t_world	default_world(t_minirt *rt)
 	w.objs[0].material.diffuse = 0.7;
 	w.objs[0].material.specular = 0.2;
 	w.objs[1].transform = scaling(0.5, 0.5, 0.5);
-	w.light = point_light(point(-10, 10, -10), 1.0, color(1, 1, 1));
+	w.light[0] = point_light(point(-10, 10, -10), 1.0, color(1, 1, 1));
 	return (w);
 }

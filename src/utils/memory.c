@@ -73,16 +73,10 @@ void	*rt_malloc(t_minirt *rt, size_t size)
  */
 void	cleanup_rt(t_minirt *rt)
 {
-	int	i;
-
-	i = -1;
 	if (rt->objs)
 		free(rt->objs);
-	i = -1;
 	if (rt->ts)
-	{
 		free(rt->ts);
-	}
 	if (rt->full_data)
 		free_big_array(&rt->full_data);
 	if (rt->light)

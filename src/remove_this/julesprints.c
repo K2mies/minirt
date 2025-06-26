@@ -26,9 +26,9 @@ void	print_stored_data(t_minirt *rt)
 	printf("FOV: %f\n", rt->camera.fov);
 	printf("\n");
 	printf("///// Light /////\n");
-	printf("Origin: %f,%f,%f\n", rt->light.origin.x, rt->light.origin.y, rt->light.origin.z);
-	printf("Brightness: %f\n", rt->light.brightness);
-	printf("RGB: %f,%f,%f\n", rt->light.color.r, rt->light.color.g, rt->light.color.b);
+	printf("Origin: %f,%f,%f\n", rt->light[0].origin.x, rt->light[0].origin.y, rt->light[0].origin.z);
+	printf("Brightness: %f\n", rt->light[0].brightness);
+	printf("RGB: %f,%f,%f\n", rt->light[0].color.r, rt->light[0].color.g, rt->light[0].color.b);
 	printf("\n");
 	printf("///// Objects /////\n");
 	while (++i < rt->n_objs)

@@ -43,7 +43,7 @@ static void	check_for_dups(t_minirt *rt, char ***full)
 	}
 	if (file_entry_error(amb, cam, rt->n_light, rt->n_objs))
 		rt_error(rt, NULL, 1);
-	rt->light = rt_malloc(rt, rt->n_objs * sizeof(rt->light) + 1);
+	rt->light = rt_malloc(rt, rt->n_objs * sizeof(t_light) + 1);
 	rt->objs = rt_malloc(rt, (sizeof(t_object) * rt->n_objs - 2));
 }
 
