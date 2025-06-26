@@ -118,7 +118,7 @@ bool	file_entry_error(int a, int c, int l, int obj)
 		ft_dprintf(STDERR_FILENO, "Light data missing\n");
 	if (obj == 0)
 		ft_dprintf(STDERR_FILENO, "At least one object required\n");
-	if (a != 1 || c != 1 || l != 1 || obj == 0)
+	if (a != 1 || c != 1 || l < 1 || obj == 0)
 		return (true);
 	return (false);
 }

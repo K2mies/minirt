@@ -2570,7 +2570,7 @@ void	test_reflection(t_minirt *rt)
 	cam.transform = view_transform(point(0, 1.5, -5), point(0, 1, 0), vector(0, 1, 0));
 
 /* ================================= LIGHT =============================== */
-	w.light = point_light(point(0, 2.49, 0), 1.0, color(1, 1, 1));
+	w.light[0] = point_light(point(0, 2.49, 0), 1.0, color(1, 1, 1));
 /* ================================ FLOOR ================================ */
 /* --------------------------------------------------------------transforms*/
 //	m = id_matrix4();
