@@ -2842,9 +2842,17 @@ void	test_refraction_comp(t_minirt *rt)
 	m = multiply_matrix4(m, translation(0, 0, 0.25));
 	w.objs[2].transform = m;
 
-	t_ray	r = ray(point(0, 0, -4), vector(0, 0, 1));
+	t_ray	r = ray(point(0, 0, -5), vector(0, 0, 1));
 	world_intersect(&w, r);
 	hit(&w);
+
+	int	i = 0;
+	while (i < w.n_ts)
+	{
+		printf("t[%d] = %f\n", i, w.ts[i].t);
+		i++;
+	}
+	printf("hit index is %d\n", w.hit_index);
 	int	index = 0;
 	t_computations comps; 
 	comps = prepare_computations(w, w.ts[index], r);
@@ -2865,7 +2873,6 @@ void	test_refraction_comp(t_minirt *rt)
 	index = 5;
 	comps = prepare_computations(w, w.ts[index], r);
 	printf("|	%d	|	%.2f	|	%.2f	|\n", index, comps.n[0], comps.n[1]);
-	printf("hit index is %d\n", w.hit_index);
 
 }
 
