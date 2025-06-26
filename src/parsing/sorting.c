@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:33:45 by mpierce           #+#    #+#             */
-/*   Updated: 2025/06/17 13:44:17 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/06/26 13:17:37 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,14 @@
  * @param full 3D array of file contents
  * 
  */
-static int	check_for_dups(t_minirt *rt, char ***full)
+static void	check_for_dups(t_minirt *rt, char ***full)
 {
 	int	i;
 	int	amb;
 	int	cam;
-	int	lig;
 
 	amb = 0;
 	cam = 0;
-	lig = 0;
 	i = -1;
 	while (full[++i])
 	{
@@ -38,14 +36,15 @@ static int	check_for_dups(t_minirt *rt, char ***full)
 		else if (!ft_strcmp(full[i][0], "C"))
 			cam++;
 		else if (!ft_strcmp(full[i][0], "L"))
-			lig++;
+			rt->n_light++;
 		else if (!ft_strcmp(full[i][0], "sp") || !ft_strcmp(full[i][0], "cy")
 			|| !ft_strcmp(full[i][0], "pl"))
 			rt->n_objs++;
 	}
-	if (file_entry_error(amb, cam, lig, rt->n_objs))
+	if (file_entry_error(amb, cam, rt->n_light, rt->n_objs))
 		rt_error(rt, NULL, 1);
-	return (i);
+	rt->light = rt_malloc(rt, rt->n_objs * sizeof(rt->light) + 1);
+	rt->objs = rt_malloc(rt, (sizeof(t_object) * rt->n_objs - 2));
 }
 
 /**
@@ -87,7 +86,7 @@ static void	load_ambient(t_minirt *rt, char **data)
  * @param data 2D array of Light data
  * 
  */
-static void	load_light(t_minirt *rt, char **data)
+static void	load_light(t_minirt *rt, char **data, int i)
 {
 	char	**origin;
 	char	**rgb;
@@ -110,7 +109,7 @@ static void	load_light(t_minirt *rt, char **data)
 		object_error(rt, origin, NULL, rgb);
 	color = color_from_channels(ft_atoi(rgb[0]), ft_atoi(rgb[1]),
 			ft_atoi(rgb[2]));
-	rt->light = point_light(src, ft_atof(data[2]), color);
+	rt->light[i] = point_light(src, ft_atof(data[2]), color);
 	object_free(origin, NULL, rgb);
 }
 
@@ -158,11 +157,12 @@ void	sort_data_types(t_minirt *rt, char ***full)
 {
 	int	i;
 	int	index;
+	int light_index;
 
 	i = -1;
 	index = 0;
-	rt->objs = rt_malloc(rt, (sizeof(t_object)
-				* (check_for_dups(rt, full) - 2)));
+	light_index = 0;
+	check_for_dups(rt, full);
 	while (full[++i])
 	{
 		if (!ft_strcmp(full[i][0], "A"))
@@ -170,7 +170,7 @@ void	sort_data_types(t_minirt *rt, char ***full)
 		else if (!ft_strcmp(full[i][0], "C"))
 			load_camera(rt, full[i]);
 		else if (!ft_strcmp(full[i][0], "L"))
-			load_light(rt, full[i]);
+			load_light(rt, full[i], light_index++);
 		else if (!ft_strcmp(full[i][0], "pl"))
 			load_plane(rt, full[i], index++);
 		else if (!ft_strcmp(full[i][0], "sp"))

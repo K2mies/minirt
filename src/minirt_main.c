@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:24:50 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/30 17:18:27 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/06/26 13:16:46 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -2888,6 +2888,7 @@ int	main(int argc, char **argv)
 	rt.objs = NULL;
 	rt.full_data = NULL;
 	rt.n_objs = 0;
+	rt.n_light = 0;
 	rt.ts = NULL;
 	open_file(&rt, argv);
 	test_refraction_comp(&rt);

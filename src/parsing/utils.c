@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 12:20:32 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/30 17:35:41 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/06/26 13:18:02 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,19 @@ bool	rt_isstrdigit(char *str)
 	res = ft_isstrdigit(temp);
 	free(temp);
 	return (res);
+}
+
+void	light_validation(t_minirt *rt)
+{
+	int	i;
+
+	i = -1;
+	while (++i < rt->n_light)
+	{
+		if (!is_in_range(rt->light[i].brightness, 0, 1))
+			rt_error(rt, "Light brightness error", 3);
+		if (!is_in_range(rt->light[i].color.r, 0, 1) || !is_in_range(rt->light[i].color.g,
+			0, 1) || !is_in_range(rt->light[i].color.b, 0, 1))
+			rt_error(rt, "Light RGB error", 3);
+	}
 }

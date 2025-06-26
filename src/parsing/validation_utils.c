@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 15:17:45 by mpierce           #+#    #+#             */
-/*   Updated: 2025/06/17 13:44:34 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/06/26 12:58:52 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ bool	validate_rgb(char **rgb)
  */
 bool	file_entry_error(int a, int c, int l, int obj)
 {
-	if (a != 1 || c != 1 || l != 1 || obj == 0)
+	if (a != 1 || c != 1 || l < 1 || obj == 0)
 		ft_dprintf(STDERR_FILENO, "Error\n");
 	if (a < 1)
 		ft_dprintf(STDERR_FILENO, "Ambient data missing\n");
@@ -116,9 +116,7 @@ bool	file_entry_error(int a, int c, int l, int obj)
 		ft_dprintf(STDERR_FILENO, "Camera data max exceeded (1)\n");
 	if (l < 1)
 		ft_dprintf(STDERR_FILENO, "Light data missing\n");
-	else if (l > 1)
-		ft_dprintf(STDERR_FILENO, "Light data max exceeded (1)\n");
-	else if (obj == 0)
+	if (obj == 0)
 		ft_dprintf(STDERR_FILENO, "At least one object required\n");
 	if (a != 1 || c != 1 || l != 1 || obj == 0)
 		return (true);

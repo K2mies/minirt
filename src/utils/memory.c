@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 17:25:11 by mpierce           #+#    #+#             */
-/*   Updated: 2025/06/02 17:13:12 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/06/26 13:04:20 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,6 @@ void	cleanup_rt(t_minirt *rt)
 	}
 	if (rt->full_data)
 		free_big_array(&rt->full_data);
+	if (rt->light)
+		free(rt->light);
 }

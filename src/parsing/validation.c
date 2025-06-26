@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:00:08 by mpierce           #+#    #+#             */
-/*   Updated: 2025/06/17 13:43:42 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/06/26 13:12:36 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,6 @@ static void	check_data_values(t_minirt *rt)
 		rt_error(rt, "Camera vector error", 3);
 	if (!is_in_range(rt->camera.fov, 0, 180))
 		rt_error(rt, "Camera FOV error", 3);
-	if (!is_in_range(rt->light.brightness, 0, 1))
-		rt_error(rt, "Light brightness error", 3);
-	if (!is_in_range(rt->light.color.r, 0, 1) || !is_in_range(rt->light.color.g,
-			0, 1) || !is_in_range(rt->light.color.b, 0, 1))
-		rt_error(rt, "Light RGB error", 3);
 	while (++i < rt->n_objs)
 		check_object_values(rt, rt->objs[i]);
 }
