@@ -44,9 +44,11 @@ void	prepare_refraction_calculations(t_world *w, t_computations *comps, t_inters
 	(void)target;
 	container.n_obj = 0;
 //	hit = hit(&w);
-	i = -1;
-	while (++i < w->n_ts)
+	i = 0;
+	while (i < w->n_ts)
 	{
+//		printf("i = %d\n", i);
+//		printf("hit_index = %d\n", w->hit_index);
 		if (i == w->hit_index)
 		{
 			if (container.n_obj <= 0)
@@ -56,6 +58,7 @@ void	prepare_refraction_calculations(t_world *w, t_computations *comps, t_inters
 				comps->n[0] = get_refractive_index(&container);
 			}
 		}
+//		printf("p %p p2 %p\n", &container.objs[i], &w->ts[i].object);
 		update_container(&container, &w->ts[i].object);
 		if (i == w->hit_index)
 		{
@@ -64,5 +67,6 @@ void	prepare_refraction_calculations(t_world *w, t_computations *comps, t_inters
 			else
 				comps->n[1] = get_refractive_index(&container);
 		}
+		i++;
 	}
 }

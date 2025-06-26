@@ -20,7 +20,6 @@
 void	update_container(t_obj_container *container, t_object *obj)
 {
 	int	index;
-
 	if (is_inside_container(container, obj, &index))
 		remove_from_container(container, index);
 	else
@@ -42,8 +41,10 @@ bool	is_inside_container(t_obj_container *container, t_object *obj, int *index)
 	i = 0;
 	while (i < container->n_obj)
 	{
+		printf("inside container %p, obj %p\n", container->objs[i], obj);
 		if (container->objs[i] == obj)
 		{
+			printf("container has object\n");
 			*index = i;
 			return (true);
 		}
