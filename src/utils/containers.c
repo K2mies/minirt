@@ -61,7 +61,6 @@ bool	is_inside_container(t_obj_container *container, t_object *obj, int *index)
 void	remove_from_container(t_obj_container *container, int index)
 {
 	int	i;
-
 	i = index;
 	while (i < container->n_obj - 1)
 	{
@@ -97,6 +96,7 @@ t_float	get_refractive_index(t_obj_container *container)
 {
 	int	count;
 
+//	count = container->n_obj - 1;
 	count = container->n_obj - 1;
 	if (count <= 0)
 		return (1.0f);

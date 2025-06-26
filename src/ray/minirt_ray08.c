@@ -12,7 +12,7 @@
 #include "minirt.h"
 
 
-//void	prepare_refraction_calculations(t_world w, t_computations *comps, t_intersection *target)
+//void	prepare_refraction_calculations(t_world *w, t_computations *comps, t_intersection *target)
 //{
 //	t_obj_container	container;
 //	t_object		*obj;
@@ -21,10 +21,10 @@
 //	container.n_obj = 0;
 //
 //	i = -1;
-//	while (++i < w.n_ts)
+//	while (++i < w->n_ts)
 //	{
-//		obj = &w.objs[w.ts[i].obj_index];
-//		if (&w.ts[i] == target)
+//		obj = &w->objs[w->ts[i].obj_index];
+//		if (&w->ts[i] == target)
 //		{
 //			comps->n[0] = get_refractive_index(&container);
 //			update_container(&container, obj);
@@ -35,26 +35,29 @@
 //	}
 //}
 
-void	prepare_refraction_calculations(t_world w, t_computations *comps, t_intersection *target)
+void	prepare_refraction_calculations(t_world *w, t_computations *comps, t_intersection *target)
 {
+//	t_intersection	hit;
 	t_obj_container	container;
 	int		i;
 
 	(void)target;
 	container.n_obj = 0;
-//	hit(&w);
+//	hit = hit(&w);
 	i = -1;
-	while (++i < w.n_ts)
+	while (++i < w->n_ts)
 	{
-		if (i == w.hit_index)
+		if (i == w->hit_index)
 		{
 			if (container.n_obj <= 0)
 				comps->n[0] = 1.0;
+			else
+			{
+				comps->n[0] = get_refractive_index(&container);
+			}
 		}
-		else
-			comps->n[0] = get_refractive_index(&container);
-		update_container(&container, &w.ts[i].object);
-		if (i == w.hit_index)
+		update_container(&container, &w->ts[i].object);
+		if (i == w->hit_index)
 		{
 			if (container.n_obj <= 0)
 				comps->n[1] = 1.0;
@@ -62,5 +65,4 @@ void	prepare_refraction_calculations(t_world w, t_computations *comps, t_interse
 				comps->n[1] = get_refractive_index(&container);
 		}
 	}
-
 }

@@ -574,7 +574,7 @@ bool				is_shadowed(t_world world, t_tuple point);
 /* ----------------------------------------------------------- minirt_ray07.c */
 t_computations		prepare_computations(t_world w, t_intersection i, t_ray r);
 /* ----------------------------------------------------------- minirt_ray08.c */
-void				prepare_refraction_calculations(t_world w, t_computations *comps, t_intersection *target);
+void				prepare_refraction_calculations(t_world *w, t_computations *comps, t_intersection *target);
 /* ----------------------------------------------------------- minirt_ray09.c */
 t_intersection		hit(t_world *w);
 t_color				shade_hit(t_world w, t_computations comps, t_object obj, int *remaining);
