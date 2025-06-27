@@ -53,10 +53,12 @@ t_color	shade_hit(t_world w, t_computations comps, t_object	obj, int *remaining)
 	t_lighting_param	param;
 	t_color				surface;
 	t_color				reflected;
+	t_color				refracted;
 
 	param.in_shadow = is_shadowed(w, comps.over_point);
 	param.obj = obj;
 	surface = lighting(param, comps.object.material, w.light[0], comps.v);
 	reflected = reflected_color(w, comps, remaining);
-	return (add_colors(surface, reflected));
+	refracted = refracted_color(w, comps, remaining);
+	return (add_three_colors(surface, reflected, refracted));
 }

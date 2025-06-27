@@ -11,45 +11,23 @@
 /* ************************************************************************** */
 #include "minirt.h"
 
-
-//void	prepare_refraction_calculations(t_world *w, t_computations *comps, t_intersection *target)
-//{
-//	t_obj_container	container;
-//	t_object		*obj;
-//	int				i;
-//
-//	container.n_obj = 0;
-//
-//	i = -1;
-//	while (++i < w->n_ts)
-//	{
-//		obj = &w->objs[w->ts[i].obj_index];
-//		if (&w->ts[i] == target)
-//		{
-//			comps->n[0] = get_refractive_index(&container);
-//			update_container(&container, obj);
-//			comps->n[1] = get_refractive_index(&container);
-//			return;
-//		}
-//		update_container(&container, obj);
-//	}
-//}
-
+/**
+ * @brief	prepares refraction calculations using a container for objs
+ *
+ * @param w				pointer to world struct
+ * @param comps			pointer to computations struct
+ * @param target		target or (hit) intersection
+ */
 void	prepare_refraction_calculations(t_world *w, t_computations *comps, t_intersection *target)
 {
-//	t_intersection	hit;
 	t_obj_container	container;
 	int		i;
 
-	(void)target;
-	container.n_obj = 0;
-//	hit = hit(&w);
-	i = 0;
-	while (i < w->n_ts)
+	container.n_obj = 1;
+	i = -1;
+	while (++i < w->n_ts)
 	{
-//		printf("i = %d\n", i);
-//		printf("hit_index = %d\n", w->hit_index);
-		if (i == w->hit_index)
+		if (&w->ts[i] == target)
 		{
 			if (container.n_obj <= 0)
 				comps->n[0] = 1.0;
@@ -58,15 +36,13 @@ void	prepare_refraction_calculations(t_world *w, t_computations *comps, t_inters
 				comps->n[0] = get_refractive_index(&container);
 			}
 		}
-//		printf("p %p p2 %p\n", &container.objs[i], &w->ts[i].object);
-		update_container(&container, &w->ts[i].object);
-		if (i == w->hit_index)
+		update_container(&container, &w->objs[w->ts[i].obj_index]);
+		if (&w->ts[i] == target)
 		{
 			if (container.n_obj <= 0)
 				comps->n[1] = 1.0;
 			else
 				comps->n[1] = get_refractive_index(&container);
 		}
-		i++;
 	}
 }

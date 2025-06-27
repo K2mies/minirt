@@ -65,13 +65,16 @@ t_tuple	normal_at_sphere(t_object obj, t_tuple world_point)
  */
 t_tuple normal_at_plane(t_object obj)
 {
-//	t_tuple	local_point;
-	t_tuple	local_normal;
-	t_tuple	world_normal;
+	t_tuple		local_normal;
+	t_tuple		world_normal;
+	t_matrix4	inverse_matrix;
+	t_matrix4	transpose_matrix;
 
-	//local_point = multiply_matrix4_tuple(inverse_matrix4(obj.transform), world_point);
 	local_normal = obj.vector;
-	world_normal = multiply_matrix4_tuple(transpose_matrix4(inverse_matrix4(obj.transform)), local_normal);
+	inverse_matrix = inverse_matrix4(obj.transform);
+	transpose_matrix = transpose_matrix4(inverse_matrix);
+	world_normal = multiply_matrix4_tuple(transpose_matrix, local_normal);
+//	world_normal = multiply_matrix4_tuple(transpose_matrix4(inverse_matrix4(obj.transform)), local_normal);
 	world_normal.w = 0;
 	world_normal = normalize_vector(world_normal);
 	return (world_normal);

@@ -41,10 +41,8 @@ bool	is_inside_container(t_obj_container *container, t_object *obj, int *index)
 	i = 0;
 	while (i < container->n_obj)
 	{
-		printf("inside container %p, obj %p\n", container->objs[i], obj);
 		if (container->objs[i] == obj)
 		{
-			printf("container has object\n");
 			*index = i;
 			return (true);
 		}
@@ -97,11 +95,10 @@ t_float	get_refractive_index(t_obj_container *container)
 {
 	int	count;
 
-//	count = container->n_obj - 1;
 	count = container->n_obj - 1;
 	if (count <= 0)
 		return (1.0f);
-//	if (!container->objs[count]->material)
+//	if (!container->objs[count].material)
 //		return (1.0f);
 	if (!container->objs[count])
 		return (1.0f);
