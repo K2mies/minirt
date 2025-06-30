@@ -2934,26 +2934,32 @@ void	test_world_refraction(t_minirt *rt)
 	cam = camera(50 * scalar, 100 * scalar, deg_to_rad(60));
 	cam.transform = view_transform(point(0, 1.5, -5), point(0, 1, 0), vector(0, 1, 0));
 
-
-
-
 	m = id_matrix4();
 	m = multiply_matrix4(m, translation(0, -1, 0));
 	w.objs[0].transform = m;
 	w.objs[0].color = color(1, 1, 1);
 	w.objs[0].material.color = color(1, 1, 1);
+	w.objs[0].material.reflective = 0.5;
 	w.objs[0].material.transparency = 0.5;
 	w.objs[0].material.refractive_index = 1.5;
+//	w.objs[0].material.diffuse = 0.1;
+	w.objs[0].material.specular = 0.1;
 	w.objs[0].material.has_pattern = true;
 	w.objs[0].material.pattern = pattern(color(1, 1, 1), color(0, 0, 0), CHECKER);
 
+	w.objs[1] = glass_sphere(point(0, 0, 0), 2, color(1, 0, 0));
 	m = id_matrix4();
 //	m = multiply_matrix4(m, translation(0, -3.5, -0.5));
 	m = multiply_matrix4(m, translation(-0.5, 1, 0.5));
 	w.objs[1].transform = m;
-	w.objs[1].color = color(1, 0, 0);
-	w.objs[1].material.color = color(1, 0, 0);
-	w.objs[1].material.ambient = 0.5;
+	w.objs[1].color = color(0, 0, 1);
+	w.objs[1].material.color = color(0, 0, 1);
+	w.objs[1].material.diffuse = 0.1;
+	w.objs[1].material.specular = 1.0;
+	w.objs[1].material.refractive_index = 1.5;
+	w.objs[1].material.transparency = 0.5;
+//	w.objs[1].material.ambient = 0.1;
+
 
 	r = ray(point(0, 0, -3), vector(0, -sqrtf(2) / 2, sqrtf(2) / 2));
 	world_intersect(&w, r);
@@ -2999,8 +3005,8 @@ int	main(int argc, char **argv)
 	rt.n_light = 0;
 	rt.ts = NULL;
 	open_file(&rt, argv);
-	test_schlick(&rt);
-//	test_world_refraction(&rt);
+//	test_schlick(&rt);
+	test_world_refraction(&rt);
 //	test_scene01(&rt);
 	cleanup_rt(&rt);
 	return (0);
