@@ -12,17 +12,24 @@
 #include "minirt.h"
 
 
+/**
+ * @brief	calculates paramaters for refracted color
+ *
+ * @param w				world object to calculate from
+ * @param comps			computations to use
+ * @param remaining		pointer to remaining recursive bounces
+ * @return				color for refracted color
+ */
 t_color	refracted_color(t_world w, t_computations comps, int *remaining)
 {
 	t_refracted_color_param	p;
 
+	if (comps.object.material.transparency == 0 || *remaining <= 0)
+		return (color(0, 0, 0));
 	p.n_ratio = comps.n[0] / comps.n[1];
 	p.cos[a] = dot_product(comps.v[eyev], comps.v[normalv]);
-//	p.sin2_t = powf(p.n_ratio, 2) * (1 - powf(p.cos[a], 2));
-	p.sin2_t = (p.n_ratio * p.n_ratio) * (1 - (p.cos[a] * p.cos[a]));
-	printf("p.sin2_t: %f\n", p.sin2_t);
-	if (comps.object.material.transparency == 0
-		|| p.sin2_t > 1 || *remaining <= 0)
+	p.sin2_t = p.n_ratio * p.n_ratio * (1 - p.cos[a] * p.cos[a]);
+	if (p.sin2_t > 1)
 		return (color(0, 0, 0));
 	p.cos[b] = sqrtf(1.0 - p.sin2_t);
 	p.calculation = p.n_ratio * p.cos[a] - p.cos[b];

@@ -6,7 +6,7 @@
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 16:06:50 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/25 16:30:46 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/06/30 13:46:03 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
@@ -54,11 +54,21 @@ t_color	shade_hit(t_world w, t_computations comps, t_object	obj, int *remaining)
 	t_color				surface;
 	t_color				reflected;
 	t_color				refracted;
+	t_material			material;
+	t_float				reflectance;
 
 	param.in_shadow = is_shadowed(w, comps.over_point);
 	param.obj = obj;
 	surface = lighting(param, comps.object.material, w.light[0], comps.v);
 	reflected = reflected_color(w, comps, remaining);
 	refracted = refracted_color(w, comps, remaining);
+	material = comps.object.material;
+	if (material.reflective > 0 && material.transparency > 0)
+	{
+		reflectance = schlick(comps);
+		reflected = multiply_color_by_scalar(reflected, reflectance);
+		refracted = multiply_color_by_scalar(refracted, (1 - reflectance));
+		return (add_three_colors(surface, reflected, refracted));
+	}
 	return (add_three_colors(surface, reflected, refracted));
 }

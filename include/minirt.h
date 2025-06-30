@@ -598,6 +598,8 @@ t_color				color_at(t_world w, t_ray r, int *remaining);
 t_ray				ray_for_pixel(t_camera cam, t_float px, t_float py);
 /* ----------------------------------------------------------- minirt_ray12.c */
 t_color				refracted_color(t_world w, t_computations comps, int *remaining);
+/* ----------------------------------------------------------- minirt_ray13.c */
+t_float				schlick(t_computations comps);
 /* ============================== OBJECTS =================================== */
 
 /* -------------------------------------------------------- minirt_object00.c */
