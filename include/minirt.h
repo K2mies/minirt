@@ -497,8 +497,9 @@ t_color		checker_at(t_pattern check, t_tuple p);
 t_color		checker_at_object(t_pattern pattern, t_object obj, t_tuple world_point);
 
 /* --------------------------------------------------------- minirt_color10.c */
-t_color		reflected_color(t_world world, t_computations comps, int *remaining);
-
+t_color		reflected_color(t_world world, t_computations comps, int remaining);
+/* --------------------------------------------------------- minirt_color11.c */
+t_color		refracted_color(t_world w, t_computations comps, int remaining);
 /* ================================ CANVAS ================================== */
 
 /* -------------------------------------------------------- minirt_canvas00.c */
@@ -591,13 +592,13 @@ t_computations		prepare_computations(t_world w, t_intersection *i, t_ray r);
 void				prepare_refraction_calculations(t_world *w, t_computations *comps, t_intersection *target);
 /* ----------------------------------------------------------- minirt_ray09.c */
 t_intersection		hit(t_world *w);
-t_color				shade_hit(t_world w, t_computations comps, t_object obj, int *remaining);
+t_color				shade_hit(t_world w, t_computations comps, t_object obj, int remaining);
 /* ----------------------------------------------------------- minirt_ray10.c */
-t_color				color_at(t_world w, t_ray r, int *remaining);
+t_color				color_at(t_world w, t_ray r, int remaining);
 /* ----------------------------------------------------------- minirt_ray11.c */
 t_ray				ray_for_pixel(t_camera cam, t_float px, t_float py);
 /* ----------------------------------------------------------- minirt_ray12.c */
-t_color				refracted_color(t_world w, t_computations comps, int *remaining);
+t_color				refracted_color(t_world w, t_computations comps, int remaining);
 /* ----------------------------------------------------------- minirt_ray13.c */
 t_float				schlick(t_computations comps);
 /* ============================== OBJECTS =================================== */

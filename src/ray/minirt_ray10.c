@@ -19,7 +19,7 @@
  * @param r			ray to cast for intersections
  * @return			t_color returned color;
  */
-t_color	color_at(t_world w, t_ray r, int *remaining)
+t_color	color_at(t_world w, t_ray r, int remaining)
 {
 	t_intersection	hit_point;
 	t_color			res;

@@ -2967,7 +2967,7 @@ void	test_world_refraction(t_minirt *rt)
 
 	hit_point = hit(&w);
 	max_bounce = 5;
-	col = shade_hit(w, comps, hit_point.object, &max_bounce);
+	col = shade_hit(w, comps, hit_point.object, max_bounce);
 	test_print_color(col);
 
 	img = render(cam, w);

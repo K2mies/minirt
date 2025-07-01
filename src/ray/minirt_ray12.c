@@ -1,56 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_ray12.c                                     :+:      :+:    :+:   */
+/*   minirt_ray13.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/27 13:24:04 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/27 15:12:38 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/06/30 12:23:20 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/06/30 13:30:25 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
 
-
 /**
- * @brief	calculates paramaters for refracted color
+ * @brief	schlick calculation for reflection based on distance
  *
- * @param w				world object to calculate from
- * @param comps			computations to use
- * @param remaining		pointer to remaining recursive bounces
- * @return				color for refracted color
+ * @param comps	computation paramaters
+ * @return		t_float value
  */
-t_color	refracted_color(t_world w, t_computations comps, int *remaining)
+t_float	schlick(t_computations comps)
 {
-	t_refracted_color_param	p;
+	t_float	cos[2];
+	t_float	sin2_t;
+	t_float	n;
+	t_float	reflectance;
 
-	if (comps.object.material.transparency == 0)
+	cos[a] = dot_product(comps.v[eyev], comps.v[normalv]);
+	if (comps.n[0] > comps.n[1])
 	{
-		printf("transparency == 0\n");
-		return (color(0, 0, 0));
+		n = comps.n[0] / comps.n[1];
+		sin2_t = n * n * (1.0 - cos[a] * cos[a]);
+		if (sin2_t > 1.0)
+			return (1.0);
+		cos[b] = sqrtf(1.0 - sin2_t);
+		cos[a] = cos[b];
 	}
-	if (*remaining <= 0)
-	{
-		printf("remaining <= 0\n");
-		return (color(0, 0, 0));
-	}
-	p.n_ratio = comps.n[0] / comps.n[1];
-	p.cos[a] = dot_product(comps.v[eyev], comps.v[normalv]);
-	p.sin2_t = p.n_ratio * p.n_ratio * (1 - p.cos[a] * p.cos[a]);
-	if (p.sin2_t > 1)
-	{
-		printf("p.sin2_t > 1\n");
-		return (color(0, 0, 0));
-	}
-	p.cos[b] = sqrtf(1.0 - p.sin2_t);
-	p.calculation = p.n_ratio * p.cos[a] - p.cos[b];
-	p.direction[a] = multiply_tuple_by_scalar(comps.v[normalv], p.calculation);
-	p.direction[b] = multiply_tuple_by_scalar(comps.v[eyev], p.n_ratio);
-	p.direction[c] = sub_tuples(p.direction[a], p.direction[b]);
-	p.refract_ray = ray(comps.under_point, p.direction[c]);
-	*remaining -= 1;
-	p.res = color_at(w, p.refract_ray, remaining);
-	printf("prcessed: r:%f g:%f b:%f\n", p.res.r, p.res.g, p.res.b);
-	p.res = multiply_color_by_scalar(p.res, comps.object.material.transparency);
-	return(p.res);
+	reflectance = ((comps.n[0] = comps.n[1]) / (comps.n[0] + comps.n[1]));
+	reflectance = reflectance * reflectance;
+	return (reflectance + (1 - reflectance) * powf(1 - cos[a], 5));
 }
