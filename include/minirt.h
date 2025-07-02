@@ -34,11 +34,12 @@
 /* ================================= MACROS ================================= */
 
 # define M_PI 3.14159265358979323846
-# define EPSILON		0.00001f
-# define SHADOW_BIAS	0.01f
-# define PATTERN_SHIFT	0.01f
-# define BOUNCE_LIMIT	4
-# define MAX_CONTAINERS 6
+# define EPSILON			0.00001f
+# define REFRACTION_BIAS	0.00001f
+# define SHADOW_BIAS		0.01f
+# define PATTERN_SHIFT		0.01f
+# define BOUNCE_LIMIT		4
+# define MAX_CONTAINERS		6
 
 # define RED	0xFF0000FF
 # define GREEN	0x00FF00FF
@@ -598,8 +599,6 @@ t_color				color_at(t_world w, t_ray r, int remaining);
 /* ----------------------------------------------------------- minirt_ray11.c */
 t_ray				ray_for_pixel(t_camera cam, t_float px, t_float py);
 /* ----------------------------------------------------------- minirt_ray12.c */
-t_color				refracted_color(t_world w, t_computations comps, int remaining);
-/* ----------------------------------------------------------- minirt_ray13.c */
 t_float				schlick(t_computations comps);
 /* ============================== OBJECTS =================================== */
 

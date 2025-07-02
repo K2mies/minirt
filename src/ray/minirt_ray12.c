@@ -21,17 +21,17 @@ t_float	schlick(t_computations comps)
 {
 	t_float	cos[2];
 	t_float	sin2_t;
-	t_float	n;
+	t_float	n_ratio;
 	t_float	reflectance;
 
 	cos[a] = dot_product(comps.v[eyev], comps.v[normalv]);
 	if (comps.n[0] > comps.n[1])
 	{
-		n = comps.n[0] / comps.n[1];
-		sin2_t = n * n * (1.0 - cos[a] * cos[a]);
+		n_ratio = comps.n[0] / comps.n[1];
+		sin2_t = n_ratio * n_ratio * (1 - cos[a] * cos[a]);
 		if (sin2_t > 1.0)
 			return (1.0);
-		cos[b] = sqrtf(1.0 - sin2_t);
+		cos[b] = sqrtf(1.0f - sin2_t);
 		cos[a] = cos[b];
 	}
 	reflectance = ((comps.n[0] = comps.n[1]) / (comps.n[0] + comps.n[1]));

@@ -24,24 +24,16 @@ t_color	refracted_color(t_world w, t_computations comps, int remaining)
 	t_refracted_color_param	p;
 
 	if (comps.object.material.transparency == 0)
-	{
-		printf("transparency == 0\n");
 		return (color(0, 0, 0));
-	}
 	if (remaining <= 0)
-	{
-		printf("remaining <= 0\n");
 		return (color(0, 0, 0));
-	}
 	p.n_ratio = comps.n[0] / comps.n[1];
-	printf("comps.n[0] = %f comps.n[1] = %f\n", comps.n[0], comps.n[1]);
+	if (p.n_ratio > 0)
+		printf("p.n_ratio = %f\n", p.n_ratio);
 	p.cos[a] = dot_product(comps.v[eyev], comps.v[normalv]);
 	p.sin2_t = p.n_ratio * p.n_ratio * (1 - p.cos[a] * p.cos[a]);
 	if (p.sin2_t > 1)
-	{
-		printf("p.sin2_t > 1\n");
 		return (color(0, 0, 0));
-	}
 	p.cos[b] = sqrtf(1.0 - p.sin2_t);
 	p.calculation = p.n_ratio * p.cos[a] - p.cos[b];
 	p.direction[a] = multiply_tuple_by_scalar(comps.v[normalv], p.calculation);
@@ -50,6 +42,7 @@ t_color	refracted_color(t_world w, t_computations comps, int remaining)
 	p.refract_ray = ray(comps.under_point, p.direction[c]);
 	p.res = color_at(w, p.refract_ray, remaining - 1);
 	p.res = multiply_color_by_scalar(p.res, comps.object.material.transparency);
-	printf("res r:%f g:%f b:%f\n", p.res.r, p.res.g, p.res.b);
+//	if(p.res.r > 0 || p.res.g > 0 || p.res.b > 0)
+//		printf("col : r:%f g:%f b:%f\n", p.res.r, p.res.g, p.res.b);
 	return(p.res);
 }

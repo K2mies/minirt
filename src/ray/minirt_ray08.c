@@ -23,26 +23,51 @@ void	prepare_refraction_calculations(t_world *w, t_computations *comps, t_inters
 	t_obj_container	container;
 	int		i;
 
-	container.n_obj = 1;
+	container.n_obj = 0;
+	comps->n[0] = 1.0f;
+	comps->n[1] = 1.0f;
 	i = -1;
 	while (++i < w->n_ts)
 	{
 		if (&w->ts[i] == target)
 		{
 			if (container.n_obj <= 0)
-				comps->n[0] = 1.0;
+				comps->n[0] = 1.0f;
 			else
-			{
 				comps->n[0] = get_refractive_index(&container);
-			}
 		}
 		update_container(&container, &w->objs[w->ts[i].obj_index]);
 		if (&w->ts[i] == target)
 		{
 			if (container.n_obj <= 0)
-				comps->n[1] = 1.0;
+				comps->n[1] = 1.0f;
 			else
 				comps->n[1] = get_refractive_index(&container);
 		}
 	}
 }
+
+//void	prepare_refraction_calculations(t_world *w, t_computations *comps, t_intersection *target)
+//{
+//	t_obj_container	container;
+//	t_object		*object;
+//	int				i;
+//
+//	container.n_obj = 1;
+////	comps->n[0] = 1.0f;
+////	comps->n[1] = 1.0f;
+//	i = 0;
+//	while (i < w->n_ts)
+//	{
+//			object = &w->objs[w->ts[i].obj_index];
+//			if (&w->ts[i] == target)
+//			{
+//				comps->n[0] = get_refractive_index(&container);
+//				update_container(&container, object);
+//				comps->n[1] = get_refractive_index(&container);
+//				return;
+//			}
+//			update_container(&container, object);
+//			i++;
+//	}
+//}

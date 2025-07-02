@@ -2570,7 +2570,7 @@ void	test_scene01(t_minirt *rt)
 	cam.transform = view_transform(point(0, 1.5, -5), point(0, 1, 0), vector(0, 1, 0));
 
 /* ================================= LIGHT =============================== */
-	w.light[0] = point_light(point(0, 2.49, 0), 1.0, color(1, 0, 0));
+	w.light[0] = point_light(point(0, 2.49, 0), 1.0, color(1, 1, 1));
 /* ================================ FLOOR ================================ */
 /* --------------------------------------------------------------transforms*/
 //	m = id_matrix4();
@@ -2691,7 +2691,7 @@ void	test_scene01(t_minirt *rt)
 /* ============================= BIG SPHERE ============================== */
 /* --------------------------------------------------------------transforms*/
 	m = id_matrix4();
-	m = multiply_matrix4(m, translation(-0.5, 1, 0.5));
+	m = multiply_matrix4(m, translation(-0.4, 1, 0.5));
 	m = multiply_matrix4(m, rotation_y(-25));
 	m = multiply_matrix4(m, rotation_x(135));
 	w.objs[5].transform = m;
@@ -2702,16 +2702,16 @@ void	test_scene01(t_minirt *rt)
 	w.objs[5].color = col;
 	w.objs[5].material.color = col;
 	w.objs[5].material.transparency = 1.0;
-	w.objs[5].material.refractive_index = 1.5;
+	w.objs[5].material.reflective = 0;
+	w.objs[5].material.refractive_index = 2.5;
 /* ----------------------------------------------------------------material*/
-	w.objs[5].material.diffuse = 0.7;
+	w.objs[5].material.diffuse = 0.1;
 	w.objs[5].material.specular = 0.3;
 	w.objs[5].material.ambient = 0.1;
 //	w.objs[5].material.ambient = 1;
 //	w.objs[5].material.diffuse = 0;
 //	w.objs[5].material.specular = 0;
-	w.objs[5].material.has_pattern = true;
-	w.objs[5].material.reflective = 0;
+	w.objs[5].material.has_pattern = false;
 //	w.objs[5].material.pattern = pattern(color(0.788, 0, 1), color(1, 0.38, 0), RING);
 	w.objs[5].material.pattern = pattern(color(0, 0, 1), color(1, 0, 0), GRADIENT);
 	pm = multiply_matrix4(pm, translation(5, 0, 0));
@@ -2719,16 +2719,16 @@ void	test_scene01(t_minirt *rt)
 //	pm = multiply_matrix4(pm, rotation_y(-65));
 //	pm = multiply_matrix4(pm, scaling(0.1, 0.1, 0.1));
 	pm = multiply_matrix4(pm, scaling(7, 7, 7));
-
 	w.objs[5].material.pattern.transform = pm;
 
 	/* ========================== MIDDLE SPHERE ============================== */
 /* --------------------------------------------------------------transforms*/
 	m = id_matrix4();
-	m = multiply_matrix4(m, translation(1.5, 0.5, -0.5));
-	m = multiply_matrix4(m, rotation_z(90));
-	m = multiply_matrix4(m, scaling(0.5, 0.5, 0.5));
-	m = multiply_matrix4(m, scaling(1.0, 0.5, 0.5));
+//	m = multiply_matrix4(m, translation(1.5, 0.5, -0.5));
+	m = multiply_matrix4(m, translation(-1.7, 1, -0.5));
+//	m = multiply_matrix4(m, rotation_z(90));
+//	m = multiply_matrix4(m, scaling(0.5, 0.5, 0.5));
+//	m = multiply_matrix4(m, scaling(1.0, 0.5, 0.5));
 	w.objs[6].transform = m;
 /* -------------------------------------------------------------------color*/
 	col = color(0.5, 1, 0.1);
@@ -2738,7 +2738,11 @@ void	test_scene01(t_minirt *rt)
 /* ----------------------------------------------------------------material*/
 	w.objs[6].material.diffuse = 0.7;
 	w.objs[6].material.specular = 0.3;
-	w.objs[6].material.has_pattern = true;
+	w.objs[6].material.ambient = 0.1;
+	w.objs[6].material.refractive_index = 1.5;
+	w.objs[6].material.transparency = 0.5;
+	w.objs[6].material.reflective = 0;
+	w.objs[6].material.has_pattern = false;
 //	w.objs[6].material.pattern = pattern(col_a, col_b, STRIPE);
 //	pm = id_matrix4();
 //	pm = multiply_matrix4(pm, scaling(0.1, 0.1, 0.1));
@@ -2757,8 +2761,9 @@ void	test_scene01(t_minirt *rt)
 /* =========================== SMALL SPHERE ============================== */
 /* --------------------------------------------------------------transforms*/
 	m = id_matrix4();
-	m = multiply_matrix4(m, translation(-1.5, 0.33, -0.75));
-	m = multiply_matrix4(m, scaling(0.33, 0.33, 0.33));
+//	m = multiply_matrix4(m, translation(-1.5, 0.33, -0.75));
+	m = multiply_matrix4(m, translation(1.9, 1, 0));
+//	m = multiply_matrix4(m, scaling(0.33, 0.33, 0.33));
 	w.objs[7].transform = m;
 /* -------------------------------------------------------------------color*/
 	col = color(1, 0.8, 0.1);
@@ -2768,7 +2773,10 @@ void	test_scene01(t_minirt *rt)
 /* ----------------------------------------------------------------material*/
 	w.objs[7].material.diffuse = 0.7;
 	w.objs[7].material.specular = 0.3;
-	w.objs[7].material.has_pattern = true;
+	w.objs[7].material.has_pattern = false;
+	w.objs[7].material.refractive_index = 1.5;
+	w.objs[7].material.transparency = 0.5;
+	w.objs[7].material.reflective = 0.0;
 //	w.objs[7].material.pattern = pattern(col_a, col_b, STRIPE);
 //	pm = id_matrix4();
 //	pm = multiply_matrix4(pm, scaling(0.1, 0.1, 0.1));
@@ -2819,65 +2827,65 @@ void	test_scene01(t_minirt *rt)
 //
 //}
 
-//void	test_refraction_comp(t_minirt *rt)
-//{
-//	t_world		w;
-//	t_matrix4	m;
-//
-//	w = world(rt);
-//
-//	w.objs[0] = glass_sphere(point(0, 0, 0), 2, color(1, 1 ,1));
-//	w.objs[0].material.refractive_index = 1.5;
-//	m = id_matrix4();
-//	m = multiply_matrix4(m, scaling(2, 2, 2));
-//	w.objs[0].transform = m;
-//
-//	
-//	w.objs[1] = glass_sphere(point(0, 0, 0), 2, color(1, 1 ,1));
-//	w.objs[1].material.refractive_index = 2.0;
-//	m = id_matrix4();
-//	m = multiply_matrix4(m, translation(0, 0, -0.25));
-//	w.objs[1].transform = m;
-//	
-//	w.objs[2] = glass_sphere(point(0, 0, 0), 2, color(1, 1 ,1));
-//	w.objs[2].material.refractive_index = 2.5;
-//	m = id_matrix4();
-//	m = multiply_matrix4(m, translation(0, 0, 0.25));
-//	w.objs[2].transform = m;
-//
-//	t_ray	r = ray(point(0, 0, -4), vector(0, 0, 1));
-//	world_intersect(&w, r);
-//	hit(&w);
-//
-//	int	i = 0;
-//	while (i < w.n_ts)
-//	{
-//		printf("t[%d] = %f\n", i, w.ts[i].t);
-//		i++;
-//	}
-//	int	index;
-//	index = 0;
-//	t_computations comps; 
-//	comps = prepare_computations(w, &w.ts[index], r);
-//	printf("|	index	|	n1	|	n2	|\n");
-//	printf("|	%d	|	%.2f	|	%.2f	|\n", index, comps.n[0], comps.n[1]);
-//	index = 1;
-//	comps = prepare_computations(w, &w.ts[index], r);
-//	printf("|	%d	|	%.2f	|	%.2f	|\n", index, comps.n[0], comps.n[1]);
-//	index = 2;
-//	comps = prepare_computations(w, &w.ts[index], r);
-//	printf("|	%d	|	%.2f	|	%.2f	|\n", index, comps.n[0], comps.n[1]);
-//	index = 3;
-//	comps = prepare_computations(w, &w.ts[index], r);
-//	printf("|	%d	|	%.2f	|	%.2f	|\n", index, comps.n[0], comps.n[1]);
-//	index = 4;
-//	comps = prepare_computations(w, &w.ts[index], r);
-//	printf("|	%d	|	%.2f	|	%.2f	|\n", index, comps.n[0], comps.n[1]);
-//	index = 5;
-//	comps = prepare_computations(w, &w.ts[index], r);
-//	printf("|	%d	|	%.2f	|	%.2f	|\n", index, comps.n[0], comps.n[1]);
-//
-//}
+void	test_refraction_comp(t_minirt *rt)
+{
+	t_world		w;
+	t_matrix4	m;
+
+	w = world(rt);
+
+	w.objs[0] = glass_sphere(point(0, 0, 0), 2, color(1, 1 ,1));
+	w.objs[0].material.refractive_index = 1.5;
+	m = id_matrix4();
+	m = multiply_matrix4(m, scaling(2, 2, 2));
+	w.objs[0].transform = m;
+
+	
+	w.objs[1] = glass_sphere(point(0, 0, 0), 2, color(1, 1 ,1));
+	w.objs[1].material.refractive_index = 2.0;
+	m = id_matrix4();
+	m = multiply_matrix4(m, translation(0, 0, -0.25));
+	w.objs[1].transform = m;
+	
+	w.objs[2] = glass_sphere(point(0, 0, 0), 2, color(1, 1 ,1));
+	w.objs[2].material.refractive_index = 2.5;
+	m = id_matrix4();
+	m = multiply_matrix4(m, translation(0, 0, 0.25));
+	w.objs[2].transform = m;
+
+	t_ray	r = ray(point(0, 0, -4), vector(0, 0, 1));
+	world_intersect(&w, r);
+	hit(&w);
+
+	int	i = 0;
+	while (i < w.n_ts)
+	{
+		printf("t[%d] = %f\n", i, w.ts[i].t);
+		i++;
+	}
+	int	index;
+	index = 0;
+	t_computations comps; 
+	comps = prepare_computations(w, &w.ts[index], r);
+	printf("|	index	|	n1	|	n2	|\n");
+	printf("|	%d	|	%.2f	|	%.2f	|\n", index, comps.n[0], comps.n[1]);
+	index = 1;
+	comps = prepare_computations(w, &w.ts[index], r);
+	printf("|	%d	|	%.2f	|	%.2f	|\n", index, comps.n[0], comps.n[1]);
+	index = 2;
+	comps = prepare_computations(w, &w.ts[index], r);
+	printf("|	%d	|	%.2f	|	%.2f	|\n", index, comps.n[0], comps.n[1]);
+	index = 3;
+	comps = prepare_computations(w, &w.ts[index], r);
+	printf("|	%d	|	%.2f	|	%.2f	|\n", index, comps.n[0], comps.n[1]);
+	index = 4;
+	comps = prepare_computations(w, &w.ts[index], r);
+	printf("|	%d	|	%.2f	|	%.2f	|\n", index, comps.n[0], comps.n[1]);
+	index = 5;
+	comps = prepare_computations(w, &w.ts[index], r);
+	printf("|	%d	|	%.2f	|	%.2f	|\n", index, comps.n[0], comps.n[1]);
+
+}
 
 //void	test_refracted_color(t_minirt *rt)
 //{
@@ -2919,11 +2927,11 @@ void	test_world_refraction(t_minirt *rt)
 {
 	t_world			w;
 	t_matrix4		m;
-	t_ray			r;
-	t_computations	comps;
-	t_color			col;
-	t_intersection	hit_point;
-	int				max_bounce;
+//	t_ray			r;
+//	t_computations	comps;
+//	t_color			col;
+//	t_intersection	hit_point;
+//	int				max_bounce;
 	t_camera		cam;
 	t_canvas		*img;
 	int				scalar;
@@ -2939,10 +2947,10 @@ void	test_world_refraction(t_minirt *rt)
 	w.objs[0].transform = m;
 	w.objs[0].color = color(1, 1, 1);
 	w.objs[0].material.color = color(1, 1, 1);
-	w.objs[0].material.reflective = 0.5;
-	w.objs[0].material.transparency = 0.5;
-	w.objs[0].material.refractive_index = 1.5;
-//	w.objs[0].material.diffuse = 0.1;
+//	w.objs[0].material.reflective = 0.5;
+//	w.objs[0].material.transparency = 0.5;
+//	w.objs[0].material.refractive_index = 1.5;
+	w.objs[0].material.diffuse = 1.0;
 	w.objs[0].material.specular = 0.1;
 	w.objs[0].material.has_pattern = true;
 	w.objs[0].material.pattern = pattern(color(1, 1, 1), color(0, 0, 0), CHECKER);
@@ -2955,20 +2963,21 @@ void	test_world_refraction(t_minirt *rt)
 	w.objs[1].color = color(0, 0, 1);
 	w.objs[1].material.color = color(0, 0, 1);
 	w.objs[1].material.diffuse = 0.1;
-	w.objs[1].material.specular = 1.0;
+	w.objs[1].material.specular = 0.1;
 	w.objs[1].material.refractive_index = 1.5;
 	w.objs[1].material.transparency = 0.5;
+	w.objs[1].material.reflective = 0;
 //	w.objs[1].material.ambient = 0.1;
 
 
-	r = ray(point(0, 0, -3), vector(0, -sqrtf(2) / 2, sqrtf(2) / 2));
-	world_intersect(&w, r);
-	comps = prepare_computations(w, &w.ts[0], r);
+//	r = ray(point(0, 0, -3), vector(0, -sqrtf(2) / 2, sqrtf(2) / 2));
+//	world_intersect(&w, r);
+//	comps = prepare_computations(w, &w.ts[0], r);
 
-	hit_point = hit(&w);
-	max_bounce = 5;
-	col = shade_hit(w, comps, hit_point.object, max_bounce);
-	test_print_color(col);
+//	hit_point = hit(&w);
+//	max_bounce = 5;
+//	col = shade_hit(w, comps, hit_point.object, max_bounce);
+//	test_print_color(col);
 
 	img = render(cam, w);
 	canvas_to_ppm(img);
@@ -2990,6 +2999,7 @@ void	test_schlick(t_minirt *rt)
 	printf("reflectance = %f\n", reflectance);
 }
 
+
 int	main(int argc, char **argv)
 {
 //	(void)argc;
@@ -3005,9 +3015,11 @@ int	main(int argc, char **argv)
 	rt.n_light = 0;
 	rt.ts = NULL;
 	open_file(&rt, argv);
+//	test_refraction_comp(&rt);
 //	test_schlick(&rt);
-	test_world_refraction(&rt);
-//	test_scene01(&rt);
+//	test_world_refraction(&rt);
+//	test_refraction_comp(&rt);
+	test_scene01(&rt);
 	cleanup_rt(&rt);
 	return (0);
 }
