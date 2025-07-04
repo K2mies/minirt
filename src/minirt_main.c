@@ -2702,11 +2702,11 @@ void	test_scene01(t_minirt *rt)
 	w.objs[5].color = col;
 	w.objs[5].material.color = col;
 	w.objs[5].material.transparency = 0.5;
-	w.objs[5].material.reflective = 0.0;
-	w.objs[5].material.refractive_index = 2.5;
+	w.objs[5].material.reflective = 0;
+	w.objs[5].material.refractive_index = 1.5;
 /* ----------------------------------------------------------------material*/
 	w.objs[5].material.diffuse = 0.1;
-	w.objs[5].material.specular = 0.3;
+	w.objs[5].material.specular = 1.0;
 	w.objs[5].material.ambient = 0.1;
 //	w.objs[5].material.ambient = 1;
 //	w.objs[5].material.diffuse = 0;

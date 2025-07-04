@@ -39,7 +39,7 @@
 # define SHADOW_BIAS		0.01f
 # define PATTERN_SHIFT		0.01f
 # define BOUNCE_LIMIT		4
-# define MAX_CONTAINERS		20
+# define MAX_CONTAINERS		16
 
 # define RED	0xFF0000FF
 # define GREEN	0x00FF00FF
