@@ -21,7 +21,9 @@ void	update_container(t_obj_container *container, t_object *obj)
 {
 	int	index;
 	if (is_inside_container(container, obj, &index))
+	{
 		remove_from_container(container, index);
+	}
 	else
 		add_to_container(container, obj);
 }
@@ -62,6 +64,7 @@ void	remove_from_container(t_obj_container *container, int index)
 	int	i;
 	i = index;
 	while (i < container->n_obj - 1)
+//	while (i < container->n_obj)
 	{
 		container->objs[i] = container->objs[i + 1];
 		i++;
@@ -95,7 +98,9 @@ t_float	get_refractive_index(t_obj_container *container)
 {
 	int	count;
 
+	printf("get refractive index\n");
 	count = container->n_obj - 1;
+//	count = container->n_obj;
 	if (count <= 0)
 		return (1.0f);
 //	if (!container->objs[count].material)

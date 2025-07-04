@@ -2701,8 +2701,8 @@ void	test_scene01(t_minirt *rt)
 //	col = color(1, 0, 0);
 	w.objs[5].color = col;
 	w.objs[5].material.color = col;
-	w.objs[5].material.transparency = 1.0;
-	w.objs[5].material.reflective = 0;
+	w.objs[5].material.transparency = 0.5;
+	w.objs[5].material.reflective = 0.0;
 	w.objs[5].material.refractive_index = 2.5;
 /* ----------------------------------------------------------------material*/
 	w.objs[5].material.diffuse = 0.1;
@@ -3017,6 +3017,7 @@ int	main(int argc, char **argv)
 	open_file(&rt, argv);
 //	test_refraction_comp(&rt);
 //	test_schlick(&rt);
+//
 //	test_world_refraction(&rt);
 //	test_refraction_comp(&rt);
 	test_scene01(&rt);

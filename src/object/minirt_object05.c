@@ -11,6 +11,27 @@
 /* ************************************************************************** */
 #include "minirt.h"
 
+
+static int	count_intersections(t_world w)
+{
+	int	i;
+	int	count;
+
+	count = 0;
+	i = -1;
+	while (++i < w.n_objs)
+	{
+		if (w.objs[i].type == PLANE)
+			count++;
+		else if (w.objs[i].type == SPHERE)
+		{
+			count++;
+			count++;
+		}
+	}
+	return (count);
+}
+
 /**
  * @brief	creates and returns a world object
  * creates and populates from rt a word object
@@ -20,12 +41,16 @@
 t_world	world(t_minirt *rt)
 {
 	t_world	w;
+	int		count;
 
 	w.light = rt->light;
 	w.objs = rt->objs;
 	w.n_objs = rt->n_objs;
-	w.ts =	rt_malloc(rt ,sizeof(t_intersection) * (w.n_objs * 2));
-	w.cs = rt_malloc(rt, sizeof(t_computations) * (w.n_objs * 2));
+	count = count_intersections(w);
+	w.ts =	rt_malloc(rt ,sizeof(t_intersection) * count);
+	w.cs = rt_malloc(rt, sizeof(t_computations) * count);
+//	w.ts =	rt_malloc(rt ,sizeof(t_intersection) * (w.n_objs * 2));
+//	w.cs = rt_malloc(rt, sizeof(t_computations) * (w.n_objs * 2));
 	w.n_ts = 0;
 	return(w);
 }

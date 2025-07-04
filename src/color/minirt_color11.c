@@ -23,9 +23,9 @@ t_color	refracted_color(t_world w, t_computations comps, int remaining)
 {
 	t_refracted_color_param	p;
 
-	if (comps.object.material.transparency == 0)
-		return (color(0, 0, 0));
 	if (remaining <= 0)
+		return (color(0, 0, 0));
+	if (comps.object.material.transparency == 0)
 		return (color(0, 0, 0));
 	p.n_ratio = comps.n[0] / comps.n[1];
 	if (p.n_ratio > 0)
