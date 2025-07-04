@@ -19,7 +19,7 @@
  * @param r			ray to cast for intersections
  * @return			t_color returned color;
  */
-t_color	color_at(t_world w, t_ray r, int *remaining)
+t_color	color_at(t_world w, t_ray r, int remaining)
 {
 	t_intersection	hit_point;
 	t_color			res;
@@ -28,7 +28,7 @@ t_color	color_at(t_world w, t_ray r, int *remaining)
 	hit_point = hit(&w);
 	if(hit_point.t >= 0)
 	{
-		w.cs[w.hit_index] = prepare_computations(w, hit_point, r);
+		w.cs[w.hit_index] = prepare_computations(w, &hit_point, r);
 		res = shade_hit(w, w.cs[w.hit_index], hit_point.object, remaining);
 	}
 	else

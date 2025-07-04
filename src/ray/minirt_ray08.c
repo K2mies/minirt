@@ -11,58 +11,66 @@
 /* ************************************************************************** */
 #include "minirt.h"
 
-
+/**
+ * @brief	prepares refraction calculations using a container for objs
+ *
+ * @param w				pointer to world struct
+ * @param comps			pointer to computations struct
+ * @param target		target or (hit) intersection
+ */
 //void	prepare_refraction_calculations(t_world *w, t_computations *comps, t_intersection *target)
 //{
 //	t_obj_container	container;
-//	t_object		*obj;
-//	int				i;
+//	int		i;
 //
 //	container.n_obj = 0;
-//
+//	comps->n[0] = 1.0f;
+//	comps->n[1] = 1.0f;
 //	i = -1;
 //	while (++i < w->n_ts)
 //	{
-//		obj = &w->objs[w->ts[i].obj_index];
 //		if (&w->ts[i] == target)
 //		{
-//			comps->n[0] = get_refractive_index(&container);
-//			update_container(&container, obj);
-//			comps->n[1] = get_refractive_index(&container);
-//			return;
+//			if (container.n_obj <= 0)
+//				comps->n[0] = 1.0f;
+//			else
+//				comps->n[0] = get_refractive_index(&container);
 //		}
-//		update_container(&container, obj);
+//		update_container(&container, &w->objs[w->ts[i].obj_index]);
+//		if (&w->ts[i] == target)
+//		{
+//			if (container.n_obj <= 0)
+//				comps->n[1] = 1.0f;
+//			else
+//				comps->n[1] = get_refractive_index(&container);
+//		}
+//		printf("container count = %d\n", container.n_obj);
 //	}
 //}
 
 void	prepare_refraction_calculations(t_world *w, t_computations *comps, t_intersection *target)
 {
-//	t_intersection	hit;
 	t_obj_container	container;
-	int		i;
+	t_object		*object;
+	int				i;
 
-	(void)target;
 	container.n_obj = 0;
-//	hit = hit(&w);
-	i = -1;
-	while (++i < w->n_ts)
+	comps->n[0] = 1.0f;
+	comps->n[1] = 1.0f;
+	i = 0;
+	while (i < w->n_ts)
 	{
-		if (i == w->hit_index)
-		{
-			if (container.n_obj <= 0)
-				comps->n[0] = 1.0;
-			else
+			object = &w->objs[w->ts[i].obj_index];
+			if (&w->ts[i] == target)
 			{
+				printf("intersection target reached\n");
 				comps->n[0] = get_refractive_index(&container);
-			}
-		}
-		update_container(&container, &w->ts[i].object);
-		if (i == w->hit_index)
-		{
-			if (container.n_obj <= 0)
-				comps->n[1] = 1.0;
-			else
+				update_container(&container, object);
 				comps->n[1] = get_refractive_index(&container);
-		}
+				return;
+			}
+			update_container(&container, object);
+//			printf("container count = %d\n", container.n_obj);
+			i++;
 	}
 }

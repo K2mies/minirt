@@ -13,7 +13,11 @@
 NAME		= 	miniRT
 
 CC			= 	cc
-CFLAGS		= 	-O3 -flto -ffast-math -Wextra -Werror -Wall 
+#CFLAGS		= 	-O3 -flto -ffast-math -march=native -Wextra -Werror -Wall 
+#CFLAGS		= 	-O3 -flto -march=native -Wextra -Werror -Wall 
+#CFLAGS		=  -fno-associative-math -flto -fno-fast-math -Wextra -Werror -Wall 
+CFLAGS		=	-fno-associative-math -fno-fast-math -Wextra -Werror -Wall 
+
 #CFLAGS		= 	-Wextra -Werror -Wall
 DEBUG_FLAGS	=	-g
 #-----------------------------------------------------------------------------------#
@@ -54,6 +58,7 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				$(SRC_DIR)/color/minirt_color08.c									\
 				$(SRC_DIR)/color/minirt_color09.c									\
 				$(SRC_DIR)/color/minirt_color10.c									\
+				$(SRC_DIR)/color/minirt_color11.c									\
 				\
 				$(SRC_DIR)/canvas/minirt_canvas00.c									\
 				$(SRC_DIR)/canvas/minirt_canvas01.c									\
@@ -87,6 +92,7 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				$(SRC_DIR)/ray/minirt_ray09.c										\
 				$(SRC_DIR)/ray/minirt_ray10.c										\
 				$(SRC_DIR)/ray/minirt_ray11.c										\
+				$(SRC_DIR)/ray/minirt_ray12.c										\
 				\
 				$(SRC_DIR)/object/minirt_object00.c									\
 				$(SRC_DIR)/object/minirt_object01.c									\

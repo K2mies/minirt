@@ -34,7 +34,7 @@ t_canvas	*render(t_camera cam, t_world world)
 
 			p.bounce_limit = BOUNCE_LIMIT;
 			p.ray = ray_for_pixel(cam, x, y);
-			p.col = color_at(world, p.ray, &p.bounce_limit);	
+			p.col = color_at(world, p.ray, p.bounce_limit);	
 			write_pixel_to_canvas(p.img, x, y, p.col);
 		}
 	}
@@ -63,7 +63,7 @@ void	mlx_render(t_minirt *rt, t_camera cam, t_world world)
 		{
 			p.bounce_limit = BOUNCE_LIMIT;
 			p.ray = ray_for_pixel(cam, x, y);
-			p.col = color_at(world, p.ray, &p.bounce_limit);
+			p.col = color_at(world, p.ray, p.bounce_limit);
 			mlx_put_pixel(rt->img, x, y, p.col.rgba);
 		}
 	}

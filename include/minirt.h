@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:11:13 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/26 13:15:43 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/06/27 14:21:03 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,12 @@
 /* ================================= MACROS ================================= */
 
 # define M_PI 3.14159265358979323846
-# define EPSILON		0.00001f
-# define SHADOW_BIAS	0.01f
-# define PATTERN_SHIFT	0.01f
-# define BOUNCE_LIMIT	4
-# define MAX_CONTAINERS 6
+# define EPSILON			0.00001f
+# define REFRACTION_BIAS	0.00001f
+# define SHADOW_BIAS		0.01f
+# define PATTERN_SHIFT		0.01f
+# define BOUNCE_LIMIT		4
+# define MAX_CONTAINERS		20
 
 # define RED	0xFF0000FF
 # define GREEN	0x00FF00FF
@@ -307,6 +308,7 @@ typedef struct	s_lighting_param
 
 }	t_lighting_param;
 
+// Typedef for render function paramaters
 typedef struct	s_render_param
 {
 	t_canvas	*img;
@@ -315,6 +317,18 @@ typedef struct	s_render_param
 	int			bounce_limit;
 
 }	t_render_param;
+
+// Typedef for refracted_color function paramaters
+typedef struct	s_refracted_color_param
+{
+	t_float		n_ratio;
+	t_float		cos[2];
+	t_float		sin2_t;
+	t_float		calculation;
+	t_tuple		direction[3];
+	t_ray		refract_ray;
+	t_color		res;
+}				t_refracted_color_param;
 
 /* ================================ ENUMS =================================== */
 
@@ -484,8 +498,9 @@ t_color		checker_at(t_pattern check, t_tuple p);
 t_color		checker_at_object(t_pattern pattern, t_object obj, t_tuple world_point);
 
 /* --------------------------------------------------------- minirt_color10.c */
-t_color		reflected_color(t_world world, t_computations comps, int *remaining);
-
+t_color		reflected_color(t_world world, t_computations comps, int remaining);
+/* --------------------------------------------------------- minirt_color11.c */
+t_color		refracted_color(t_world w, t_computations comps, int remaining);
 /* ================================ CANVAS ================================== */
 
 /* -------------------------------------------------------- minirt_canvas00.c */
@@ -573,16 +588,18 @@ t_tuple				reflect(t_tuple in, t_tuple normal);
 t_color				lighting(t_lighting_param p, t_material m, t_light light, t_tuple v[3]);
 bool				is_shadowed(t_world world, t_tuple point);
 /* ----------------------------------------------------------- minirt_ray07.c */
-t_computations		prepare_computations(t_world w, t_intersection i, t_ray r);
+t_computations		prepare_computations(t_world w, t_intersection *i, t_ray r);
 /* ----------------------------------------------------------- minirt_ray08.c */
 void				prepare_refraction_calculations(t_world *w, t_computations *comps, t_intersection *target);
 /* ----------------------------------------------------------- minirt_ray09.c */
 t_intersection		hit(t_world *w);
-t_color				shade_hit(t_world w, t_computations comps, t_object obj, int *remaining);
+t_color				shade_hit(t_world w, t_computations comps, t_object obj, int remaining);
 /* ----------------------------------------------------------- minirt_ray10.c */
-t_color				color_at(t_world w, t_ray r, int *remaining);
+t_color				color_at(t_world w, t_ray r, int remaining);
 /* ----------------------------------------------------------- minirt_ray11.c */
 t_ray				ray_for_pixel(t_camera cam, t_float px, t_float py);
+/* ----------------------------------------------------------- minirt_ray12.c */
+t_float				schlick(t_computations comps);
 /* ============================== OBJECTS =================================== */
 
 /* -------------------------------------------------------- minirt_object00.c */
