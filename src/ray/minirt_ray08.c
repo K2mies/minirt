@@ -61,9 +61,9 @@ void	prepare_refraction_calculations(t_world *w, t_computations *comps, t_inters
 	while (i < w->n_ts)
 	{
 			object = &w->objs[w->ts[i].obj_index];
-			if (&w->ts[i] == target)
+//			if (&w->ts[i] == target)
+			if (w->ts[i].t == target->t)
 			{
-				printf("intersection target reached\n");
 				comps->n[0] = get_refractive_index(&container);
 				update_container(&container, object);
 				comps->n[1] = get_refractive_index(&container);
