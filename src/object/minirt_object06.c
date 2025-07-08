@@ -1,53 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_object05.c                                  :+:      :+:    :+:   */
+/*   minirt_object03.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/09 15:54:58 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/09 16:48:44 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/06/04 13:40:51 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/06/04 14:46:34 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
 
 /**
- * @brief	Helper function to calculate pixel size on canvas
- * calculates the size of a pixel on the canvas
- * @param cam		pointer to the camera object to operate on
+ * @brief	creates and asigned a material object
+ * creates, asigns and returns a material object
+ * param[ambient] = 0.1;
+ * param[diffuse] = 0.9;
+ * param[specular] = 0.9;
+ * param[shininess] = 200.0;
+ * param[reflective] = 0;
+ * @param param			array of 4 float paramaters as listed above
+ * @param col			Color of material
+ * @return				t_material object
  */
-static void	calculate_pixel_size(t_camera *cam)
+t_material material(t_float param[7], t_color col)
 {
-	cam->half_view = tanf(cam->fov / 2.f);
-	cam->aspect = cam->dim[width] / cam->dim[height];
-	if (cam->aspect >= 1)
-	{
-		cam->half[width] = cam->half_view;
-		cam->half[height] = cam->half_view / cam->aspect;
-	}
-	else
-	{
-		cam->half[width] = cam->half_view * cam->aspect;
-		cam->half[height] = cam->half_view;
-	}
-	cam->pixel_size = (cam->half[width] * 2.f) / cam->dim[width];
-}
+	t_material m;
 
-/**
- * @brief	creates and returns a camera object
- * creates and asigned properties to a camera object
- * @param vsize		height of camera
- * @param hsize		width of camera
- * @return			t_camera object
- */
-t_camera	camera(int h_size, int w_size, t_float fov)
-{
-	t_camera	cam;
-
-	cam.dim[height] = h_size;
-	cam.dim[width] = w_size;
-	cam.fov = fov;
-	cam.transform = id_matrix4();
-	calculate_pixel_size(&cam);
-	return (cam);
+	m.color = col;
+	m.ambient = param[ambient];
+	m.diffuse = param[diffuse];
+	m.specular = param[specular];
+	m.shininess = param[shininess];
+	m.reflective = param[reflective];
+	m.transparency = param[transparency];
+	m.refractive_index = param[refractive_index];
+	return (m);
 }

@@ -33,6 +33,7 @@
 
 /* ================================= MACROS ================================= */
 
+# define BIG_NUMBER 1000000.0f
 # define M_PI 3.14159265358979323846
 # define EPSILON			0.00001f
 # define REFRACTION_BIAS	0.00001f
@@ -330,7 +331,25 @@ typedef struct	s_refracted_color_param
 	t_color		res;
 }				t_refracted_color_param;
 
+// Typedef for cube_intersect function paramaters
+typedef struct	s_cube_intersect_param
+{
+	t_float		xt[2];
+	t_float		yt[2];
+	t_float		zt[2];
+	t_float		tmin;
+	t_float		tmax;
+	
+}				t_cube_intersect_param;
+
 /* ================================ ENUMS =================================== */
+
+//Enum for max and min values;
+typedef	enum	e_max_min
+{
+	min,
+	max
+}	t_max_min;
 
 //Enum for img dimensions
 typedef enum	e_dim
@@ -408,6 +427,7 @@ enum e_shape_types
 {
 	SPHERE,
 	PLANE,
+	CUBE,
 	CYLINDER
 };
 
@@ -574,31 +594,37 @@ t_intersections		object_intersection(t_object *obj, t_ray ray);
 void				world_intersect(t_world *w, t_ray ray);
 /* ----------------------------------------------------------- minirt_ray02.c */
 t_intersections		sphere_intersection(t_object *sphere, t_ray ray);
-t_intersections		plane_intersection(t_object *plane, t_ray ray);
 /* ----------------------------------------------------------- minirt_ray03.c */
+t_intersections		plane_intersection(t_object *plane, t_ray ray);
+/* ----------------------------------------------------------- minirt_ray04.c */
+t_intersections		cube_intersection(t_object *cube, t_ray ray);
+/* ----------------------------------------------------------- minirt_ray05.c */
+t_intersections		cylinder_interserction(t_object *cylinder, t_ray ray);
+/* ----------------------------------------------------------- minirt_ray06.c */
 t_ray				transform(t_ray r, t_matrix4 m);
 void				set_transform(t_object *s, t_matrix4 m);
-/* ----------------------------------------------------------- minirt_ray04.c */
+/* ----------------------------------------------------------- minirt_ray07.c */
 t_tuple				normal_at(t_object obj, t_tuple world_point);
 t_tuple				normal_at_sphere(t_object obj, t_tuple world_point);
 t_tuple				normal_at_plane(t_object obj);
-/* ----------------------------------------------------------- minirt_ray05.c */
+t_tuple				normal_at_cube(t_object obj, t_tuple world_point);
+/* ----------------------------------------------------------- minirt_ray08.c */
 t_tuple				reflect(t_tuple in, t_tuple normal);
-/* ----------------------------------------------------------- minirt_ray06.c */
+/* ----------------------------------------------------------- minirt_ray09.c */
 t_color				lighting(t_lighting_param p, t_material m, t_light light, t_tuple v[3]);
 bool				is_shadowed(t_world world, t_tuple point);
-/* ----------------------------------------------------------- minirt_ray07.c */
+/* ----------------------------------------------------------- minirt_ray10.c */
 t_computations		prepare_computations(t_world w, t_intersection *i, t_ray r);
-/* ----------------------------------------------------------- minirt_ray08.c */
+/* ----------------------------------------------------------- minirt_ray11.c */
 void				prepare_refraction_calculations(t_world *w, t_computations *comps, t_intersection *target);
-/* ----------------------------------------------------------- minirt_ray09.c */
+/* ----------------------------------------------------------- minirt_ray12.c */
 t_intersection		hit(t_world *w);
 t_color				shade_hit(t_world w, t_computations comps, t_object obj, int remaining);
-/* ----------------------------------------------------------- minirt_ray10.c */
+/* ----------------------------------------------------------- minirt_ray13.c */
 t_color				color_at(t_world w, t_ray r, int remaining);
-/* ----------------------------------------------------------- minirt_ray11.c */
+/* ----------------------------------------------------------- minirt_ray14.c */
 t_ray				ray_for_pixel(t_camera cam, t_float px, t_float py);
-/* ----------------------------------------------------------- minirt_ray12.c */
+/* ----------------------------------------------------------- minirt_ray15.c */
 t_float				schlick(t_computations comps);
 /* ============================== OBJECTS =================================== */
 
@@ -608,15 +634,19 @@ t_object	glass_sphere(t_tuple location, t_float diameter, t_color col);
 /* -------------------------------------------------------- minirt_object01.c */
 t_object	plane(t_tuple origin, t_tuple normal, t_color col);
 /* -------------------------------------------------------- minirt_object02.c */
-t_wall		wall(t_tuple position, t_float width, t_float height);
+t_object	cube(t_tuple origin, t_color col);
 /* -------------------------------------------------------- minirt_object03.c */
-t_light		point_light(t_tuple origin, t_float brightness, t_color col);
+t_object	cylinder(t_tuple location, t_float diameter, t_color col);
 /* -------------------------------------------------------- minirt_object04.c */
-t_material	material(t_float param[7], t_color col);
+t_wall		wall(t_tuple position, t_float width, t_float height);
 /* -------------------------------------------------------- minirt_object05.c */
+t_light		point_light(t_tuple origin, t_float brightness, t_color col);
+/* -------------------------------------------------------- minirt_object06.c */
+t_material	material(t_float param[7], t_color col);
+/* -------------------------------------------------------- minirt_object07.c */
 t_world		world(t_minirt *rt);
 t_world		default_world(t_minirt *rt);
-/* -------------------------------------------------------- minirt_object06.c */
+/* -------------------------------------------------------- minirt_object08.c */
 t_camera	camera(int h_size, int w_size, t_float fov);
 /* ================================ MLX ===================================== */
 
@@ -646,12 +676,16 @@ void		cleanup_rt(t_minirt *rt);
 /* -------------------------------------------------------- utils/quicksort.c */
 void		quicksort(t_intersection arr[], int low, int high);
 /* ------------------------------------------------------- utils/containers.c */
-
 void		update_container(t_obj_container *container, t_object *obj);
 bool		is_inside_container(t_obj_container *container, t_object *obj, int *index);
 void		remove_from_container(t_obj_container *container, int index);
 void		add_to_container(t_obj_container *container, t_object *obj);
 t_float		get_refractive_index(t_obj_container *con);
+/* ------------------------------------------------------------- utils/cube.c */
+
+void		check_axis(t_float origin, t_float direction, t_float *min, t_float *max);
+t_float		min_3(t_float a, t_float b, t_float c);
+t_float		max_3(t_float a, t_float b, t_float c);
 /* ================================= PARSING ================================ */
 
 /* ----------------------------------------------------- parsing/validation.c */

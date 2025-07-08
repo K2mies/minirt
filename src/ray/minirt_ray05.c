@@ -5,28 +5,95 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/17 11:31:38 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/17 11:32:55 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/07/08 15:38:44 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/07/08 16:48:27 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
 
+/**
+ * @brief	helper function to calculate var a
+ *
+ * @param ray		Ray to use for calculation
+ * @return			t_flaot var a
+ */
+
+static t_float	calculate_var_a(t_ray ray)
+{
+	t_float	ray_direction_sqr[3];
+	t_float	var_a;
+
+	ray_direction_sqr[x] = ray.direction.x * ray.direction.x;
+	ray_direction_sqr[z] = ray.direction.z * ray.direction.z;
+	var_a = ray_direction_sqr[x] + ray_direction_sqr[z];
+	return (var_a);
+}
 
 /**
- * @brief	calculates the reflected vector
- * calculates the reflected vector from the in vector and normal
+ * @brief	helper function to calculate var b
  *
- * @param in			incomming vector
- * @param normal		normal vector to bounce off
- * @return				reflected vector
+ * @param ray		Ray to use for calculation
+ * @return			t_flaot var a
  */
-t_tuple	reflect(t_tuple in, t_tuple normal)
+static t_float	calculate_var_b(t_ray ray)
 {
-	t_tuple res;
-	t_tuple scaled_norm;
+	t_float	ray_dir_by_origin[3];
+	t_float	var_b;
 
-	scaled_norm = multiply_tuple_by_scalar(normal, 2 * dot_product(in, normal));
-	res = sub_tuples(in, scaled_norm);
-//	res = multiply_tuple_by_scalar(sub_tuples(in, normal), 2 * dot_product(in, normal));
+	ray_dir_by_origin[x] = ray.origin.x * ray.direction.x;
+	ray_dir_by_origin[z] = ray.origin.z * ray.direction.z;
+	var_b = (2 * ray_dir_by_origin[x]) + (2 * ray_dir_by_origin[z]);
+	return (var_b);
+}
+
+/**
+ * @brief	helper function to calculate var c
+ *
+ * @param ray		Ray to use for calculation
+ * @return			t_flaot var c
+ */
+static t_float	calculate_var_c(t_ray ray)
+{
+	t_float	ray_origin_sqr[3];
+	t_float	var_c;
+
+	ray_origin_sqr[x] = ray.origin.x * ray.origin.x;
+	ray_origin_sqr[z] = ray.origin.z * ray.origin.z;
+	var_c = ray_origin_sqr[x] + ray_origin_sqr[z];
+	return (var_c);
+}
+
+/**
+ * @brief	intersections  of a ray and a cylinder
+ *
+ * @param cylinder	cyliunder object to be intersected
+ * @param ray		Ray to cast
+ * @return			t_intersections	result of intersections
+ */
+t_intersections	cylinder_intersection(t_object *cylinder, t_ray ray)
+{
+	t_intersections	res;
+	t_float			discriminant;
+	t_float			var[3];
+
+	ray = transform(ray, inverse_matrix4(cylinder->transform));
+	cylinder->saved_ray = ray;
+	var[a] = calculate_var_a(ray);
+	if (var[a] <= EPSILON)
+	{
+		res.count = 0;
+		return (res);
+	}
+	var[b] = calculate_var_b(ray);
+	var[c] = calculate_var_c(ray);
+	discriminant = (var[b] * var[b]) - 4 * var[a] * var[c];
+	if (discriminant < 0)
+	{
+		res.count = 0;
+		return (res);
+	}
+	res.t[0] = (-var[b] - sqrtf(discriminant)) / (2.0 * var[a]);
+	res.t[1] = (-var[b] + sqrtf(discriminant)) / (2.0 * var[a]);
+	res.count = 2;
 	return (res);
 }

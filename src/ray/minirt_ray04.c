@@ -5,77 +5,40 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 10:52:26 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/17 11:57:06 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/07/08 15:33:15 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/07/08 15:36:17 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
 
 /**
- * @brief	calculates the normal at a given point/intersection of a sub object
- * caculates the normal of a point/intersection on a sub object depending on
- * type
+ * @brief	intersections  of a ray and a cube
+ * creates a hit value from ray hitting a cube
+ * and returns as two values if there is a hit, 0 if 
+ * it is a miss.
  *
- * @param obj			object to calculate normal on
- * @param world_point	intersection point in world space.
- * @return				normal vector from calculation
+ * @param sphere	plane object to be intersected
+ * @param ray		Ray to cast
+ * @return	t_intersections	result of intersections
  */
-t_tuple	normal_at(t_object obj, t_tuple world_point)
+t_intersections	cube_intersection(t_object *cube, t_ray ray)
 {
-	t_tuple res;
-	if (obj.type == SPHERE)
-		res = normal_at_sphere(obj, world_point);
-	if (obj.type == PLANE)
-		res = normal_at_plane(obj);
+	t_cube_intersect_param	p;
+	t_intersections			res;
+
+	ray = transform(ray, inverse_matrix4(cube->transform));
+	cube->saved_ray = ray;
+	check_axis(ray.origin.x, ray.direction.x, &p.xt[min], &p.xt[max]);
+	check_axis(ray.origin.y, ray.direction.y, &p.yt[min], &p.yt[max]);
+	check_axis(ray.origin.z, ray.direction.z, &p.zt[min], &p.zt[max]);
+	res.t[0] = max_3(p.xt[min], p.yt[min], p.zt[min]);
+	res.t[1] = min_3(p.xt[max], p.yt[max], p.zt[max]);
+	if (res.t[0] > res.t[1])
+	{
+		res.count = 0;
+		return (res);
+	}
+	res.count = 2;
 	return (res);
 }
 
-/**
- * @brief	calculates the normal at a given point/intersection of a sphere
- * caculates the normal of a point/intersection on a sphere
- *
- * @param sphere		object(sphere) to calculate normal on
- * @param world_point	intersection point in world space.
- * @return				normal vector from calculation
- */
-t_tuple	normal_at_sphere(t_object obj, t_tuple world_point)
-{
-	t_tuple	object_point;
-	t_tuple	object_normal;
-	t_tuple	world_normal;
-	t_tuple res;
-
-	object_point = multiply_matrix4_tuple(
-		inverse_matrix4(obj.transform), world_point);
-	object_normal = sub_tuples(object_point, point(0, 0, 0));
-	world_normal = multiply_matrix4_tuple(
-		transpose_matrix4(inverse_matrix4(obj.transform)), object_normal);
-	world_normal.w = 0;
-	res = normalize_vector(world_normal);
-	return (res);
-}
-
-/**
- * @brief	calculates the normal at a given point/intersection of a plane
- * caculates the normal of a point/intersection on a plane
- *
- * @param sphere		object(plane) to calculate normal on
- * @param world_point	intersection point in world space.
- * @return				normal vector from calculation
- */
-t_tuple normal_at_plane(t_object obj)
-{
-	t_tuple		local_normal;
-	t_tuple		world_normal;
-	t_matrix4	inverse_matrix;
-	t_matrix4	transpose_matrix;
-
-	local_normal = obj.vector;
-	inverse_matrix = inverse_matrix4(obj.transform);
-	transpose_matrix = transpose_matrix4(inverse_matrix);
-	world_normal = multiply_matrix4_tuple(transpose_matrix, local_normal);
-//	world_normal = multiply_matrix4_tuple(transpose_matrix4(inverse_matrix4(obj.transform)), local_normal);
-	world_normal.w = 0;
-	world_normal = normalize_vector(world_normal);
-	return (world_normal);
-}

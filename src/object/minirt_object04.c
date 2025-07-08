@@ -1,39 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_object03.c                                  :+:      :+:    :+:   */
+/*   minirt_object01.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 13:40:51 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/04 14:46:34 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/06/03 12:38:29 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/06/03 14:32:08 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
 
 /**
- * @brief	creates and asigned a material object
- * creates, asigns and returns a material object
- * param[ambient] = 0.1;
- * param[diffuse] = 0.9;
- * param[specular] = 0.9;
- * param[shininess] = 200.0;
- * param[reflective] = 0;
- * @param param			array of 4 float paramaters as listed above
- * @param col			Color of material
- * @return				t_material object
+ * @brief	creates and returns a wall object
+ * creates a wall object to use to calculate projections
+ *
+ * @param origin	Point that is the origin of the wall
+ * @param width		Width of the wall
+ * @param height	Height of the wall
+ * @return			t_wall object
  */
-t_material material(t_float param[7], t_color col)
+t_wall	wall(t_tuple origin, t_float width, t_float height)
 {
-	t_material m;
+	t_wall	w;
 
-	m.color = col;
-	m.ambient = param[ambient];
-	m.diffuse = param[diffuse];
-	m.specular = param[specular];
-	m.shininess = param[shininess];
-	m.reflective = param[reflective];
-	m.transparency = param[transparency];
-	m.refractive_index = param[refractive_index];
-	return (m);
+	w.origin = origin;
+	w.width = width;
+	w.height = height;
+	return (w);
 }
