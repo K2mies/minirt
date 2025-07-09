@@ -59,8 +59,27 @@ static t_float	calculate_var_c(t_ray ray)
 
 	ray_origin_sqr[x] = ray.origin.x * ray.origin.x;
 	ray_origin_sqr[z] = ray.origin.z * ray.origin.z;
-	var_c = ray_origin_sqr[x] + ray_origin_sqr[z];
+	var_c = (ray_origin_sqr[x] + ray_origin_sqr[z]) - 1.0f;
 	return (var_c);
+}
+
+/**
+ * @brief	helper function truncate the cylinder
+ *
+ * @param res		pointer to result values to update
+ * @param cylinder	pointer to cylinder object
+ * @param ray		ray to use for calculations
+ */
+static	void	truncate_cylinder(t_intersections *res, t_object *cylinder, t_ray ray)
+{
+	t_float	y[2];
+
+	y[0] = ray.origin.y + res->t[0] * ray.direction.y;
+	if (cylinder->min < y[0] && y[0] < cylinder->max)
+		res->count += 1;
+	y[1] = ray.origin.y + res->t[1] * ray.direction.y;
+	if (cylinder->min < y[1] && y[1] < cylinder->max)
+		res->count += 1;
 }
 
 /**
@@ -78,22 +97,23 @@ t_intersections	cylinder_intersection(t_object *cylinder, t_ray ray)
 
 	ray = transform(ray, inverse_matrix4(cylinder->transform));
 	cylinder->saved_ray = ray;
+	res.count = 0;
 	var[a] = calculate_var_a(ray);
-	if (var[a] <= EPSILON)
+	if (compare_floats(var[a], 0.0f))
 	{
-		res.count = 0;
+		res = intersect_caps(cylinder, ray, &res);
 		return (res);
 	}
 	var[b] = calculate_var_b(ray);
 	var[c] = calculate_var_c(ray);
-	discriminant = (var[b] * var[b]) - 4 * var[a] * var[c];
+	discriminant = (var[b] * var[b]) - (4 * var[a] * var[c]);
 	if (discriminant < 0)
-	{
-		res.count = 0;
 		return (res);
-	}
 	res.t[0] = (-var[b] - sqrtf(discriminant)) / (2.0 * var[a]);
 	res.t[1] = (-var[b] + sqrtf(discriminant)) / (2.0 * var[a]);
-	res.count = 2;
+	if (res.t[0] > res.t[1])
+		swapf(&res.t[0], &res.t[1]);
+	truncate_cylinder(&res, cylinder, ray);
+	res = intersect_caps(cylinder, ray, &res);
 	return (res);
 }

@@ -3004,7 +3004,7 @@ void	test_world_cube(t_minirt *rt)
 	canvas_to_ppm(img);
 }
 
-void	test_single_cube(t_minirt *rt)
+void	test_single_cylinder(t_minirt *rt)
 {
 	t_world			w;
 	t_matrix4		m;
@@ -3025,12 +3025,13 @@ void	test_single_cube(t_minirt *rt)
 
 	w.light[0] = point_light(point(-10, 10, -10), 1.0, color(1, 1, 1));
 
-	w.objs[0] = cube(point(0, 0, 0), color(1, 0 , 0));
+//	w.objs[0] = cube(point(0, 0, 0), color(1, 0 , 0));
+	w.objs[0] = cylinder(point(0, 0, 0), 1, 1, color(0, 0, 1));
 	m = id_matrix4();
 //	m = multiply_matrix4(m, translation(0, -3.5, -0.5));
 	m = multiply_matrix4(m, translation(0, 1, 0.7));
-	m = multiply_matrix4(m, rotation_x(45));
 	m = multiply_matrix4(m, rotation_y(45));
+	m = multiply_matrix4(m, rotation_z(45));
 	w.objs[0].transform = m;
 	w.objs[0].color = color(0, 0, 1);
 	w.objs[0].material.color = color(0, 0, 1);
@@ -3044,35 +3045,83 @@ void	test_single_cube(t_minirt *rt)
 	img = render(cam, w);
 	canvas_to_ppm(img);
 }
-void	test_cube_intersections(t_minirt *rt)
+
+//void	test_cube_intersections(t_minirt *rt)
+//{
+//	(void)rt;
+//	t_object		c;
+//	t_ray			r;
+//	t_intersections	xs;
+//
+//	c = cube(point(0, 0, 0), color(1, 0, 0));
+//	r = ray(point(2, 2, 0), vector(-1, 0, 0));
+//	xs = cube_intersection(&c, r);
+//
+//	printf("xs.t[0] = %f\n xs.t[1] = %f\n xs.count = %d\n", xs.t[0], xs.t[1], xs.count);
+//
+//}
+
+//void	test_cylinder_intersection()
+//{
+//	t_object		cy;
+//	t_tuple			direction;
+//	t_tuple			origin;
+//	t_ray			r;
+//	t_intersections	xs;
+//
+//	cy = cylinder(point(0, 0, 0), 2, color(1, 1, 1));
+//	origin = point(0.5, 0, -5);
+//	direction = vector(0.1, 1, 1);
+//	direction = normalize_vector(direction);
+//	r = ray(origin, direction);
+//	xs = cylinder_intersection(&cy, r);
+//	printf("xs.t[0] = %f\n xs.t[1] = %f\n xs.count = %d\n", xs.t[0], xs.t[1], xs.count);
+//}
+
+//void	test_cube_normal(t_minirt *rt)
+//{
+//	(void)rt;
+//	t_object		c;
+//	t_tuple			p;
+//	t_tuple			normal;
+//
+//	c = cube(point(0, 0, 0), color(1, 0, 0));
+//	p = point(-1, -1, -1);
+//	normal = normal_at_cube(c, p);
+//	test_print_tuple(normal);
+//}
+
+//void	test_cylinder_normal()
+//{
+//	t_object	cy;
+//	t_tuple		p;
+//	t_tuple		normal;
+//
+//	cy = cylinder(point(0, 0, 0), 2, color(1, 1, 1));
+//	p = point(-1, 1, 0);
+//	normal = normal_at_cylinder(cy, p);
+//	test_print_tuple(normal);
+//}
+//
+void	test_cylinder_caps_intersection()
 {
-	(void)rt;
-	t_object		c;
-	t_ray			r;
-	t_intersections	xs;
+	t_object	cy;
+	t_tuple		p;
+	t_tuple		direction;
+	t_ray		r;
+	t_intersections xs;
 
-	c = cube(point(0, 0, 0), color(1, 0, 0));
-	r = ray(point(2, 2, 0), vector(-1, 0, 0));
-	xs = cube_intersection(&c, r);
+	cy.min = 1;
+	cy.max = 2;
+	cy.closed = true;
+	p = point(0, 3, 0);
+	direction = vector(0, -1, 0);
+	direction = normalize_vector(direction);
+	r = ray(p, direction);
 
-	printf("xs.t[0] = %f\n xs.t[1] = %f\n xs.count = %d\n", xs.t[0], xs.t[1], xs.count);
+	xs = cylinder_intersection(&cy, r);
 
-}
-
-void	test_cube_normal(t_minirt *rt)
-{
-	(void)rt;
-	t_object		c;
-	t_tuple			p;
-	t_tuple			normal;
-
-	c = cube(point(0, 0, 0), color(1, 0, 0));
-	p = point(-1, -1, -1);
-	normal = normal_at_cube(c, p);
-	test_print_tuple(normal);
-
-
-
+	printf("xs.t[0] = %f\n xs.t[1] = %f\n xs.t[2] = %f\n xs.t[3] = %f\n xs.count = %d\n", xs.t[0], xs.t[1], xs.t[2], xs.t[3], xs.count);
 }
 int	main(int argc, char **argv)
 {
@@ -3089,6 +3138,10 @@ int	main(int argc, char **argv)
 	rt.n_light = 0;
 	rt.ts = NULL;
 	open_file(&rt, argv);
+	test_cylinder_caps_intersection();
+//	test_single_cylinder(&rt);
+//	test_cylinder_normal();
+//	test_cylinder_intersection();
 //	test_cube_normal(&rt);
 //	test_single_cube(&rt);
 //	test_world_cube(&rt);
@@ -3098,7 +3151,7 @@ int	main(int argc, char **argv)
 //
 //	test_world_refraction(&rt);
 //	test_refraction_comp(&rt);
-	test_scene01(&rt);
+//	test_scene01(&rt);
 	cleanup_rt(&rt);
 	return (0);
 }

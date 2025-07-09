@@ -9,7 +9,7 @@
 /*   Updated: 2025/07/08 15:33:03 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "minrt.h"
+#include "minirt.h"
 
 /**
  * @brief	intersections  of a ray and a plane

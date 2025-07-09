@@ -6,7 +6,7 @@
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 14:50:42 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/08 14:56:59 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/07/09 14:45:12 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
@@ -19,7 +19,7 @@
  * @param	col
  * @return	t_object struct with type OBJ_SPHERE
  */
-t_object	cylinder(t_tuple location, t_float diameter, t_color col)
+t_object	cylinder(t_tuple location, t_float diameter, t_float height, t_color col)
 {
 	t_object	cy;
 	t_float		param[7];
@@ -35,6 +35,9 @@ t_object	cylinder(t_tuple location, t_float diameter, t_color col)
 	cy.diameter = diameter;
 	cy.radius = cy.diameter / 2;
 	cy.origin = location;
+	cy.height = height;
+	cy.max = height;
+	cy.min = 0;
 	cy.color = col;
 	cy.material = material(param, col);
 	cy.material.has_pattern = false;

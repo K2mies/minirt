@@ -11,49 +11,6 @@
 /* ************************************************************************** */
 #include "minirt.h"
 
-//static void	swap(int *a, int *b)
-//{
-//	int tmp;
-//
-//	tmp = *a;
-//	*a = *b;
-//	*b = tmp;
-//}
-//
-//static int	partition(int arr[], int low, int high)
-//{
-//	int pivote;
-//	int	i;
-//	int j;
-//
-//	pivote = arr[high];
-//	i = (low - 1);
-//	j = low;
-//	while (j < high)
-//	{
-//		if (arr[j] <= pivote)
-//		{
-//			i++;
-//			swap(&arr[i], &arr[j]);
-//		}
-//		j++;
-//	}
-//	swap(&arr[i + 1], &arr[high]);
-//	return (i + 1);
-//}
-//
-//void	quicksort(int arr[], int low, int high)
-//{
-//	int pi;
-//
-//	if (low < high)
-//	{
-//		pi = partition(arr, low, high);
-//		quicksort(arr, low, pi -1);
-//		quicksort(arr, pi + 1, high);
-//	}
-//}
-
 static void	swap(t_intersection *a, t_intersection *b)
 {
 	t_intersection tmp;
