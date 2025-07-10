@@ -604,33 +604,36 @@ t_intersections		cube_intersection(t_object *cube, t_ray ray);
 /* ----------------------------------------------------------- minirt_ray05.c */
 t_intersections		cylinder_intersection(t_object *cylinder, t_ray ray);
 /* ----------------------------------------------------------- minirt_ray06.c */
-t_intersections		intersect_caps(t_object *cylinder, t_ray ray, t_intersections *xs);
+void				truncate_cylinder(t_object *cylinder, t_ray ray, t_intersections *res);
 /* ----------------------------------------------------------- minirt_ray07.c */
+t_intersections		intersect_caps(t_object *cylinder, t_ray ray, t_intersections xs);
+/* ----------------------------------------------------------- minirt_ray08.c */
 t_ray				transform(t_ray r, t_matrix4 m);
 void				set_transform(t_object *s, t_matrix4 m);
-/* ----------------------------------------------------------- minirt_ray08.c */
+/* ----------------------------------------------------------- minirt_ray09.c */
 t_tuple				normal_at(t_object obj, t_tuple world_point);
 t_tuple				normal_at_sphere(t_object obj, t_tuple world_point);
 t_tuple				normal_at_plane(t_object obj);
 t_tuple				normal_at_cube(t_object obj, t_tuple world_point);
 t_tuple				normal_at_cylinder(t_object obj, t_tuple world_point);
-/* ----------------------------------------------------------- minirt_ray09.c */
-t_tuple				reflect(t_tuple in, t_tuple normal);
+t_tuple				normal_at_cap(t_object obj, t_tuple world_point);
 /* ----------------------------------------------------------- minirt_ray10.c */
+t_tuple				reflect(t_tuple in, t_tuple normal);
+/* ----------------------------------------------------------- minirt_ray11.c */
 t_color				lighting(t_lighting_param p, t_material m, t_light light, t_tuple v[3]);
 bool				is_shadowed(t_world world, t_tuple point);
-/* ----------------------------------------------------------- minirt_ray11.c */
-t_computations		prepare_computations(t_world w, t_intersection *i, t_ray r);
 /* ----------------------------------------------------------- minirt_ray12.c */
-void				prepare_refraction_calculations(t_world *w, t_computations *comps, t_intersection *target);
+t_computations		prepare_computations(t_world w, t_intersection *i, t_ray r);
 /* ----------------------------------------------------------- minirt_ray13.c */
+void				prepare_refraction_calculations(t_world *w, t_computations *comps, t_intersection *target);
+/* ----------------------------------------------------------- minirt_ray14.c */
 t_intersection		hit(t_world *w);
 t_color				shade_hit(t_world w, t_computations comps, t_object obj, int remaining);
-/* ----------------------------------------------------------- minirt_ray14.c */
-t_color				color_at(t_world w, t_ray r, int remaining);
 /* ----------------------------------------------------------- minirt_ray15.c */
-t_ray				ray_for_pixel(t_camera cam, t_float px, t_float py);
+t_color				color_at(t_world w, t_ray r, int remaining);
 /* ----------------------------------------------------------- minirt_ray16.c */
+t_ray				ray_for_pixel(t_camera cam, t_float px, t_float py);
+/* ----------------------------------------------------------- minirt_ray17.c */
 t_float				schlick(t_computations comps);
 /* ============================== OBJECTS =================================== */
 

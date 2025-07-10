@@ -64,25 +64,6 @@ static t_float	calculate_var_c(t_ray ray)
 }
 
 /**
- * @brief	helper function truncate the cylinder
- *
- * @param res		pointer to result values to update
- * @param cylinder	pointer to cylinder object
- * @param ray		ray to use for calculations
- */
-static	void	truncate_cylinder(t_intersections *res, t_object *cylinder, t_ray ray)
-{
-	t_float	y[2];
-
-	y[0] = ray.origin.y + res->t[0] * ray.direction.y;
-	if (cylinder->min < y[0] && y[0] < cylinder->max)
-		res->count += 1;
-	y[1] = ray.origin.y + res->t[1] * ray.direction.y;
-	if (cylinder->min < y[1] && y[1] < cylinder->max)
-		res->count += 1;
-}
-
-/**
  * @brief	intersections  of a ray and a cylinder
  *
  * @param cylinder	cyliunder object to be intersected
@@ -101,7 +82,9 @@ t_intersections	cylinder_intersection(t_object *cylinder, t_ray ray)
 	var[a] = calculate_var_a(ray);
 	if (compare_floats(var[a], 0.0f))
 	{
-		res = intersect_caps(cylinder, ray, &res);
+//		truncate_cylinder(cylinder, ray, &res);
+		res = intersect_caps(cylinder, ray, res);
+//		truncate_cylinder(cylinder, ray, &res);
 		return (res);
 	}
 	var[b] = calculate_var_b(ray);
@@ -111,9 +94,11 @@ t_intersections	cylinder_intersection(t_object *cylinder, t_ray ray)
 		return (res);
 	res.t[0] = (-var[b] - sqrtf(discriminant)) / (2.0 * var[a]);
 	res.t[1] = (-var[b] + sqrtf(discriminant)) / (2.0 * var[a]);
+//	res.count = 2;
 	if (res.t[0] > res.t[1])
 		swapf(&res.t[0], &res.t[1]);
-	truncate_cylinder(&res, cylinder, ray);
-	res = intersect_caps(cylinder, ray, &res);
+//	truncate_cylinder(cylinder, ray, &res);
+	res = intersect_caps(cylinder, ray, res);
+	truncate_cylinder(cylinder, ray, &res);
 	return (res);
 }

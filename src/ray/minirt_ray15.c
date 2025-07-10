@@ -1,29 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_ray08.c                                     :+:      :+:    :+:   */
+/*   minirt_ray10.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/09 16:51:07 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/09 17:17:30 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/06/09 10:34:33 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/06/25 15:47:07 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
 
-t_ray	ray_for_pixel(t_camera cam, t_float px, t_float py)
+/**
+ * @brief	fetches color at intersection point
+ * returns a color from the hit point of an intersection
+ * taking into account all the lighting computations
+ * @param w			wpr;d object to operate on
+ * @param r			ray to cast for intersections
+ * @return			t_color returned color;
+ */
+t_color	color_at(t_world w, t_ray r, int remaining)
 {
-	t_ray_for_pixel_param	p;
-	t_matrix4	m;
+	t_intersection	hit_point;
+	t_color			res;
 
-	p.offset[x] = (px + 0.5) * cam.pixel_size;
-	p.offset[y] = (py + 0.5) * cam.pixel_size;
-	p.world[x] = cam.half[width] - p.offset[x];
-	p.world[y] = cam.half[height] - p.offset[y];
-	m = inverse_matrix4(cam.transform);
-	p.pixel = multiply_matrix4_tuple(m , point(p.world[x], p.world[y], -1));
-	p.origin = multiply_matrix4_tuple(m , point(0, 0, 0));
-	p.direction = sub_tuples(p.pixel, p.origin);
-	p.direction = normalize_vector(p.direction);
-	return (ray(p.origin, p.direction));
+	world_intersect(&w, r);
+	hit_point = hit(&w);
+	if(hit_point.t >= 0)
+	{
+		w.cs[w.hit_index] = prepare_computations(w, &hit_point, r);
+		res = shade_hit(w, w.cs[w.hit_index], hit_point.object, remaining);
+	}
+	else
+		res = color(0, 0, 0);
+	return (res);
 }

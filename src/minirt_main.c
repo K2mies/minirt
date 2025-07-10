@@ -3026,10 +3026,11 @@ void	test_single_cylinder(t_minirt *rt)
 	w.light[0] = point_light(point(-10, 10, -10), 1.0, color(1, 1, 1));
 
 //	w.objs[0] = cube(point(0, 0, 0), color(1, 0 , 0));
-	w.objs[0] = cylinder(point(0, 0, 0), 1, 1, color(0, 0, 1));
+	w.objs[0] = cylinder(point(0, 0, 0), 1, 2, color(0, 0, 1));
+	w.objs[0].closed = true;
 	m = id_matrix4();
 //	m = multiply_matrix4(m, translation(0, -3.5, -0.5));
-	m = multiply_matrix4(m, translation(0, 1, 0.7));
+	m = multiply_matrix4(m, translation(0, 0, 0.7));
 	m = multiply_matrix4(m, rotation_y(45));
 	m = multiply_matrix4(m, rotation_z(45));
 	w.objs[0].transform = m;
@@ -3111,17 +3112,18 @@ void	test_cylinder_caps_intersection()
 	t_ray		r;
 	t_intersections xs;
 
+	cy = cylinder(point(0, 0, 0), 2, 2, color(1, 1, 1));
 	cy.min = 1;
 	cy.max = 2;
 	cy.closed = true;
-	p = point(0, 3, 0);
-	direction = vector(0, -1, 0);
+	p = point(0, -1, -2);
+	direction = vector(0, 1, 1);
 	direction = normalize_vector(direction);
 	r = ray(p, direction);
 
 	xs = cylinder_intersection(&cy, r);
 
-	printf("xs.t[0] = %f\n xs.t[1] = %f\n xs.t[2] = %f\n xs.t[3] = %f\n xs.count = %d\n", xs.t[0], xs.t[1], xs.t[2], xs.t[3], xs.count);
+	printf(" xs.t[0] = %f\n xs.t[1] = %f\n xs.t[2] = %f\n xs.t[3] = %f\n xs.count = %d\n", xs.t[0], xs.t[1], xs.t[2], xs.t[3], xs.count);
 }
 int	main(int argc, char **argv)
 {
@@ -3138,8 +3140,8 @@ int	main(int argc, char **argv)
 	rt.n_light = 0;
 	rt.ts = NULL;
 	open_file(&rt, argv);
-	test_cylinder_caps_intersection();
-//	test_single_cylinder(&rt);
+//	test_cylinder_caps_intersection();
+	test_single_cylinder(&rt);
 //	test_cylinder_normal();
 //	test_cylinder_intersection();
 //	test_cube_normal(&rt);
