@@ -1,29 +1,74 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_ray08.c                                     :+:      :+:    :+:   */
+/*   minirt_ray09.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/09 16:51:07 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/09 17:17:30 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/06/06 16:06:50 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/06/30 13:46:03 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
 
-t_ray	ray_for_pixel(t_camera cam, t_float px, t_float py)
+/**
+ * @brief	returns hit from list of intersections
+ * returns a hit float which is the lowest positive
+ * number from a list of intersection values
+ *
+ * @param w		pointer to the world object to calculate hit
+ * @return		hit value from list of intersections
+ *				value with be -1 if none are found
+ */
+t_intersection	hit(t_world *w)
 {
-	t_ray_for_pixel_param	p;
-	t_matrix4	m;
+	int		i;
+	t_intersection	res;
 
-	p.offset[x] = (px + 0.5) * cam.pixel_size;
-	p.offset[y] = (py + 0.5) * cam.pixel_size;
-	p.world[x] = cam.half[width] - p.offset[x];
-	p.world[y] = cam.half[height] - p.offset[y];
-	m = inverse_matrix4(cam.transform);
-	p.pixel = multiply_matrix4_tuple(m , point(p.world[x], p.world[y], -1));
-	p.origin = multiply_matrix4_tuple(m , point(0, 0, 0));
-	p.direction = sub_tuples(p.pixel, p.origin);
-	p.direction = normalize_vector(p.direction);
-	return (ray(p.origin, p.direction));
+	i = 0;
+	while (i < w->n_ts)
+	{
+		if (w->ts[i].t >= 0)
+		{
+			w->hit_index = i;
+			res = w->ts[i];
+			return (res);
+		}
+		i++;
+	}
+	res.t = -1;
+	return (res);
+}
+
+/**
+ * @brief	calculates shading for hit intersection
+ * returns a color calculated  from the shading
+ *
+ * @param w		world object to calculate hit
+ * @param comps	computation paramaters
+ * @return		color for shaded pixel
+ */
+t_color	shade_hit(t_world w, t_computations comps, t_object	obj, int remaining)
+{
+	t_lighting_param	param;
+	t_color				surface;
+	t_color				reflected;
+	t_color				refracted;
+	t_material			material;
+	t_float				reflectance;
+
+	param.in_shadow = is_shadowed(w, comps.over_point);
+	param.obj = obj;
+	surface = lighting(param, comps.object.material, w.light[0], comps.v);
+	reflected = reflected_color(w, comps, remaining);
+	refracted = refracted_color(w, comps, remaining);
+	material = comps.object.material;
+	if (material.reflective > 0 && material.transparency > 0)
+	{
+		reflectance = schlick(comps);
+		reflected = multiply_color_by_scalar(reflected, reflectance);
+		refracted = multiply_color_by_scalar(refracted, (1 - reflectance));
+		return (add_three_colors(surface, reflected, refracted));
+	}
+	return (add_three_colors(surface, reflected, refracted));
 }

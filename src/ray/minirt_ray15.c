@@ -1,37 +1,76 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_ray10.c                                     :+:      :+:    :+:   */
+/*   minirt_ray08.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/09 10:34:33 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/25 15:47:07 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/06/25 14:14:53 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/06/25 14:15:11 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
 
 /**
- * @brief	fetches color at intersection point
- * returns a color from the hit point of an intersection
- * taking into account all the lighting computations
- * @param w			wpr;d object to operate on
- * @param r			ray to cast for intersections
- * @return			t_color returned color;
+ * @brief	prepares refraction calculations using a container for objs
+ *
+ * @param w				pointer to world struct
+ * @param comps			pointer to computations struct
+ * @param target		target or (hit) intersection
  */
-t_color	color_at(t_world w, t_ray r, int remaining)
-{
-	t_intersection	hit_point;
-	t_color			res;
+//void	prepare_refraction_calculations(t_world *w, t_computations *comps, t_intersection *target)
+//{
+//	t_obj_container	container;
+//	int		i;
+//
+//	container.n_obj = 0;
+//	comps->n[0] = 1.0f;
+//	comps->n[1] = 1.0f;
+//	i = -1;
+//	while (++i < w->n_ts)
+//	{
+//		if (&w->ts[i] == target)
+//		{
+//			if (container.n_obj <= 0)
+//				comps->n[0] = 1.0f;
+//			else
+//				comps->n[0] = get_refractive_index(&container);
+//		}
+//		update_container(&container, &w->objs[w->ts[i].obj_index]);
+//		if (&w->ts[i] == target)
+//		{
+//			if (container.n_obj <= 0)
+//				comps->n[1] = 1.0f;
+//			else
+//				comps->n[1] = get_refractive_index(&container);
+//		}
+//		printf("container count = %d\n", container.n_obj);
+//	}
+//}
 
-	world_intersect(&w, r);
-	hit_point = hit(&w);
-	if(hit_point.t >= 0)
+void	prepare_refraction_calculations(t_world *w, t_computations *comps, t_intersection *target)
+{
+	t_obj_container	container;
+	t_object		*object;
+	int				i;
+
+	container.n_obj = 0;
+	comps->n[0] = 1.0f;
+	comps->n[1] = 1.0f;
+	i = 0;
+	while (i < w->n_ts)
 	{
-		w.cs[w.hit_index] = prepare_computations(w, &hit_point, r);
-		res = shade_hit(w, w.cs[w.hit_index], hit_point.object, remaining);
+			object = &w->objs[w->ts[i].obj_index];
+//			if (&w->ts[i] == target)
+			if (w->ts[i].t == target->t)
+			{
+				comps->n[0] = get_refractive_index(&container);
+				update_container(&container, object);
+				comps->n[1] = get_refractive_index(&container);
+				return;
+			}
+			update_container(&container, object);
+//			printf("container count = %d\n", container.n_obj);
+			i++;
 	}
-	else
-		res = color(0, 0, 0);
-	return (res);
 }

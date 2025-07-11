@@ -1,104 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_ray05.c                                     :+:      :+:    :+:   */
+/*   minirt_ray04.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/08 15:38:44 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/08 16:48:27 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/07/08 15:33:15 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/07/08 15:36:17 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
 
 /**
- * @brief	helper function to calculate var a
+ * @brief	intersections  of a ray and a cube
+ * creates a hit value from ray hitting a cube
+ * and returns as two values if there is a hit, 0 if 
+ * it is a miss.
  *
- * @param ray		Ray to use for calculation
- * @return			t_flaot var a
- */
-
-static t_float	calculate_var_a(t_ray ray)
-{
-	t_float	ray_direction_sqr[3];
-	t_float	var_a;
-
-	ray_direction_sqr[x] = ray.direction.x * ray.direction.x;
-	ray_direction_sqr[z] = ray.direction.z * ray.direction.z;
-	var_a = ray_direction_sqr[x] + ray_direction_sqr[z];
-	return (var_a);
-}
-
-/**
- * @brief	helper function to calculate var b
- *
- * @param ray		Ray to use for calculation
- * @return			t_flaot var a
- */
-static t_float	calculate_var_b(t_ray ray)
-{
-	t_float	ray_dir_by_origin[3];
-	t_float	var_b;
-
-	ray_dir_by_origin[x] = ray.origin.x * ray.direction.x;
-	ray_dir_by_origin[z] = ray.origin.z * ray.direction.z;
-	var_b = (2 * ray_dir_by_origin[x]) + (2 * ray_dir_by_origin[z]);
-	return (var_b);
-}
-
-/**
- * @brief	helper function to calculate var c
- *
- * @param ray		Ray to use for calculation
- * @return			t_flaot var c
- */
-static t_float	calculate_var_c(t_ray ray)
-{
-	t_float	ray_origin_sqr[3];
-	t_float	var_c;
-
-	ray_origin_sqr[x] = ray.origin.x * ray.origin.x;
-	ray_origin_sqr[z] = ray.origin.z * ray.origin.z;
-	var_c = (ray_origin_sqr[x] + ray_origin_sqr[z]) - 1.0f;
-	return (var_c);
-}
-
-/**
- * @brief	intersections  of a ray and a cylinder
- *
- * @param cylinder	cyliunder object to be intersected
+ * @param sphere	plane object to be intersected
  * @param ray		Ray to cast
- * @return			t_intersections	result of intersections
+ * @return	t_intersections	result of intersections
  */
-t_intersections	cylinder_intersection(t_object *cylinder, t_ray ray)
+t_intersections	cube_intersection(t_object *cube, t_ray ray)
 {
-	t_intersections	res;
-	t_float			discriminant;
-	t_float			var[3];
+	t_cube_intersect_param	p;
+	t_intersections			res;
 
-	ray = transform(ray, inverse_matrix4(cylinder->transform));
-	cylinder->saved_ray = ray;
-	res.count = 0;
-	var[a] = calculate_var_a(ray);
-	if (compare_floats(var[a], 0.0f))
+	ray = transform(ray, inverse_matrix4(cube->transform));
+	cube->saved_ray = ray;
+	check_axis(ray.origin.x, ray.direction.x, &p.xt[min], &p.xt[max]);
+	check_axis(ray.origin.y, ray.direction.y, &p.yt[min], &p.yt[max]);
+	check_axis(ray.origin.z, ray.direction.z, &p.zt[min], &p.zt[max]);
+	res.t[0] = max_3(p.xt[min], p.yt[min], p.zt[min]);
+	res.t[1] = min_3(p.xt[max], p.yt[max], p.zt[max]);
+	if (res.t[0] > res.t[1])
 	{
-//		truncate_cylinder(cylinder, ray, &res);
-		res = intersect_caps(cylinder, ray, res);
-//		truncate_cylinder(cylinder, ray, &res);
+		res.count = 0;
 		return (res);
 	}
-	var[b] = calculate_var_b(ray);
-	var[c] = calculate_var_c(ray);
-	discriminant = (var[b] * var[b]) - (4 * var[a] * var[c]);
-	if (discriminant < 0)
-		return (res);
-	res.t[0] = (-var[b] - sqrtf(discriminant)) / (2.0 * var[a]);
-	res.t[1] = (-var[b] + sqrtf(discriminant)) / (2.0 * var[a]);
-//	res.count = 2;
-	if (res.t[0] > res.t[1])
-		swapf(&res.t[0], &res.t[1]);
-//	truncate_cylinder(cylinder, ray, &res);
-	res = intersect_caps(cylinder, ray, res);
-	truncate_cylinder(cylinder, ray, &res);
+	res.count = 2;
 	return (res);
 }
+

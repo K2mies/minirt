@@ -347,6 +347,19 @@ typedef struct	s_cube_intersect_param
 
 /* ================================ ENUMS =================================== */
 
+//Enum for inverse and transpose matrix values;
+typedef	enum	e_inverse_transpose
+{
+	inverse,
+	transpose
+}	t_inverse_transpose;
+
+//Enum for world and local values;
+typedef	enum	e_world_local
+{
+	world,
+	local
+}	t_world_local;
 //Enum for max and min values;
 typedef	enum	e_max_min
 {
@@ -596,44 +609,47 @@ t_intersection		intersection(t_float t, t_object obj);
 t_intersections		object_intersection(t_object *obj, t_ray ray);
 void				world_intersect(t_world *w, t_ray ray);
 /* ----------------------------------------------------------- minirt_ray02.c */
-t_intersections		sphere_intersection(t_object *sphere, t_ray ray);
+void				add_intersections(t_world *w, t_intersections xs, int i);
 /* ----------------------------------------------------------- minirt_ray03.c */
-t_intersections		plane_intersection(t_object *plane, t_ray ray);
+t_intersections		sphere_intersection(t_object *sphere, t_ray ray);
 /* ----------------------------------------------------------- minirt_ray04.c */
-t_intersections		cube_intersection(t_object *cube, t_ray ray);
+t_intersections		plane_intersection(t_object *plane, t_ray ray);
 /* ----------------------------------------------------------- minirt_ray05.c */
-t_intersections		cylinder_intersection(t_object *cylinder, t_ray ray);
+t_intersections		cube_intersection(t_object *cube, t_ray ray);
 /* ----------------------------------------------------------- minirt_ray06.c */
-void				truncate_cylinder(t_object *cylinder, t_ray ray, t_intersections *res);
+t_intersections		cylinder_intersection(t_object *cylinder, t_ray ray);
 /* ----------------------------------------------------------- minirt_ray07.c */
-t_intersections		intersect_caps(t_object *cylinder, t_ray ray, t_intersections xs);
+void				truncate_cylinder(t_object *cylinder, t_ray ray, t_intersections *res);
 /* ----------------------------------------------------------- minirt_ray08.c */
+t_intersections		intersect_caps(t_object *cylinder, t_ray ray, t_intersections xs);
+/* ----------------------------------------------------------- minirt_ray09.c */
 t_ray				transform(t_ray r, t_matrix4 m);
 void				set_transform(t_object *s, t_matrix4 m);
-/* ----------------------------------------------------------- minirt_ray09.c */
+/* ----------------------------------------------------------- minirt_ray10.c */
 t_tuple				normal_at(t_object obj, t_tuple world_point);
+/* ----------------------------------------------------------- minirt_ray11.c */
 t_tuple				normal_at_sphere(t_object obj, t_tuple world_point);
 t_tuple				normal_at_plane(t_object obj);
 t_tuple				normal_at_cube(t_object obj, t_tuple world_point);
 t_tuple				normal_at_cylinder(t_object obj, t_tuple world_point);
 t_tuple				normal_at_cap(t_object obj, t_tuple world_point);
-/* ----------------------------------------------------------- minirt_ray10.c */
+/* ----------------------------------------------------------- minirt_ray12.c */
 t_tuple				reflect(t_tuple in, t_tuple normal);
-/* ----------------------------------------------------------- minirt_ray11.c */
+/* ----------------------------------------------------------- minirt_ray13.c */
 t_color				lighting(t_lighting_param p, t_material m, t_light light, t_tuple v[3]);
 bool				is_shadowed(t_world world, t_tuple point);
-/* ----------------------------------------------------------- minirt_ray12.c */
-t_computations		prepare_computations(t_world w, t_intersection *i, t_ray r);
-/* ----------------------------------------------------------- minirt_ray13.c */
-void				prepare_refraction_calculations(t_world *w, t_computations *comps, t_intersection *target);
 /* ----------------------------------------------------------- minirt_ray14.c */
+t_computations		prepare_computations(t_world w, t_intersection *i, t_ray r);
+/* ----------------------------------------------------------- minirt_ray15.c */
+void				prepare_refraction_calculations(t_world *w, t_computations *comps, t_intersection *target);
+/* ----------------------------------------------------------- minirt_ray16.c */
 t_intersection		hit(t_world *w);
 t_color				shade_hit(t_world w, t_computations comps, t_object obj, int remaining);
-/* ----------------------------------------------------------- minirt_ray15.c */
-t_color				color_at(t_world w, t_ray r, int remaining);
-/* ----------------------------------------------------------- minirt_ray16.c */
-t_ray				ray_for_pixel(t_camera cam, t_float px, t_float py);
 /* ----------------------------------------------------------- minirt_ray17.c */
+t_color				color_at(t_world w, t_ray r, int remaining);
+/* ----------------------------------------------------------- minirt_ray18.c */
+t_ray				ray_for_pixel(t_camera cam, t_float px, t_float py);
+/* ----------------------------------------------------------- minirt_ray19.c */
 t_float				schlick(t_computations comps);
 /* ============================== OBJECTS =================================== */
 
@@ -653,7 +669,7 @@ t_light		point_light(t_tuple origin, t_float brightness, t_color col);
 /* -------------------------------------------------------- minirt_object06.c */
 t_material	material(t_float param[7], t_color col);
 /* -------------------------------------------------------- minirt_object07.c */
-t_world		world(t_minirt *rt);
+t_world		world_scene(t_minirt *rt);
 t_world		default_world(t_minirt *rt);
 /* -------------------------------------------------------- minirt_object08.c */
 t_camera	camera(int h_size, int w_size, t_float fov);
@@ -719,7 +735,7 @@ void		load_plane(t_minirt *rt, char **data, int index);
 void		object_error(t_minirt *rt, char **a1, char **a2, char **a3);
 
 /////////////Remove these///////////////
-void	print_3d_data_array(char ***arr);
-void	print_stored_data(t_minirt *rt);
+void		print_3d_data_array(char ***arr);
+void		print_stored_data(t_minirt *rt);
 
 #endif

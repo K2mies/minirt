@@ -1,157 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_ray09.c                                     :+:      :+:    :+:   */
+/*   minirt_ray02.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 10:52:26 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/10 16:30:42 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/06/02 16:39:44 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/06/02 17:04:33 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
 
 /**
- * @brief	calculates the normal at a given point/intersection of a sub object
- * caculates the normal of a point/intersection on a sub object depending on
- * type
+ * @brief	transforms ray with transformation matrix
+ * transforms a ray based on transformation matrix
+ * as input
  *
- * @param obj			object to calculate normal on
- * @param world_point	intersection point in world space.
- * @return				normal vector from calculation
+ * @param r		ray that is to be transformed
+ * @param m		transformation matrix used to transform ray
+ * @return		returns newley transformed ray
  */
-t_tuple	normal_at(t_object obj, t_tuple world_point)
+t_ray transform(t_ray r, t_matrix4 m)
 {
-	t_tuple res;
-	if (obj.type == SPHERE)
-		res = normal_at_sphere(obj, world_point);
-	if (obj.type == PLANE)
-		res = normal_at_plane(obj);
-	if (obj.type == CUBE)
-		res = normal_at_cube(obj, world_point);
-	if (obj.type == CYLINDER)
-		res = normal_at_cylinder(obj, world_point);
-	if (obj.type == CYLINDER && obj.closed == true)
-		res = normal_at_cap(obj, world_point);
+	t_ray	res;
+
+	res.origin = multiply_matrix4_tuple(m, r.origin);
+	res.direction = multiply_matrix4_tuple(m, r.direction);
 	return (res);
 }
 
 /**
- * @brief	calculates the normal at a given point/intersection of a sphere
- * caculates the normal of a point/intersection on a sphere
+ * @brief	sets the transformation property of object
+ * sets the transformation matrix of the pointed to object
+ * based on the transformation matrix passed as an argument
  *
- * @param sphere		object(sphere) to calculate normal on
- * @param world_point	intersection point in world space.
- * @return				normal vector from calculation
+ * @param s		pointer to the object from which the property will be altered
+ * @param m		transformation matrix used to update transform property
  */
-t_tuple	normal_at_sphere(t_object obj, t_tuple world_point)
+void	set_transform(t_object *s, t_matrix4 m)
 {
-	t_tuple	object_point;
-	t_tuple	object_normal;
-	t_tuple	world_normal;
-	t_tuple res;
-
-	object_point = multiply_matrix4_tuple(
-		inverse_matrix4(obj.transform), world_point);
-	object_normal = sub_tuples(object_point, point(0, 0, 0));
-	world_normal = multiply_matrix4_tuple(
-		transpose_matrix4(inverse_matrix4(obj.transform)), object_normal);
-	world_normal.w = 0;
-	res = normalize_vector(world_normal);
-	return (res);
-}
-
-/**
- * @brief	calculates the normal at a given point/intersection of a plane
- * caculates the normal of a point/intersection on a plane
- *
- * @param sphere		object(plane) to calculate normal on
- * @param world_point	intersection point in world space.
- * @return				normal vector from calculation
- */
-t_tuple normal_at_plane(t_object obj)
-{
-	t_tuple		local_normal;
-	t_tuple		world_normal;
-	t_matrix4	inverse_matrix;
-	t_matrix4	transpose_matrix;
-
-	local_normal = obj.vector;
-	inverse_matrix = inverse_matrix4(obj.transform);
-	transpose_matrix = transpose_matrix4(inverse_matrix);
-	world_normal = multiply_matrix4_tuple(transpose_matrix, local_normal);
-//	world_normal = multiply_matrix4_tuple(transpose_matrix4(inverse_matrix4(obj.transform)), local_normal);
-	world_normal.w = 0;
-	world_normal = normalize_vector(world_normal);
-	return (world_normal);
-}
-
-/**
- * @brief	calculates the normal at a given point/intersection of a cube
- * caculates the normal of a point/intersection on a cube
- *
- * @param sphere		object(plane) to calculate normal on
- * @param world_point	intersection point in world space.
- * @return				normal vector from calculation
- */
-t_tuple	normal_at_cube(t_object obj, t_tuple world_point)
-{
-	t_float	maxc;
-	t_tuple	object_point;
-	t_float	abs[3];
-
-	object_point = multiply_matrix4_tuple(
-		inverse_matrix4(obj.transform), world_point);
-	abs[x] = fabsf(object_point.x);
-	abs[y] = fabsf(object_point.y);
-	abs[z] = fabsf(object_point.z);
-	maxc = max_3(abs[x], abs[y], abs[z]);
-	if (maxc == abs[x])
-		return (vector(object_point.x, 0, 0));
-	if (maxc == abs[y])
-		return (vector(0, object_point.y, 0));
-	if (maxc == abs[z])
-		return (vector(0, 0, object_point.z));
-	return (vector(0, 0, 0));
-}
-
-/**
- * @brief	calculates the normal at a given point/intersection of a cylinder
- * caculates the normal of a point/intersection on a cylinder
- *
- * @param sphere		object(cylinder) to calculate normal on
- * @param world_point	intersection point in world space.
- * @return				normal vector from calculation
- */
-t_tuple	normal_at_cylinder(t_object obj, t_tuple world_point)
-{
-	t_tuple	object_point;
-
-	object_point = multiply_matrix4_tuple(
-		inverse_matrix4(obj.transform), world_point);
-	return(vector(object_point.x, 0, object_point.z));
-}
-
-/**
- * @brief	calculates the normal at a given point/intersection of a cylinder cap
- * caculates the normal of a point/intersection on a cylinder cap
- *
- * @param sphere		object(cylinder cap) to calculate normal on
- * @param world_point	intersection point in world space.
- * @return				normal vector from calculation
- */
-t_tuple	normal_at_cap(t_object obj, t_tuple world_point)
-{
-	t_tuple	object_point;
-	t_float	distance;
-
-	object_point = multiply_matrix4_tuple(
-		inverse_matrix4(obj.transform), world_point);
-	distance = object_point.x * object_point.x
-		+ object_point.z * object_point.z;
-	if (distance < 1 && object_point.y >= obj.max - EPSILON)
-		return (vector(0, 1, 0));
-	else if (distance < 1 && object_point.y <= obj.min + EPSILON)
-			return (vector(0, -1, 0));
-	return (vector(object_point.x, 0, object_point.z));
+	s->transform = m;
 }

@@ -51,28 +51,6 @@ t_intersections object_intersection(t_object *obj, t_ray ray)
 	return (xs);
 }
 
-static void	add_intersections_to_ts_array(t_world *w, t_intersections xs, int i)
-{
-	if (xs.count != 0 && xs.count == 1)
-	{
-		w->ts[w->n_ts].t = xs.t[0];
-		w->ts[w->n_ts].object = w->objs[i];
-		w->ts[w->n_ts].obj_index = i;
-		++w->n_ts;
-	}
-	if (xs.count != 0 && xs.count == 2)
-	{
-		w->ts[w->n_ts].t = xs.t[0];
-		w->ts[w->n_ts].object = w->objs[i];
-		w->ts[w->n_ts].obj_index = i;
-		++w->n_ts;
-		w->ts[w->n_ts].t = xs.t[1];
-		w->ts[w->n_ts].object = w->objs[i];
-		w->ts[w->n_ts].obj_index = i;
-		++w->n_ts;
-	}
-}
-
 /**
  * @brief	run intersection on all world objects
  * creates a list of intersections for all objects
@@ -91,7 +69,7 @@ void	world_intersect(t_world *w, t_ray ray)
 	while (i < w->n_objs)
 	{
 		xs = object_intersection(&w->objs[i], ray);
-		add_intersections_to_ts_array(w, xs, i);
+		add_intersections(w, xs, i);
 		++i;
 	}
 	quicksort(w->ts, 0, w->n_ts -1);

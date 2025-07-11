@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_ray04.c                                     :+:      :+:    :+:   */
+/*   minirt_ray03.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/08 15:33:15 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/08 15:36:17 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/07/08 15:30:24 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/07/08 15:33:03 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
 
 /**
- * @brief	intersections  of a ray and a cube
- * creates a hit value from ray hitting a cube
+ * @brief	intersections  of a ray and a plane
+ * creates a hit value from ray hitting a plane
  * and returns as two values if there is a hit, 0 if 
  * it is a miss.
  *
@@ -21,24 +21,19 @@
  * @param ray		Ray to cast
  * @return	t_intersections	result of intersections
  */
-t_intersections	cube_intersection(t_object *cube, t_ray ray)
+t_intersections	plane_intersection(t_object *plane, t_ray ray)
 {
-	t_cube_intersect_param	p;
-	t_intersections			res;
+	t_intersections	res;
 
-	ray = transform(ray, inverse_matrix4(cube->transform));
-	cube->saved_ray = ray;
-	check_axis(ray.origin.x, ray.direction.x, &p.xt[min], &p.xt[max]);
-	check_axis(ray.origin.y, ray.direction.y, &p.yt[min], &p.yt[max]);
-	check_axis(ray.origin.z, ray.direction.z, &p.zt[min], &p.zt[max]);
-	res.t[0] = max_3(p.xt[min], p.yt[min], p.zt[min]);
-	res.t[1] = min_3(p.xt[max], p.yt[max], p.zt[max]);
-	if (res.t[0] > res.t[1])
+	ray = transform(ray, inverse_matrix4(plane->transform));
+	plane->saved_ray = ray;
+	if (fabsf(ray.direction.y) < EPSILON)
 	{
 		res.count = 0;
 		return (res);
 	}
-	res.count = 2;
+	res.t[0] = -ray.origin.y / ray.direction.y;
+	res.t[1] = res.t[0];
+	res.count = 1;
 	return (res);
 }
-

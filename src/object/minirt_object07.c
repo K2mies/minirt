@@ -23,8 +23,15 @@ static int	count_intersections(t_world w)
 	{
 		if (w.objs[i].type == PLANE)
 			count++;
-		else if (w.objs[i].type == SPHERE)
+		if (w.objs[i].type == SPHERE)
 		{
+			count++;
+			count++;
+		}
+		if (w.objs[i].type == CYLINDER)
+		{
+			count++;
+			count++;
 			count++;
 			count++;
 		}
@@ -38,7 +45,7 @@ static int	count_intersections(t_world w)
  * @param rt		Pointer to main data struct
  * @return			t_world object
  */
-t_world	world(t_minirt *rt)
+t_world	world_scene(t_minirt *rt)
 {
 	t_world	w;
 	int		count;
@@ -67,7 +74,7 @@ t_world	default_world(t_minirt *rt)
 	t_world	w;
 	t_color	col;
 
-	w = world(rt);
+	w = world_scene(rt);
 	col = color(0.8, 1.0, 0.6);
 	w.objs[0].color = col;
 	w.objs[0].material.color = col;

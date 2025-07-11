@@ -98,6 +98,8 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				$(SRC_DIR)/ray/minirt_ray15.c										\
 				$(SRC_DIR)/ray/minirt_ray16.c										\
 				$(SRC_DIR)/ray/minirt_ray17.c										\
+				$(SRC_DIR)/ray/minirt_ray18.c										\
+				$(SRC_DIR)/ray/minirt_ray19.c										\
 				\
 				$(SRC_DIR)/object/minirt_object00.c									\
 				$(SRC_DIR)/object/minirt_object01.c									\
