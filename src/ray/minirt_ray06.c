@@ -84,7 +84,7 @@ t_intersections	cylinder_intersection(t_object *cylinder, t_ray ray)
 	{
 //		truncate_cylinder(cylinder, ray, &res);
 		res = intersect_caps(cylinder, ray, res);
-//		truncate_cylinder(cylinder, ray, &res);
+		truncate_cylinder(cylinder, ray, &res);
 		return (res);
 	}
 	var[b] = calculate_var_b(ray);

@@ -1,29 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_ray08.c                                     :+:      :+:    :+:   */
+/*   minirt_ray07.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/09 16:51:07 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/09 17:17:30 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/06/06 15:30:46 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/06/25 16:12:09 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
 
-t_ray	ray_for_pixel(t_camera cam, t_float px, t_float py)
+/**
+ * @brief	prepares computations for rendering
+ * returns a cmops struct with computations completed
+ *
+ * @param i		intersectiont to compute
+ * @param r		ray to use for computations
+ * @return		computations struct with contained values
+ */
+t_computations prepare_computations(t_world w, t_intersection *i, t_ray r)
 {
-	t_ray_for_pixel_param	p;
-	t_matrix4	m;
+	t_computations	comps;
 
-	p.offset[x] = (px + 0.5) * cam.pixel_size;
-	p.offset[y] = (py + 0.5) * cam.pixel_size;
-	p.world[x] = cam.half[width] - p.offset[x];
-	p.world[y] = cam.half[height] - p.offset[y];
-	m = inverse_matrix4(cam.transform);
-	p.pixel = multiply_matrix4_tuple(m , point(p.world[x], p.world[y], -1));
-	p.origin = multiply_matrix4_tuple(m , point(0, 0, 0));
-	p.direction = sub_tuples(p.pixel, p.origin);
-	p.direction = normalize_vector(p.direction);
-	return (ray(p.origin, p.direction));
+	comps.t = i->t;
+	comps.object = i->object;
+	comps.v[pos] = position(r, comps.t);
+	comps.v[eyev] = negate_tuple(r.direction);
+	comps.v[normalv] = normal_at(comps.object, comps.v[pos]);
+	prepare_refraction_calculations(&w, &comps, i);
+	if (dot_product(comps.v[normalv], comps.v[eyev]) < 0)
+	{
+		comps.inside = true;
+		comps.v[normalv] = negate_tuple(comps.v[normalv]);
+	}
+	else
+		comps.inside = false;
+	comps.v[reflectv] = reflect(r.direction, comps.v[normalv]);
+	comps.over_point = add_tuples(comps.v[pos],
+				multiply_tuple_by_scalar(comps.v[normalv], REFRACTION_BIAS));
+	comps.under_point = sub_tuples(comps.v[pos],
+				multiply_tuple_by_scalar(comps.v[normalv], SHADOW_BIAS));
+	return (comps);
 }

@@ -24,7 +24,6 @@ static t_float	check_cap(t_ray ray, t_float t, t_object *cylinder)
 {
 	t_float	x;
 	t_float	z;
-
 	x = ray.origin.x + (t * ray.direction.x);
 	z = ray.origin.z + (t * ray.direction.z);
 	return (((x * x) + (z * z)) <= cylinder->radius);

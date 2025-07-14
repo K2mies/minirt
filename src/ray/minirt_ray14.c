@@ -1,45 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_ray07.c                                     :+:      :+:    :+:   */
+/*   minirt_ray14.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/06 15:30:46 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/25 16:12:09 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/07/14 15:44:23 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/07/14 15:45:11 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
 
 /**
- * @brief	prepares computations for rendering
- * returns a cmops struct with computations completed
+ * @brief	calculates the normal at a given point/intersection of a cylinder
+ * caculates the normal of a point/intersection on a cylinder
  *
- * @param i		intersectiont to compute
- * @param r		ray to use for computations
- * @return		computations struct with contained values
+ * @param obj			object(cylinder) to calculate normal on
+ * @param world_point	intersection point in world space.
+ * @return				normal vector from calculation
  */
-t_computations prepare_computations(t_world w, t_intersection *i, t_ray r)
+t_tuple	normal_at_cylinder(t_object obj, t_tuple world_point)
 {
-	t_computations	comps;
 
-	comps.t = i->t;
-	comps.object = i->object;
-	comps.v[pos] = position(r, comps.t);
-	comps.v[eyev] = negate_tuple(r.direction);
-	comps.v[normalv] = normal_at(comps.object, comps.v[pos]);
-	prepare_refraction_calculations(&w, &comps, i);
-	if (dot_product(comps.v[normalv], comps.v[eyev]) < 0)
-	{
-		comps.inside = true;
-		comps.v[normalv] = negate_tuple(comps.v[normalv]);
-	}
-	else
-		comps.inside = false;
-	comps.v[reflectv] = reflect(r.direction, comps.v[normalv]);
-	comps.over_point = add_tuples(comps.v[pos],
-				multiply_tuple_by_scalar(comps.v[normalv], REFRACTION_BIAS));
-	comps.under_point = sub_tuples(comps.v[pos],
-				multiply_tuple_by_scalar(comps.v[normalv], SHADOW_BIAS));
-	return (comps);
+	t_matrix4	matrix[2];
+	t_tuple		normal[2];
+	t_tuple		object_point;
+	
+	matrix[inverse] = inverse_matrix4(obj.transform);
+	matrix[transpose] = transpose_matrix4(matrix[inverse]);
+	object_point = multiply_matrix4_tuple(matrix[inverse], world_point);
+	normal[local] = vector(object_point.x, 0, object_point.z);
+	normal[world] = multiply_matrix4_tuple(matrix[transpose], normal[local]);
+	normal[world].w = 0;
+	normal[world] = normalize_vector(normal[world]);
+	return (normal[world]);
 }
+

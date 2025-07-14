@@ -1,40 +1,76 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_ray13.c                                     :+:      :+:    :+:   */
+/*   minirt_ray08.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/30 12:23:20 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/30 13:30:25 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/06/25 14:14:53 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/06/25 14:15:11 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
 
 /**
- * @brief	schlick calculation for reflection based on distance
+ * @brief	prepares refraction calculations using a container for objs
  *
- * @param comps	computation paramaters
- * @return		t_float value
+ * @param w				pointer to world struct
+ * @param comps			pointer to computations struct
+ * @param target		target or (hit) intersection
  */
-t_float	schlick(t_computations comps)
-{
-	t_float	cos[2];
-	t_float	sin2_t;
-	t_float	n_ratio;
-	t_float	reflectance;
+//void	prepare_refraction_calculations(t_world *w, t_computations *comps, t_intersection *target)
+//{
+//	t_obj_container	container;
+//	int		i;
+//
+//	container.n_obj = 0;
+//	comps->n[0] = 1.0f;
+//	comps->n[1] = 1.0f;
+//	i = -1;
+//	while (++i < w->n_ts)
+//	{
+//		if (&w->ts[i] == target)
+//		{
+//			if (container.n_obj <= 0)
+//				comps->n[0] = 1.0f;
+//			else
+//				comps->n[0] = get_refractive_index(&container);
+//		}
+//		update_container(&container, &w->objs[w->ts[i].obj_index]);
+//		if (&w->ts[i] == target)
+//		{
+//			if (container.n_obj <= 0)
+//				comps->n[1] = 1.0f;
+//			else
+//				comps->n[1] = get_refractive_index(&container);
+//		}
+//		printf("container count = %d\n", container.n_obj);
+//	}
+//}
 
-	cos[a] = dot_product(comps.v[eyev], comps.v[normalv]);
-	if (comps.n[0] > comps.n[1])
+void	prepare_refraction_calculations(t_world *w, t_computations *comps, t_intersection *target)
+{
+	t_obj_container	container;
+	t_object		*object;
+	int				i;
+
+	container.n_obj = 0;
+	comps->n[0] = 1.0f;
+	comps->n[1] = 1.0f;
+	i = 0;
+	while (i < w->n_ts)
 	{
-		n_ratio = comps.n[0] / comps.n[1];
-		sin2_t = n_ratio * n_ratio * (1 - cos[a] * cos[a]);
-		if (sin2_t > 1.0)
-			return (1.0);
-		cos[b] = sqrtf(1.0f - sin2_t);
-		cos[a] = cos[b];
+			object = &w->objs[w->ts[i].obj_index];
+//			if (&w->ts[i] == target)
+			if (w->ts[i].t == target->t)
+			{
+				comps->n[0] = get_refractive_index(&container);
+				update_container(&container, object);
+				comps->n[1] = get_refractive_index(&container);
+				return;
+			}
+			update_container(&container, object);
+//			printf("container count = %d\n", container.n_obj);
+			i++;
 	}
-	reflectance = ((comps.n[0] = comps.n[1]) / (comps.n[0] + comps.n[1]));
-	reflectance = reflectance * reflectance;
-	return (reflectance + (1 - reflectance) * powf(1 - cos[a], 5));
 }

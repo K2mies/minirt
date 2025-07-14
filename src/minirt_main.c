@@ -3025,10 +3025,10 @@ void	test_single_cylinder(t_minirt *rt)
 	cam = camera(50 * scalar, 100 * scalar, deg_to_rad(60));
 	cam.transform = view_transform(point(0, 1.5, -5), point(0, 1, 0), vector(0, 1, 0));
 
-	w.light[0] = point_light(point(-10, 10, -10), 1.0, color(1, 1, 1));
+	w.light[0] = point_light(point(-10, 10, 0), 1.0, color(1, 1, 1));
 
 //	w.objs[0] = cube(point(0, 0, 0), color(1, 0 , 0));
-	w.objs[0] = cylinder(point(0, 0, 0), 2, 2, color(0, 0, 1));
+	w.objs[0] = cylinder(point(0, 0, 0), 2, 2, color(1, 1, 1));
 	w.objs[0].closed = true;
 	m = id_matrix4();
 //	m = multiply_matrix4(m, translation(0, -3.5, -0.5));
@@ -3128,6 +3128,105 @@ void	test_cylinder_caps_intersection()
 
 	printf(" xs.t[0] = %f\n xs.t[1] = %f\n xs.t[2] = %f\n xs.t[3] = %f\n xs.count = %d\n", xs.t[0], xs.t[1], xs.t[2], xs.t[3], xs.count);
 }
+
+void	test_penis_scene(t_minirt *rt)
+{
+	t_world		w;
+	t_matrix4	m;
+	t_matrix4	pm;
+	t_color		col;
+	t_camera	cam;
+	t_canvas	*img;
+	int			scaler;
+
+/* ================================ WORLD ================================ */
+	w = world_scene(rt);
+	scaler = 10;
+/* ================================ CAMERA =============================== */
+	cam = camera(50 * scaler, 100 * scaler, deg_to_rad(60));
+	cam.transform = view_transform(point(0, 1.5, -5), point(0, 1, 0), vector(0, 1, 0));
+/* ================================= LIGHT =============================== */
+	w.light[0] = point_light(point(-10, 10, -10), 1.0, color(1, 1, 1));
+/* ================================ FLOOR ================================ */
+/* --------------------------------------------------------------transforms*/
+//	null
+/* ----------------------------------------------------------------material*/
+	col = color(0.9, 0.9, 0.9);
+	w.objs[0].color = col;
+	w.objs[0].material.color = col;
+/* -----------------------------------------------------------------pattern*/
+	w.objs[0].material.has_pattern = true;
+	w.objs[0].material.pattern = pattern(color(0, 0, 0), color(0.9, 0.9, 0.9), CHECKER);
+	w.objs[0].material.reflective = 0;
+	pm = id_matrix4();
+	pm = multiply_matrix4(pm, scaling(0.5, 0.5, 0.5));
+	w.objs[0].material.pattern.transform = pm;
+
+/* ============================== LEFT BALL ============================== */
+
+/* --------------------------------------------------------------transforms*/
+	m = id_matrix4();
+	m = multiply_matrix4(m, translation(-0.5, 0.5, 2));
+	m = multiply_matrix4(m, scaling(0.5, 0.5, 0.5));
+	w.objs[1].transform = m;
+/* ----------------------------------------------------------------material*/
+	col = color(1, 0.77, 0.51);
+	w.objs[1].color = col;
+	w.objs[1].material.color = col;
+/* -----------------------------------------------------------------pattern*/
+	w.objs[1].material.has_pattern = false;
+
+/* ============================== RIGHT BALL ============================== */
+
+/* --------------------------------------------------------------transforms*/
+	m = id_matrix4();
+	m = multiply_matrix4(m, translation(0.5, 0.5, 2));
+	m = multiply_matrix4(m, scaling(0.5, 0.5, 0.5));
+	w.objs[2].transform = m;
+/* ----------------------------------------------------------------material*/
+	col = color(1, 0.77, 0.51);
+	w.objs[2].color = col;
+	w.objs[2].material.color = col;
+/* -----------------------------------------------------------------pattern*/
+	w.objs[2].material.has_pattern = false;
+
+/* ================================= HEAD ================================= */
+
+/* --------------------------------------------------------------transforms*/
+	m = id_matrix4();
+	m = multiply_matrix4(m, translation(0, 1.7, 0));
+	m = multiply_matrix4(m, scaling(0.5, 0.5, 0.5));
+	w.objs[3].transform = m;
+/* ----------------------------------------------------------------material*/
+	col = color(1, 0.467, 0.42);
+	w.objs[3].color = col;
+	w.objs[3].material.color = col;
+/* -----------------------------------------------------------------pattern*/
+	w.objs[3].material.has_pattern = false;
+
+
+/* ================================= SHAFT ================================ */
+/* -----------------------------------------------------------------generate*/
+	t_object	cy;
+	cy = cylinder(point(0, 0, 0), 0.5, 1.5, color(1, 0.77, 0.51));
+	w.objs[4] = cy;
+	w.objs[4].closed = true;
+/* --------------------------------------------------------------transforms*/
+	m = id_matrix4();
+	m = multiply_matrix4(m, translation(0, 0.7, 2));
+	m = multiply_matrix4(m, rotation_x(-58));
+	m = multiply_matrix4(m, scaling(0.4, 1, 0.4));
+	w.objs[4].transform = m;
+/* ----------------------------------------------------------------material*/
+	col = color(1, 0.77, 0.51);
+	w.objs[4].color = col;
+	w.objs[4].material.color = col;
+/* -----------------------------------------------------------------pattern*/
+	w.objs[4].material.has_pattern = false;
+/* ============================== RENDERING ============================== */
+	img = render(cam, w);
+	canvas_to_ppm(img);
+}
 int	main(int argc, char **argv)
 {
 //	(void)argc;
@@ -3143,6 +3242,7 @@ int	main(int argc, char **argv)
 	rt.n_light = 0;
 	rt.ts = NULL;
 	open_file(&rt, argv);
+//	test_penis_scene(&rt);
 //	test_cylinder_caps_intersection();
 	test_single_cylinder(&rt);
 //	test_cylinder_normal();

@@ -1,100 +1,64 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_ray06.c                                     :+:      :+:    :+:   */
+/*   minirt_ray13.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 14:47:00 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/17 16:32:49 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/07/14 15:42:52 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/07/14 16:08:57 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
 
 /**
- * @brief	Helper function to asign and calculate the paramaters
- * asigns all params of *p in order to keep the
- * line count of lighting() below 25;
+ * @brief	helper function to calculate the local normal for a cube
+ * caculates the local normal based on the max value from
+ * abs[x], abs[y], abs[z]
+ * and return the object point of the max
  *
- * @param p			pointer to the param struct for lighting()
- * @param m			matterial to be used
- * @param light		light to be used for calculation
- * @param v			array of 3 vectors needed
+ * @param object_point	point in object/local space
+ * @return				t_tuple normal[local]
  */
-static void	apply_lighting(t_lighting_param *p, t_material m, t_light light, t_tuple v[3])
+static	t_tuple	calculate_local_normal(t_tuple object_point)
 {
-	p->effective_color = multiply_color(m.color, light.color);
-	p->lightv = normalize_vector(sub_tuples(light.origin, v[pos]));
-	p->ambient = multiply_color_by_scalar(p->effective_color, m.ambient);
-	p->light_dot_normal = dot_product(p->lightv, v[normalv]);
-	if (p->light_dot_normal < 0 || p->in_shadow == true)
-	{
-		p->diffuse = color(0, 0, 0);
-		p->specular = color(0, 0, 0);
-	}
-	else
-	{
-		p->diffuse = multiply_color_by_scalar(
-			p->effective_color ,(m.diffuse * p->light_dot_normal));
-		p->reflectv = reflect(negate_tuple(p->lightv), v[normalv]);
-		p->reflect_dot_eye = dot_product(p->reflectv, v[eyev]);
-		if (p->reflect_dot_eye <= 0)
-			p->specular = color(0, 0, 0);
-		else
-		{
-			p->factor = pow(p->reflect_dot_eye, m.shininess);
-			p->specular = multiply_color_by_scalar(
-				light.color, (m.specular * p->factor));
-		}
-	}
+	t_tuple	local_normal;
+	t_float	abs[3];
+	t_float	maxc;
+
+	abs[x] = fabsf(object_point.x);
+	abs[y] = fabsf(object_point.y);
+	abs[z] = fabsf(object_point.z);
+	maxc = max_3(abs[x], abs[y], abs[z]);
+	if (maxc == abs[x])
+		local_normal = vector(object_point.x, 0, 0);
+	if (maxc == abs[y])
+		local_normal = vector(0, object_point.y, 0);
+	if (maxc == abs[z])
+		local_normal = vector(0, 0, object_point.z);
+	return (local_normal);
 }
 
 /**
- * @brief	applies lighting and returns a color
- * creates, asigns and returns a col based on phong lighting model
- * third paramater is for 3 vectors
- * v[pos]			t_tuple
- * v[eyev]			t_tuple
- * v[normalv]		t_tuple
- * @param m			material to be asigned
- * @param light		light to be used as source
- * @param v			array of 3 vectors needed
- * @return			t_color returned color;
+ * @brief	calculates the normal at a given point/intersection of a cube
+ * caculates the normal of a point/intersection on a cube
+ *
+ * @param obj			object(plane) to calculate normal on
+ * @param world_point	intersection point in world space.
+ * @return				normal vector from calculation
  */
-t_color	lighting(t_lighting_param p, t_material m, t_light light, t_tuple v[3])
-{
-	t_color				res;
+t_tuple	normal_at_cube(t_object obj, t_tuple world_point)
+{	
+	t_matrix4	matrix[2];
+	t_tuple		normal[2];
+	t_tuple		object_point;
 
-	if (m.has_pattern == true)
-		m.color	= pattern_at(m.pattern, p.obj, v[pos]);
-	apply_lighting(&p, m, light, v);
-	res = add_three_colors(p.ambient, p.diffuse, p.specular);
-	return (res);
+	matrix[inverse] = inverse_matrix4(obj.transform);
+	matrix[transpose] = transpose_matrix4(matrix[inverse]);
+	object_point = multiply_matrix4_tuple(matrix[inverse], world_point);
+	normal[local] = calculate_local_normal(object_point);
+	normal[world] = multiply_matrix4_tuple(matrix[transpose], normal[local]);
+	normal[world].w = 0;
+	normal[world] = normalize_vector(normal[world]);
+	return (normal[world]);
 }
-
-/**
- * @brief	calculates wether point is in shadow or not
- * returns true if point is in shadow and false if not.
- * @param world		world object to use
- * @param point		point in space for calculation
- * @return			bool true if in shadow, false if not.
- */
-bool	is_shadowed(t_world world, t_tuple point)
-{
-	t_intersection	h;
-	t_tuple			v;
-	t_tuple			direction;
-	t_float			distance;
-	t_ray			r;
-
-	v = sub_tuples(world.light[0].origin, point);
-	distance = get_magnitude(v);
-	direction = normalize_vector(v);
-	r = ray(point, direction);
-	world_intersect(&world, r);
-	h = hit(&world);
-	if (h.t >= 0 && h.t < distance)
-		return (true);
-	return (false);
-}
-
