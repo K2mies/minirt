@@ -1,32 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_ray05.c                                     :+:      :+:    :+:   */
+/*   minirt_ray04.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/17 11:31:38 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/17 11:32:55 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/07/08 15:33:15 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/07/08 15:36:17 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
 
-
 /**
- * @brief	calculates the reflected vector
- * calculates the reflected vector from the in vector and normal
+ * @brief	intersections  of a ray and a cube
+ * creates a hit value from ray hitting a cube
+ * and returns as two values if there is a hit, 0 if 
+ * it is a miss.
  *
- * @param in			incomming vector
- * @param normal		normal vector to bounce off
- * @return				reflected vector
+ * @param sphere	plane object to be intersected
+ * @param ray		Ray to cast
+ * @return	t_intersections	result of intersections
  */
-t_tuple	reflect(t_tuple in, t_tuple normal)
+t_intersections	cube_intersection(t_object *cube, t_ray ray)
 {
-	t_tuple res;
-	t_tuple scaled_norm;
+	t_cube_intersect_param	p;
+	t_intersections			res;
 
-	scaled_norm = multiply_tuple_by_scalar(normal, 2 * dot_product(in, normal));
-	res = sub_tuples(in, scaled_norm);
-//	res = multiply_tuple_by_scalar(sub_tuples(in, normal), 2 * dot_product(in, normal));
+	ray = transform(ray, inverse_matrix4(cube->transform));
+	cube->saved_ray = ray;
+	check_axis(ray.origin.x, ray.direction.x, &p.xt[min], &p.xt[max]);
+	check_axis(ray.origin.y, ray.direction.y, &p.yt[min], &p.yt[max]);
+	check_axis(ray.origin.z, ray.direction.z, &p.zt[min], &p.zt[max]);
+	res.t[0] = max_3(p.xt[min], p.yt[min], p.zt[min]);
+	res.t[1] = min_3(p.xt[max], p.yt[max], p.zt[max]);
+	if (res.t[0] > res.t[1])
+	{
+		res.count = 0;
+		return (res);
+	}
+	res.count = 2;
 	return (res);
 }
+

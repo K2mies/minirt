@@ -5,72 +5,46 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/25 14:14:53 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/25 14:15:11 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/07/09 15:05:26 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/07/11 10:23:09 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
+/**
+ * @brief	helper function to reduce duplication
+ * Checks to see if the intersection at t is within a radus
+ * of the object from the y axis
+ *
+ * @param ray		ray to use for calculation
+ * @param t			t value to check
+ * @param cylinder	pointer to the cylinder object to operate on
+ * @return			t_float calculation
+ */
+static t_float	check_cap(t_ray ray, t_float t, t_object *cylinder)
+{
+	t_float	x;
+	t_float	z;
+	x = ray.origin.x + (t * ray.direction.x);
+	z = ray.origin.z + (t * ray.direction.z);
+	return (((x * x) + (z * z)) <= cylinder->radius);
+}
 
 /**
- * @brief	prepares refraction calculations using a container for objs
+ * @brief	intersections  of a ray and a cylinder
  *
- * @param w				pointer to world struct
- * @param comps			pointer to computations struct
- * @param target		target or (hit) intersection
+ * @param cylinder	cyliunder object to be intersected
+ * @param ray		Ray to cast
+ * @return			t_intersections	result of intersections
  */
-//void	prepare_refraction_calculations(t_world *w, t_computations *comps, t_intersection *target)
-//{
-//	t_obj_container	container;
-//	int		i;
-//
-//	container.n_obj = 0;
-//	comps->n[0] = 1.0f;
-//	comps->n[1] = 1.0f;
-//	i = -1;
-//	while (++i < w->n_ts)
-//	{
-//		if (&w->ts[i] == target)
-//		{
-//			if (container.n_obj <= 0)
-//				comps->n[0] = 1.0f;
-//			else
-//				comps->n[0] = get_refractive_index(&container);
-//		}
-//		update_container(&container, &w->objs[w->ts[i].obj_index]);
-//		if (&w->ts[i] == target)
-//		{
-//			if (container.n_obj <= 0)
-//				comps->n[1] = 1.0f;
-//			else
-//				comps->n[1] = get_refractive_index(&container);
-//		}
-//		printf("container count = %d\n", container.n_obj);
-//	}
-//}
-
-void	prepare_refraction_calculations(t_world *w, t_computations *comps, t_intersection *target)
+t_intersections	intersect_caps(t_object *cylinder, t_ray ray, t_intersections xs)
 {
-	t_obj_container	container;
-	t_object		*object;
-	int				i;
-
-	container.n_obj = 0;
-	comps->n[0] = 1.0f;
-	comps->n[1] = 1.0f;
-	i = 0;
-	while (i < w->n_ts)
-	{
-			object = &w->objs[w->ts[i].obj_index];
-//			if (&w->ts[i] == target)
-			if (w->ts[i].t == target->t)
-			{
-				comps->n[0] = get_refractive_index(&container);
-				update_container(&container, object);
-				comps->n[1] = get_refractive_index(&container);
-				return;
-			}
-			update_container(&container, object);
-//			printf("container count = %d\n", container.n_obj);
-			i++;
-	}
+	if (cylinder->closed == false || compare_floats(ray.direction.y, 0.0f))
+		return (xs);
+	xs.t[2] = (cylinder->min - ray.origin.y) / ray.direction.y;
+	if (check_cap(ray, xs.t[2], cylinder))
+		xs.count += 1;
+	xs.t[3] = (cylinder->max - ray.origin.y) / ray.direction.y;
+	if (check_cap(ray, xs.t[3], cylinder) )
+		xs.count += 1;
+	return (xs);
 }

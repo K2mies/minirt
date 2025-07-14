@@ -5,33 +5,33 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/09 10:34:33 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/25 15:47:07 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/06/04 10:52:26 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/07/11 16:11:53 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
 
 /**
- * @brief	fetches color at intersection point
- * returns a color from the hit point of an intersection
- * taking into account all the lighting computations
- * @param w			wpr;d object to operate on
- * @param r			ray to cast for intersections
- * @return			t_color returned color;
+ * @brief	calculates the normal at a given point/intersection of a sub object
+ * caculates the normal of a point/intersection on a sub object depending on
+ * type
+ *
+ * @param obj			object to calculate normal on
+ * @param world_point	intersection point in world space.
+ * @return				normal vector from calculation
  */
-t_color	color_at(t_world w, t_ray r, int remaining)
+t_tuple	normal_at(t_object obj, t_tuple world_point)
 {
-	t_intersection	hit_point;
-	t_color			res;
-
-	world_intersect(&w, r);
-	hit_point = hit(&w);
-	if(hit_point.t >= 0)
-	{
-		w.cs[w.hit_index] = prepare_computations(w, &hit_point, r);
-		res = shade_hit(w, w.cs[w.hit_index], hit_point.object, remaining);
-	}
-	else
-		res = color(0, 0, 0);
+	t_tuple res;
+	if (obj.type == SPHERE)
+		res = normal_at_sphere(obj, world_point);
+	if (obj.type == PLANE)
+		res = normal_at_plane(obj);
+	if (obj.type == CUBE)
+		res = normal_at_cube(obj, world_point);
+	if (obj.type == CYLINDER && obj.closed == true)
+		res = normal_at_cap(obj, world_point);
+	else if (obj.type == CYLINDER)
+		res = normal_at_cylinder(obj, world_point);
 	return (res);
 }
