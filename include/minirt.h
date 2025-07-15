@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:11:13 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/15 13:21:46 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/06/27 14:21:03 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -643,7 +643,7 @@ t_tuple				normal_at_cube(t_object obj, t_tuple world_point);
 /* ----------------------------------------------------------- minirt_ray15.c */
 t_tuple				normal_at_cylinder(t_object obj, t_tuple world_point);
 /* ----------------------------------------------------------- minirt_ray16.c */
-t_tuple				normal_at_cap(t_object obj, t_tuple world_point);
+t_tuple				normal_at_cylinder_cap(t_object obj, t_tuple world_point);
 
 
 /* ----------------------------------------------------------- minirt_ray16.c */
@@ -742,20 +742,14 @@ void		data_null_check(t_minirt *rt, char **data, char **tmp, char *line);
 bool		rt_isstrdigit(char *str);
 /* --------------------------------------------------------- parsing/sorting.c */
 void		sort_data_types(t_minirt *rt, char ***full);
-void		load_camera(t_minirt *rt, char **data);
-void		load_light(t_minirt *rt, char **data, int i);
-void		load_ambient(t_minirt *rt, char **data);
-
 /* ---------------------------------------------------------- parsing/object.c */
 void		load_cylinder(t_minirt *rt, char **data, int index);
 void		load_sphere(t_minirt *rt, char **data, int index);
 void		load_plane(t_minirt *rt, char **data, int index);
-void		load_cube(t_minirt *rt, char **data, int index);
-void 		load_cone(t_minirt *rt, char **data, int index);
-
-/* --------------------------------------------------------- parsing/object_utils.c */
-void		cylinder_check(t_minirt *rt, char **origin, char **vec, char **rgb);
-void		load_objects_to_data(t_minirt *rt, char ***full, int i);
 void		object_error(t_minirt *rt, char **a1, char **a2, char **a3);
+
+/////////////Remove these///////////////
+void		print_3d_data_array(char ***arr);
+void		print_stored_data(t_minirt *rt);
 
 #endif

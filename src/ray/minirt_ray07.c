@@ -95,12 +95,7 @@ t_intersections		cone_intersection(t_object *cone, t_ray ray)
 	discriminant = (var[b] * var[b]) - (4.0f * var[a] * var[c]);
 	if (discriminant < 0)
 		return (res);
-	res.t[0] = (-var[b] - sqrtf(discriminant)) / (2.0 * var[a]);
-	res.t[1] = (-var[b] + sqrtf(discriminant)) / (2.0 * var[a]);
-//	res.count = 2;
-	if (res.t[0] > res.t[1])
-		swapf(&res.t[0], &res.t[1]);
-//	truncate_cylinder(cylinder, ray, &res);
+	res.t[0] = -var[c] / (2.0f * var[b]);
 	res = intersect_cone_caps(cone, ray, res);
 	truncate_cone(cone, ray, &res);
 	return (res);

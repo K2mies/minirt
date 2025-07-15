@@ -47,7 +47,7 @@ static t_tuple	calculate_local_normal(t_tuple object_point, t_object obj)
  * @param world_point	intersection point in world space.
  * @return				normal vector from calculation
  */
-t_tuple	normal_at_cap(t_object obj, t_tuple world_point)
+t_tuple	normal_at_cylinder_cap(t_object obj, t_tuple world_point)
 {
 
 	t_matrix4	matrix[2];

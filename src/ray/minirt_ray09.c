@@ -59,7 +59,7 @@ t_intersections	intersect_cylinder_caps(t_object *cylinder, t_ray ray, t_interse
 t_intersections	intersect_cone_caps(t_object *cone, t_ray ray, t_intersections xs)
 {
 	xs.t[1] = (cone->height - ray.origin.y) / ray.direction.y;
-	if (xs.t[1] > EPSILON && check_cap(ray, xs.t[2], cone))
+	if (xs.t[1] > EPSILON && check_cap(ray, xs.t[1], cone))
 	{
 		xs.count += 1;
 	}
