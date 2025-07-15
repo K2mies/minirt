@@ -1,37 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_ray10.c                                     :+:      :+:    :+:   */
+/*   minirt_ray02.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 10:52:26 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/11 16:11:53 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/06/02 16:39:44 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/06/02 17:04:33 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
 
 /**
- * @brief	calculates the normal at a given point/intersection of a sub object
- * caculates the normal of a point/intersection on a sub object depending on
- * type
+ * @brief	transforms ray with transformation matrix
+ * transforms a ray based on transformation matrix
+ * as input
  *
- * @param obj			object to calculate normal on
- * @param world_point	intersection point in world space.
- * @return				normal vector from calculation
+ * @param r		ray that is to be transformed
+ * @param m		transformation matrix used to transform ray
+ * @return		returns newley transformed ray
  */
-t_tuple	normal_at(t_object obj, t_tuple world_point)
+t_ray transform(t_ray r, t_matrix4 m)
 {
-	t_tuple res;
-	if (obj.type == SPHERE)
-		res = normal_at_sphere(obj, world_point);
-	if (obj.type == PLANE)
-		res = normal_at_plane(obj);
-	if (obj.type == CUBE)
-		res = normal_at_cube(obj, world_point);
-	if (obj.type == CYLINDER && obj.closed == true)
-		res = normal_at_cap(obj, world_point);
-	else if (obj.type == CYLINDER)
-		res = normal_at_cylinder(obj, world_point);
+	t_ray	res;
+
+	res.origin = multiply_matrix4_tuple(m, r.origin);
+	res.direction = multiply_matrix4_tuple(m, r.direction);
 	return (res);
+}
+
+/**
+ * @brief	sets the transformation property of object
+ * sets the transformation matrix of the pointed to object
+ * based on the transformation matrix passed as an argument
+ *
+ * @param s		pointer to the object from which the property will be altered
+ * @param m		transformation matrix used to update transform property
+ */
+void	set_transform(t_object *s, t_matrix4 m)
+{
+	s->transform = m;
 }
