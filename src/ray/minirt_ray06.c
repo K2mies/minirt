@@ -6,7 +6,7 @@
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 15:38:44 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/11 10:18:59 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/07/15 11:48:47 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
@@ -82,23 +82,20 @@ t_intersections	cylinder_intersection(t_object *cylinder, t_ray ray)
 	var[a] = calculate_var_a(ray);
 	if (compare_floats(var[a], 0.0f))
 	{
-//		truncate_cylinder(cylinder, ray, &res);
-		res = intersect_caps(cylinder, ray, res);
+		res = intersect_cylinder_caps(cylinder, ray, res);
 		truncate_cylinder(cylinder, ray, &res);
 		return (res);
 	}
 	var[b] = calculate_var_b(ray);
 	var[c] = calculate_var_c(ray);
-	discriminant = (var[b] * var[b]) - (4 * var[a] * var[c]);
+	discriminant = (var[b] * var[b]) - (4.0f * var[a] * var[c]);
 	if (discriminant < 0)
 		return (res);
 	res.t[0] = (-var[b] - sqrtf(discriminant)) / (2.0 * var[a]);
 	res.t[1] = (-var[b] + sqrtf(discriminant)) / (2.0 * var[a]);
-//	res.count = 2;
 	if (res.t[0] > res.t[1])
 		swapf(&res.t[0], &res.t[1]);
-//	truncate_cylinder(cylinder, ray, &res);
-	res = intersect_caps(cylinder, ray, res);
+	res = intersect_cylinder_caps(cylinder, ray, res);
 	truncate_cylinder(cylinder, ray, &res);
 	return (res);
 }

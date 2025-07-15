@@ -1,40 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_ray13.c                                     :+:      :+:    :+:   */
+/*   minirt_ray08.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/30 12:23:20 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/30 13:30:25 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/06/09 16:51:07 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/06/09 17:17:30 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
 
-/**
- * @brief	schlick calculation for reflection based on distance
- *
- * @param comps	computation paramaters
- * @return		t_float value
- */
-t_float	schlick(t_computations comps)
+t_ray	ray_for_pixel(t_camera cam, t_float px, t_float py)
 {
-	t_float	cos[2];
-	t_float	sin2_t;
-	t_float	n_ratio;
-	t_float	reflectance;
+	t_ray_for_pixel_param	p;
+	t_matrix4	m;
 
-	cos[a] = dot_product(comps.v[eyev], comps.v[normalv]);
-	if (comps.n[0] > comps.n[1])
-	{
-		n_ratio = comps.n[0] / comps.n[1];
-		sin2_t = n_ratio * n_ratio * (1 - cos[a] * cos[a]);
-		if (sin2_t > 1.0)
-			return (1.0);
-		cos[b] = sqrtf(1.0f - sin2_t);
-		cos[a] = cos[b];
-	}
-	reflectance = ((comps.n[0] = comps.n[1]) / (comps.n[0] + comps.n[1]));
-	reflectance = reflectance * reflectance;
-	return (reflectance + (1 - reflectance) * powf(1 - cos[a], 5));
+	p.offset[x] = (px + 0.5) * cam.pixel_size;
+	p.offset[y] = (py + 0.5) * cam.pixel_size;
+	p.world[x] = cam.half[width] - p.offset[x];
+	p.world[y] = cam.half[height] - p.offset[y];
+	m = inverse_matrix4(cam.transform);
+	p.pixel = multiply_matrix4_tuple(m , point(p.world[x], p.world[y], -1));
+	p.origin = multiply_matrix4_tuple(m , point(0, 0, 0));
+	p.direction = sub_tuples(p.pixel, p.origin);
+	p.direction = normalize_vector(p.direction);
+	return (ray(p.origin, p.direction));
 }

@@ -1,43 +1,76 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_ray02.c                                     :+:      :+:    :+:   */
+/*   minirt_ray08.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/02 16:39:44 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/02 17:04:33 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/07/09 15:05:26 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/07/11 10:23:09 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
-
 /**
- * @brief	transforms ray with transformation matrix
- * transforms a ray based on transformation matrix
- * as input
+ * @brief	helper function to reduce duplication
+ * Checks to see if the intersection at t is within a radus
+ * of the object from the y axis
  *
- * @param r		ray that is to be transformed
- * @param m		transformation matrix used to transform ray
- * @return		returns newley transformed ray
+ * @param ray		ray to use for calculation
+ * @param t			t value to check
+ * @param cylinder	pointer to the cylinder object to operate on
+ * @return			t_float calculation
  */
-t_ray transform(t_ray r, t_matrix4 m)
+static t_float	check_cap(t_ray ray, t_float t, t_object *obj)
 {
-	t_ray	res;
-
-	res.origin = multiply_matrix4_tuple(m, r.origin);
-	res.direction = multiply_matrix4_tuple(m, r.direction);
-	return (res);
+	t_float	x;
+	t_float	z;
+	x = ray.origin.x + (t * ray.direction.x);
+	z = ray.origin.z + (t * ray.direction.z);
+	return (((x * x) + (z * z)) <= obj->radius);
 }
 
 /**
- * @brief	sets the transformation property of object
- * sets the transformation matrix of the pointed to object
- * based on the transformation matrix passed as an argument
+ * @brief	intersections  of a ray and a cylinder
  *
- * @param s		pointer to the object from which the property will be altered
- * @param m		transformation matrix used to update transform property
+ * @param cylinder	cylinder object to be intersected
+ * @param ray		Ray to cast
+ * @return			t_intersections	result of intersections
  */
-void	set_transform(t_object *s, t_matrix4 m)
+t_intersections	intersect_cylinder_caps(t_object *cylinder, t_ray ray, t_intersections xs)
 {
-	s->transform = m;
+	if (cylinder->closed == false || compare_floats(ray.direction.y, 0.0f))
+		return (xs);
+	xs.t[2] = (cylinder->min - ray.origin.y) / ray.direction.y;
+	if (check_cap(ray, xs.t[2], cylinder))
+		xs.count += 1;
+	xs.t[3] = (cylinder->max - ray.origin.y) / ray.direction.y;
+	if (check_cap(ray, xs.t[3], cylinder) )
+		xs.count += 1;
+	return (xs);
+}
+
+/**
+ * @brief	intersections  of a ray and a cone
+ *
+ * @param cylinder	cone object to be intersected
+ * @param ray		Ray to cast
+ * @return			t_intersections	result of intersections
+ */
+t_intersections	intersect_cone_caps(t_object *cone, t_ray ray, t_intersections xs)
+{
+	xs.t[2] = (cone->height - ray.origin.y) / ray.direction.y;
+	if (xs.t[2] > EPSILON && check_cap(ray, xs.t[2], cone))
+	{
+		xs.count += 1;
+	}
+	return (xs);
+//	if (cone->closed == false || compare_floats(ray.direction.y, 0.0f))
+//		return (xs);
+//	xs.t[2] = (cone->min - ray.origin.y) / ray.direction.y;
+//	if (check_cap(ray, xs.t[2], cone))
+//		xs.count += 1;
+//	xs.t[3] = (cone->max - ray.origin.y) / ray.direction.y;
+//	if (check_cap(ray, xs.t[3], cone) )
+//		xs.count += 1;
+//	return (xs);
 }

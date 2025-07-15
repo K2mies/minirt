@@ -446,7 +446,8 @@ enum e_shape_types
 	SPHERE,
 	PLANE,
 	CUBE,
-	CYLINDER
+	CYLINDER,
+	CONE
 };
 
 //Enum for pattern types
@@ -621,23 +622,27 @@ t_intersections		cube_intersection(t_object *cube, t_ray ray);
 /* ----------------------------------------------------------- minirt_ray06.c */
 t_intersections		cylinder_intersection(t_object *cylinder, t_ray ray);
 /* ----------------------------------------------------------- minirt_ray07.c */
-void				truncate_cylinder(t_object *cylinder, t_ray ray, t_intersections *res);
+t_intersections		cone_intersection(t_object *cone, t_ray ray);
 /* ----------------------------------------------------------- minirt_ray08.c */
-t_intersections		intersect_caps(t_object *cylinder, t_ray ray, t_intersections xs);
+void				truncate_cylinder(t_object *cylinder, t_ray ray, t_intersections *res);
+void				truncate_cone(t_object *cone, t_ray ray, t_intersections *res);
 /* ----------------------------------------------------------- minirt_ray09.c */
+t_intersections		intersect_cylinder_caps(t_object *cylinder, t_ray ray, t_intersections xs);
+t_intersections		intersect_cone_caps(t_object *cone, t_ray ray, t_intersections xs);
+/* ----------------------------------------------------------- minirt_ray10.c */
 t_ray				transform(t_ray r, t_matrix4 m);
 void				set_transform(t_object *s, t_matrix4 m);
-/* ----------------------------------------------------------- minirt_ray10.c */
-t_tuple				normal_at(t_object obj, t_tuple world_point);
 /* ----------------------------------------------------------- minirt_ray11.c */
-t_tuple				normal_at_sphere(t_object obj, t_tuple world_point);
+t_tuple				normal_at(t_object obj, t_tuple world_point);
 /* ----------------------------------------------------------- minirt_ray12.c */
-t_tuple				normal_at_plane(t_object obj);
+t_tuple				normal_at_sphere(t_object obj, t_tuple world_point);
 /* ----------------------------------------------------------- minirt_ray13.c */
-t_tuple				normal_at_cube(t_object obj, t_tuple world_point);
+t_tuple				normal_at_plane(t_object obj);
 /* ----------------------------------------------------------- minirt_ray14.c */
-t_tuple				normal_at_cylinder(t_object obj, t_tuple world_point);
+t_tuple				normal_at_cube(t_object obj, t_tuple world_point);
 /* ----------------------------------------------------------- minirt_ray15.c */
+t_tuple				normal_at_cylinder(t_object obj, t_tuple world_point);
+/* ----------------------------------------------------------- minirt_ray16.c */
 t_tuple				normal_at_cap(t_object obj, t_tuple world_point);
 
 
@@ -670,6 +675,7 @@ t_object	plane(t_tuple origin, t_tuple normal, t_color col);
 t_object	cube(t_tuple origin, t_color col);
 /* -------------------------------------------------------- minirt_object03.c */
 t_object	cylinder(t_tuple location, t_float diameter, t_float height, t_color col);
+/* -------------------------------------------------------- minirt_object04.c */
 /* -------------------------------------------------------- minirt_object04.c */
 t_wall		wall(t_tuple position, t_float width, t_float height);
 /* -------------------------------------------------------- minirt_object05.c */

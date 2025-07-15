@@ -28,7 +28,7 @@ static int	count_intersections(t_world w)
 			count++;
 			count++;
 		}
-		if (w.objs[i].type == CYLINDER)
+		if (w.objs[i].type == CYLINDER || w.objs[i].type == CONE)
 		{
 			count++;
 			count++;
