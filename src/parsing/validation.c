@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:00:08 by mpierce           #+#    #+#             */
-/*   Updated: 2025/06/26 13:12:36 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/07/15 12:46:28 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,5 @@ void	open_file(t_minirt *rt, char **argv)
 	if (!data)
 		rt_error(rt, "No file data found", 3);
 	split_data(rt, data);
-	//print_stored_data(rt); 
 	free_big_array(&rt->full_data);
 }

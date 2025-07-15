@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+         #
+#    By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/08 15:43:17 by rhvidste          #+#    #+#              #
-#    Updated: 2025/07/08 16:50:52 by rhvidste         ###   ########.fr        #
+#    Updated: 2025/07/15 12:54:16 by mpierce          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -126,16 +126,16 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				$(SRC_DIR)/parsing/utils.c											\
 				$(SRC_DIR)/parsing/object.c											\
 				$(SRC_DIR)/parsing/validation_utils.c								\
+				$(SRC_DIR)/parsing/object_utils.c									\
 				\
 				$(SRC_DIR)/utils/close.c											\
 				$(SRC_DIR)/utils/utils.c											\
 				$(SRC_DIR)/utils/memory.c											\
 				$(SRC_DIR)/utils/quicksort.c										\
 				$(SRC_DIR)/utils/containers.c										\
-				$(SRC_DIR)/utils/cube.c										\
-				$(SRC_DIR)/utils/swap.c										\
+				$(SRC_DIR)/utils/cube.c												\
+				$(SRC_DIR)/utils/swap.c												\
 				\
-				$(SRC_DIR)/remove_this/julesprints.c								\
 #-----------------------------------------------------------------------------------#
 OBJ 		= 	$(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 #-----------------------------------------------------------------------------------#

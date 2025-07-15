@@ -6,26 +6,11 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 12:26:37 by mpierce           #+#    #+#             */
-/*   Updated: 2025/06/17 13:46:57 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/07/15 13:21:14 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-/**
- * 
- * @brief Helper function to free arrays and exit in event of error
- * 
- * @param rt Main struct
- * @param a1 First array to free
- * @param a2 Second array to free
- * @param a3 Third array to free
- * 
- */
-void	object_error(t_minirt *rt, char **a1, char **a2, char **a3)
-{
-	object_free(a1, a2, a3);
-	rt_error(rt, "Data error", 3);
-}
 
 /**
  * 
@@ -126,13 +111,56 @@ void	load_cylinder(t_minirt *rt, char **data, int index)
 		object_error(rt, origin, vec, rgb);
 	if (!ft_isfloat(data[3]) || !ft_isfloat(data[4]))
 		object_error(rt, origin, vec, rgb);
-	cyl = (t_object){.type = CYLINDER, .height = ft_atof(data[4]),
-		.diameter = ft_atof(data[3])};
-	cyl.origin = point(ft_atof(origin[0]), ft_atof(origin[1]),
-			ft_atof(origin[2]));
-	cyl.vector = vector(ft_atof(vec[0]), ft_atof(vec[1]), ft_atof(vec[2]));
-	cyl.color = color_from_channels(ft_atoi(rgb[0]), ft_atoi(rgb[1]),
-			ft_atoi(rgb[2]));
+	cyl = cylinder(point(ft_atof(origin[0]), ft_atof(origin[1]), 
+			ft_atof(origin[2])), ft_atof(data[3]), ft_atof(data[4]), 
+			color_from_channels(ft_atoi(rgb[0]), ft_atoi(rgb[1]), 
+			ft_atoi(rgb[2])));
 	rt->objs[index] = cyl;
 	object_free(origin, vec, rgb);
 }
+
+void	load_cube(t_minirt *rt, char **data, int index)
+{
+	t_object cb;
+	char **origin;
+	char **rgb;
+	t_tuple loc;
+
+	origin = ft_split(data[1], ',');
+	rgb = ft_split(data[3], ',');
+	if (!origin || !rgb)
+		object_error(rt, origin, NULL, rgb);
+	if (!validate_array(origin) || !validate_array(rgb))
+		object_error(rt, origin, NULL, rgb);
+	loc = point(ft_atof(origin[0]), ft_atof(origin[1]),
+			ft_atof(origin[2]));
+	cb = cube(loc, color_from_channels(ft_atoi(rgb[0]),
+				ft_atoi(rgb[1]), ft_atoi(rgb[2])));
+	rt->objs[index] = cb;
+	object_free(origin, NULL, rgb);
+}
+
+// void load_cone(t_minirt *rt, char **data, int index) // object_util.c 41-42
+// {
+// 	t_object	con;
+// 	char		**origin;
+// 	char		**vec;
+// 	char		**rgb;
+
+// 	if (!validate_size(data, 6))
+// 		rt_error(rt, "Cylinder data error", 3);
+// 	origin = ft_split(data[1], ',');
+// 	vec = ft_split(data[2], ',');
+// 	rgb = ft_split(data[5], ',');
+// 	if (!origin || !vec || !rgb || !validate_array(origin)
+// 		|| !validate_array(vec) || !validate_array(rgb) || !validate_rgb(rgb))
+// 		object_error(rt, origin, vec, rgb);
+// 	if (!ft_isfloat(data[3]) || !ft_isfloat(data[4]))
+// 		object_error(rt, origin, vec, rgb);
+// 	con = cone(point(ft_atof(origin[0]), ft_atof(origin[1]), 
+// 			ft_atof(origin[2])), ft_atof(data[3]), ft_atof(data[4]), 
+// 			color_from_channels(ft_atoi(rgb[0]), ft_atoi(rgb[1]), 
+// 			ft_atoi(rgb[2])));
+// 	rt->objs[index] = con;
+// 	object_free(origin, vec, rgb);
+// }

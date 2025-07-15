@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:33:45 by mpierce           #+#    #+#             */
-/*   Updated: 2025/06/26 13:17:37 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/07/15 12:52:25 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	check_for_dups(t_minirt *rt, char ***full)
  * @param data 2D array of Ambient data
  * 
  */
-static void	load_ambient(t_minirt *rt, char **data)
+void	load_ambient(t_minirt *rt, char **data)
 {
 	t_ambient	ambient;
 	char		**rgb;
@@ -86,7 +86,7 @@ static void	load_ambient(t_minirt *rt, char **data)
  * @param data 2D array of Light data
  * 
  */
-static void	load_light(t_minirt *rt, char **data, int i)
+void	load_light(t_minirt *rt, char **data, int i)
 {
 	char	**origin;
 	char	**rgb;
@@ -121,7 +121,7 @@ static void	load_light(t_minirt *rt, char **data, int i)
  * @param data 2D array of Camera data
  * 
  */
-static void	load_camera(t_minirt *rt, char **data)
+void	load_camera(t_minirt *rt, char **data)
 {
 	t_camera	camera;
 	char		**origin;
@@ -156,28 +156,29 @@ static void	load_camera(t_minirt *rt, char **data)
 void	sort_data_types(t_minirt *rt, char ***full)
 {
 	int	i;
-	int	index;
-	int light_index;
+	// int	index;
+	// int light_index;
 
 	i = -1;
-	index = 0;
-	light_index = 0;
+	// index = 0;
+	// light_index = 0;
 	check_for_dups(rt, full);
 	while (full[++i])
 	{
-		if (!ft_strcmp(full[i][0], "A"))
-			load_ambient(rt, full[i]);
-		else if (!ft_strcmp(full[i][0], "C"))
-			load_camera(rt, full[i]);
-		else if (!ft_strcmp(full[i][0], "L"))
-			load_light(rt, full[i], light_index++);
-		else if (!ft_strcmp(full[i][0], "pl"))
-			load_plane(rt, full[i], index++);
-		else if (!ft_strcmp(full[i][0], "sp"))
-			load_sphere(rt, full[i], index++);
-		else if (!ft_strcmp(full[i][0], "cy"))
-			load_cylinder(rt, full[i], index++);
-		else
-			rt_error(rt, "File contains invalid data type", 1);
+		load_objects_to_data(rt, full, i);
+		// if (!ft_strcmp(full[i][0], "A"))
+		// 	load_ambient(rt, full[i]);
+		// else if (!ft_strcmp(full[i][0], "C"))
+		// 	load_camera(rt, full[i]);
+		// else if (!ft_strcmp(full[i][0], "L"))
+		// 	load_light(rt, full[i], light_index++);
+		// else if (!ft_strcmp(full[i][0], "pl"))
+		// 	load_plane(rt, full[i], index++);
+		// else if (!ft_strcmp(full[i][0], "sp"))
+		// 	load_sphere(rt, full[i], index++);
+		// else if (!ft_strcmp(full[i][0], "cy"))
+		// 	load_cylinder(rt, full[i], index++);
+		// else
+		// 	rt_error(rt, "File contains invalid data type", 1);
 	}
 }
