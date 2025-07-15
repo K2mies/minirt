@@ -1,76 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_ray08.c                                     :+:      :+:    :+:   */
+/*   minirt_ray06.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/25 14:14:53 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/25 14:15:11 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/07/10 13:41:16 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/07/10 14:31:53 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
 
 /**
- * @brief	prepares refraction calculations using a container for objs
+ * @brief	helper function truncate the cylinder
  *
- * @param w				pointer to world struct
- * @param comps			pointer to computations struct
- * @param target		target or (hit) intersection
+ * @param cylinder	pointer to cylinder object
+ * @param ray		ray to use for calculations
+ * @param res		pointer to result values to update
  */
-//void	prepare_refraction_calculations(t_world *w, t_computations *comps, t_intersection *target)
-//{
-//	t_obj_container	container;
-//	int		i;
-//
-//	container.n_obj = 0;
-//	comps->n[0] = 1.0f;
-//	comps->n[1] = 1.0f;
-//	i = -1;
-//	while (++i < w->n_ts)
-//	{
-//		if (&w->ts[i] == target)
-//		{
-//			if (container.n_obj <= 0)
-//				comps->n[0] = 1.0f;
-//			else
-//				comps->n[0] = get_refractive_index(&container);
-//		}
-//		update_container(&container, &w->objs[w->ts[i].obj_index]);
-//		if (&w->ts[i] == target)
-//		{
-//			if (container.n_obj <= 0)
-//				comps->n[1] = 1.0f;
-//			else
-//				comps->n[1] = get_refractive_index(&container);
-//		}
-//		printf("container count = %d\n", container.n_obj);
-//	}
-//}
-
-void	prepare_refraction_calculations(t_world *w, t_computations *comps, t_intersection *target)
+void	truncate_cylinder(t_object *cylinder, t_ray ray, t_intersections *res)
 {
-	t_obj_container	container;
-	t_object		*object;
-	int				i;
+	t_float	y[2];
 
-	container.n_obj = 0;
-	comps->n[0] = 1.0f;
-	comps->n[1] = 1.0f;
-	i = 0;
-	while (i < w->n_ts)
-	{
-			object = &w->objs[w->ts[i].obj_index];
-			if (&w->ts[i] == target)
-			{
-				printf("intersection target reached\n");
-				comps->n[0] = get_refractive_index(&container);
-				update_container(&container, object);
-				comps->n[1] = get_refractive_index(&container);
-				return;
-			}
-			update_container(&container, object);
-//			printf("container count = %d\n", container.n_obj);
-			i++;
-	}
+	y[0] = ray.origin.y + (res->t[0] * ray.direction.y);
+	if (cylinder->min < y[0] && y[0] < cylinder->max)
+		res->count += 1;
+	y[1] = ray.origin.y + res->t[1] * ray.direction.y;
+	if (cylinder->min < y[1] && y[1] < cylinder->max)
+		res->count += 1;
+}
+
+/**
+ * @brief	helper function truncate the cone
+ *
+ * @param cone		pointer to cone object
+ * @param ray		ray to use for calculations
+ * @param res		pointer to result values to update
+ */
+void	truncate_cone(t_object *cone, t_ray ray, t_intersections *res)
+{
+	t_float	y[2];
+
+	y[0] = ray.origin.y + (res->t[0] * ray.direction.y);
+	if (cone->min < y[0] && y[0] < cone->max)
+		res->count += 1;
+	y[1] = ray.origin.y + res->t[1] * ray.direction.y;
+	if (cone->min < y[1] && y[1] < cone->max)
+		res->count += 1;
 }

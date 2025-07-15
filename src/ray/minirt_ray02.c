@@ -5,71 +5,117 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/16 16:07:00 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/17 15:24:52 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/07/11 09:54:27 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/07/11 10:14:11 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
 
 /**
- * @brief	intersections  of a ray and a sphere
- * creates a decriminant value from ray hitting a sphere
- * and returns as two values if there is a hit, 0 if 
- * it is a miss.
+ * @brief	helper function to add one intersection to w->ts[n] array
+ * takes one intersection from xs and adds it to w->ts[n] array
  *
- * @param sphere	sphere object to be intersected
- * @param ray		Ray to cast
- * @return	t_intersections	result of intersections
+ * @param w			pointer to the world data struct
+ * @param xs		the xs intersections to add to array
+ * @param i			the object index of the intersections
  */
-t_intersections	sphere_intersection(t_object *sphere, t_ray ray)
+static	void	add_one(t_world *w, t_intersections xs, int i)
 {
-	t_tuple	sphere_to_ray;
-	t_float dp[3];
-	t_float	discriminant;
-	t_intersections	res;
-
-	ray = transform(ray, inverse_matrix4(sphere->transform));
-	sphere->saved_ray = ray;
-	sphere_to_ray = sub_tuples(ray.origin, sphere->origin);	
-	dp[a] = dot_product(ray.direction, ray.direction);
-	dp[b] = 2.0 * dot_product(ray.direction, sphere_to_ray);
-	dp[c] = dot_product(sphere_to_ray, sphere_to_ray)
-			- (sphere->radius * sphere->radius);
-	discriminant = (dp[b] * dp[b]) - (4.0 * dp[a] * dp[c]);
-	if (discriminant < 0)
-	{
-		res.count = 0;
-		return (res);
-	}
-	res.t[0] = (-dp[b] - sqrtf(discriminant)) / (2.0 * dp[a]);
-	res.t[1] = (-dp[b] + sqrtf(discriminant)) / (2.0 * dp[a]);
-	res.count = 2;
-	return (res);
+	w->ts[w->n_ts].t = xs.t[0];
+	w->ts[w->n_ts].object = w->objs[i];
+	w->ts[w->n_ts].obj_index = i;
+	++w->n_ts;
 }
 
 /**
- * @brief	intersections  of a ray and a plane
- * creates a hit value from ray hitting a plane
- * and returns as two values if there is a hit, 0 if 
- * it is a miss.
+ * @brief	helper function to add two intersections to w->ts[n] array
+ * takes two intersections from xs and adds it to w->ts[n] array
  *
- * @param sphere	plane object to be intersected
- * @param ray		Ray to cast
- * @return	t_intersections	result of intersections
+ * @param w			pointer to the world data struct
+ * @param xs		the xs intersections to add to array
+ * @param i			the object index of the intersections
  */
-t_intersections	plane_intersection(t_object *plane, t_ray ray)
+static	void	add_two(t_world *w, t_intersections xs, int i)
 {
-	t_intersections	res;
+	w->ts[w->n_ts].t = xs.t[0];
+	w->ts[w->n_ts].object = w->objs[i];
+	w->ts[w->n_ts].obj_index = i;
+	++w->n_ts;
+	w->ts[w->n_ts].t = xs.t[1];
+	w->ts[w->n_ts].object = w->objs[i];
+	w->ts[w->n_ts].obj_index = i;
+	++w->n_ts;
+}
 
-	ray = transform(ray, inverse_matrix4(plane->transform));
-	plane->saved_ray = ray;
-	if (fabsf(ray.direction.y) < EPSILON)
-	{
-		res.count = 0;
-		return (res);
-	}
-	res.t[0] = -ray.origin.y / ray.direction.y;
-	res.t[1] = res.t[0];
-	res.count = 1;
-	return (res);
+/**
+ * @brief	helper function to add three intersections to w->ts[n] array
+ * takes three intersections from xs and adds it to w->ts[n] array
+ *
+ * @param w			pointer to the world data struct
+ * @param xs		the xs intersections to add to array
+ * @param i			the object index of the intersections
+ */
+static	void	add_three(t_world *w, t_intersections xs, int i)
+{
+	w->ts[w->n_ts].t = xs.t[0];
+	w->ts[w->n_ts].object = w->objs[i];
+	w->ts[w->n_ts].obj_index = i;
+	++w->n_ts;
+	w->ts[w->n_ts].t = xs.t[1];
+	w->ts[w->n_ts].object = w->objs[i];
+	w->ts[w->n_ts].obj_index = i;
+	++w->n_ts;
+	w->ts[w->n_ts].t = xs.t[2];
+	w->ts[w->n_ts].object = w->objs[i];
+	w->ts[w->n_ts].obj_index = i;
+	++w->n_ts;
+}
+
+/**
+ * @brief	helper function to add four intersections to w->ts[n] array
+ * takes four intersections from xs and adds it to w->ts[n] array
+ *
+ * @param w			pointer to the world data struct
+ * @param xs		the xs intersections to add to array
+ * @param i			the object index of the intersections
+ */
+static	void	add_four(t_world *w, t_intersections xs, int i)
+{
+	w->ts[w->n_ts].t = xs.t[0];
+	w->ts[w->n_ts].object = w->objs[i];
+	w->ts[w->n_ts].obj_index = i;
+	++w->n_ts;
+	w->ts[w->n_ts].t = xs.t[1];
+	w->ts[w->n_ts].object = w->objs[i];
+	w->ts[w->n_ts].obj_index = i;
+	++w->n_ts;
+	w->ts[w->n_ts].t = xs.t[2];
+	w->ts[w->n_ts].object = w->objs[i];
+	w->ts[w->n_ts].obj_index = i;
+	++w->n_ts;
+	w->ts[w->n_ts].t = xs.t[3];
+	w->ts[w->n_ts].object = w->objs[i];
+	w->ts[w->n_ts].obj_index = i;
+	++w->n_ts;
+}
+
+/**
+ * @brief	add xs intersections to a w->ts[n] array
+ * takes the xs t hits and adds them to a w->ts[n] array
+ * for the world intersect function
+ *
+ * @param w			pointer to the world data struct
+ * @param xs		the xs intersections to add to array
+ * @param i			the object index of the intersections
+ */
+void	add_intersections(t_world *w, t_intersections xs, int i)
+{
+	if (xs.count != 0 && xs.count == 1)
+		add_one(w, xs, i);
+	if (xs.count != 0 && xs.count == 2)
+		add_two(w, xs, i);
+	if (xs.count != 0 && xs.count == 3)
+		add_three(w, xs, i);
+	if (xs.count != 0 && xs.count == 4)
+		add_four(w, xs, i);
 }

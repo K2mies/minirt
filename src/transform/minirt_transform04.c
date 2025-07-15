@@ -6,12 +6,17 @@
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 14:46:59 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/09 15:54:38 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/07/11 10:35:26 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
 
-
+/**
+ * @brief	helper function to asign new position matrix
+ *
+ * @param p		pointer to transformation paramaters
+ * @return		t_matrix4 transformation matrix
+ */
 static t_matrix4	assign_transform_matrix(t_view_transform_param *p)
 {
 	t_matrix4	m;
@@ -28,11 +33,18 @@ static t_matrix4	assign_transform_matrix(t_view_transform_param *p)
 	return (m);
 }
 
+/**
+ * @brief	transforms camera into a new position
+ *
+ * @param obj	object being intersected
+ * @param ray	ray to intersect
+ * @return		t_intersection	result of intersection
+ */
 t_matrix4	view_transform(t_tuple from, t_tuple to, t_tuple up)
 {
 	t_view_transform_param	p;
-	t_matrix4	orientation;
-	t_matrix4	res;
+	t_matrix4				orientation;
+	t_matrix4				res;
 	
 	p.forward = normalize_vector(sub_tuples(to, from));
 	p.upn = normalize_vector(up);

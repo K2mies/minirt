@@ -1,31 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_object01.c                                  :+:      :+:    :+:   */
+/*   minirt_object02.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/03 12:38:29 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/03 14:32:08 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/07/07 11:42:18 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/07/07 14:38:35 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
-
 /**
- * @brief	creates and returns a wall object
- * creates a wall object to use to calculate projections
- *
- * @param origin	Point that is the origin of the wall
- * @param width		Width of the wall
- * @param height	Height of the wall
- * @return			t_wall object
+ * @brief	creates and returns a cube object
+ * creates a Cube object/struct 
+ * @param	location
+ * @param	col
+ * @return	t_object struct with type CUBE
  */
-t_wall	wall(t_tuple origin, t_float width, t_float height)
+t_object	cube(t_tuple origin, t_color col)
 {
-	t_wall	w;
+	t_object	cube;
+	t_float		param[7];
 
-	w.origin = origin;
-	w.width = width;
-	w.height = height;
-	return (w);
+	param[ambient] = 0.1;
+	param[diffuse] = 0.9;
+	param[specular] = 0.9;
+	param[shininess] = 200.0;
+	param[reflective] = 0;
+	param[transparency] = 0;
+	param[refractive_index] = 1.0;
+	cube.type = CUBE;
+	cube.origin = origin;
+	cube.color = col;
+	cube.material = material(param, col);
+	cube.material.has_pattern = false;
+	cube.transform = id_matrix4();
+	return (cube);
 }

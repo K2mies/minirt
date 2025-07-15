@@ -5,96 +5,97 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 14:47:00 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/17 16:32:49 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/07/08 15:38:44 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/07/15 11:48:47 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
 
 /**
- * @brief	Helper function to asign and calculate the paramaters
- * asigns all params of *p in order to keep the
- * line count of lighting() below 25;
+ * @brief	helper function to calculate var a
  *
- * @param p			pointer to the param struct for lighting()
- * @param m			matterial to be used
- * @param light		light to be used for calculation
- * @param v			array of 3 vectors needed
+ * @param ray		Ray to use for calculation
+ * @return			t_flaot var a
  */
-static void	apply_lighting(t_lighting_param *p, t_material m, t_light light, t_tuple v[3])
+
+static t_float	calculate_var_a(t_ray ray)
 {
-	p->effective_color = multiply_color(m.color, light.color);
-	p->lightv = normalize_vector(sub_tuples(light.origin, v[pos]));
-	p->ambient = multiply_color_by_scalar(p->effective_color, m.ambient);
-	p->light_dot_normal = dot_product(p->lightv, v[normalv]);
-	if (p->light_dot_normal < 0 || p->in_shadow == true)
-	{
-		p->diffuse = color(0, 0, 0);
-		p->specular = color(0, 0, 0);
-	}
-	else
-	{
-		p->diffuse = multiply_color_by_scalar(
-			p->effective_color ,(m.diffuse * p->light_dot_normal));
-		p->reflectv = reflect(negate_tuple(p->lightv), v[normalv]);
-		p->reflect_dot_eye = dot_product(p->reflectv, v[eyev]);
-		if (p->reflect_dot_eye <= 0)
-			p->specular = color(0, 0, 0);
-		else
-		{
-			p->factor = pow(p->reflect_dot_eye, m.shininess);
-			p->specular = multiply_color_by_scalar(
-				light.color, (m.specular * p->factor));
-		}
-	}
+	t_float	ray_direction_sqr[3];
+	t_float	var_a;
+
+	ray_direction_sqr[x] = ray.direction.x * ray.direction.x;
+	ray_direction_sqr[z] = ray.direction.z * ray.direction.z;
+	var_a = ray_direction_sqr[x] + ray_direction_sqr[z];
+	return (var_a);
 }
 
 /**
- * @brief	applies lighting and returns a color
- * creates, asigns and returns a col based on phong lighting model
- * third paramater is for 3 vectors
- * v[pos]			t_tuple
- * v[eyev]			t_tuple
- * v[normalv]		t_tuple
- * @param m			material to be asigned
- * @param light		light to be used as source
- * @param v			array of 3 vectors needed
- * @return			t_color returned color;
+ * @brief	helper function to calculate var b
+ *
+ * @param ray		Ray to use for calculation
+ * @return			t_flaot var a
  */
-t_color	lighting(t_lighting_param p, t_material m, t_light light, t_tuple v[3])
+static t_float	calculate_var_b(t_ray ray)
 {
-	t_color				res;
+	t_float	ray_dir_by_origin[3];
+	t_float	var_b;
 
-	if (m.has_pattern == true)
-		m.color	= pattern_at(m.pattern, p.obj, v[pos]);
-	apply_lighting(&p, m, light, v);
-	res = add_three_colors(p.ambient, p.diffuse, p.specular);
+	ray_dir_by_origin[x] = ray.origin.x * ray.direction.x;
+	ray_dir_by_origin[z] = ray.origin.z * ray.direction.z;
+	var_b = (2 * ray_dir_by_origin[x]) + (2 * ray_dir_by_origin[z]);
+	return (var_b);
+}
+
+/**
+ * @brief	helper function to calculate var c
+ *
+ * @param ray		Ray to use for calculation
+ * @return			t_flaot var c
+ */
+static t_float	calculate_var_c(t_ray ray)
+{
+	t_float	ray_origin_sqr[3];
+	t_float	var_c;
+
+	ray_origin_sqr[x] = ray.origin.x * ray.origin.x;
+	ray_origin_sqr[z] = ray.origin.z * ray.origin.z;
+	var_c = (ray_origin_sqr[x] + ray_origin_sqr[z]) - 1.0f;
+	return (var_c);
+}
+
+/**
+ * @brief	intersections  of a ray and a cylinder
+ *
+ * @param cylinder	cyliunder object to be intersected
+ * @param ray		Ray to cast
+ * @return			t_intersections	result of intersections
+ */
+t_intersections	cylinder_intersection(t_object *cylinder, t_ray ray)
+{
+	t_intersections	res;
+	t_float			discriminant;
+	t_float			var[3];
+
+	ray = transform(ray, inverse_matrix4(cylinder->transform));
+	cylinder->saved_ray = ray;
+	res.count = 0;
+	var[a] = calculate_var_a(ray);
+	if (compare_floats(var[a], 0.0f))
+	{
+		res = intersect_cylinder_caps(cylinder, ray, res);
+		truncate_cylinder(cylinder, ray, &res);
+		return (res);
+	}
+	var[b] = calculate_var_b(ray);
+	var[c] = calculate_var_c(ray);
+	discriminant = (var[b] * var[b]) - (4.0f * var[a] * var[c]);
+	if (discriminant < 0)
+		return (res);
+	res.t[0] = (-var[b] - sqrtf(discriminant)) / (2.0 * var[a]);
+	res.t[1] = (-var[b] + sqrtf(discriminant)) / (2.0 * var[a]);
+	if (res.t[0] > res.t[1])
+		swapf(&res.t[0], &res.t[1]);
+	res = intersect_cylinder_caps(cylinder, ray, res);
+	truncate_cylinder(cylinder, ray, &res);
 	return (res);
 }
-
-/**
- * @brief	calculates wether point is in shadow or not
- * returns true if point is in shadow and false if not.
- * @param world		world object to use
- * @param point		point in space for calculation
- * @return			bool true if in shadow, false if not.
- */
-bool	is_shadowed(t_world world, t_tuple point)
-{
-	t_intersection	h;
-	t_tuple			v;
-	t_tuple			direction;
-	t_float			distance;
-	t_ray			r;
-
-	v = sub_tuples(world.light[0].origin, point);
-	distance = get_magnitude(v);
-	direction = normalize_vector(v);
-	r = ray(point, direction);
-	world_intersect(&world, r);
-	h = hit(&world);
-	if (h.t >= 0 && h.t < distance)
-		return (true);
-	return (false);
-}
-

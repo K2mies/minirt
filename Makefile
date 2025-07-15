@@ -3,20 +3,20 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+         #
+#    By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/05/13 13:18:47 by rhvidste          #+#    #+#              #
-#    Updated: 2025/05/29 17:33:30 by mpierce          ###   ########.fr        #
+#    Created: 2025/07/08 15:43:17 by rhvidste          #+#    #+#              #
+#    Updated: 2025/07/08 16:50:52 by rhvidste         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= 	miniRT
 
 CC			= 	cc
-#CFLAGS		= 	-O3 -flto -ffast-math -march=native -Wextra -Werror -Wall 
+CFLAGS		= 	-O3 -flto -ffast-math -march=native -Wextra -Werror -Wall 
 #CFLAGS		= 	-O3 -flto -march=native -Wextra -Werror -Wall 
 #CFLAGS		=  -fno-associative-math -flto -fno-fast-math -Wextra -Werror -Wall 
-CFLAGS		=	-fno-associative-math -fno-fast-math -Wextra -Werror -Wall 
+#CFLAGS		=	-fno-associative-math -fno-fast-math -Wextra -Werror -Wall 
 
 #CFLAGS		= 	-Wextra -Werror -Wall
 DEBUG_FLAGS	=	-g
@@ -93,6 +93,18 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				$(SRC_DIR)/ray/minirt_ray10.c										\
 				$(SRC_DIR)/ray/minirt_ray11.c										\
 				$(SRC_DIR)/ray/minirt_ray12.c										\
+				$(SRC_DIR)/ray/minirt_ray13.c										\
+				$(SRC_DIR)/ray/minirt_ray14.c										\
+				$(SRC_DIR)/ray/minirt_ray15.c										\
+				$(SRC_DIR)/ray/minirt_ray16.c										\
+				$(SRC_DIR)/ray/minirt_ray17.c										\
+				$(SRC_DIR)/ray/minirt_ray18.c										\
+				$(SRC_DIR)/ray/minirt_ray19.c										\
+				$(SRC_DIR)/ray/minirt_ray20.c										\
+				$(SRC_DIR)/ray/minirt_ray21.c										\
+				$(SRC_DIR)/ray/minirt_ray22.c										\
+				$(SRC_DIR)/ray/minirt_ray23.c										\
+				$(SRC_DIR)/ray/minirt_ray24.c										\
 				\
 				$(SRC_DIR)/object/minirt_object00.c									\
 				$(SRC_DIR)/object/minirt_object01.c									\
@@ -101,6 +113,8 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				$(SRC_DIR)/object/minirt_object04.c									\
 				$(SRC_DIR)/object/minirt_object05.c									\
 				$(SRC_DIR)/object/minirt_object06.c									\
+				$(SRC_DIR)/object/minirt_object07.c									\
+				$(SRC_DIR)/object/minirt_object08.c									\
 				\
 				$(SRC_DIR)/mlx/minirt_mlx00.c										\
 				\
@@ -118,6 +132,8 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				$(SRC_DIR)/utils/memory.c											\
 				$(SRC_DIR)/utils/quicksort.c										\
 				$(SRC_DIR)/utils/containers.c										\
+				$(SRC_DIR)/utils/cube.c										\
+				$(SRC_DIR)/utils/swap.c										\
 				\
 				$(SRC_DIR)/remove_this/julesprints.c								\
 #-----------------------------------------------------------------------------------#

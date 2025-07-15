@@ -44,29 +44,11 @@ t_intersections object_intersection(t_object *obj, t_ray ray)
 		xs = sphere_intersection(obj, ray);
 	if (obj->type == PLANE)
 		xs = plane_intersection(obj, ray);
+	if (obj->type == CUBE)
+		xs = cube_intersection(obj, ray);
+	if (obj->type == CYLINDER)
+		xs = cylinder_intersection(obj, ray);
 	return (xs);
-}
-
-static void	add_intersections_to_ts_array(t_world *w, t_intersections xs, int i)
-{
-	if (xs.count != 0 && xs.count == 1)
-	{
-		w->ts[w->n_ts].t = xs.t[0];
-		w->ts[w->n_ts].object = w->objs[i];
-		w->ts[w->n_ts].obj_index = i;
-		++w->n_ts;
-	}
-	if (xs.count != 0 && xs.count == 2)
-	{
-		w->ts[w->n_ts].t = xs.t[0];
-		w->ts[w->n_ts].object = w->objs[i];
-		w->ts[w->n_ts].obj_index = i;
-		++w->n_ts;
-		w->ts[w->n_ts].t = xs.t[1];
-		w->ts[w->n_ts].object = w->objs[i];
-		w->ts[w->n_ts].obj_index = i;
-		++w->n_ts;
-	}
 }
 
 /**
@@ -87,7 +69,7 @@ void	world_intersect(t_world *w, t_ray ray)
 	while (i < w->n_objs)
 	{
 		xs = object_intersection(&w->objs[i], ray);
-		add_intersections_to_ts_array(w, xs, i);
+		add_intersections(w, xs, i);
 		++i;
 	}
 	quicksort(w->ts, 0, w->n_ts -1);

@@ -1,37 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_ray10.c                                     :+:      :+:    :+:   */
+/*   minirt_ray02.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/09 10:34:33 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/25 15:47:07 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/06/02 16:39:44 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/06/02 17:04:33 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
 
 /**
- * @brief	fetches color at intersection point
- * returns a color from the hit point of an intersection
- * taking into account all the lighting computations
- * @param w			wpr;d object to operate on
- * @param r			ray to cast for intersections
- * @return			t_color returned color;
+ * @brief	transforms ray with transformation matrix
+ * transforms a ray based on transformation matrix
+ * as input
+ *
+ * @param r		ray that is to be transformed
+ * @param m		transformation matrix used to transform ray
+ * @return		returns newley transformed ray
  */
-t_color	color_at(t_world w, t_ray r, int remaining)
+t_ray transform(t_ray r, t_matrix4 m)
 {
-	t_intersection	hit_point;
-	t_color			res;
+	t_ray	res;
 
-	world_intersect(&w, r);
-	hit_point = hit(&w);
-	if(hit_point.t >= 0)
-	{
-		w.cs[w.hit_index] = prepare_computations(w, &hit_point, r);
-		res = shade_hit(w, w.cs[w.hit_index], hit_point.object, remaining);
-	}
-	else
-		res = color(0, 0, 0);
+	res.origin = multiply_matrix4_tuple(m, r.origin);
+	res.direction = multiply_matrix4_tuple(m, r.direction);
 	return (res);
+}
+
+/**
+ * @brief	sets the transformation property of object
+ * sets the transformation matrix of the pointed to object
+ * based on the transformation matrix passed as an argument
+ *
+ * @param s		pointer to the object from which the property will be altered
+ * @param m		transformation matrix used to update transform property
+ */
+void	set_transform(t_object *s, t_matrix4 m)
+{
+	s->transform = m;
 }

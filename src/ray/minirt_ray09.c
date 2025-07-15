@@ -1,74 +1,76 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_ray09.c                                     :+:      :+:    :+:   */
+/*   minirt_ray08.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/06 16:06:50 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/30 13:46:03 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/07/09 15:05:26 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/07/11 10:23:09 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
-
 /**
- * @brief	returns hit from list of intersections
- * returns a hit float which is the lowest positive
- * number from a list of intersection values
+ * @brief	helper function to reduce duplication
+ * Checks to see if the intersection at t is within a radus
+ * of the object from the y axis
  *
- * @param w		pointer to the world object to calculate hit
- * @return		hit value from list of intersections
- *				value with be -1 if none are found
+ * @param ray		ray to use for calculation
+ * @param t			t value to check
+ * @param cylinder	pointer to the cylinder object to operate on
+ * @return			t_float calculation
  */
-t_intersection	hit(t_world *w)
+static t_float	check_cap(t_ray ray, t_float t, t_object *obj)
 {
-	int		i;
-	t_intersection	res;
-
-	i = 0;
-	while (i < w->n_ts)
-	{
-		if (w->ts[i].t >= 0)
-		{
-			w->hit_index = i;
-			res = w->ts[i];
-			return (res);
-		}
-		i++;
-	}
-	res.t = -1;
-	return (res);
+	t_float	x;
+	t_float	z;
+	x = ray.origin.x + (t * ray.direction.x);
+	z = ray.origin.z + (t * ray.direction.z);
+	return (((x * x) + (z * z)) <= obj->radius);
 }
 
 /**
- * @brief	calculates shading for hit intersection
- * returns a color calculated  from the shading
+ * @brief	intersections  of a ray and a cylinder
  *
- * @param w		world object to calculate hit
- * @param comps	computation paramaters
- * @return		color for shaded pixel
+ * @param cylinder	cylinder object to be intersected
+ * @param ray		Ray to cast
+ * @return			t_intersections	result of intersections
  */
-t_color	shade_hit(t_world w, t_computations comps, t_object	obj, int remaining)
+t_intersections	intersect_cylinder_caps(t_object *cylinder, t_ray ray, t_intersections xs)
 {
-	t_lighting_param	param;
-	t_color				surface;
-	t_color				reflected;
-	t_color				refracted;
-	t_material			material;
-	t_float				reflectance;
+	if (cylinder->closed == false || compare_floats(ray.direction.y, 0.0f))
+		return (xs);
+	xs.t[2] = (cylinder->min - ray.origin.y) / ray.direction.y;
+	if (check_cap(ray, xs.t[2], cylinder))
+		xs.count += 1;
+	xs.t[3] = (cylinder->max - ray.origin.y) / ray.direction.y;
+	if (check_cap(ray, xs.t[3], cylinder) )
+		xs.count += 1;
+	return (xs);
+}
 
-	param.in_shadow = is_shadowed(w, comps.over_point);
-	param.obj = obj;
-	surface = lighting(param, comps.object.material, w.light[0], comps.v);
-	reflected = reflected_color(w, comps, remaining);
-	refracted = refracted_color(w, comps, remaining);
-	material = comps.object.material;
-	if (material.reflective > 0 && material.transparency > 0)
+/**
+ * @brief	intersections  of a ray and a cone
+ *
+ * @param cylinder	cone object to be intersected
+ * @param ray		Ray to cast
+ * @return			t_intersections	result of intersections
+ */
+t_intersections	intersect_cone_caps(t_object *cone, t_ray ray, t_intersections xs)
+{
+	xs.t[2] = (cone->height - ray.origin.y) / ray.direction.y;
+	if (xs.t[2] > EPSILON && check_cap(ray, xs.t[2], cone))
 	{
-		reflectance = schlick(comps);
-		reflected = multiply_color_by_scalar(reflected, reflectance);
-		refracted = multiply_color_by_scalar(refracted, (1 - reflectance));
-		return (add_three_colors(surface, reflected, refracted));
+		xs.count += 1;
 	}
-	return (add_three_colors(surface, reflected, refracted));
+	return (xs);
+//	if (cone->closed == false || compare_floats(ray.direction.y, 0.0f))
+//		return (xs);
+//	xs.t[2] = (cone->min - ray.origin.y) / ray.direction.y;
+//	if (check_cap(ray, xs.t[2], cone))
+//		xs.count += 1;
+//	xs.t[3] = (cone->max - ray.origin.y) / ray.direction.y;
+//	if (check_cap(ray, xs.t[3], cone) )
+//		xs.count += 1;
+//	return (xs);
 }

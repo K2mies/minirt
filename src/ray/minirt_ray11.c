@@ -1,29 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_ray08.c                                     :+:      :+:    :+:   */
+/*   minirt_ray10.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/09 16:51:07 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/09 17:17:30 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/06/04 10:52:26 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/07/11 16:11:53 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
 
-t_ray	ray_for_pixel(t_camera cam, t_float px, t_float py)
+/**
+ * @brief	calculates the normal at a given point/intersection of a sub object
+ * caculates the normal of a point/intersection on a sub object depending on
+ * type
+ *
+ * @param obj			object to calculate normal on
+ * @param world_point	intersection point in world space.
+ * @return				normal vector from calculation
+ */
+t_tuple	normal_at(t_object obj, t_tuple world_point)
 {
-	t_ray_for_pixel_param	p;
-	t_matrix4	m;
-
-	p.offset[x] = (px + 0.5) * cam.pixel_size;
-	p.offset[y] = (py + 0.5) * cam.pixel_size;
-	p.world[x] = cam.half[width] - p.offset[x];
-	p.world[y] = cam.half[height] - p.offset[y];
-	m = inverse_matrix4(cam.transform);
-	p.pixel = multiply_matrix4_tuple(m , point(p.world[x], p.world[y], -1));
-	p.origin = multiply_matrix4_tuple(m , point(0, 0, 0));
-	p.direction = sub_tuples(p.pixel, p.origin);
-	p.direction = normalize_vector(p.direction);
-	return (ray(p.origin, p.direction));
+	t_tuple res;
+	if (obj.type == SPHERE)
+		res = normal_at_sphere(obj, world_point);
+	if (obj.type == PLANE)
+		res = normal_at_plane(obj);
+	if (obj.type == CUBE)
+		res = normal_at_cube(obj, world_point);
+	if (obj.type == CYLINDER && obj.closed == true)
+		res = normal_at_cap(obj, world_point);
+	else if (obj.type == CYLINDER)
+		res = normal_at_cylinder(obj, world_point);
+	return (res);
 }

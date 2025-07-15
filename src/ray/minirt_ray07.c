@@ -1,45 +1,107 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_ray07.c                                     :+:      :+:    :+:   */
+/*   minirt_ray09.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/06 15:30:46 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/25 16:12:09 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/07/15 11:05:28 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/07/15 11:49:40 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
 
-/**
- * @brief	prepares computations for rendering
- * returns a cmops struct with computations completed
- *
- * @param i		intersectiont to compute
- * @param r		ray to use for computations
- * @return		computations struct with contained values
- */
-t_computations prepare_computations(t_world w, t_intersection *i, t_ray r)
-{
-	t_computations	comps;
 
-	comps.t = i->t;
-	comps.object = i->object;
-	comps.v[pos] = position(r, comps.t);
-	comps.v[eyev] = negate_tuple(r.direction);
-	comps.v[normalv] = normal_at(comps.object, comps.v[pos]);
-	prepare_refraction_calculations(&w, &comps, i);
-	if (dot_product(comps.v[normalv], comps.v[eyev]) < 0)
+/**
+ * @brief	helper function to calculate var a
+ *
+ * @param ray		Ray to use for calculation
+ * @return			t_flaot var a
+ */
+
+static t_float	calculate_var_a(t_ray ray)
+{
+	t_float	ray_direction_sqr[3];
+	t_float	var_a;
+
+	ray_direction_sqr[x] = ray.direction.x * ray.direction.x;
+	ray_direction_sqr[y] = ray.direction.y * ray.direction.y;
+	ray_direction_sqr[z] = ray.direction.z * ray.direction.z;
+	var_a = ray_direction_sqr[x] - ray_direction_sqr[y] + ray_direction_sqr[z];
+	return (var_a);
+}
+
+/**
+ * @brief	helper function to calculate var b
+ *
+ * @param ray		Ray to use for calculation
+ * @return			t_flaot var a
+ */
+static t_float	calculate_var_b(t_ray ray)
+{
+	t_float	ray_origin_by_dir[3];
+	t_float	var_b;
+
+	ray_origin_by_dir[x] = ray.origin.x * ray.direction.x;
+	ray_origin_by_dir[y] = ray.origin.y * ray.direction.y;
+	ray_origin_by_dir[z] = ray.origin.z * ray.direction.z;
+	var_b = ray_origin_by_dir[x] - ray_origin_by_dir[y] + ray_origin_by_dir[z];
+	return (var_b);
+}
+
+/**
+ * @brief	helper function to calculate var c
+ *
+ * @param ray		Ray to use for calculation
+ * @return			t_flaot var c
+ */
+static t_float	calculate_var_c(t_ray ray)
+{
+	t_float	ray_origin_sqr[3];
+	t_float	var_c;
+
+	ray_origin_sqr[x] = ray.origin.x * ray.origin.x;
+	ray_origin_sqr[y] = ray.origin.y * ray.origin.x;
+	ray_origin_sqr[z] = ray.origin.z * ray.origin.z;
+	var_c = ray_origin_sqr[x] - ray_origin_sqr[y] + ray_origin_sqr[z];
+	return (var_c);
+}
+
+/**
+ * @brief	intersections  of a ray and a cylinder
+ *
+ * @param cylinder	cyliunder object to be intersected
+ * @param ray		Ray to cast
+ * @return			t_intersections	result of intersections
+ */
+t_intersections		cone_intersection(t_object *cone, t_ray ray)
+{
+	t_intersections	res;
+	t_float			discriminant;
+	t_float			var[3];
+
+	ray = transform(ray, inverse_matrix4(cone->transform));
+	cone->saved_ray = ray;
+	res.count = 0;
+	var[a] = calculate_var_a(ray);
+	if (compare_floats(var[a], 0.0f))
 	{
-		comps.inside = true;
-		comps.v[normalv] = negate_tuple(comps.v[normalv]);
+		res = intersect_cone_caps(cone, ray, res);
+		truncate_cone(cone, ray, &res);
+		return (res);
 	}
-	else
-		comps.inside = false;
-	comps.v[reflectv] = reflect(r.direction, comps.v[normalv]);
-	comps.over_point = add_tuples(comps.v[pos],
-				multiply_tuple_by_scalar(comps.v[normalv], REFRACTION_BIAS));
-	comps.under_point = sub_tuples(comps.v[pos],
-				multiply_tuple_by_scalar(comps.v[normalv], SHADOW_BIAS));
-	return (comps);
+	var[b] = calculate_var_b(ray);
+	var[c] = calculate_var_c(ray);
+	discriminant = (var[b] * var[b]) - (4.0f * var[a] * var[c]);
+	if (discriminant < 0)
+		return (res);
+	res.t[0] = (-var[b] - sqrtf(discriminant)) / (2.0 * var[a]);
+	res.t[1] = (-var[b] + sqrtf(discriminant)) / (2.0 * var[a]);
+//	res.count = 2;
+	if (res.t[0] > res.t[1])
+		swapf(&res.t[0], &res.t[1]);
+//	truncate_cylinder(cylinder, ray, &res);
+	res = intersect_cone_caps(cone, ray, res);
+	truncate_cone(cone, ray, &res);
+	return (res);
 }
