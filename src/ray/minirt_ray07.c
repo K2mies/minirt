@@ -67,6 +67,7 @@ static t_float	calculate_var_c(t_ray ray)
 	return (var_c);
 }
 
+static	void	handle_discriminant(t_float var[3], t_intersections *res)
 /**
  * @brief	intersections  of a ray and a cylinder
  *
@@ -79,21 +80,25 @@ t_intersections		cone_intersection(t_object *cone, t_ray ray)
 	t_intersections	res;
 	t_float			discriminant;
 	t_float			var[3];
+	t_float			t;
 
 	ray = transform(ray, inverse_matrix4(cone->transform));
 	cone->saved_ray = ray;
 	res.count = 0;
 	var[a] = calculate_var_a(ray);
-	if (compare_floats(var[a], 0.0f))
-	{
-		res = intersect_cone_caps(cone, ray, res);
-		truncate_cone(cone, ray, &res);
-		return (res);
-	}
 	var[b] = calculate_var_b(ray);
 	var[c] = calculate_var_c(ray);
+	t = -var[c] / (2.0f * var[b]);
+	if (compare_floats(var[a], 0.0f))
+	{
+		if (compare_floats(var[b], 0.0f))
+			return (res);
+		res.t[res.count++] = t;
+		res.t[res.count++] = t;
+		return (res);
+	}
 	discriminant = (var[b] * var[b]) - (4.0f * var[a] * var[c]);
-	if (discriminant < 0)
+	if (discriminant <= -EPSILON)
 		return (res);
 	res.t[0] = -var[c] / (2.0f * var[b]);
 	res = intersect_cone_caps(cone, ray, res);

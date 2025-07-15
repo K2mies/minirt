@@ -30,8 +30,12 @@ t_tuple	normal_at(t_object obj, t_tuple world_point)
 	if (obj.type == CUBE)
 		res = normal_at_cube(obj, world_point);
 	if (obj.type == CYLINDER && obj.closed == true)
-		res = normal_at_cap(obj, world_point);
+		res = normal_at_cylinder_cap(obj, world_point);
 	else if (obj.type == CYLINDER)
 		res = normal_at_cylinder(obj, world_point);
+	if (obj.type == CONE && obj.closed == true)
+		res = normal_at_cone_cap(obj, world_point);
+	else if(obj.type == CONE)
+		res = normal_at_cone(obj, world_point);
 	return (res);
 }

@@ -105,6 +105,8 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				$(SRC_DIR)/ray/minirt_ray22.c										\
 				$(SRC_DIR)/ray/minirt_ray23.c										\
 				$(SRC_DIR)/ray/minirt_ray24.c										\
+				$(SRC_DIR)/ray/minirt_ray25.c										\
+				$(SRC_DIR)/ray/minirt_ray26.c										\
 				\
 				$(SRC_DIR)/object/minirt_object00.c									\
 				$(SRC_DIR)/object/minirt_object01.c									\
@@ -115,6 +117,7 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				$(SRC_DIR)/object/minirt_object06.c									\
 				$(SRC_DIR)/object/minirt_object07.c									\
 				$(SRC_DIR)/object/minirt_object08.c									\
+				$(SRC_DIR)/object/minirt_object09.c									\
 				\
 				$(SRC_DIR)/mlx/minirt_mlx00.c										\
 				\
@@ -122,10 +125,11 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				$(SRC_DIR)/error/error.c											\
 				\
 				$(SRC_DIR)/parsing/validation.c										\
-				$(SRC_DIR)/parsing/sorting.c										\
-				$(SRC_DIR)/parsing/utils.c											\
-				$(SRC_DIR)/parsing/object.c											\
 				$(SRC_DIR)/parsing/validation_utils.c								\
+				$(SRC_DIR)/parsing/utils.c											\
+				$(SRC_DIR)/parsing/sorting.c										\
+				$(SRC_DIR)/parsing/object.c											\
+				$(SRC_DIR)/parsing/object_utils.c											\
 				\
 				$(SRC_DIR)/utils/close.c											\
 				$(SRC_DIR)/utils/utils.c											\
@@ -135,7 +139,6 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				$(SRC_DIR)/utils/cube.c										\
 				$(SRC_DIR)/utils/swap.c										\
 				\
-				$(SRC_DIR)/remove_this/julesprints.c								\
 #-----------------------------------------------------------------------------------#
 OBJ 		= 	$(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 #-----------------------------------------------------------------------------------#

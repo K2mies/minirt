@@ -1,40 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_ray13.c                                     :+:      :+:    :+:   */
+/*   minirt_ray10.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/30 12:23:20 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/30 13:30:25 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/06/09 10:34:33 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/06/25 15:47:07 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
 
 /**
- * @brief	schlick calculation for reflection based on distance
- *
- * @param comps	computation paramaters
- * @return		t_float value
+ * @brief	fetches color at intersection point
+ * returns a color from the hit point of an intersection
+ * taking into account all the lighting computations
+ * @param w			wpr;d object to operate on
+ * @param r			ray to cast for intersections
+ * @return			t_color returned color;
  */
-t_float	schlick(t_computations comps)
+t_color	color_at(t_world w, t_ray r, int remaining)
 {
-	t_float	cos[2];
-	t_float	sin2_t;
-	t_float	n_ratio;
-	t_float	reflectance;
+	t_intersection	hit_point;
+	t_color			res;
 
-	cos[a] = dot_product(comps.v[eyev], comps.v[normalv]);
-	if (comps.n[0] > comps.n[1])
+	world_intersect(&w, r);
+	hit_point = hit(&w);
+	if(hit_point.t >= 0)
 	{
-		n_ratio = comps.n[0] / comps.n[1];
-		sin2_t = n_ratio * n_ratio * (1 - cos[a] * cos[a]);
-		if (sin2_t > 1.0)
-			return (1.0);
-		cos[b] = sqrtf(1.0f - sin2_t);
-		cos[a] = cos[b];
+		w.cs[w.hit_index] = prepare_computations(w, &hit_point, r);
+		res = shade_hit(w, w.cs[w.hit_index], hit_point.object, remaining);
 	}
-	reflectance = ((comps.n[0] = comps.n[1]) / (comps.n[0] + comps.n[1]));
-	reflectance = reflectance * reflectance;
-	return (reflectance + (1 - reflectance) * powf(1 - cos[a], 5));
+	else
+		res = color(0, 0, 0);
+	return (res);
 }

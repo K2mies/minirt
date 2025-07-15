@@ -1,39 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_object03.c                                  :+:      :+:    :+:   */
+/*   minirt_object02.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 13:40:51 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/04 14:46:34 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/06/04 13:21:45 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/06/04 13:45:29 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minirt.h"
 
 /**
- * @brief	creates and asigned a material object
- * creates, asigns and returns a material object
- * param[ambient] = 0.1;
- * param[diffuse] = 0.9;
- * param[specular] = 0.9;
- * param[shininess] = 200.0;
- * param[reflective] = 0;
- * @param param			array of 4 float paramaters as listed above
- * @param col			Color of material
- * @return				t_material object
+ * @brief	creates and return a point_light object
+ * creates and returns a point_light.
+ *
+ * @param origin		Point that is the origin of the light
+ * @param brightness	Brightness of light (intensity)
+ * @param col			Color of the light
+ * @return				t_light object
  */
-t_material material(t_float param[7], t_color col)
+t_light	point_light(t_tuple origin, t_float brightness, t_color col)
 {
-	t_material m;
+	t_light	light;
 
-	m.color = col;
-	m.ambient = param[ambient];
-	m.diffuse = param[diffuse];
-	m.specular = param[specular];
-	m.shininess = param[shininess];
-	m.reflective = param[reflective];
-	m.transparency = param[transparency];
-	m.refractive_index = param[refractive_index];
-	return (m);
+	light.origin = origin;
+	light.brightness = brightness;
+	light.color = multiply_color_by_scalar(col, light.brightness);
+	return (light);
+		
 }
