@@ -3251,7 +3251,7 @@ void	test_single_cone(t_minirt *rt)
 
 //	w.objs[0] = cube(point(0, 0, 0), color(1, 0 , 0));
 	w.objs[0] = cone(point(0, 0, 0), 2, 2, color(1, 1, 1));
-	w.objs[0].closed = false;
+	w.objs[0].closed = true;
 	m = id_matrix4();
 //	m = multiply_matrix4(m, translation(0, -3.5, -0.5));
 	m = multiply_matrix4(m, translation(0, 0.5, 0.7));
@@ -3271,6 +3271,56 @@ void	test_single_cone(t_minirt *rt)
 	img = render(cam, w);
 	canvas_to_ppm(img);
 }
+
+void	test_cone_intersection(t_minirt *rt)
+{
+	(void)rt;
+	t_object		con;
+	t_tuple			tup[2];
+	t_ray			r;
+	t_intersections	xs;
+
+	con = cone(point(0, 0, 0), 2, 2, color(1, 1, 1));
+	con.closed = true;
+	con.min = 0.5;
+	con.max = 0.5;
+
+//	tup[origin] = point(0, 0, -5);
+//	tup[direction] = vector(0, 0, 1);
+//	tup[direction] = normalize_vector(tup[direction]);
+//	r = ray(tup[origin], tup[direction]);
+//	xs = cone_intersection(&con, r);
+//	printf("xs.count = %d\n", xs.count);
+//	printf("xs.t[0] = %f\n", xs.t[0]);
+//	printf("xs.t[1] = %f\n\n", xs.t[1]);
+//
+//	tup[origin] = point(0, 0, -5);
+//	tup[direction] = vector(1, 1, 1);
+//	tup[direction] = normalize_vector(tup[direction]);
+//	r = ray(tup[origin], tup[direction]);
+//	xs = cone_intersection(&con, r);
+//	printf("xs.count = %d\n", xs.count);
+//	printf("xs.t[0] = %f\n", xs.t[0]);
+//	printf("xs.t[1] = %f\n\n", xs.t[1]);
+//
+//	tup[origin] = point(1, 1, -5);
+//	tup[direction] = vector(-0.5, -1, 1);
+//	tup[direction] = normalize_vector(tup[direction]);
+//	r = ray(tup[origin], tup[direction]);
+//	xs = cone_intersection(&con, r);
+//	printf("xs.count = %d\n", xs.count);
+//	printf("xs.t[0] = %f\n", xs.t[0]);
+//	printf("xs.t[1] = %f\n\n", xs.t[1]);
+	
+	tup[origin] = point(0, 0, -5);
+	tup[direction] = vector(0, 1, 0);
+	tup[direction] = normalize_vector(tup[direction]);
+	r = ray(tup[origin], tup[direction]);
+	xs = cone_intersection(&con, r);
+	printf("xs.count = %d\n", xs.count);
+	printf("xs.t[0] = %f\n", xs.t[0]);
+	printf("xs.t[1] = %f\n\n", xs.t[1]);
+}
 int	main(int argc, char **argv)
 {
 //	(void)argc;
@@ -3286,7 +3336,8 @@ int	main(int argc, char **argv)
 	rt.n_light = 0;
 	rt.ts = NULL;
 	open_file(&rt, argv);
-	test_single_cone(&rt);
+	test_cone_intersection(&rt);
+//	test_single_cone(&rt);
 //	test_penis_scene(&rt);
 //	test_cylinder_caps_intersection();
 //	test_single_cylinder(&rt);

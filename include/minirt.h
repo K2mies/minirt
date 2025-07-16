@@ -350,6 +350,13 @@ typedef struct	s_cube_intersect_param
 
 /* ================================ ENUMS =================================== */
 
+//Enum for tuple origin and direction;
+typedef enum	e_origin_direction
+{
+	origin,
+	direction
+}	t_origin_direction;
+
 //Enum for inverse and transpose matrix values;
 typedef	enum	e_inverse_transpose
 {

@@ -19,7 +19,7 @@
  * @param res		pointer to result values to update
  */
 void	truncate_cylinder(t_object *cylinder, t_ray ray, t_intersections *res)
-{
+{ 
 	t_float	y[2];
 
 	y[0] = ray.origin.y + (res->t[0] * ray.direction.y);
