@@ -48,6 +48,8 @@ t_intersections object_intersection(t_object *obj, t_ray ray)
 		xs = cube_intersection(obj, ray);
 	if (obj->type == CYLINDER)
 		xs = cylinder_intersection(obj, ray);
+	if (obj->type == CONE)
+		xs = cone_intersection(obj, ray);
 	return (xs);
 }
 

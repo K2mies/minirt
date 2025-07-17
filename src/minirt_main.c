@@ -3166,7 +3166,7 @@ void	test_penis_scene(t_minirt *rt)
 
 /* --------------------------------------------------------------transforms*/
 	m = id_matrix4();
-	m = multiply_matrix4(m, translation(-0.5, 0.5, 2));
+	m = multiply_matrix4(m, translation(-1.5, 1.5, 2));
 	m = multiply_matrix4(m, scaling(0.5, 0.5, 0.5));
 	w.objs[1].transform = m;
 /* ----------------------------------------------------------------material*/
@@ -3227,6 +3227,100 @@ void	test_penis_scene(t_minirt *rt)
 	img = render(cam, w);
 	canvas_to_ppm(img);
 }
+
+void	test_single_cone(t_minirt *rt)
+{
+	t_world			w;
+	t_matrix4		m;
+//	t_ray			r;
+//	t_computations	comps;
+//	t_color			col;
+//	t_intersection	hit_point;
+//	int				max_bounce;
+	t_camera		cam;
+	t_canvas		*img;
+	int				scalar;
+
+	scalar = 3;
+	w = world_scene(rt);
+/* ================================ CAMERA =============================== */
+	cam = camera(50 * scalar, 100 * scalar, deg_to_rad(60));
+	cam.transform = view_transform(point(0, 1.5, -5), point(0, 1, 0), vector(0, 1, 0));
+
+	w.light[0] = point_light(point(-10, 10, 0), 1.0, color(1, 1, 1));
+
+//	w.objs[0] = cube(point(0, 0, 0), color(1, 0 , 0));
+	w.objs[0] = cone(point(0, 0, 0), 2, 4, color(1, 1, 1));
+	w.objs[0].closed = true;
+	m = id_matrix4();
+//	m = multiply_matrix4(m, translation(0, -3.5, -0.5));
+	m = multiply_matrix4(m, translation(0, 0.5, 0.7));
+	m = multiply_matrix4(m, rotation_x(45));
+	m = multiply_matrix4(m, rotation_y(45));
+	m = multiply_matrix4(m, rotation_z(45));
+	w.objs[0].transform = m;
+	w.objs[0].color = color(0, 0, 1);
+	w.objs[0].material.color = color(0, 0, 1);
+	w.objs[0].material.diffuse = 0.7;
+	w.objs[0].material.specular = 0.3;
+//	w.objs[1].material.refractive_index = 1.5;
+//	w.objs[1].material.transparency = 0.5;
+//	w.objs[1].material.reflective = 0;
+	w.objs[0].material.ambient = 0.1;
+
+	img = render(cam, w);
+	canvas_to_ppm(img);
+}
+
+void	test_cone_intersection(t_minirt *rt)
+{
+	(void)rt;
+	t_object		con;
+	t_tuple			tup[2];
+	t_ray			r;
+	t_intersections	xs;
+
+	con = cone(point(0, 0, 0), 2, 2, color(1, 1, 1));
+	con.closed = true;
+	con.min = 0.5;
+	con.max = 0.5;
+
+//	tup[origin] = point(0, 0, -5);
+//	tup[direction] = vector(0, 0, 1);
+//	tup[direction] = normalize_vector(tup[direction]);
+//	r = ray(tup[origin], tup[direction]);
+//	xs = cone_intersection(&con, r);
+//	printf("xs.count = %d\n", xs.count);
+//	printf("xs.t[0] = %f\n", xs.t[0]);
+//	printf("xs.t[1] = %f\n\n", xs.t[1]);
+//
+//	tup[origin] = point(0, 0, -5);
+//	tup[direction] = vector(1, 1, 1);
+//	tup[direction] = normalize_vector(tup[direction]);
+//	r = ray(tup[origin], tup[direction]);
+//	xs = cone_intersection(&con, r);
+//	printf("xs.count = %d\n", xs.count);
+//	printf("xs.t[0] = %f\n", xs.t[0]);
+//	printf("xs.t[1] = %f\n\n", xs.t[1]);
+//
+//	tup[origin] = point(1, 1, -5);
+//	tup[direction] = vector(-0.5, -1, 1);
+//	tup[direction] = normalize_vector(tup[direction]);
+//	r = ray(tup[origin], tup[direction]);
+//	xs = cone_intersection(&con, r);
+//	printf("xs.count = %d\n", xs.count);
+//	printf("xs.t[0] = %f\n", xs.t[0]);
+//	printf("xs.t[1] = %f\n\n", xs.t[1]);
+	
+	tup[origin] = point(0, 0, -0.25);
+	tup[direction] = vector(0, 1, 0);
+	tup[direction] = normalize_vector(tup[direction]);
+	r = ray(tup[origin], tup[direction]);
+	xs = cone_intersection(&con, r);
+	printf("xs.count = %d\n", xs.count);
+	printf("xs.t[0] = %f\n", xs.t[0]);
+	printf("xs.t[1] = %f\n\n", xs.t[1]);
+}
 int	main(int argc, char **argv)
 {
 //	(void)argc;
@@ -3242,9 +3336,11 @@ int	main(int argc, char **argv)
 	rt.n_light = 0;
 	rt.ts = NULL;
 	open_file(&rt, argv);
+	test_cone_intersection(&rt);
+//	test_single_cone(&rt);
 //	test_penis_scene(&rt);
 //	test_cylinder_caps_intersection();
-	test_single_cylinder(&rt);
+//	test_single_cylinder(&rt);
 //	test_cylinder_normal();
 //	test_cylinder_intersection();
 //	test_cube_normal(&rt);

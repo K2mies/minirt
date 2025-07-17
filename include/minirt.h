@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:11:13 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/15 13:21:46 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/06/27 14:21:03 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,9 @@
 # define BIG_NUMBER 1000000.0f
 # define M_PI 3.14159265358979323846
 # define EPSILON			0.00001f
+//# define EPSILON			0.01f
 //# define CAP_EPSILON		1e-5
-# define CAP_EPSILON		0.00001f
+# define C_EPSILON			0.00001f
 # define REFRACTION_BIAS	0.00001f
 # define SHADOW_BIAS		0.01f
 # define PATTERN_SHIFT		0.01f
@@ -349,6 +350,13 @@ typedef struct	s_cube_intersect_param
 
 /* ================================ ENUMS =================================== */
 
+//Enum for tuple origin and direction;
+typedef enum	e_origin_direction
+{
+	origin,
+	direction
+}	t_origin_direction;
+
 //Enum for inverse and transpose matrix values;
 typedef	enum	e_inverse_transpose
 {
@@ -391,6 +399,14 @@ typedef enum	e_vectors
 	normalv,
 	reflectv
 }	t_vectors;
+
+//Enum or color types
+typedef enum	e_colors
+{
+	surface,
+	reflected,
+	refracted
+}	t_colors;
 
 //Enum for phong material paramaters
 typedef enum	e_phong
@@ -643,26 +659,28 @@ t_tuple				normal_at_cube(t_object obj, t_tuple world_point);
 /* ----------------------------------------------------------- minirt_ray15.c */
 t_tuple				normal_at_cylinder(t_object obj, t_tuple world_point);
 /* ----------------------------------------------------------- minirt_ray16.c */
-t_tuple				normal_at_cap(t_object obj, t_tuple world_point);
-
-
-/* ----------------------------------------------------------- minirt_ray16.c */
-t_tuple				reflect(t_tuple in, t_tuple normal);
+t_tuple				normal_at_cylinder_cap(t_object obj, t_tuple world_point);
 /* ----------------------------------------------------------- minirt_ray17.c */
+t_tuple				normal_at_cone(t_object obj, t_tuple world_point);
+/* ----------------------------------------------------------- minirt_ray18.c */
+t_tuple				normal_at_cone_cap(t_object obj, t_tuple world_point);
+/* ----------------------------------------------------------- minirt_ray19.c */
+t_tuple				reflect(t_tuple in, t_tuple normal);
+/* ----------------------------------------------------------- minirt_ray20.c */
 t_color				lighting(t_lighting_param p, t_material m, t_light light, t_tuple v[3]);
 bool				is_shadowed(t_world world, t_tuple point);
-/* ----------------------------------------------------------- minirt_ray18.c */
+/* ----------------------------------------------------------- minirt_ray21.c */
 t_computations		prepare_computations(t_world w, t_intersection *i, t_ray r);
-/* ----------------------------------------------------------- minirt_ray19.c */
+/* ----------------------------------------------------------- minirt_ray22.c */
 void				prepare_refraction_calculations(t_world *w, t_computations *comps, t_intersection *target);
-/* ----------------------------------------------------------- minirt_ray20.c */
+/* ----------------------------------------------------------- minirt_ray23.c */
 t_intersection		hit(t_world *w);
 t_color				shade_hit(t_world w, t_computations comps, t_object obj, int remaining);
-/* ----------------------------------------------------------- minirt_ray21.c */
+/* ----------------------------------------------------------- minirt_ray24.c */
 t_color				color_at(t_world w, t_ray r, int remaining);
-/* ----------------------------------------------------------- minirt_ray22.c */
+/* ----------------------------------------------------------- minirt_ray25.c */
 t_ray				ray_for_pixel(t_camera cam, t_float px, t_float py);
-/* ----------------------------------------------------------- minirt_ray23.c */
+/* ----------------------------------------------------------- minirt_ray26.c */
 t_float				schlick(t_computations comps);
 /* ============================== OBJECTS =================================== */
 
@@ -676,16 +694,17 @@ t_object	cube(t_tuple origin, t_color col);
 /* -------------------------------------------------------- minirt_object03.c */
 t_object	cylinder(t_tuple location, t_float diameter, t_float height, t_color col);
 /* -------------------------------------------------------- minirt_object04.c */
-/* -------------------------------------------------------- minirt_object04.c */
-t_wall		wall(t_tuple position, t_float width, t_float height);
+t_object	cone(t_tuple location, t_float diameter, t_float height, t_color col);
 /* -------------------------------------------------------- minirt_object05.c */
-t_light		point_light(t_tuple origin, t_float brightness, t_color col);
+t_wall		wall(t_tuple position, t_float width, t_float height);
 /* -------------------------------------------------------- minirt_object06.c */
-t_material	material(t_float param[7], t_color col);
+t_light		point_light(t_tuple origin, t_float brightness, t_color col);
 /* -------------------------------------------------------- minirt_object07.c */
+t_material	material(t_float param[7], t_color col);
+/* -------------------------------------------------------- minirt_object08.c */
 t_world		world_scene(t_minirt *rt);
 t_world		default_world(t_minirt *rt);
-/* -------------------------------------------------------- minirt_object08.c */
+/* -------------------------------------------------------- minirt_object09.c */
 t_camera	camera(int h_size, int w_size, t_float fov);
 /* ================================ MLX ===================================== */
 
