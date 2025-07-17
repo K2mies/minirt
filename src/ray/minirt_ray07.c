@@ -72,16 +72,18 @@ static void	handle_discriminant(t_float	var[3], t_intersections *res, t_float di
 {
 	if (discriminant <= EPSILON)
 	{
-		res->t[0] = -var[b] / (2.0f * var[a]);
-		res->t[1] = res->t[0];
+		printf("three\n");
+		res->t[res->count] = -var[b] / (2.0f * var[a]);
+		res->t[res->count + 1] = res->t[0];
 		res->count++;
 	}
 	else
 	{
-		res->t[0] = (-var[b] - sqrtf(discriminant)) / (2.0f * var[a]);
-		res->t[1] = (-var[b] + sqrtf(discriminant)) / (2.0f * var[a]);
-		res->count++;
-		res->count++;
+		printf("four\n");
+		res->t[res->count++] = (-var[b] - sqrtf(discriminant)) / (2.0f * var[a]);
+		res->t[res->count++] = (-var[b] + sqrtf(discriminant)) / (2.0f * var[a]);
+//		res->count++;
+//		res->count++;
 	}
 }
 /**
@@ -105,21 +107,34 @@ t_intersections		cone_intersection(t_object *cone, t_ray ray)
 	var[b] = calculate_var_b(ray);
 	var[c] = calculate_var_c(ray);
 	t = -var[c] / (2.0f * var[b]);
-	if (compare_floats(var[a], 0.0f))
+	printf("t = %f\n", t);
+	printf("var[a] = %f\n", var[a]);
+	printf("var[b] = %f\n", var[b]);
+	printf("var[c] = %f\n", var[c]);
+	if (fabs(var[a]) < EPSILON)
+//	if (var[a] <= 0.0f || compare_floats(var[a], 0.0f))
+//	if (compare_floats(var[a], 0.0f))
 	{
-		if (compare_floats(var[b], 0.0f))
+		printf("one\n");
+		if(fabs(var[b]) < EPSILON)
+//		if (var[b] <= 0.0f || compare_floats(var[b], 0.0f))
+//		if (compare_floats(var[b], 0.0f))
 		{
+			printf("two\n");
 			return (res);
 		}
 		res.t[res.count++] = t;
 		res.t[res.count++] = t;
+		res = intersect_cone_caps(cone, ray ,res);
+		truncate_cone(cone, ray, &res);
 		return (res);
 	}
-	discriminant = (var[b] * var[b]) - (4.0f * var[a] * var[c]);
+	discriminant = var[b] * var[b] - 4.0f * var[a] * var[c];
 	if (discriminant < -EPSILON)
 		return (res);
 //	res.t[res.count++] = t;
 //	res.t[res.count++] = t;
+	printf("discriminant = %f\n", discriminant);
 	handle_discriminant(var, &res, discriminant);
 	res = intersect_cone_caps(cone, ray, res);
 	truncate_cone(cone, ray, &res);
