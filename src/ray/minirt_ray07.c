@@ -62,7 +62,7 @@ static t_float	calculate_var_c(t_ray ray)
 	t_float	var_c;
 
 	ray_origin_sqr[x] = ray.origin.x * ray.origin.x;
-	ray_origin_sqr[y] = ray.origin.y * ray.origin.x;
+	ray_origin_sqr[y] = ray.origin.y * ray.origin.y;
 	ray_origin_sqr[z] = ray.origin.z * ray.origin.z;
 	var_c = ray_origin_sqr[x] - ray_origin_sqr[y] + ray_origin_sqr[z];
 	return (var_c);
@@ -75,13 +75,13 @@ static void	handle_discriminant(t_float	var[3], t_intersections *res, t_float di
 		printf("three\n");
 		res->t[res->count] = -var[b] / (2.0f * var[a]);
 		res->t[res->count + 1] = res->t[0];
-		res->count++;
+//		res->count++;
 	}
 	else
 	{
 		printf("four\n");
-		res->t[res->count++] = (-var[b] - sqrtf(discriminant)) / (2.0f * var[a]);
-		res->t[res->count++] = (-var[b] + sqrtf(discriminant)) / (2.0f * var[a]);
+		res->t[res->count] = (-var[b] - sqrtf(discriminant)) / (2.0 * var[a]);
+		res->t[res->count + 1] = (-var[b] + sqrtf(discriminant)) / (2.0 * var[a]);
 //		res->count++;
 //		res->count++;
 	}
@@ -111,6 +111,7 @@ t_intersections		cone_intersection(t_object *cone, t_ray ray)
 	printf("var[a] = %f\n", var[a]);
 	printf("var[b] = %f\n", var[b]);
 	printf("var[c] = %f\n", var[c]);
+	discriminant = var[b] * var[b] - 4.0f * var[a] * var[c];
 	if (fabs(var[a]) < EPSILON)
 //	if (var[a] <= 0.0f || compare_floats(var[a], 0.0f))
 //	if (compare_floats(var[a], 0.0f))
@@ -123,20 +124,17 @@ t_intersections		cone_intersection(t_object *cone, t_ray ray)
 			printf("two\n");
 			return (res);
 		}
-		res.t[res.count++] = t;
-		res.t[res.count++] = t;
-		res = intersect_cone_caps(cone, ray ,res);
+		handle_discriminant(var, &res, discriminant);
 		truncate_cone(cone, ray, &res);
+		res = intersect_cone_caps(cone, ray, res);
+//		truncate_cone(cone, ray, &res);
 		return (res);
 	}
-	discriminant = var[b] * var[b] - 4.0f * var[a] * var[c];
 	if (discriminant < -EPSILON)
 		return (res);
-//	res.t[res.count++] = t;
-//	res.t[res.count++] = t;
-	printf("discriminant = %f\n", discriminant);
 	handle_discriminant(var, &res, discriminant);
-	res = intersect_cone_caps(cone, ray, res);
 	truncate_cone(cone, ray, &res);
+	res = intersect_cone_caps(cone, ray, res);
+//	truncate_cone(cone, ray, &res);
 	return (res);
 }
