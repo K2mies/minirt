@@ -44,13 +44,13 @@ void	truncate_cone(t_object *cone, t_ray ray, t_intersections *res)
 	y[0] = ray.origin.y + (res->t[0] * ray.direction.y);
 	if (cone->min < y[0] && y[0] < cone->max)
 	{
-//		res->t[res->count++] = res->t[0];
+//		res->t[res->count] = res->t[0];
 		res->count += 1;
 	}
 	y[1] = ray.origin.y + res->t[1] * ray.direction.y;
 	if (cone->min < y[1] && y[1] < cone->max)
 	{
-//		res->t[res->count++] = res->t[1];
+//		res->t[res->count] = res->t[1];
 		res->count += 1;
 	}
 }

@@ -76,21 +76,17 @@ t_intersections	intersect_cylinder_caps(t_object *cylinder, t_ray ray, t_interse
  */
 t_intersections	intersect_cone_caps(t_object *cone, t_ray ray, t_intersections xs)
 {
-	t_float	t;
 	if (cone->closed == false || compare_floats(ray.direction.y, 0.0f))
 		return (xs);
-	t = (cone->height - ray.origin.y) / ray.direction.y;
-//	if (t > C_EPSILON && check_cone_cap(ray, t, cone))
 //	xs.t[2] = (cone->height - ray.origin.y) / ray.direction.y;
-	if (t > EPSILON && check_cone_cap(ray, t, cone))
-	{
-		xs.t[xs.count++] = t;
-	}
-//	if (xs.t[2] > EPSILON && check_cone_cap(ray, xs.t[2], cone))
+//	if (check_cone_cap(ray, xs.t[2], cone))
 //	{
 //		xs.count += 1;
 //	}
-//	if (check_cone_cap(ray, t, cone))
-//		xs.t[xs.count++] = t;
+	xs.t[3] = (cone->max - ray.origin.y) / ray.direction.y;
+	if (check_cone_cap(ray, xs.t[3], cone))
+	{
+		xs.count += 1;
+	}
 	return (xs);
 }
