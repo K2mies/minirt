@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_ray09.c                                     :+:      :+:    :+:   */
+/*   minirt_ray07.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 11:05:28 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/15 11:49:40 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/07/17 16:58:42 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "minirt.h"
 
+#include "minirt.h"
 
 /**
  * @brief	helper function to calculate var a
@@ -62,7 +62,7 @@ static t_float	calculate_var_c(t_ray ray)
 	t_float	var_c;
 
 	ray_origin_sqr[x] = ray.origin.x * ray.origin.x;
-	ray_origin_sqr[y] = ray.origin.y * ray.origin.x;
+	ray_origin_sqr[y] = ray.origin.y * ray.origin.y;
 	ray_origin_sqr[z] = ray.origin.z * ray.origin.z;
 	var_c = ray_origin_sqr[x] - ray_origin_sqr[y] + ray_origin_sqr[z];
 	return (var_c);
