@@ -3,13 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   swap.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 14:13:20 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/09 14:16:10 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/07/21 13:12:37 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minirt.h"
+
 /**
  * @brief	function to swap two floats
  * Function to swap to floats based on their pointers

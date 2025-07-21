@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_transform03.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 11:57:38 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/05/27 14:48:07 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/07/21 13:12:02 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minirt.h"
 
 /**

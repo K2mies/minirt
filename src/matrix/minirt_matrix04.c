@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_matrix04.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.email.com  +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 15:56:55 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/05/26 11:36:07 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/07/21 13:10:06 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minirt.h"
 
 /**

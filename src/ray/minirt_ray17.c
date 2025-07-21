@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_ray17.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:46:58 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/15 13:48:44 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/07/21 13:11:29 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "minirt.h"
 
+#include "minirt.h"
 
 static t_float	calculate_distance(t_tuple object_point)
 {

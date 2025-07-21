@@ -1,15 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_ray08.c                                     :+:      :+:    :+:   */
+/*   minirt_ray09.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 15:05:26 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/11 10:23:09 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/07/21 13:11:15 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minirt.h"
+
 /**
  * @brief	helper function to reduce duplication
  * Checks to see if the intersection at t is within a radus

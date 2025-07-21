@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_color02.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.email.com  +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 18:01:33 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/05/18 00:35:50 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/07/21 13:09:23 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minirt.h"
 
 /**

@@ -6,11 +6,12 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 12:20:32 by mpierce           #+#    #+#             */
-/*   Updated: 2025/06/26 13:18:02 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/07/21 13:10:34 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
 /**
  * 
  * @brief Checks the data array contains the corrent number of elements

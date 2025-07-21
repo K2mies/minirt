@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+         #
+#    By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/08 15:43:17 by rhvidste          #+#    #+#              #
-#    Updated: 2025/07/08 16:50:52 by rhvidste         ###   ########.fr        #
+#    Updated: 2025/07/21 13:15:18 by mpierce          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,17 +21,17 @@ CFLAGS		= 	-O3 -flto -ffast-math -march=native -Wextra -Werror -Wall
 #CFLAGS		= 	-Wextra -Werror -Wall
 DEBUG_FLAGS	=	-g
 #-----------------------------------------------------------------------------------#
-LIBLMX_DIR	=	./lib/MLX42
+LIBMLX_DIR	=	./lib/MLX42
 #-----------------------------------------------------------------------------------#
 LIBFT_DIR	=	./lib/libft
 LIBFT		=	$(LIBFT_DIR)/libft.a
 #-----------------------------------------------------------------------------------#
 INC_DIR		=	./include
-INC_FLAGS	=	-I $(LIBFT_DIR) -I $(INC_DIR) -I $(LIBLMX_DIR)/include
+INC_FLAGS	=	-I $(LIBFT_DIR) -I $(INC_DIR) -I $(LIBMLX_DIR)/include
 #-----------------------------------------------------------------------------------#
 HEADER		=	$(INC_DIR)/minirt.h
-#LIBS		= 	$(LIBLMX_DIR)/build/libmlx42.a -L/opt/homebrew/lib -lglfw -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo -ldl -pthread -lm
-LIBS		= 	$(LIBLMX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
+#LIBS		= 	$(LIBMLX_DIR)/build/libmlx42.a -L/opt/homebrew/lib -lglfw -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo -ldl -pthread -lm
+LIBS		= 	$(LIBMLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
 #-----------------------------------------------------------------------------------#
 SRC_DIR		=	./src
 OBJ_DIR		=	./obj
@@ -129,15 +129,15 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				$(SRC_DIR)/parsing/utils.c											\
 				$(SRC_DIR)/parsing/sorting.c										\
 				$(SRC_DIR)/parsing/object.c											\
-				$(SRC_DIR)/parsing/object_utils.c											\
+				$(SRC_DIR)/parsing/object_utils.c									\
 				\
 				$(SRC_DIR)/utils/close.c											\
 				$(SRC_DIR)/utils/utils.c											\
 				$(SRC_DIR)/utils/memory.c											\
 				$(SRC_DIR)/utils/quicksort.c										\
 				$(SRC_DIR)/utils/containers.c										\
-				$(SRC_DIR)/utils/cube.c										\
-				$(SRC_DIR)/utils/swap.c										\
+				$(SRC_DIR)/utils/cube.c												\
+				$(SRC_DIR)/utils/swap.c												\
 				\
 #-----------------------------------------------------------------------------------#
 OBJ 		= 	$(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
@@ -146,15 +146,13 @@ OBJ 		= 	$(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 #SRC_DIR		=	src/
 #OBJ_DIR		=	obj/
 #-----------------------------------------------------------------------------------#
-all: $(LIBLMX_DIR) libmlx $(LIBFT) $(NAME)
+all: .libmlx $(LIBFT) $(NAME)
 
-libmlx:
-		@cmake $(LIBLMX_DIR) -B $(LIBLMX_DIR)/build && make -C $(LIBLMX_DIR)/build -j4
-
-$(LIBLMX_DIR):
-		@git clone https://github.com/codam-coding-college/MLX42.git $(LIBLMX_DIR)
+.libmlx:
+		@git clone https://github.com/codam-coding-college/MLX42.git $(LIBMLX_DIR) && touch .libmlx
+		@cmake $(LIBMLX_DIR) -B $(LIBMLX_DIR)/build && make -C $(LIBMLX_DIR)/build -j4
 		@echo "$(CYAN)cloned MLX library$(DEF_COLOR)"
-
+		
 $(NAME): $(LIBFT) $(OBJ) $(HEADER)
 		$(CC) $(CFLAGS) $(OBJ) $(INC_FLAGS) $(LIBS) $< $(LIBFT) -o $@
 #		@$(CC) $(CFLAGS) $(OBJ) $(LIBS) $(LIBFT) $(HEADER) -o $(NAME)
@@ -173,13 +171,13 @@ clean:
 		@rm -rf $(OBJ_DIR)
 		@rm -rf $(BOBJ_DIR)
 		@make clean -C ./lib/libft
-		@make clean -C ./lib/MLX42/build
 
 fclean: clean
 		@rm -rf $(NAME)
 		@rm -rf $(BNAME)
 		@rm -rf $(LIBFT)
-		@rm -rf $(LIBLMX_DIR)
+		@rm -rf $(LIBMLX_DIR)
+		@rm -rf .libmlx
 		@echo "$(CYAN)miniRT executable files cleaned!$(DEF_COLOR)"
 		@echo "$(CYAN)libft executable files cleaned!$(DEF_COLOR)"
 		@echo "$(CYAN)mlx executable files cleaned!$(DEF_COLOR)"
@@ -188,7 +186,7 @@ re: fclean all
 		@echo "$(GREEN)Cleaned and rebuilt everything for miniRT!$(DEF_COLOR)"
 #-------------------------------------------------------------------------------#
 debug:	CFLAGS += $(DEBUG_FLAGS)
-debug:	fclean all
+debug:	clean all
 
 libftdebug:
 	make debug -C $(LIBFT_DIR)

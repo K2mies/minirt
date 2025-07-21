@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_ray05.c                                     :+:      :+:    :+:   */
+/*   minirt_ray19.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 11:31:38 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/17 11:32:55 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/07/21 13:11:36 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "minirt.h"
 
+#include "minirt.h"
 
 /**
  * @brief	calculates the reflected vector

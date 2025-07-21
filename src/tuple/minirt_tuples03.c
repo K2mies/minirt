@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_tuples03.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 12:37:55 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/05/24 18:26:36 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/07/21 13:12:12 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minirt.h"
 
 /**

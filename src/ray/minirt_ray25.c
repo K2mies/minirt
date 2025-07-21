@@ -1,14 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_ray08.c                                     :+:      :+:    :+:   */
+/*   minirt_ray25.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 16:51:07 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/09 17:17:30 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/07/21 13:11:45 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minirt.h"
 
 t_ray	ray_for_pixel(t_camera cam, t_float px, t_float py)

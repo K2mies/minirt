@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_ppm00.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 13:41:20 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/05/26 11:21:31 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/07/21 13:10:45 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minirt.h"
 
 static void	create_ppm_header(int *fd, t_canvas *canvas)

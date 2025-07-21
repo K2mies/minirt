@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_mlx00.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 10:44:16 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/06 13:14:00 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/07/21 13:10:18 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minirt.h"
 
 /**

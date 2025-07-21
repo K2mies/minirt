@@ -6,3 +6,4 @@ lib/libft/*.o
 lib/libft/libft.a
 .vscode/
 .cache/
+.libmlx

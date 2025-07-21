@@ -3,13 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_object02.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 11:42:18 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/07 14:38:35 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/07/21 13:13:45 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minirt.h"
+
 /**
  * @brief	creates and returns a cube object
  * creates a Cube object/struct 

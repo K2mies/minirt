@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 11:05:28 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/17 16:58:42 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/07/21 13:08:35 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,9 @@ t_intersections		cone_intersection(t_object *cone, t_ray ray)
 	if (discriminant < -EPSILON)
 		return (res);
 	handle_discriminant(var, &res, discriminant);
+	printf("ENTERING TRUNC CONE\n");
 	truncate_cone(cone, ray, &res);
+	printf("EXITING TRUNC CONE\n");
 	res = intersect_cone_caps(cone, ray, res);
 //	truncate_cone(cone, ray, &res);
 	return (res);

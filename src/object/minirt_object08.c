@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_object05.c                                  :+:      :+:    :+:   */
+/*   minirt_object08.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 14:31:28 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/23 12:17:12 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/07/21 13:13:55 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "minirt.h"
 
+#include "minirt.h"
 
 static int	count_intersections(t_world w)
 {

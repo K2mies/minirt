@@ -6,11 +6,12 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:11:35 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/30 17:24:59 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/07/21 13:09:57 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
 /**
  * 
  * @brief General error function

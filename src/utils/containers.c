@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   containers.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 13:38:59 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/25 14:51:30 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/07/21 13:12:25 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minirt.h"
 
 /**

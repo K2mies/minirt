@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_canvas00.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.email.com  +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/18 16:47:45 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/05/26 11:19:45 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/07/21 13:08:55 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minirt.h"
 
 /**

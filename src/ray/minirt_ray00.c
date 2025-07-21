@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_ray00.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 15:47:25 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/05/27 16:34:10 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/07/21 13:10:52 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minirt.h"
 
 /**

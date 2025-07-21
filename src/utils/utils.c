@@ -6,11 +6,12 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 15:35:35 by mpierce           #+#    #+#             */
-/*   Updated: 2025/05/30 17:39:31 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/07/21 13:13:01 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
 /**
  * 
  * @brief Frees all memory in a 3D array and sets value to NULL

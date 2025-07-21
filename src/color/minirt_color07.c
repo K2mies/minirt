@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_color07.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 15:37:45 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/19 16:57:43 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/07/21 13:09:35 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "minirt.h"
 
+#include "minirt.h"
 
 /**
  * Returns a color based on x pos on gradient
