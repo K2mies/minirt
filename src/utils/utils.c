@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 15:35:35 by mpierce           #+#    #+#             */
-/*   Updated: 2025/07/21 13:13:01 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/07/21 14:43:22 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@ t_float	ft_atof_dec(char *str, t_float num)
 	i = 0;
 	dec = 0.0f;
 	pos = 0;
+
+	while (str[i] == '.')
+		i++;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		dec = dec * 10 + str[i] - 48;

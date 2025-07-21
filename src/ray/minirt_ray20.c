@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 14:47:00 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:11:37 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/07/21 14:14:56 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ bool	is_shadowed(t_world world, t_tuple point)
 	t_float			distance;
 	t_ray			r;
 
-	v = sub_tuples(world.light[0].origin, point);
+	v = sub_tuples(world.light.origin, point);
 	distance = get_magnitude(v);
 	direction = normalize_vector(v);
 	r = ray(point, direction);

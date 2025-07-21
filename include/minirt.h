@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:11:13 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/06/27 14:21:03 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/07/21 14:13:50 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,7 +246,7 @@ typedef struct	s_computations
 // Typedef for world
 typedef struct	s_world
 {
-	t_light			*light;
+	t_light			light;
 	t_object		*objs;
 	t_intersection	*ts;
 	int				n_objs;
@@ -265,7 +265,7 @@ typedef struct s_minirt
 	t_canvas		*canvas;
 	t_ambient		ambient;
 	t_camera		camera;
-	t_light			*light;
+	t_light			light;
 	t_object		*objs;
 	int				n_light;
 	int				n_objs;
@@ -762,7 +762,7 @@ bool		rt_isstrdigit(char *str);
 /* --------------------------------------------------------- parsing/sorting.c */
 void		sort_data_types(t_minirt *rt, char ***full);
 void		load_camera(t_minirt *rt, char **data);
-void		load_light(t_minirt *rt, char **data, int i);
+void		load_light(t_minirt *rt, char **data);
 void		load_ambient(t_minirt *rt, char **data);
 
 /* ---------------------------------------------------------- parsing/object.c */

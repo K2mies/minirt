@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 16:06:50 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:11:42 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/07/21 14:15:15 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_color	shade_hit(t_world w, t_computations comps, t_object	obj, int remaining)
 
 	param.in_shadow = is_shadowed(w, comps.over_point);
 	param.obj = obj;
-	col[surface] = lighting(param, comps.object.material, w.light[0], comps.v);
+	col[surface] = lighting(param, comps.object.material, w.light, comps.v);
 	col[reflected] = reflected_color(w, comps, remaining);
 	col[refracted] = refracted_color(w, comps, remaining);
 	material = comps.object.material;

@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:33:45 by mpierce           #+#    #+#             */
-/*   Updated: 2025/07/21 13:08:35 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/07/21 14:10:25 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ static void	check_for_dups(t_minirt *rt, char ***full)
 	}
 	if (file_entry_error(amb, cam, rt->n_light, rt->n_objs))
 		rt_error(rt, NULL, 1);
-	rt->light = rt_malloc(rt, rt->n_objs * sizeof(t_light) + 1);
-	rt->objs = rt_malloc(rt, (sizeof(t_object) * rt->n_objs - 2));
+	rt->objs = rt_malloc(rt, (sizeof(t_object) * rt->n_objs));
 }
 
 /**
@@ -86,7 +85,7 @@ void	load_ambient(t_minirt *rt, char **data)
  * @param data 2D array of Light data
  * 
  */
-void	load_light(t_minirt *rt, char **data, int i)
+void	load_light(t_minirt *rt, char **data)
 {
 	char	**origin;
 	char	**rgb;
@@ -109,7 +108,7 @@ void	load_light(t_minirt *rt, char **data, int i)
 		object_error(rt, origin, NULL, rgb);
 	color = color_from_channels(ft_atoi(rgb[0]), ft_atoi(rgb[1]),
 			ft_atoi(rgb[2]));
-	rt->light[i] = point_light(src, ft_atof(data[2]), color);
+	rt->light = point_light(src, ft_atof(data[2]), color);
 	object_free(origin, NULL, rgb);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 12:23:34 by mpierce           #+#    #+#             */
-/*   Updated: 2025/07/21 13:08:35 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/07/21 14:08:41 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ void cylinder_check(t_minirt *rt, char **origin, char **vec, char **rgb)
 void load_objects_to_data(t_minirt *rt, char ***full, int i)
 {
 	static int index;
-	static int light_index;
 
+	index = 0;
 	if (!ft_strcmp(full[i][0], "A"))
 		load_ambient(rt, full[i]);
 	else if (!ft_strcmp(full[i][0], "C"))
 		load_camera(rt, full[i]);
 	else if (!ft_strcmp(full[i][0], "L"))
-		load_light(rt, full[i], light_index++);
+		load_light(rt, full[i]);
 	else if (!ft_strcmp(full[i][0], "pl"))
 		load_plane(rt, full[i], index++);
 	else if (!ft_strcmp(full[i][0], "sp"))

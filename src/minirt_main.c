@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:24:50 by mpierce           #+#    #+#             */
-/*   Updated: 2025/07/21 13:08:35 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/07/21 14:14:28 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -2585,7 +2585,7 @@ void	test_scene01(t_minirt *rt)
 	cam.transform = view_transform(point(0, 1.5, -5), point(0, 1, 0), vector(0, 1, 0));
 
 /* ================================= LIGHT =============================== */
-	w.light[0] = point_light(point(0, 2.49, 0), 1.0, color(1, 1, 1));
+	w.light = point_light(point(0, 2.49, 0), 1.0, color(1, 1, 1));
 /* ================================ FLOOR ================================ */
 /* --------------------------------------------------------------transforms*/
 //	m = id_matrix4();
@@ -2963,7 +2963,7 @@ void	test_world_cube(t_minirt *rt)
 	cam = camera(50 * scalar, 100 * scalar, deg_to_rad(60));
 	cam.transform = view_transform(point(0, 1.5, -5), point(0, 1, 0), vector(0, 1, 0));
 
-	w.light[0] = point_light(point(-10, 10, -10), 1.0, color(1, 1, 1));
+	w.light = point_light(point(-10, 10, -10), 1.0, color(1, 1, 1));
 
 	m = id_matrix4();
 	m = multiply_matrix4(m, translation(0, -1, 0));
@@ -3025,7 +3025,7 @@ void	test_single_cylinder(t_minirt *rt)
 	cam = camera(50 * scalar, 100 * scalar, deg_to_rad(60));
 	cam.transform = view_transform(point(0, 1.5, -5), point(0, 1, 0), vector(0, 1, 0));
 
-	w.light[0] = point_light(point(-10, 10, 0), 1.0, color(1, 1, 1));
+	w.light = point_light(point(-10, 10, 0), 1.0, color(1, 1, 1));
 
 //	w.objs[0] = cube(point(0, 0, 0), color(1, 0 , 0));
 	w.objs[0] = cylinder(point(0, 0, 0), 2, 2, color(1, 1, 1));
@@ -3146,7 +3146,7 @@ void	test_penis_scene(t_minirt *rt)
 	cam = camera(50 * scaler, 100 * scaler, deg_to_rad(60));
 	cam.transform = view_transform(point(0, 1.5, -5), point(0, 1, 0), vector(0, 1, 0));
 /* ================================= LIGHT =============================== */
-	w.light[0] = point_light(point(-10, 10, -10), 1.0, color(1, 1, 1));
+	w.light = point_light(point(-10, 10, -10), 1.0, color(1, 1, 1));
 /* ================================ FLOOR ================================ */
 /* --------------------------------------------------------------transforms*/
 //	null
@@ -3247,7 +3247,7 @@ void	test_single_cone(t_minirt *rt)
 	cam = camera(50 * scalar, 100 * scalar, deg_to_rad(60));
 	cam.transform = view_transform(point(0, 1.5, -5), point(0, 1, 0), vector(0, 1, 0));
 
-	w.light[0] = point_light(point(-10, 10, 0), 1.0, color(1, 1, 1));
+	w.light = point_light(point(-10, 10, 0), 1.0, color(1, 1, 1));
 
 //	w.objs[0] = cube(point(0, 0, 0), color(1, 0 , 0));
 	w.objs[0] = cone(point(0, 0, 0), 2, 4, color(1, 1, 1));
