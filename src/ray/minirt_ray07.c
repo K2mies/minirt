@@ -112,8 +112,8 @@ t_intersections		cone_intersection(t_object *cone, t_ray ray)
 	printf("var[b] = %f\n", var[b]);
 	printf("var[c] = %f\n", var[c]);
 	discriminant = var[b] * var[b] - 4.0f * var[a] * var[c];
-	if (fabs(var[a]) < EPSILON)
-//	if (var[a] <= 0.0f || compare_floats(var[a], 0.0f))
+//	if (fabs(var[a]) < EPSILON)
+	if (fabs(var[a]) <= 0.0f || compare_floats(fabs(var[a]), 0.0f))
 //	if (compare_floats(var[a], 0.0f))
 	{
 		printf("one\n");
