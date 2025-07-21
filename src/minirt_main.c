@@ -3288,32 +3288,32 @@ void	test_cone_intersection(t_minirt *rt)
 	con.min = -0.5;
 	con.max = 0.5;
 
-//	tup[origin] = point(0, 0, -5);
-//	tup[direction] = vector(0, 0, 1);
-//	tup[direction] = normalize_vector(tup[direction]);
-//	r = ray(tup[origin], tup[direction]);
-//	xs = cone_intersection(&con, r);
-//	printf("xs.count = %d\n", xs.count);
-//	printf("xs.t[0] = %f\n", xs.t[0]);
-//	printf("xs.t[1] = %f\n\n", xs.t[1]);
-//
-//	tup[origin] = point(0, 0, -5);
-//	tup[direction] = vector(1, 1, 1);
-//	tup[direction] = normalize_vector(tup[direction]);
-//	r = ray(tup[origin], tup[direction]);
-//	xs = cone_intersection(&con, r);
-//	printf("xs.count = %d\n", xs.count);
-//	printf("xs.t[0] = %f\n", xs.t[0]);
-//	printf("xs.t[1] = %f\n\n", xs.t[1]);
-//
-//	tup[origin] = point(1, 1, -5);
-//	tup[direction] = vector(-0.5, -1, 1);
-//	tup[direction] = normalize_vector(tup[direction]);
-//	r = ray(tup[origin], tup[direction]);
-//	xs = cone_intersection(&con, r);
-//	printf("xs.count = %d\n", xs.count);
-//	printf("xs.t[0] = %f\n", xs.t[0]);
-//	printf("xs.t[1] = %f\n\n", xs.t[1]);
+	tup[origin] = point(0, 0, -5);
+	tup[direction] = vector(0, 0, 1);
+	tup[direction] = normalize_vector(tup[direction]);
+	r = ray(tup[origin], tup[direction]);
+	xs = cone_intersection(&con, r);
+	printf("xs.count = %d\n", xs.count);
+	printf("xs.t[0] = %f\n", xs.t[0]);
+	printf("xs.t[1] = %f\n\n", xs.t[1]);
+
+	tup[origin] = point(0, 0, -5);
+	tup[direction] = vector(1, 1, 1);
+	tup[direction] = normalize_vector(tup[direction]);
+	r = ray(tup[origin], tup[direction]);
+	xs = cone_intersection(&con, r);
+	printf("xs.count = %d\n", xs.count);
+	printf("xs.t[0] = %f\n", xs.t[0]);
+	printf("xs.t[1] = %f\n\n", xs.t[1]);
+
+	tup[origin] = point(1, 1, -5);
+	tup[direction] = vector(-0.5, -1, 1);
+	tup[direction] = normalize_vector(tup[direction]);
+	r = ray(tup[origin], tup[direction]);
+	xs = cone_intersection(&con, r);
+	printf("xs.count = %d\n", xs.count);
+	printf("xs.t[0] = %f\n", xs.t[0]);
+	printf("xs.t[1] = %f\n\n", xs.t[1]);
 	
 	tup[origin] = point(0, 0, -5);
 	tup[direction] = vector(0, 1, 0);
