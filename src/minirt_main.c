@@ -3252,12 +3252,15 @@ void	test_single_cone(t_minirt *rt)
 //	w.objs[0] = cube(point(0, 0, 0), color(1, 0 , 0));
 	w.objs[0] = cone(point(0, 0, 0), 2, 4, color(1, 1, 1));
 	w.objs[0].closed = true;
+	w.objs[0].max = 0;
+	w.objs[0].min = -1;
 	m = id_matrix4();
 //	m = multiply_matrix4(m, translation(0, -3.5, -0.5));
-	m = multiply_matrix4(m, translation(0, 0.5, 0.7));
-	m = multiply_matrix4(m, rotation_x(45));
-	m = multiply_matrix4(m, rotation_y(45));
-	m = multiply_matrix4(m, rotation_z(45));
+//	m = multiply_matrix4(m, rotation_x(45));
+	m = multiply_matrix4(m, translation(0, 1.5, 0));
+	m = multiply_matrix4(m, rotation_x(-45));
+//	m = multiply_matrix4(m, rotation_y(45));
+//	m = multiply_matrix4(m, rotation_z(45));
 	w.objs[0].transform = m;
 	w.objs[0].color = color(0, 0, 1);
 	w.objs[0].material.color = color(0, 0, 1);
@@ -3282,7 +3285,7 @@ void	test_cone_intersection(t_minirt *rt)
 
 	con = cone(point(0, 0, 0), 2, 2, color(1, 1, 1));
 	con.closed = true;
-	con.min = 0.5;
+	con.min = -0.5;
 	con.max = 0.5;
 
 //	tup[origin] = point(0, 0, -5);
@@ -3312,14 +3315,26 @@ void	test_cone_intersection(t_minirt *rt)
 //	printf("xs.t[0] = %f\n", xs.t[0]);
 //	printf("xs.t[1] = %f\n\n", xs.t[1]);
 	
-	tup[origin] = point(0, 0, -0.25);
+	tup[origin] = point(0, 0, -5);
 	tup[direction] = vector(0, 1, 0);
 	tup[direction] = normalize_vector(tup[direction]);
 	r = ray(tup[origin], tup[direction]);
 	xs = cone_intersection(&con, r);
 	printf("xs.count = %d\n", xs.count);
-	printf("xs.t[0] = %f\n", xs.t[0]);
-	printf("xs.t[1] = %f\n\n", xs.t[1]);
+
+	tup[origin] = point(0, 0, -25);
+	tup[direction] = vector(0, 1, 1);
+	tup[direction] = normalize_vector(tup[direction]);
+	r = ray(tup[origin], tup[direction]);
+	xs = cone_intersection(&con, r);
+	printf("xs.count = %d\n", xs.count);
+
+	tup[origin] = point(0, 0, -25);
+	tup[direction] = vector(0, 1, 0);
+	tup[direction] = normalize_vector(tup[direction]);
+	r = ray(tup[origin], tup[direction]);
+	xs = cone_intersection(&con, r);
+	printf("xs.count = %d\n", xs.count);
 }
 int	main(int argc, char **argv)
 {
