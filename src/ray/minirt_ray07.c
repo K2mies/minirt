@@ -72,14 +72,12 @@ static void	handle_discriminant(t_float	var[3], t_intersections *res, t_float di
 {
 	if (discriminant <= EPSILON)
 	{
-		printf("three\n");
 		res->t[res->count] = -var[b] / (2.0f * var[a]);
-		res->t[res->count + 1] = res->t[0];
+		res->t[res->count + 1] = res->t[res->count];
 //		res->count++;
 	}
 	else
 	{
-		printf("four\n");
 		res->t[res->count] = (-var[b] - sqrtf(discriminant)) / (2.0 * var[a]);
 		res->t[res->count + 1] = (-var[b] + sqrtf(discriminant)) / (2.0 * var[a]);
 //		res->count++;
@@ -107,13 +105,13 @@ t_intersections		cone_intersection(t_object *cone, t_ray ray)
 	var[b] = calculate_var_b(ray);
 	var[c] = calculate_var_c(ray);
 	t = -var[c] / (2.0f * var[b]);
-	printf("t = %f\n", t);
-	printf("var[a] = %f\n", var[a]);
-	printf("var[b] = %f\n", var[b]);
-	printf("var[c] = %f\n", var[c]);
+//	printf("t = %f\n", t);
+//	printf("var[a] = %f\n", var[a]);
+//	printf("var[b] = %f\n", var[b]);
+//	printf("var[c] = %f\n", var[c]);
 	discriminant = var[b] * var[b] - 4.0f * var[a] * var[c];
-//	if (fabs(var[a]) < EPSILON)
-	if (fabs(var[a]) <= 0.0f || compare_floats(fabs(var[a]), 0.0f))
+	if (fabs(var[a]) < EPSILON)
+//	if (var[a] <= 0.0f || compare_floats(var[a], 0.0f))
 //	if (compare_floats(var[a], 0.0f))
 	{
 		printf("one\n");
@@ -124,18 +122,18 @@ t_intersections		cone_intersection(t_object *cone, t_ray ray)
 			printf("two\n");
 			return (res);
 		}
-		handle_discriminant(var, &res, discriminant);
-		truncate_cone(cone, ray, &res);
-		res = intersect_cone_caps(cone, ray, res);
+		res.t[res.count++] = t;
+		res.t[res.count++] = t;
+//		handle_discriminant(var, &res, discriminant);
+//		truncate_cone(cone, ray, &res);
+//		res = intersect_cone_caps(cone, ray, res);
 //		truncate_cone(cone, ray, &res);
 		return (res);
 	}
 	if (discriminant < -EPSILON)
 		return (res);
 	handle_discriminant(var, &res, discriminant);
-	printf("ENTERING TRUNC CONE\n");
 	truncate_cone(cone, ray, &res);
-	printf("EXITING TRUNC CONE\n");
 	res = intersect_cone_caps(cone, ray, res);
 //	truncate_cone(cone, ray, &res);
 	return (res);

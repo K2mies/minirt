@@ -80,11 +80,11 @@ t_intersections	intersect_cone_caps(t_object *cone, t_ray ray, t_intersections x
 {
 	if (cone->closed == false || compare_floats(ray.direction.y, 0.0f))
 		return (xs);
-//	xs.t[2] = (cone->height - ray.origin.y) / ray.direction.y;
-//	if (check_cone_cap(ray, xs.t[2], cone))
-//	{
-//		xs.count += 1;
-//	}
+	xs.t[2] = (cone->height - ray.origin.y) / ray.direction.y;
+	if (check_cone_cap(ray, xs.t[2], cone))
+	{
+		xs.count += 1;
+	}
 	xs.t[3] = (cone->max - ray.origin.y) / ray.direction.y;
 	if (check_cone_cap(ray, xs.t[3], cone))
 	{

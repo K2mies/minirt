@@ -14,6 +14,7 @@ NAME		= 	miniRT
 
 CC			= 	cc
 CFLAGS		= 	-O3 -flto -ffast-math -march=native -Wextra -Werror -Wall 
+#CFLAGS		= 	-O3 -flto -Wextra -Werror -Wall 
 #CFLAGS		= 	-O3 -flto -march=native -Wextra -Werror -Wall 
 #CFLAGS		=  -fno-associative-math -flto -fno-fast-math -Wextra -Werror -Wall 
 #CFLAGS		=	-fno-associative-math -fno-fast-math -Wextra -Werror -Wall 
@@ -195,4 +196,4 @@ clean_debug:
 	rm -f $(NAME)
 	rm -f $(OBJ_DIR)
 #-------------------------------------------------------------------------------#
-.PHONY: all clean fclean re debug libftdebug clean_debug libmlx bonus
+.PHONY: all clean fclean re debug libftdebug clean_debug bonus
