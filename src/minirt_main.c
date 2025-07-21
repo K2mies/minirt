@@ -3259,8 +3259,8 @@ void	test_single_cone(t_minirt *rt)
 //	m = multiply_matrix4(m, rotation_x(45));
 	m = multiply_matrix4(m, translation(0, 1.5, 0));
 	m = multiply_matrix4(m, rotation_x(-45));
-//	m = multiply_matrix4(m, rotation_y(45));
-//	m = multiply_matrix4(m, rotation_z(45));
+//	m = multiply_matrix4(m, rotation_y(-45));
+//	m = multiply_matrix4(m, rotation_z(-45));
 	w.objs[0].transform = m;
 	w.objs[0].color = color(0, 0, 1);
 	w.objs[0].material.color = color(0, 0, 1);
@@ -3270,6 +3270,8 @@ void	test_single_cone(t_minirt *rt)
 //	w.objs[1].material.transparency = 0.5;
 //	w.objs[1].material.reflective = 0;
 	w.objs[0].material.ambient = 0.1;
+//	w.objs[0].material.has_pattern = true;
+//	w.objs[0].material.pattern = pattern(color(0, 0, 0), color(1, 1, 1), RING);
 
 	img = render(cam, w);
 	canvas_to_ppm(img);
@@ -3322,19 +3324,19 @@ void	test_cone_intersection(t_minirt *rt)
 	xs = cone_intersection(&con, r);
 	printf("xs.count = %d\n", xs.count);
 
-	tup[origin] = point(0, 0, -25);
+	tup[origin] = point(0, 0, -0.25);
 	tup[direction] = vector(0, 1, 1);
 	tup[direction] = normalize_vector(tup[direction]);
 	r = ray(tup[origin], tup[direction]);
 	xs = cone_intersection(&con, r);
 	printf("xs.count = %d\n", xs.count);
 
-	tup[origin] = point(0, 0, -25);
+	tup[origin] = point(0, 0, -0.25);
 	tup[direction] = vector(0, 1, 0);
 	tup[direction] = normalize_vector(tup[direction]);
 	r = ray(tup[origin], tup[direction]);
 	xs = cone_intersection(&con, r);
-	printf("xs.count = %d\n", xs.count);
+	printf("xs.count = %d\n", xs.count);	
 }
 int	main(int argc, char **argv)
 {
@@ -3351,8 +3353,8 @@ int	main(int argc, char **argv)
 	rt.n_light = 0;
 	rt.ts = NULL;
 	open_file(&rt, argv);
-	test_cone_intersection(&rt);
-//	test_single_cone(&rt);
+//	test_cone_intersection(&rt);
+	test_single_cone(&rt);
 //	test_penis_scene(&rt);
 //	test_cylinder_caps_intersection();
 //	test_single_cylinder(&rt);

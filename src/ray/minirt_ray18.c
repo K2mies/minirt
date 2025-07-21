@@ -29,6 +29,7 @@ static t_tuple	calculate_local_normal(t_tuple object_point, t_object obj)
 	t_tuple	local_normal;
 
 	(void)obj;
+//	(void)object_point;
 	obj_point_sqr[x] = object_point.x * object_point.x;
 	obj_point_sqr[z] = object_point.z * object_point.z;
 	obj_point_sqr[y] = obj_point_sqr[x] + obj_point_sqr[z];
@@ -41,10 +42,11 @@ static t_tuple	calculate_local_normal(t_tuple object_point, t_object obj)
 //		local_normal.y = -local_normal.y;
 //	if (get_magnitude(local_normal) < EPSILON)
 //		return (vector(0, 0, 0));
-	if (distance < 1.0f + EPSILON && object_point.y >= obj.max - EPSILON)
+	if (distance < 1.0f + C_EPSILON && object_point.y >= obj.max - C_EPSILON)
 		local_normal = vector(0, 1, 0);
-	if (distance < 1.0f + EPSILON && object_point.y <= obj.min + EPSILON)
+	if (distance < 1.0f + C_EPSILON && object_point.y <= obj.min + C_EPSILON)
 		local_normal = vector(0, -1, 0);
+//	local_normal = vector(0, 1, 0);
 	return (local_normal);
 
 }

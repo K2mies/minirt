@@ -196,4 +196,4 @@ clean_debug:
 	rm -f $(NAME)
 	rm -f $(OBJ_DIR)
 #-------------------------------------------------------------------------------#
-.PHONY: all clean fclean re debug libftdebug clean_debug libmlx bonus
+.PHONY: all clean fclean re debug libftdebug clean_debug bonus
