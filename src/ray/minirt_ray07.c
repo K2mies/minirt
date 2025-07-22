@@ -96,7 +96,7 @@ t_intersections		cone_intersection(t_object *cone, t_ray ray)
 	t_intersections	res;
 	t_float			discriminant;
 	t_float			var[3];
-	t_float			t;
+//	t_float			t;
 
 	ray = transform(ray, inverse_matrix4(cone->transform));
 	cone->saved_ray = ray;
@@ -104,7 +104,7 @@ t_intersections		cone_intersection(t_object *cone, t_ray ray)
 	var[a] = calculate_var_a(ray);
 	var[b] = calculate_var_b(ray);
 	var[c] = calculate_var_c(ray);
-	t = -var[c] / (2.0f * var[b]);
+//	t = -var[c] / (2.0f * var[b]);
 //	printf("t = %f\n", t);
 //	printf("var[a] = %f\n", var[a]);
 //	printf("var[b] = %f\n", var[b]);
@@ -122,11 +122,11 @@ t_intersections		cone_intersection(t_object *cone, t_ray ray)
 			printf("two\n");
 			return (res);
 		}
-		res.t[res.count++] = t;
-		res.t[res.count++] = t;
-//		handle_discriminant(var, &res, discriminant);
-//		truncate_cone(cone, ray, &res);
-//		res = intersect_cone_caps(cone, ray, res);
+//		res.t[res.count++] = t;
+//		res.t[res.count++] = t;
+		handle_discriminant(var, &res, discriminant);
+		truncate_cone(cone, ray, &res);
+		res = intersect_cone_caps(cone, ray, res);
 //		truncate_cone(cone, ray, &res);
 		return (res);
 	}
