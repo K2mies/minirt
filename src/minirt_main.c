@@ -3248,10 +3248,11 @@ void	test_single_cone(t_minirt *rt)
 	cam.transform = view_transform(point(0, 1.5, -5), point(0, 1, 0), vector(0, 1, 0));
 
 //	w.light = point_light(point(-10, 10, 0), 1.0, color(1, 1, 1));
-	w.light = point_light(point(0, 10, 0), 1.0, color(1, 1, 1));
+	w.light = point_light(point(-10, 10, 0), 1.0, color(1, 1, 1));
 
 //	w.objs[0] = cube(point(0, 0, 0), color(1, 0 , 0));
-	w.objs[0] = cone(point(0, 0, 0), 2, 4, color(1, 1, 1));
+//	w.objs[0] = cone(point(0, 0, 0), 2, 4, color(1, 1, 1));
+	w.objs[0] = cylinder(point(0, 0, 0), 2, 4, color(1, 1, 1));
 	w.objs[0].closed = true;
 	w.objs[0].max = 0;
 	w.objs[0].min = -1;

@@ -41,13 +41,15 @@ static t_float	check_cylinder_cap(t_ray ray, t_float t, t_object *obj)
  * @param cylinder	pointer to the cylinder object to operate on
  * @return			t_float calculation
  */
-static t_float	check_cone_cap(t_ray ray, t_float t, t_object *obj)
+static t_float	check_cone_cap(t_ray ray, t_float t, t_float radius)
 {
 	t_float	x;
 	t_float	z;
+
 	x = ray.origin.x + (t * ray.direction.x);
 	z = ray.origin.z + (t * ray.direction.z);
-	return (((x * x) + (z * z)) <= obj->max * obj->max);
+	return (x*x + z*z) <= (radius * radius);
+//	return (((x * x) + (z * z)) <= radius * radius);
 }
 /**
  * @brief	intersections  of a ray and a cylinder
@@ -80,13 +82,17 @@ t_intersections	intersect_cone_caps(t_object *cone, t_ray ray, t_intersections x
 {
 	if (cone->closed == false || compare_floats(ray.direction.y, 0.0f))
 		return (xs);
-	xs.t[2] = (cone->height - ray.origin.y) / ray.direction.y;
-	if (check_cone_cap(ray, xs.t[2], cone))
-	{
-		xs.count += 1;
-	}
+//	if (!check_cone_cap(ray, (cone->min - ray.origin.y) / ray.direction.y, cone->min))
+//		xs.t[xs.count++] = (cone->min - ray.origin.y) / ray.direction.y;
+//	if (!check_cone_cap(ray, (cone->max - ray.origin.y) / ray.direction.y, cone->max))
+//		xs.t[xs.count++] = (cone->max - ray.origin.y) / ray.direction.y;
+//	xs.t[2] = (cone->min - ray.origin.y) / ray.direction.y;
+//	if (check_cone_cap(ray, xs.t[2], cone->min))
+//	{
+//		xs.count += 1;
+//	}
 	xs.t[3] = (cone->max - ray.origin.y) / ray.direction.y;
-	if (check_cone_cap(ray, xs.t[3], cone))
+	if (check_cone_cap(ray, xs.t[3], cone->max))
 	{
 		xs.count += 1;
 	}
