@@ -29,23 +29,29 @@ static t_tuple	calculate_local_normal(t_tuple object_point, t_object obj)
 	t_tuple	local_normal;
 
 	(void)obj;
-//	(void)object_point;
 	obj_point_sqr[x] = object_point.x * object_point.x;
 	obj_point_sqr[z] = object_point.z * object_point.z;
-	obj_point_sqr[y] = obj_point_sqr[x] + obj_point_sqr[z];
-	obj_point_sqr[y] = obj_point_sqr[y] * obj_point_sqr[y];
-	if (object_point.y > 0)
-		obj_point_sqr[y] = -obj_point_sqr[y];
-	distance = obj_point_sqr[x] + obj_point_sqr[z];
-	local_normal = vector(object_point.x, obj_point_sqr[y], object_point.z);
-//	if (distance > 0.0f)
-//		local_normal.y = -local_normal.y;
+//	obj_point_sqr[y] = obj_point_sqr[x] + obj_point_sqr[z];
+//	obj_point_sqr[y] = sqrtf(obj_point_sqr[y]);
+//	obj_point_sqr[y] = obj_point_sqr[y] * obj_point_sqr[y];
+//	if (object_point.y > 0)
+//		obj_point_sqr[y] = -obj_point_sqr[y];
+	distance = sqrtf(obj_point_sqr[x] + obj_point_sqr[z]);
+//	distance = obj_point_sqr[x] + obj_point_sqr[z];
+//	local_normal = vector(object_point.x, obj_point_sqr[y], object_point.z);
+	local_normal = vector(object_point.x, distance, object_point.z);
+	if (object_point.y > 0.0f)
+		local_normal.y = -local_normal.y;
 //	if (get_magnitude(local_normal) < EPSILON)
 //		return (vector(0, 0, 0));
-	if (distance < 1.0f + C_EPSILON && object_point.y >= obj.max - C_EPSILON)
+	if (distance < (obj.max * obj.max) + C_EPSILON && object_point.y >= obj.max - C_EPSILON)
 		local_normal = vector(0, 1, 0);
-	if (distance < 1.0f + C_EPSILON && object_point.y <= obj.min + C_EPSILON)
+	if (distance < (obj.min * obj.min) + C_EPSILON && object_point.y <= obj.min + C_EPSILON)
 		local_normal = vector(0, -1, 0);
+//	if (distance < 1.0f + C_EPSILON && object_point.y >= obj.max - C_EPSILON)
+//		local_normal = vector(0, 1, 0);
+//	if (distance < 1.0f + C_EPSILON && object_point.y <= obj.min + C_EPSILON)
+//		local_normal = vector(0, -1, 0);
 //	local_normal = vector(0, 1, 0);
 	return (local_normal);
 

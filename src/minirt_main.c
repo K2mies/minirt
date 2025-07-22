@@ -3247,7 +3247,8 @@ void	test_single_cone(t_minirt *rt)
 	cam = camera(50 * scalar, 100 * scalar, deg_to_rad(60));
 	cam.transform = view_transform(point(0, 1.5, -5), point(0, 1, 0), vector(0, 1, 0));
 
-	w.light = point_light(point(-10, 10, 0), 1.0, color(1, 1, 1));
+//	w.light = point_light(point(-10, 10, 0), 1.0, color(1, 1, 1));
+	w.light = point_light(point(0, 10, 0), 1.0, color(1, 1, 1));
 
 //	w.objs[0] = cube(point(0, 0, 0), color(1, 0 , 0));
 	w.objs[0] = cone(point(0, 0, 0), 2, 4, color(1, 1, 1));
@@ -3258,7 +3259,8 @@ void	test_single_cone(t_minirt *rt)
 //	m = multiply_matrix4(m, translation(0, -3.5, -0.5));
 //	m = multiply_matrix4(m, rotation_x(45));
 	m = multiply_matrix4(m, translation(0, 1.5, 0));
-	m = multiply_matrix4(m, rotation_x(-45));
+	m = multiply_matrix4(m, rotation_x(45));
+//	m = multiply_matrix4(m, rotation_x(45));
 //	m = multiply_matrix4(m, rotation_y(-45));
 //	m = multiply_matrix4(m, rotation_z(-45));
 	w.objs[0].transform = m;
