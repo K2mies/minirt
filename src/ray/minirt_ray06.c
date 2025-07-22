@@ -65,6 +65,21 @@ static t_float	calculate_var_c(t_ray ray)
 }
 
 /**
+ * @brief	helper function to handle and asign t values from discrimintant
+ *
+ * @param var[3]		var[a-c] for calculations
+ * @param discriminant	discriminant to use for calculation
+ * @param res			pointer to the xs intersection to operate on
+ */
+static	void handle_discriminant(t_float var[3], t_float discriminant, t_intersections *res)
+{
+	res->t[0] = (-var[b] - sqrtf(discriminant)) / (2.0 * var[a]);
+	res->t[1] = (-var[b] + sqrtf(discriminant)) / (2.0 * var[a]);
+	if (res->t[0] > res->t[1])
+		swapf(&res->t[0], &res->t[1]);
+}
+
+/**
  * @brief	intersections  of a ray and a cylinder
  *
  * @param cylinder	cyliunder object to be intersected
@@ -92,10 +107,7 @@ t_intersections	cylinder_intersection(t_object *cylinder, t_ray ray)
 	discriminant = (var[b] * var[b]) - (4.0f * var[a] * var[c]);
 	if (discriminant < 0)
 		return (res);
-	res.t[0] = (-var[b] - sqrtf(discriminant)) / (2.0 * var[a]);
-	res.t[1] = (-var[b] + sqrtf(discriminant)) / (2.0 * var[a]);
-	if (res.t[0] > res.t[1])
-		swapf(&res.t[0], &res.t[1]);
+	handle_discriminant(var, discriminant, &res);
 	res = intersect_cylinder_caps(cylinder, ray, res);
 	truncate_cylinder(cylinder, ray, &res);
 	return (res);
