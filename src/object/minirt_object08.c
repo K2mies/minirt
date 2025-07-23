@@ -12,6 +12,13 @@
 
 #include "minirt.h"
 
+/**
+ * @brief	counts the number of intersections
+ * counts the number of intersections in order to malloc the correct size
+ * 
+ * @param w			world struct to count from
+ * @return			int count of intersectinos
+ */
 static int	count_intersections(t_world w)
 {
 	int	i;
@@ -50,14 +57,15 @@ t_world	world_scene(t_minirt *rt)
 	t_world	w;
 	int		count;
 
+	w.canvas = rt->canvas;
+	w.camera = rt->camera;
 	w.light = rt->light;
+	w.ambient = rt->ambient;
 	w.objs = rt->objs;
 	w.n_objs = rt->n_objs;
 	count = count_intersections(w);
 	w.ts =	rt_malloc(rt ,sizeof(t_intersection) * count);
 	w.cs = rt_malloc(rt, sizeof(t_computations) * count);
-//	w.ts =	rt_malloc(rt ,sizeof(t_intersection) * (w.n_objs * 2));
-//	w.cs = rt_malloc(rt, sizeof(t_computations) * (w.n_objs * 2));
 	w.n_ts = 0;
 	return(w);
 }

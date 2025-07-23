@@ -13,6 +13,24 @@
 #include "minirt.h"
 
 /**
+ * @brief	(helper) calculates the transform matrix of the sphere
+ * from origin
+ * @param	sp (sphere)
+ * @return	t_matrix4 transform matrx
+ */
+static t_matrix4 calculate_transform_matrix(t_object sp)
+{
+	t_matrix4	m;
+	t_matrix4	move;
+
+	m = id_matrix4();
+	move = translation(sp.origin.x, sp.origin.y, sp.origin.z);
+	m = multiply_matrix4(m, move);
+	return (m);
+
+}
+
+/**
  * @brief	creates and returns a sphere object
  * creates a Sphere object/struct 
  * @param	location
@@ -39,7 +57,7 @@ t_object	sphere(t_tuple location, t_float diameter, t_color col)
 	sp.color = col;
 	sp.material = material(param, col);
 	sp.material.has_pattern = false;
-	sp.transform = id_matrix4();
+	sp.transform = calculate_transform_matrix(sp);
 	return (sp);
 }
 
