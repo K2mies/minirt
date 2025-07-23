@@ -32,12 +32,11 @@
 
 
 /* ================================= MACROS ================================= */
-
+# define CAM_HEIGHT	50
+# define CAM_WIDTH	100
 # define BIG_NUMBER 1000000.0f
 # define M_PI 3.14159265358979323846
 # define EPSILON			0.00001f
-//# define EPSILON			0.01f
-//# define CAP_EPSILON		1e-5
 # define C_EPSILON			0.00001f
 # define REFRACTION_BIAS	0.00001f
 # define SHADOW_BIAS		0.01f
@@ -246,12 +245,15 @@ typedef struct	s_computations
 // Typedef for world
 typedef struct	s_world
 {
+	t_canvas		*canvas;
+	t_camera		camera;
 	t_light			light;
+	t_ambient		ambient;
 	t_object		*objs;
 	t_intersection	*ts;
+	t_computations	*cs;
 	int				n_objs;
 	int				n_ts;
-	t_computations	*cs;
 	int				hit_index;
 
 }	t_world;
@@ -348,7 +350,24 @@ typedef struct	s_cube_intersect_param
 	
 }				t_cube_intersect_param;
 
+//Typedef for cylinder paramaters
+typedef struct	s_param_cy
+{
+	t_tuple	origin;
+	t_tuple	direction;
+	t_float	diameter;
+	t_float	height;
+	t_color	col;
+}	t_param_cy;
+
 /* ================================ ENUMS =================================== */
+//Enum for trans, rot, scale
+typedef enum		e_trans_rot_scale
+{
+	trans,
+	rot,
+	scale
+}	t_trans_rot_scale;
 
 //Enum for tuple origin and direction;
 typedef enum	e_origin_direction
@@ -690,9 +709,9 @@ t_object	glass_sphere(t_tuple location, t_float diameter, t_color col);
 /* -------------------------------------------------------- minirt_object01.c */
 t_object	plane(t_tuple origin, t_tuple normal, t_color col);
 /* -------------------------------------------------------- minirt_object02.c */
-t_object	cube(t_tuple origin, t_color col);
+t_object	cube(t_tuple vec[2], t_color col);
 /* -------------------------------------------------------- minirt_object03.c */
-t_object	cylinder(t_tuple location, t_float diameter, t_float height, t_color col);
+t_object	cylinder(t_param_cy param);
 /* -------------------------------------------------------- minirt_object04.c */
 t_object	cone(t_tuple location, t_float diameter, t_float height, t_color col);
 /* -------------------------------------------------------- minirt_object05.c */
@@ -705,8 +724,9 @@ t_material	material(t_float param[7], t_color col);
 t_world		world_scene(t_minirt *rt);
 t_world		default_world(t_minirt *rt);
 /* -------------------------------------------------------- minirt_object09.c */
-t_camera	camera(int h_size, int w_size, t_float fov);
+t_camera	camera(t_tuple vec[2], t_float fov);
 /* ================================ MLX ===================================== */
+
 
 /* ----------------------------------------------------------- minirt_mlx00.c */
 void		mlx_start(t_minirt *rt, int width, int height);

@@ -35,20 +35,41 @@ static void	calculate_pixel_size(t_camera *cam)
 }
 
 /**
+ * @brief	(helper) calculates the transform matrix of the camera
+ * from origin and vector(direction)
+ * @param	cam 
+ * @return	t_matrix4 transform matrx
+ */
+static	t_matrix4	calculate_transform_matrix(t_camera cam)
+{
+	t_matrix4	m;
+	t_matrix4	view;
+//	t_tuple		direction;
+
+	m = id_matrix4();
+//	direction = add_tuples(cam.origin, cam.vector);
+	view = view_transform(cam.origin, cam.vector, vector(0, 1, 0));
+	m = multiply_matrix4(m, view);
+	return (m);
+
+}
+
+/**
  * @brief	creates and returns a camera object
  * creates and asigned properties to a camera object
- * @param vsize		height of camera
- * @param hsize		width of camera
+ * @param vec		vec[origin] and vec[direction]
  * @return			t_camera object
  */
-t_camera	camera(int h_size, int w_size, t_float fov)
+t_camera	camera(t_tuple vec[2], t_float fov)
 {
 	t_camera	cam;
 
-	cam.dim[height] = h_size;
-	cam.dim[width] = w_size;
+	cam.dim[height] = CAM_HEIGHT;
+	cam.dim[width] = CAM_WIDTH;
+	cam.origin = vec[origin]; 
+	cam.vector = vec[direction];
 	cam.fov = fov;
-	cam.transform = id_matrix4();
+	cam.transform = calculate_transform_matrix(cam);
 	calculate_pixel_size(&cam);
 	return (cam);
 }
