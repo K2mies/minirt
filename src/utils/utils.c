@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 15:35:35 by mpierce           #+#    #+#             */
-/*   Updated: 2025/07/21 14:43:22 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/07/24 12:55:27 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,9 @@ bool	ft_isfloat(char *str)
 		i++;
 	while (str[i])
 	{
-		if ((str[i] > '9' || str[i] < '0') && str[i] != '.')
+		if (str[i] == '\n')
+			;
+		else if ((str[i] > '9' || str[i] < '0') && str[i] != '.')
 			return (false);
 		i++;
 	}

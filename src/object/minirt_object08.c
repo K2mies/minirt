@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 14:31:28 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 14:15:28 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/07/24 13:06:57 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	count_intersections(t_world w)
 	{
 		if (w.objs[i].type == PLANE)
 			count++;
-		if (w.objs[i].type == SPHERE)
+		if (w.objs[i].type == SPHERE || w.objs[i].type == CUBE)
 		{
 			count++;
 			count++;

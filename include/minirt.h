@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:11:13 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 14:13:50 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/07/24 12:38:43 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -351,14 +351,14 @@ typedef struct	s_cube_intersect_param
 }				t_cube_intersect_param;
 
 //Typedef for cylinder paramaters
-typedef struct	s_param_cy
+typedef struct	s_p_cy
 {
 	t_tuple	origin;
 	t_tuple	direction;
 	t_float	diameter;
 	t_float	height;
 	t_color	col;
-}	t_param_cy;
+}	t_p_cy;
 
 /* ================================ ENUMS =================================== */
 //Enum for trans, rot, scale
@@ -707,11 +707,11 @@ t_float				schlick(t_computations comps);
 t_object	sphere(t_tuple location, t_float diameter, t_color col);
 t_object	glass_sphere(t_tuple location, t_float diameter, t_color col);
 /* -------------------------------------------------------- minirt_object01.c */
-t_object	plane(t_tuple vec[2], t_color col);
+t_object	plane(t_tuple origin, t_tuple direction, t_color col);
 /* -------------------------------------------------------- minirt_object02.c */
-t_object	cube(t_tuple vec[2], t_color col);
+t_object	cube(t_tuple origin, t_tuple direction, t_color col, t_float height);
 /* -------------------------------------------------------- minirt_object03.c */
-t_object	cylinder(t_param_cy param);
+t_object	cylinder(t_p_cy param);
 /* -------------------------------------------------------- minirt_object04.c */
 t_object	cone(t_tuple location, t_float diameter, t_float height, t_color col);
 /* -------------------------------------------------------- minirt_object05.c */

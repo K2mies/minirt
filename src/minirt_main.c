@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:24:50 by mpierce           #+#    #+#             */
-/*   Updated: 2025/07/21 14:14:28 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/07/24 12:38:43 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -3260,7 +3260,7 @@ void	test_single_cone(t_minirt *rt)
 //	w.objs[0] = cube(point(0, 0, 0), color(1, 0 , 0));
 //	w.objs[0] = cone(point(0, 0, 0), 2, 4, color(1, 1, 1));
 //	w.objs[0] = cylinder(point(0, 0, 0), 2, 4, color(1, 1, 1));
-	t_param_cy	cy_param;
+	t_p_cy	cy_param;
 
 	cy_param.origin = point(0, 0, 0);
 	cy_param.direction = vector(1, 0, 0);

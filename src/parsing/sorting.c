@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:33:45 by mpierce           #+#    #+#             */
-/*   Updated: 2025/07/21 14:10:25 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/07/24 12:40:54 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	check_for_dups(t_minirt *rt, char ***full)
 		else if (!ft_strcmp(full[i][0], "L"))
 			rt->n_light++;
 		else if (!ft_strcmp(full[i][0], "sp") || !ft_strcmp(full[i][0], "cy")
-			|| !ft_strcmp(full[i][0], "pl"))
+			|| !ft_strcmp(full[i][0], "pl") || !ft_strcmp(full[i][0], "cb"))
 			rt->n_objs++;
 	}
 	if (file_entry_error(amb, cam, rt->n_light, rt->n_objs))
