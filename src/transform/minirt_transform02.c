@@ -19,6 +19,18 @@
  *
  * @return		value converted into radians
  */
+double rad_to_deg(t_float radians)
+{
+	return (radians * (180.0 / M_PI));
+}
+
+/**
+ * Function to convert degree into radians
+ *
+ * @param degrees	degree to convert
+ *
+ * @return		value converted into radians
+ */
 double	deg_to_rad(t_float degrees)
 {
 	return (degrees * (M_PI / 180.0));

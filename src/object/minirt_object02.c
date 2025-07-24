@@ -21,11 +21,13 @@
 static t_matrix4	calculate_matrix_transform(t_object cube)
 {
 	t_matrix4	m;
-	t_matrix4	transform;
+	t_matrix4	trans;
+	t_matrix4	view;
 
 	m = id_matrix4();
-	transform = view_transform(cube.origin, cube.vector, vector(0, 1, 0));
-	m = multiply_matrix4(m, transform);
+	trans = translation(cube.origin.x, cube.origin.y, cube.origin.z);
+	view = view_transform(cube.origin, cube.vector, vector(0, 1, 0));
+	m = multiply_matrix4(trans, view);
 	return (m);
 }
 

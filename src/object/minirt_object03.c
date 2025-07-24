@@ -21,11 +21,35 @@
 static t_matrix4	calculate_transform_matrix(t_object cy)
 {
 	t_matrix4	m;
-	t_matrix4	transform;
+//	t_matrix4	view;
+	t_matrix4	trans;
+	t_matrix4	rot[3];
+	t_float		axis[3];
+	t_tuple		unit_vec;
+	t_float		mag;
 
 	m = id_matrix4();
-	transform = view_transform(cy.origin, cy.vector, vector(0, 1, 0));
-	m = multiply_matrix4(m, transform);
+	trans = translation(cy.origin.x, cy.origin.y, cy.origin.z);
+
+	unit_vec = normalize_vector(cy.vector);
+	mag = get_magnitude(point(unit_vec.x, 0, unit_vec.z));
+	axis[x] = atan2(mag, unit_vec.y);
+	axis[y] = atan2(unit_vec.x, unit_vec.z);
+//	axis[x] = atan2f(cy.vector.z, cy.vector.y);
+//	axis[y] = atan2f(cy.vector.x, cy.vector.z);
+//	mag = get_magnitude(cy.vector);
+//	axis[x] = acosf(dot_product(vector(1,0,0) ));
+	rot[x] = rotation_x(rad_to_deg(axis[x]));
+	rot[y] = rotation_y(rad_to_deg(axis[y]));
+//	rot[z] = rotation_z(90);
+//	m = multiply_matrix4(m, trans);
+	m = multiply_matrix4(m, rot[x]);
+	m = multiply_matrix4(m, rot[y]);
+//	m = multiply_matrix4(m, trans);
+//	m = multiply_matrix4(m, rot[z]);
+//	m = multiply_matrix4(m, trans);
+////	view = view_transform(cy.origin, cy.vector, vector(0, 1, 0));
+////	m = multiply_matrix4(trans, view);
 	return (m);
 }
 

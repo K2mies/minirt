@@ -628,6 +628,7 @@ t_matrix4	translation(t_float x, t_float y, t_float z);
 /* ----------------------------------------------------- minirt_transform01.c */
 t_matrix4	scaling(t_float x, t_float y, t_float z);
 /* ----------------------------------------------------- minirt_transform02.c */
+double		rad_to_deg(t_float radians);
 double		deg_to_rad(t_float degrees);
 t_matrix4	rotation_x(t_float deg);
 t_matrix4	rotation_y(t_float deg);
@@ -724,7 +725,7 @@ t_material	material(t_float param[7], t_color col);
 t_world		world_scene(t_minirt *rt);
 t_world		default_world(t_minirt *rt);
 /* -------------------------------------------------------- minirt_object09.c */
-t_camera	camera(t_tuple vec[2], t_float fov);
+t_camera	camera(t_tuple origin, t_tuple direction, t_float fov);
 /* ================================ MLX ===================================== */
 
 
