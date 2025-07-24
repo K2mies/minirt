@@ -707,7 +707,7 @@ t_float				schlick(t_computations comps);
 t_object	sphere(t_tuple location, t_float diameter, t_color col);
 t_object	glass_sphere(t_tuple location, t_float diameter, t_color col);
 /* -------------------------------------------------------- minirt_object01.c */
-t_object	plane(t_tuple origin, t_tuple normal, t_color col);
+t_object	plane(t_tuple vec[2], t_color col);
 /* -------------------------------------------------------- minirt_object02.c */
 t_object	cube(t_tuple vec[2], t_color col);
 /* -------------------------------------------------------- minirt_object03.c */
