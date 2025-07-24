@@ -12,7 +12,25 @@
 
 #include "minirt.h"
 
-t_object	plane(t_tuple origin, t_tuple normal, t_color col)
+static t_matrix4	calculate_matrix_transform(t_object plane)
+{
+	t_matrix4	m;
+	t_matrix4	move;
+
+	m = id_matrix4();
+	move = translation(plane.origin.x, plane.origin.y, plane.origin.z);
+	m = multiply_matrix4(m, move);
+	return (m);
+}
+
+/**
+ * @brief	creates and returns a plane object
+ * creates a Cube object/struct 
+ * @param	vec[origin] & vec[direction]
+ * @param	col
+ * @return	t_object struct with type PLANE
+ */
+t_object	plane(t_tuple vec[2], t_color col)
 {
 	t_object	p;
 	t_float		param[7];
@@ -25,8 +43,8 @@ t_object	plane(t_tuple origin, t_tuple normal, t_color col)
 	param[transparency] = 0;
 	param[refractive_index] = 1.0;
 	p.type = PLANE;
-	p.origin = origin;
-	p.vector = normal;
+	p.origin = vec[origin];
+	p.vector = vec[direction];
 	p.color = col;
 	p.material = material(param, col);
 	p.material.has_pattern = false;
