@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:33:45 by mpierce           #+#    #+#             */
-/*   Updated: 2025/07/24 12:40:54 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/07/24 16:33:30 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,6 @@ void	load_light(t_minirt *rt, char **data)
  */
 void	load_camera(t_minirt *rt, char **data)
 {
-	t_camera	camera;
 	char		**origin;
 	char		**vec;
 
@@ -134,13 +133,11 @@ void	load_camera(t_minirt *rt, char **data)
 		object_error(rt, origin, vec, NULL);
 	if (!validate_array(origin) || !validate_array(vec))
 		object_error(rt, origin, vec, NULL);
-	camera.origin = point(ft_atof(origin[0]), ft_atof(origin[1]),
-			ft_atof(origin[2]));
-	camera.vector = vector(ft_atof(vec[0]), ft_atof(vec[1]), ft_atof(vec[2]));
 	if (!rt_isstrdigit(data[3]))
 		object_error(rt, origin, vec, NULL);
-	camera.fov = ft_atof(data[3]);
-	rt->camera = camera;
+	rt->camera = camera(point(ft_atof(origin[0]), ft_atof(origin[1]),
+			ft_atof(origin[2])), vector(ft_atof(vec[0]), ft_atof(vec[1]),
+			ft_atof(vec[2])), ft_atof(data[3]));
 	object_free(origin, vec, NULL);
 }
 
