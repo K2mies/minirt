@@ -48,6 +48,6 @@ t_object	plane(t_tuple vec[2], t_color col)
 	p.color = col;
 	p.material = material(param, col);
 	p.material.has_pattern = false;
-	p.transform = id_matrix4();
+	p.transform = calculate_matrix_transform(p);
 	return (p);
 }
