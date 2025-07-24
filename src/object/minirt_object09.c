@@ -60,14 +60,14 @@ static	t_matrix4	calculate_transform_matrix(t_camera cam)
  * @param vec		vec[origin] and vec[direction]
  * @return			t_camera object
  */
-t_camera	camera(t_tuple vec[2], t_float fov)
+t_camera	camera(t_tuple origin, t_tuple direction, t_float fov)
 {
 	t_camera	cam;
 
 	cam.dim[height] = CAM_HEIGHT;
 	cam.dim[width] = CAM_WIDTH;
-	cam.origin = vec[origin]; 
-	cam.vector = vec[direction];
+	cam.origin = origin; 
+	cam.vector = direction;
 	cam.fov = fov;
 	cam.transform = calculate_transform_matrix(cam);
 	calculate_pixel_size(&cam);
