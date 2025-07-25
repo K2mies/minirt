@@ -137,7 +137,7 @@ void	load_camera(t_minirt *rt, char **data)
 		object_error(rt, origin, vec, NULL);
 	rt->camera = camera(point(ft_atof(origin[0]), ft_atof(origin[1]),
 			ft_atof(origin[2])), vector(ft_atof(vec[0]), ft_atof(vec[1]),
-			ft_atof(vec[2])), ft_atof(data[3]));
+			ft_atof(vec[2])), deg_to_rad(ft_atof(data[3])));
 	object_free(origin, vec, NULL);
 }
 

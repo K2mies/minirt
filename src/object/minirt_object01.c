@@ -67,5 +67,6 @@ t_object	plane(t_tuple origin, t_tuple direction, t_color col)
 	p.material.has_pattern = true;
 	p.material.pattern = pattern(color(1,1,1), color(0,0,0), CHECKER);
 	p.transform = calculate_matrix_transform(p);
+	p.material.pattern.transform = scaling(0.5,0.5,0.5);
 	return (p);
 }

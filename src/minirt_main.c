@@ -3299,7 +3299,7 @@ void	test_print_color(t_color col)
 void	test_single_cube(t_minirt *rt)
 {
 	t_world			w;
-	t_camera		cam;
+//	t_camera		cam;
 	t_canvas		*img;
 //	int				scalar;
 
@@ -3307,11 +3307,14 @@ void	test_single_cube(t_minirt *rt)
 	w = world_scene(rt);
 /* ================================ CAMERA =============================== */
 //	cam = camera(point(0, 1.5, -5), point(0, 1, 0), deg_to_rad(60));
-	cam = camera(point(0, 0, -10), point(0, 0, 1), deg_to_rad(60));
-	img = render(cam, w);
+//	cam = camera(point(0, 0, -10), point(0, 0, 1), deg_to_rad(60));
+	img = render(w.camera, w);
 	canvas_to_ppm(img);
-	printf("w.n_obj = %d\n", w.n_objs);
-	printf("w,n_ts = %d\n", w.n_ts);
+	if (w.objs[4].type == CUBE)
+	{
+		printf("object is the cube\n");
+		printf("cb.height = %f\n", w.objs[4].height);
+	}
 }
 
 //void	test_cone_intersection(t_minirt *rt)
