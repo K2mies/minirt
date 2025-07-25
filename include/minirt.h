@@ -32,8 +32,8 @@
 
 
 /* ================================= MACROS ================================= */
-# define CAM_HEIGHT	50
-# define CAM_WIDTH	100
+# define CAM_HEIGHT	50 * 3
+# define CAM_WIDTH	100 * 3
 # define BIG_NUMBER 1000000.0f
 # define M_PI 3.14159265358979323846
 # define EPSILON			0.00001f
@@ -364,8 +364,8 @@ typedef struct	s_p_cy
 //Enum for trans, rot, scale
 typedef enum		e_trans_rot_scale
 {
-	trans,
-	rot,
+	translate,
+	rotate,
 	scale
 }	t_trans_rot_scale;
 
