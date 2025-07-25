@@ -44,10 +44,8 @@ static	t_matrix4	calculate_transform_matrix(t_camera cam)
 {
 	t_matrix4	m;
 	t_matrix4	view;
-//	t_tuple		direction;
 
 	m = id_matrix4();
-//	direction = add_tuples(cam.origin, cam.vector);
 	view = view_transform(cam.origin, cam.vector, vector(0, 1, 0));
 	m = multiply_matrix4(m, view);
 	return (m);

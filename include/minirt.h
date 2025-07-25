@@ -711,7 +711,7 @@ t_object	glass_sphere(t_tuple location, t_float diameter, t_color col);
 /* -------------------------------------------------------- minirt_object01.c */
 t_object	plane(t_tuple origin, t_tuple direction, t_color col);
 /* -------------------------------------------------------- minirt_object02.c */
-t_object	cube(t_tuple origin, t_tuple direction, t_color col, t_float height);
+t_object	cube(t_tuple origin, t_tuple direction, t_color col, t_float cb_scale);
 /* -------------------------------------------------------- minirt_object03.c */
 t_object	cylinder(t_p_cy param);
 /* -------------------------------------------------------- minirt_object04.c */
