@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 12:23:34 by mpierce           #+#    #+#             */
-/*   Updated: 2025/07/21 14:08:41 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/07/25 15:06:28 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,6 @@ void cylinder_check(t_minirt *rt, char **origin, char **vec, char **rgb)
 
 void load_objects_to_data(t_minirt *rt, char ***full, int i)
 {
-	static int index;
-
-	index = 0;
 	if (!ft_strcmp(full[i][0], "A"))
 		load_ambient(rt, full[i]);
 	else if (!ft_strcmp(full[i][0], "C"))
@@ -31,13 +28,13 @@ void load_objects_to_data(t_minirt *rt, char ***full, int i)
 	else if (!ft_strcmp(full[i][0], "L"))
 		load_light(rt, full[i]);
 	else if (!ft_strcmp(full[i][0], "pl"))
-		load_plane(rt, full[i], index++);
+		load_plane(rt, full[i], rt->parsing_index++);
 	else if (!ft_strcmp(full[i][0], "sp"))
-		load_sphere(rt, full[i], index++);
+		load_sphere(rt, full[i], rt->parsing_index++);
 	else if (!ft_strcmp(full[i][0], "cy"))
-		load_cylinder(rt, full[i], index++);
+		load_cylinder(rt, full[i], rt->parsing_index++);
 	else if (!ft_strcmp(full[i][0], "cb"))
-		load_cube(rt, full[i], index++);
+		load_cube(rt, full[i], rt->parsing_index++);
 	// else if (!ft_strcmp(full[i][0], "con")) // object.c 143-166
 	// 	load_cone(rt, full[i], index++);
 	else

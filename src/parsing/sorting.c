@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:33:45 by mpierce           #+#    #+#             */
-/*   Updated: 2025/07/24 16:33:30 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/07/25 15:06:01 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,29 +152,9 @@ void	load_camera(t_minirt *rt, char **data)
 void	sort_data_types(t_minirt *rt, char ***full)
 {
 	int	i;
-	// int	index;
-	// int light_index;
 
 	i = -1;
-	// index = 0;
-	// light_index = 0;
 	check_for_dups(rt, full);
 	while (full[++i])
-	{
 		load_objects_to_data(rt, full, i);
-		// if (!ft_strcmp(full[i][0], "A"))
-		// 	load_ambient(rt, full[i]);
-		// else if (!ft_strcmp(full[i][0], "C"))
-		// 	load_camera(rt, full[i]);
-		// else if (!ft_strcmp(full[i][0], "L"))
-		// 	load_light(rt, full[i], light_index++);
-		// else if (!ft_strcmp(full[i][0], "pl"))
-		// 	load_plane(rt, full[i], index++);
-		// else if (!ft_strcmp(full[i][0], "sp"))
-		// 	load_sphere(rt, full[i], index++);
-		// else if (!ft_strcmp(full[i][0], "cy"))
-		// 	load_cylinder(rt, full[i], index++);
-		// else
-		// 	rt_error(rt, "File contains invalid data type", 1);
-	}
 }

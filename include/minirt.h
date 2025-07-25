@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:11:13 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/24 12:38:43 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/07/25 15:05:40 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,6 +276,7 @@ typedef struct s_minirt
 	int				mlx_d[2];
 	mlx_t			*mlx;
 	mlx_image_t		*img;
+	int				parsing_index;
 
 }	t_minirt;
 
