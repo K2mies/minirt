@@ -12,15 +12,32 @@
 
 #include "minirt.h"
 
-static t_matrix4	calculate_matrix_transform(t_object plane)
+/**
+ * @brief	(helper) calculates the transform matrix of the plane
+ * from vector and origin
+ * @param	pl
+ * @return	t_matrix4 transform matrx
+ */
+static t_matrix4	calculate_matrix_transform(t_object pl)
 {
-	t_matrix4	m;
-	t_matrix4	move;
+	t_matrix4	res;
+	t_matrix4	matrix[3][3];
+	t_float		axis[3];
+	t_float		magnitude;
+	t_tuple		unit_vector;
 
-	m = id_matrix4();
-	move = translation(plane.origin.x, plane.origin.y, plane.origin.z);
-	m = multiply_matrix4(m, move);
-	return (m);
+	res = id_matrix4();
+	matrix[translate][0] = translation(pl.origin.x, pl.origin.y, pl.origin.z);
+	unit_vector = normalize_vector(pl.vector);
+	magnitude = get_magnitude(vector(unit_vector.x, 0, unit_vector.z));
+	axis[x] = atan2f(magnitude, unit_vector.y);
+	axis[y] = atan2f(unit_vector.x, unit_vector.z);
+	matrix[rotate][x] = rotation_x(rad_to_deg(axis[x]));
+	matrix[rotate][y] = rotation_y(rad_to_deg(axis[y]));
+	res = multiply_matrix4(res, matrix[translate][0]);
+	res = multiply_matrix4(res, matrix[rotate][y]);
+	res = multiply_matrix4(res, matrix[rotate][x]);
+	return (res);
 }
 
 /**
@@ -47,7 +64,8 @@ t_object	plane(t_tuple origin, t_tuple direction, t_color col)
 	p.vector = direction;
 	p.color = col;
 	p.material = material(param, col);
-	p.material.has_pattern = false;
+	p.material.has_pattern = true;
+	p.material.pattern = pattern(color(1,1,1), color(0,0,0), CHECKER);
 	p.transform = calculate_matrix_transform(p);
 	return (p);
 }

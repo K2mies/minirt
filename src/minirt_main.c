@@ -3310,6 +3310,8 @@ void	test_single_cube(t_minirt *rt)
 	cam = camera(point(0, 0, -10), point(0, 0, 1), deg_to_rad(60));
 	img = render(cam, w);
 	canvas_to_ppm(img);
+	printf("w.n_obj = %d\n", w.n_objs);
+	printf("w,n_ts = %d\n", w.n_ts);
 }
 
 //void	test_cone_intersection(t_minirt *rt)
