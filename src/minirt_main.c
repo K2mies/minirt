@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "MLX42/MLX42.h"
 #include "minirt.h"
 
 //static void	test_return_point(t_float x, t_float y, t_float z)
@@ -3378,6 +3379,34 @@ void	test_single_cube(t_minirt *rt)
 //	xs = cone_intersection(&con, r);
 //	printf("xs.count = %d\n", xs.count);	
 //}
+//
+
+
+void	resize_screen(int32_t width, int32_t height, void *param)
+{
+	t_minirt	*rt;
+	rt = (t_minirt *)param;
+	mlx_resize_image(rt->img, width, height);
+}
+
+void	test_mlx_render(t_minirt *rt)
+
+	t_world	w;
+	w =  world_scene(rt);
+
+	mlx_start(rt, CAM_WIDTH, CAM_HEIGHT);
+	color_fill(rt);
+	mlx_render(rt, w.camera,  w);
+	mlx_resize_hook(rt->mlx, resize_screen, rt);
+//	mlx_resizefunc((int)rt->mlx->width, (int)rt->mlx->height, temp);
+//	mlx_resizefunc(&rt->mlx->width, &rt->mlx->height, NULL);
+	printf("width: %d height: %d\n", rt->mlx->width, rt->mlx->height);
+//	mlx_resize_image(rt->img, CAM_WIDTH * 2, CAM_HEIGHT * 2);
+//	mlx_set_window_size(rt->mlx, CAM_WIDTH * 2, CAM_HEIGHT * 2);
+	mlx_loop(rt->mlx);
+	mlx_delete_image(rt->mlx, rt->img);
+	mlx_terminate(rt->mlx);
+}
 int	main(int argc, char **argv)
 {
 //	(void)argc;
@@ -3394,8 +3423,9 @@ int	main(int argc, char **argv)
 	rt.parsing_index = 0;
 	rt.ts = NULL;
 	open_file(&rt, argv);
+	test_mlx_render(&rt);
 //	test_cone_intersection(&rt);
-	test_single_cube(&rt);
+//	test_single_cube(&rt);
 //	test_penis_scene(&rt);
 //	test_cylinder_caps_intersection();
 //	test_single_cylinder(&rt);

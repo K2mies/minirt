@@ -13,7 +13,8 @@
 NAME		= 	miniRT
 
 CC			= 	cc
-CFLAGS		= 	-O3 -flto -ffast-math -march=native -Wextra -Werror -Wall 
+CFLAGS		= 	-O3 -flto -ffast-math -Wextra -Werror -Wall 
+#CFLAGS		= 	-O3 -flto -ffast-math -march=native -Wextra -Werror -Wall 
 #CFLAGS		= 	-O3 -flto -Wextra -Werror -Wall 
 #CFLAGS		= 	-O3 -flto -march=native -Wextra -Werror -Wall 
 #CFLAGS		=  -fno-associative-math -flto -fno-fast-math -Wextra -Werror -Wall 

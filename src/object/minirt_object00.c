@@ -40,25 +40,25 @@ static t_matrix4 calculate_transform_matrix(t_object sp)
  */
 t_object	sphere(t_tuple location, t_float diameter, t_color col)
 {
-	t_object	sp;
-	t_float		param[7];
+	t_object	sphere;
+	t_float		material_param[7];
 
-	param[ambient] = 0.1;
-	param[diffuse] = 0.9;
-	param[specular] = 0.9;
-	param[shininess] = 200.0;
-	param[reflective] = 0;
-	param[transparency] = 0;
-	param[refractive_index] = 1.0;
-	sp.type = SPHERE;
-	sp.diameter = diameter;
-	sp.radius = sp.diameter / 2;
-	sp.origin = location;
-	sp.color = col;
-	sp.material = material(param, col);
-	sp.material.has_pattern = false;
-	sp.transform = calculate_transform_matrix(sp);
-	return (sp);
+	material_param[ambient] = 0.1;
+	material_param[diffuse] = 0.7;
+	material_param[specular] = 0.3;
+	material_param[shininess] = 200.0;
+	material_param[reflective] = 0;
+	material_param[transparency] = 0;
+	material_param[refractive_index] = 1.0;
+	sphere.type = SPHERE;
+	sphere.diameter = diameter;
+	sphere.radius = sphere.diameter / 2;
+	sphere.origin = location;
+	sphere.color = col;
+	sphere.material = material(material_param, col);
+	sphere.material.has_pattern = false;
+	sphere.transform = calculate_transform_matrix(sphere);
+	return (sphere);
 }
 
 /**
@@ -71,10 +71,10 @@ t_object	sphere(t_tuple location, t_float diameter, t_color col)
  */
 t_object	glass_sphere(t_tuple location, t_float diameter, t_color col)
 {
-	t_object	sp;
+	t_object	glass_sphere;
 
-	sp = sphere(location, diameter, col);
-	sp.material.transparency = 1.0;
-	sp.material.refractive_index = 1.5;
-	return (sp);
+	glass_sphere = sphere(location, diameter, col);
+	glass_sphere.material.transparency = 1.0;
+	glass_sphere.material.refractive_index = 1.5;
+	return (glass_sphere);
 }
