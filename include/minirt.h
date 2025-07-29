@@ -32,14 +32,16 @@
 
 
 /* ================================= MACROS ================================= */
-# define CAM_HEIGHT	50 * 3
-# define CAM_WIDTH	100 * 3
+# define CAM_HEIGHT	50 * 4
+# define CAM_WIDTH	100 * 4
 # define BIG_NUMBER 1000000.0f
 # define M_PI 3.14159265358979323846
 # define EPSILON			0.00001f
 # define C_EPSILON			0.00001f
 # define REFRACTION_BIAS	0.00001f
 # define SHADOW_BIAS		0.01f
+# define OVER_POINT			0.1f
+# define UNDER_POINT		0.00001f
 # define PATTERN_SHIFT		0.01f
 # define BOUNCE_LIMIT		4
 # define MAX_CONTAINERS		16
@@ -58,7 +60,6 @@ typedef struct	s_pattern	t_pattern;
 /* ------------------------------------------------------------- custom types */
 // Custom typedef for float (so can be switched to double later for testing)
 typedef float	t_float;
-
 /* ------------------------------------------------------------------- tuples */
 // Typedef for Touple
 typedef struct s_tuple
@@ -131,6 +132,7 @@ typedef struct	s_pattern
 typedef struct	s_material
 {
 	t_color		color;
+	t_color		ambient_color;
 	bool		has_pattern;
 	t_pattern	pattern;
 	t_float		transparency;
@@ -305,15 +307,16 @@ typedef struct	s_view_transform_param
 typedef struct	s_lighting_param
 {
 	t_object	obj;
-	t_color		ambient;
-	t_color		diffuse;
-	t_color		specular;
-	t_color		effective_color;
+	t_color		col[3];
+//	t_color		effective_color;
+//	t_color		ambient_color;
+	t_color		ambient[2];
 	t_tuple		reflectv;
 	t_tuple		lightv;
 	t_float		light_dot_normal;
 	t_float		reflect_dot_eye;
 	t_float		factor;
+	t_float		ratio;
 	bool		in_shadow;
 
 }	t_lighting_param;
@@ -439,6 +442,18 @@ typedef enum	e_phong
 	transparency,
 	refractive_index
 }	t_phong;
+
+//Enum for ambient color calculations
+typedef enum	e_ambient_colors
+{
+	effective,
+	env
+}	t_ambient_colors;
+//Enum for xyz single value
+typedef  enum	e_xyz
+{
+	xyz
+}	t_xyz;
 
 //Enum for axis
 typedef enum	e_axis

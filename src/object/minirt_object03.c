@@ -27,14 +27,14 @@ static t_matrix4	calculate_transform_matrix(t_object cy)
 	t_tuple		unit_vector;
 
 	res = id_matrix4();
-	matrix[translate][0] = translation(cy.origin.x, cy.origin.y, cy.origin.z);
+	matrix[translate][xyz] = translation(cy.origin.x, cy.origin.y, cy.origin.z);
 	unit_vector = normalize_vector(cy.vector);
 	magnitude = get_magnitude(vector(unit_vector.x, 0, unit_vector.z));
 	axis[x] = atan2f(magnitude, unit_vector.y);
 	axis[y] = atan2f(unit_vector.x, unit_vector.z);
 	matrix[rotate][x] = rotation_x(rad_to_deg(axis[x]));
 	matrix[rotate][y] = rotation_y(rad_to_deg(axis[y]));
-	res = multiply_matrix4(res, matrix[translate][0]);
+	res = multiply_matrix4(res, matrix[translate][xyz]);
 	res = multiply_matrix4(res, matrix[rotate][y]);
 	res = multiply_matrix4(res, matrix[rotate][x]);
 	return (res);
@@ -52,7 +52,7 @@ static t_matrix4	calculate_transform_matrix(t_object cy)
  */
 t_object	cylinder(t_p_cy	param)
 {
-	t_object	cy;
+	t_object	cylinder;
 	t_float		material_param[7];
 
 	material_param[ambient] = 0.1;
@@ -62,18 +62,18 @@ t_object	cylinder(t_p_cy	param)
 	material_param[reflective] = 0;
 	material_param[transparency] = 0;
 	material_param[refractive_index] = 1.0;
-	cy.type = CYLINDER;
-	cy.closed = true;
-	cy.diameter = param.diameter;
-	cy.radius = cy.diameter / 2;
-	cy.origin = param.origin;
-	cy.vector = param.direction;
-	cy.height = param.height;
-	cy.max = cy.height;
-	cy.min = 0;
-	cy.color = param.col;
-	cy.material = material(material_param, cy.color);
-	cy.material.has_pattern = false;
-	cy.transform = calculate_transform_matrix(cy);
-	return (cy);
+	cylinder.type = CYLINDER;
+	cylinder.closed = true;
+	cylinder.diameter = param.diameter;
+	cylinder.radius = cylinder.diameter / 2;
+	cylinder.origin = param.origin;
+	cylinder.vector = param.direction;
+	cylinder.height = param.height;
+	cylinder.max = cylinder.height;
+	cylinder.min = 0;
+	cylinder.color = param.col;
+	cylinder.material = material(material_param, cylinder.color);
+	cylinder.material.has_pattern = false;
+	cylinder.transform = calculate_transform_matrix(cylinder);
+	return (cylinder);
 }

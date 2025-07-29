@@ -28,18 +28,18 @@ static t_matrix4	calculate_matrix_transform(t_object cb)
 	t_tuple		unit_vector;
 
 	res = id_matrix4();
-	matrix[translate][0] = translation(cb.origin.x, cb.origin.y, cb.origin.z);
+	matrix[translate][xyz] = translation(cb.origin.x, cb.origin.y, cb.origin.z);
 	unit_vector = normalize_vector(cb.vector);
 	magnitude = get_magnitude(vector(unit_vector.x, 0, unit_vector.z));
 	axis[x] = atan2f(magnitude, unit_vector.y);
 	axis[y] = atan2f(unit_vector.x, unit_vector.z);
 	matrix[rotate][x] = rotation_x(rad_to_deg(axis[x]));
 	matrix[rotate][y] = rotation_y(rad_to_deg(axis[y]));
-	matrix[scale][0] = scaling(cb.height, cb.height, cb.height);
-	res = multiply_matrix4(res, matrix[translate][0]);
+	matrix[scale][xyz] = scaling(cb.height, cb.height, cb.height);
+	res = multiply_matrix4(res, matrix[translate][xyz]);
 	res = multiply_matrix4(res, matrix[rotate][y]);
 	res = multiply_matrix4(res, matrix[rotate][x]);
-	res = multiply_matrix4(res, matrix[scale][0]);
+	res = multiply_matrix4(res, matrix[scale][xyz]);
 	return (res);
 }
 /**

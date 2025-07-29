@@ -13,6 +13,24 @@
 #include "minirt.h"
 
 /**
+ * @brief	Helper function to asign ambient color to the lighting model
+ * 
+ *
+ * @param p			pointer to the param struct for lighting()
+ * @param m			matterial to be used
+ * @param light		light to be used for calculation
+ */
+static void	calculate_ambient_color(t_lighting_param *p, t_material m, t_light light)
+{
+	p->ambient[effective] = multiply_color(m.color, light.color);
+	p->ambient[effective] = multiply_color(p->ambient[effective], light.color);
+	p->ambient[env] = multiply_color(p->ambient[env], light.color);
+	p->ambient[env] = multiply_color_by_scalar(p->ambient[env],  p->ratio);
+	p->col[ambient] = multiply_color_by_scalar(p->ambient[effective], p->ratio);
+	p->col[ambient] = add_colors(p->col[ambient], p->ambient[env]);
+}
+
+/**
  * @brief	Helper function to asign and calculate the paramaters
  * asigns all params of *p in order to keep the
  * line count of lighting() below 25;
@@ -24,27 +42,26 @@
  */
 static void	apply_lighting(t_lighting_param *p, t_material m, t_light light, t_tuple v[3])
 {
-	p->effective_color = multiply_color(m.color, light.color);
+	calculate_ambient_color(p, m, light);
 	p->lightv = normalize_vector(sub_tuples(light.origin, v[pos]));
-	p->ambient = multiply_color_by_scalar(p->effective_color, m.ambient);
 	p->light_dot_normal = dot_product(p->lightv, v[normalv]);
 	if (p->light_dot_normal < 0 || p->in_shadow == true)
 	{
-		p->diffuse = color(0, 0, 0);
-		p->specular = color(0, 0, 0);
+		p->col[diffuse] = color(0, 0, 0);
+		p->col[specular] = color(0, 0, 0);
 	}
 	else
 	{
-		p->diffuse = multiply_color_by_scalar(
-			p->effective_color ,(m.diffuse * p->light_dot_normal));
+		p->col[diffuse] = multiply_color_by_scalar(
+			p->ambient[effective] ,(m.diffuse * p->light_dot_normal));
 		p->reflectv = reflect(negate_tuple(p->lightv), v[normalv]);
 		p->reflect_dot_eye = dot_product(p->reflectv, v[eyev]);
 		if (p->reflect_dot_eye <= 0)
-			p->specular = color(0, 0, 0);
+			p->col[specular] = color(0, 0, 0);
 		else
 		{
 			p->factor = pow(p->reflect_dot_eye, m.shininess);
-			p->specular = multiply_color_by_scalar(
+			p->col[specular] = multiply_color_by_scalar(
 				light.color, (m.specular * p->factor));
 		}
 	}
@@ -69,7 +86,7 @@ t_color	lighting(t_lighting_param p, t_material m, t_light light, t_tuple v[3])
 	if (m.has_pattern == true)
 		m.color	= pattern_at(m.pattern, p.obj, v[pos]);
 	apply_lighting(&p, m, light, v);
-	res = add_three_colors(p.ambient, p.diffuse, p.specular);
+	res = add_three_colors(p.col[ambient], p.col[diffuse], p.col[specular]);
 	return (res);
 }
 

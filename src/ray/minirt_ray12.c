@@ -24,12 +24,11 @@ t_tuple	normal_at_sphere(t_object obj, t_tuple world_point)
 {
 	t_matrix4	matrix[2];
 	t_tuple		normal[2];
-	t_tuple		object_point;
 
 	matrix[inverse] = inverse_matrix4(obj.transform);
 	matrix[transpose] = transpose_matrix4(matrix[inverse]);
-	object_point = multiply_matrix4_tuple(matrix[inverse], world_point);
-	normal[local] = sub_tuples(object_point, point(0, 0, 0));
+	normal[local] = multiply_matrix4_tuple(matrix[inverse], world_point);
+	normal[local] = sub_tuples(normal[local], point(0, 0, 0));
 	normal[world] = multiply_matrix4_tuple(matrix[transpose], normal[local]);
 	normal[world].w = 0;
 	normal[world] = normalize_vector(normal[world]);

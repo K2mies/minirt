@@ -56,6 +56,9 @@ t_color	shade_hit(t_world w, t_computations comps, t_object	obj, int remaining)
 	t_material			material;
 	t_float				reflectance;
 
+
+	param.ambient[env] = w.ambient.color;
+	param.ratio = w.ambient.ratio;
 	param.in_shadow = is_shadowed(w, comps.over_point);
 	param.obj = obj;
 	col[surface] = lighting(param, comps.object.material, w.light, comps.v);

@@ -52,12 +52,11 @@ t_tuple	normal_at_cube(t_object obj, t_tuple world_point)
 {	
 	t_matrix4	matrix[2];
 	t_tuple		normal[2];
-	t_tuple		object_point;
 
 	matrix[inverse] = inverse_matrix4(obj.transform);
 	matrix[transpose] = transpose_matrix4(matrix[inverse]);
-	object_point = multiply_matrix4_tuple(matrix[inverse], world_point);
-	normal[local] = calculate_local_normal(object_point);
+	normal[local] = multiply_matrix4_tuple(matrix[inverse], world_point);
+	normal[local] = calculate_local_normal(local[normal]);
 	normal[world] = multiply_matrix4_tuple(matrix[transpose], normal[local]);
 	normal[world].w = 0;
 	normal[world] = normalize_vector(normal[world]);
