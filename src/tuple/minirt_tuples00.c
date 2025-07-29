@@ -65,7 +65,7 @@ t_tuple	point(t_float x, t_float y, t_float z)
  *
  * @return		Vector of t_vec4 type
  */
-t_tuple	vector(t_float x, t_float y, t_float z)
+t_tuple	vector(const t_float x, t_float y, t_float z)
 {
 	t_tuple	vector;
 
