@@ -313,7 +313,7 @@ typedef struct	s_lighting_param
 	t_color		ambient[2];
 	t_tuple		reflectv;
 	t_tuple		lightv;
-	t_float		light_dot_norma;
+	t_float		light_dot_normal;
 	t_float		reflect_dot_eye;
 	t_float		factor;
 	t_float		ratio;

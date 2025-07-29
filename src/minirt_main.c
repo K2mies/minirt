@@ -3390,9 +3390,9 @@ void	resize_screen(int32_t width, int32_t height, void *param)
 }
 
 void	test_mlx_render(t_minirt *rt)
-
+{
 	t_world	w;
-	w =  world_scene(rt);
+	w = world_scene(rt);
 
 	mlx_start(rt, CAM_WIDTH, CAM_HEIGHT);
 	color_fill(rt);
