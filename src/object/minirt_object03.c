@@ -56,8 +56,8 @@ t_object	cylinder(t_p_cy	param)
 	t_float		material_param[7];
 
 	material_param[ambient] = 0.1;
-	material_param[diffuse] = 0.9;
-	material_param[specular] = 0.9;
+	material_param[diffuse] = 0.7;
+	material_param[specular] = 0.3;
 	material_param[shininess] = 200.0;
 	material_param[reflective] = 0;
 	material_param[transparency] = 0;

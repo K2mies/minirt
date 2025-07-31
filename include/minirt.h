@@ -32,16 +32,16 @@
 
 
 /* ================================= MACROS ================================= */
-# define CAM_HEIGHT	50 * 4
-# define CAM_WIDTH	100 * 4
+# define CAM_HEIGHT	50 * 3
+# define CAM_WIDTH	100 * 3
 # define BIG_NUMBER 1000000.0f
 # define M_PI 3.14159265358979323846
 # define EPSILON			0.00001f
 # define C_EPSILON			0.00001f
 # define REFRACTION_BIAS	0.00001f
-# define SHADOW_BIAS		0.01f
-# define OVER_POINT			0.1f
-# define UNDER_POINT		0.00001f
+# define SHADOW_BIAS		0.1f
+# define OVER_POINT			0.00001f
+# define UNDER_POINT		0.1f
 # define PATTERN_SHIFT		0.01f
 # define BOUNCE_LIMIT		4
 # define MAX_CONTAINERS		16
