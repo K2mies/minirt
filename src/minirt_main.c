@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "MLX42/MLX42.h"
 #include "minirt.h"
 
 //static void	test_return_point(t_float x, t_float y, t_float z)
@@ -3299,7 +3300,7 @@ void	test_print_color(t_color col)
 void	test_single_cube(t_minirt *rt)
 {
 	t_world			w;
-	t_camera		cam;
+//	t_camera		cam;
 	t_canvas		*img;
 //	int				scalar;
 
@@ -3307,11 +3308,14 @@ void	test_single_cube(t_minirt *rt)
 	w = world_scene(rt);
 /* ================================ CAMERA =============================== */
 //	cam = camera(point(0, 1.5, -5), point(0, 1, 0), deg_to_rad(60));
-	cam = camera(point(0, 0, -10), point(0, 0, 1), deg_to_rad(60));
-	img = render(cam, w);
+//	cam = camera(point(0, 0, -10), point(0, 0, 1), deg_to_rad(60));
+	img = render(w.camera, w);
 	canvas_to_ppm(img);
-	printf("w.n_obj = %d\n", w.n_objs);
-	printf("w,n_ts = %d\n", w.n_ts);
+	if (w.objs[4].type == CUBE)
+	{
+		printf("object is the cube\n");
+		printf("cb.height = %f\n", w.objs[4].height);
+	}
 }
 
 //void	test_cone_intersection(t_minirt *rt)
@@ -3375,6 +3379,25 @@ void	test_single_cube(t_minirt *rt)
 //	xs = cone_intersection(&con, r);
 //	printf("xs.count = %d\n", xs.count);	
 //}
+//
+
+//void	handle_key_press();
+
+void	test_mlx_render(t_minirt *rt)
+{
+	rt->w = world_scene(rt);
+
+	mlx_start(rt, CAM_WIDTH, CAM_HEIGHT);
+	color_fill(rt);
+	mlx_render(rt, rt->w.camera,  rt->w);
+	mlx_key_hook(rt->mlx, handle_key_press, rt);
+	mlx_mouse_hook(rt->mlx, handle_mouse_click, rt);
+	mlx_resize_hook(rt->mlx, resize_screen, rt);
+	mlx_cursor_hook(rt->mlx, handle_mouse_move, rt);
+	mlx_loop(rt->mlx);
+	mlx_delete_image(rt->mlx, rt->img);
+	mlx_terminate(rt->mlx);
+}
 int	main(int argc, char **argv)
 {
 //	(void)argc;
@@ -3391,8 +3414,9 @@ int	main(int argc, char **argv)
 	rt.parsing_index = 0;
 	rt.ts = NULL;
 	open_file(&rt, argv);
+	test_mlx_render(&rt);
 //	test_cone_intersection(&rt);
-	test_single_cube(&rt);
+//	test_single_cube(&rt);
 //	test_penis_scene(&rt);
 //	test_cylinder_caps_intersection();
 //	test_single_cylinder(&rt);

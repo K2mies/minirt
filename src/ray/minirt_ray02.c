@@ -105,7 +105,7 @@ static	void	add_four(t_world *w, t_intersections xs, int i)
  * takes the xs t hits and adds them to a w->ts[n] array
  * for the world intersect function
  *
- * @param w			pointer to the world data struct
+  @param w			pointer to the world data struct
  * @param xs		the xs intersections to add to array
  * @param i			the object index of the intersections
  */

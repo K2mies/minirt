@@ -13,7 +13,8 @@
 NAME		= 	miniRT
 
 CC			= 	cc
-CFLAGS		= 	-O3 -flto -ffast-math -march=native -Wextra -Werror -Wall 
+CFLAGS		= 	-O3 -flto -ffast-math -Wextra -Werror -Wall 
+#CFLAGS		= 	-O3 -flto -ffast-math -march=native -Wextra -Werror -Wall 
 #CFLAGS		= 	-O3 -flto -Wextra -Werror -Wall 
 #CFLAGS		= 	-O3 -flto -march=native -Wextra -Werror -Wall 
 #CFLAGS		=  -fno-associative-math -flto -fno-fast-math -Wextra -Werror -Wall 
@@ -121,6 +122,10 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				$(SRC_DIR)/object/minirt_object09.c									\
 				\
 				$(SRC_DIR)/mlx/minirt_mlx00.c										\
+				$(SRC_DIR)/mlx/minirt_mlx01.c										\
+				$(SRC_DIR)/mlx/minirt_mlx02.c										\
+				$(SRC_DIR)/mlx/minirt_mlx03.c										\
+				$(SRC_DIR)/mlx/minirt_mlx04.c										\
 				\
 				$(SRC_DIR)/error/arg_error.c										\
 				$(SRC_DIR)/error/error.c											\

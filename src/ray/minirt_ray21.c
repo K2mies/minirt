@@ -39,8 +39,8 @@ t_computations prepare_computations(t_world w, t_intersection *i, t_ray r)
 		comps.inside = false;
 	comps.v[reflectv] = reflect(r.direction, comps.v[normalv]);
 	comps.over_point = add_tuples(comps.v[pos],
-				multiply_tuple_by_scalar(comps.v[normalv], REFRACTION_BIAS));
+				multiply_tuple_by_scalar(comps.v[normalv], OVER_POINT));
 	comps.under_point = sub_tuples(comps.v[pos],
-				multiply_tuple_by_scalar(comps.v[normalv], SHADOW_BIAS));
+				multiply_tuple_by_scalar(comps.v[normalv], UNDER_POINT));
 	return (comps);
 }

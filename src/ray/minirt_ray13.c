@@ -27,7 +27,7 @@ t_tuple normal_at_plane(t_object obj)
 
 	matrix[inverse] = inverse_matrix4(obj.transform);
 	matrix[transpose] = transpose_matrix4(matrix[inverse]);
-	normal[local] = obj.vector;
+	normal[local] = multiply_matrix4_tuple(matrix[inverse],obj.vector);
 	normal[world] = multiply_matrix4_tuple(matrix[transpose], normal[local]);
 	normal[world].w = 0;
 	normal[world] = normalize_vector(normal[world]);
