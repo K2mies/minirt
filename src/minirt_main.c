@@ -3381,28 +3381,19 @@ void	test_single_cube(t_minirt *rt)
 //}
 //
 
-
-void	resize_screen(int32_t width, int32_t height, void *param)
-{
-	t_minirt	*rt;
-	rt = (t_minirt *)param;
-	mlx_resize_image(rt->img, width, height);
-}
+//void	handle_key_press();
 
 void	test_mlx_render(t_minirt *rt)
 {
-	t_world	w;
-	w = world_scene(rt);
+	rt->w = world_scene(rt);
 
 	mlx_start(rt, CAM_WIDTH, CAM_HEIGHT);
 	color_fill(rt);
-	mlx_render(rt, w.camera,  w);
+	mlx_render(rt, rt->w.camera,  rt->w);
+	mlx_key_hook(rt->mlx, handle_key_press, rt);
+	mlx_mouse_hook(rt->mlx, handle_mouse_click, rt);
 	mlx_resize_hook(rt->mlx, resize_screen, rt);
-//	mlx_resizefunc((int)rt->mlx->width, (int)rt->mlx->height, temp);
-//	mlx_resizefunc(&rt->mlx->width, &rt->mlx->height, NULL);
-	printf("width: %d height: %d\n", rt->mlx->width, rt->mlx->height);
-//	mlx_resize_image(rt->img, CAM_WIDTH * 2, CAM_HEIGHT * 2);
-//	mlx_set_window_size(rt->mlx, CAM_WIDTH * 2, CAM_HEIGHT * 2);
+	mlx_cursor_hook(rt->mlx, handle_mouse_move, rt);
 	mlx_loop(rt->mlx);
 	mlx_delete_image(rt->mlx, rt->img);
 	mlx_terminate(rt->mlx);

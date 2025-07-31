@@ -31,9 +31,35 @@ static void	calculate_ambient_color(t_lighting_param *p, t_material m, t_light l
 }
 
 /**
+ * @brief	Helper function to calculate color
+ * calculates the col[diffuse] and col[specular]
+ *
+ * @param p			pointer to the param struct for lighting()
+ * @param m			matterial to be used
+ * @param light		light to be used for calculation
+ * @param v			array of 3 vectors needed
+ */
+static void	calculate_color(t_lighting_param *p, t_material m, t_light light, t_tuple v[3])
+{
+	t_float	scal[2];
+
+	scal[a] = m.diffuse * p->light_dot_normal;
+	p->col[diffuse] = multiply_color_by_scalar(p->ambient[effective] ,scal[a]);
+	p->reflectv = reflect(negate_tuple(p->lightv), v[normalv]);
+	p->reflect_dot_eye = dot_product(p->reflectv, v[eyev]);
+	if (p->reflect_dot_eye <= 0)
+		p->col[specular] = color(0, 0, 0);
+	else
+	{
+		p->factor = pow(p->reflect_dot_eye, m.shininess);
+		scal[b] = m.specular * p->factor;
+		p->col[specular] = multiply_color_by_scalar(light.color, scal[b]);
+	}
+}
+
+/**
  * @brief	Helper function to asign and calculate the paramaters
- * asigns all params of *p in order to keep the
- * line count of lighting() below 25;
+ * asigns all params of *p
  *
  * @param p			pointer to the param struct for lighting()
  * @param m			matterial to be used
@@ -51,20 +77,7 @@ static void	apply_lighting(t_lighting_param *p, t_material m, t_light light, t_t
 		p->col[specular] = color(0, 0, 0);
 	}
 	else
-	{
-		p->col[diffuse] = multiply_color_by_scalar(
-			p->ambient[effective] ,(m.diffuse * p->light_dot_normal));
-		p->reflectv = reflect(negate_tuple(p->lightv), v[normalv]);
-		p->reflect_dot_eye = dot_product(p->reflectv, v[eyev]);
-		if (p->reflect_dot_eye <= 0)
-			p->col[specular] = color(0, 0, 0);
-		else
-		{
-			p->factor = pow(p->reflect_dot_eye, m.shininess);
-			p->col[specular] = multiply_color_by_scalar(
-				light.color, (m.specular * p->factor));
-		}
-	}
+		calculate_color(p, m, light, v);
 }
 
 /**

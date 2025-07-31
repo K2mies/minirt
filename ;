@@ -32,16 +32,16 @@
 
 
 /* ================================= MACROS ================================= */
-# define CAM_HEIGHT	50 * 3
-# define CAM_WIDTH	100 * 3
+# define CAM_HEIGHT	50 * 4
+# define CAM_WIDTH	100 * 4
 # define BIG_NUMBER 1000000.0f
 # define M_PI 3.14159265358979323846
 # define EPSILON			0.00001f
 # define C_EPSILON			0.00001f
 # define REFRACTION_BIAS	0.00001f
-# define SHADOW_BIAS		0.1f
-# define OVER_POINT			0.00001f
-# define UNDER_POINT		0.1f
+# define SHADOW_BIAS		0.01f
+# define OVER_POINT			0.1f
+# define UNDER_POINT		0.00001f
 # define PATTERN_SHIFT		0.01f
 # define BOUNCE_LIMIT		4
 # define MAX_CONTAINERS		16
@@ -204,13 +204,13 @@ typedef struct	s_wall
 /* ------------------------------------------------------------------- Mlx stuff */
 // Typedef for mlx key data
 
-//typedef struct	mlx_key_data
-//{
-//	keys_t			key;
-//	action_t		action;
-//	int32_t			os_key;
-//	modifier_key_t	modifier;
-//}	mlx_key_data_t;
+typedef struct	mlx_key_data
+{
+	keys_t			key;
+	action_t		action;
+	int32_t			os_key;
+	modifier_key_t	modifier;
+}	mlx_key_data_t;
 /* --------------------------------------------------------------- intersections */
 
 // Typedef for ray intersections
@@ -763,7 +763,7 @@ void		color_fill(t_minirt *rt);
 /* ----------------------------------------------------------- minirt_mlx01.c */
 void		resize_screen(int32_t width, int32_t height, void *param);
 /* ----------------------------------------------------------- minirt_mlx02.c */
-void		handle_key_press(mlx_key_data_t keydata, void *param);
+void		handle_key_press(t_mlx_key_data keydata, void *param);
 /* ----------------------------------------------------------- minirt_mlx03.c */
 void		handle_mouse_click(mouse_key_t button, action_t action, modifier_key_t mods, void *param);
 /* ----------------------------------------------------------- minirt_mlx04.c */
