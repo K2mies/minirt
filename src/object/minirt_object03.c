@@ -69,8 +69,8 @@ t_object	cylinder(t_p_cy	param)
 	cylinder.origin = param.origin;
 	cylinder.vector = param.direction;
 	cylinder.height = param.height;
-	cylinder.max = cylinder.height;
-	cylinder.min = 0;
+	cylinder.max = cylinder.height / 2;
+	cylinder.min = -cylinder.max;
 	cylinder.color = param.col;
 	cylinder.material = material(material_param, cylinder.color);
 	cylinder.material.has_pattern = false;
