@@ -18,16 +18,19 @@
  * @param	sp (sphere)
  * @return	t_matrix4 transform matrx
  */
-static t_matrix4 calculate_transform_matrix(t_object sp)
+static void calculate_transform_matrix(t_object *sp)
 {
-	t_matrix4	m;
-	t_matrix4	move;
+	t_float	pos[3];
 
-	m = id_matrix4();
-	move = translation(sp.origin.x, sp.origin.y, sp.origin.z);
-	m = multiply_matrix4(m, move);
-	return (m);
-
+	pos[x] = sp->origin.x;
+	pos[y] = sp->origin.y;
+	pos[z] = sp->origin.z;
+	sp->transforms[translate][xyz] = translation(pos[x], pos[y], pos[z]);
+	sp->transforms[rotate][x] = id_matrix4();
+	sp->transforms[rotate][y] = id_matrix4();
+	sp->transforms[rotate][z] = id_matrix4();
+	sp->transforms[scale][xyz] = id_matrix4();
+	apply_transforms(sp);
 }
 
 /**
@@ -57,7 +60,7 @@ t_object	sphere(t_tuple location, t_float diameter, t_color col)
 	sphere.color = col;
 	sphere.material = material(material_param, col);
 	sphere.material.has_pattern = false;
-	sphere.transform = calculate_transform_matrix(sphere);
+	calculate_transform_matrix(&sphere);
 	return (sphere);
 }
 
