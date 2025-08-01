@@ -12,78 +12,76 @@
 
 #include "minirt.h"
 
-void	handle_e_press(t_minirt *rt)
+void	handle_p_press(t_minirt *rt)
 {
-	t_matrix4	rot[3];
-	t_matrix4	transform;
+	t_object	*obj;
 
-	rot[z] = rotation_z(10);
 	if (rt->is_active_object)
 	{
-		transform = rt->w.objs[rt->active_object.index].transform;
-		transform = multiply_matrix4(transform, rot[z]);
-		rt->w.objs[rt->active_object.index].transform = transform;
-		printf("object rotated on z by 10degree\n");
+		obj = &rt->w.objs[rt->active_object.index];
+		if (obj->material.has_pattern == false)
+			obj->material.has_pattern = true;
+		else
+			obj->material.has_pattern = false;
+		obj->material.pattern = pattern(color(0,0,0), color(1,1,1), CHECKER);
+		obj->material.pattern.transform = scaling(0.5, 0.5, 0.5);
+		printf("pattern set to checkered\n");
 		mlx_render(rt, rt->w.camera, rt->w);
 		printf("scene rendered\n");
 	}
 
 }
 
-void	handle_w_press(t_minirt *rt)
+void	handle_m_press(t_minirt *rt)
 {
-	t_matrix4	rot[3];
-	t_matrix4	transform;
+	t_object *obj;
 
-	rot[y] = rotation_y(10);
 	if (rt->is_active_object)
 	{
-		transform = rt->w.objs[rt->active_object.index].transform;
-		transform = multiply_matrix4(transform, rot[y]);
-		rt->w.objs[rt->active_object.index].transform = transform;
-		printf("object rotated on y by 10degree\n");
+		obj = &rt->w.objs[rt->active_object.index];
+		if (obj->material.refractive_index == 1.0)
+		{
+			obj->material.refractive_index = 1.5;
+			obj->material.transparency = 0.5;
+		}
+		else
+		{
+			obj->material.refractive_index = 1.0;
+			obj->material.transparency = 1.0;
+		}
 		mlx_render(rt, rt->w.camera, rt->w);
 		printf("scene rendered\n");
 	}
-
-}
-
-void	handle_q_press(t_minirt *rt)
-{
-	t_matrix4	rot[3];
-	t_matrix4	transform;
-
-	rot[x] = rotation_x(10);
-	if (rt->is_active_object)
-	{
-		transform = rt->w.objs[rt->active_object.index].transform;
-		transform = multiply_matrix4(transform, rot[x]);
-		rt->w.objs[rt->active_object.index].transform = transform;
-		printf("object rotated on x by 10degree\n");
-		mlx_render(rt, rt->w.camera, rt->w);
-		printf("scene rendered\n");
-	}
-
 }
 
 void handle_key_press(mlx_key_data_t keydata, void *param)
 {
 	t_minirt	*rt;
 
+	(void)keydata;
 	rt = (t_minirt *)param;
+	if(mlx_is_key_down(rt->mlx, MLX_KEY_UP))
+		handle_up_press(rt);
+	if(mlx_is_key_down(rt->mlx, MLX_KEY_DOWN))
+		handle_down_press(rt);
+	if(mlx_is_key_down(rt->mlx, MLX_KEY_LEFT))
+		handle_left_press(rt);
+	if(mlx_is_key_down(rt->mlx, MLX_KEY_RIGHT))
+		handle_right_press(rt);
 	if(mlx_is_key_down(rt->mlx, MLX_KEY_Q))
-	{
 		handle_q_press(rt);
-		printf("key: %d\n", keydata.key);
-	}
 	if(mlx_is_key_down(rt->mlx, MLX_KEY_W))
-	{
 		handle_w_press(rt);
-		printf("key: %d\n", keydata.key);
-	}
 	if(mlx_is_key_down(rt->mlx, MLX_KEY_E))
-	{
 		handle_w_press(rt);
-		printf("key: %d\n", keydata.key);
-	}
+	if(mlx_is_key_down(rt->mlx, MLX_KEY_A))
+		handle_a_press(rt);
+	if(mlx_is_key_down(rt->mlx, MLX_KEY_S))
+		handle_s_press(rt);
+	if(mlx_is_key_down(rt->mlx, MLX_KEY_D))
+		handle_d_press(rt);
+	if(mlx_is_key_down(rt->mlx, MLX_KEY_P))
+		handle_p_press(rt);
+	if(mlx_is_key_down(rt->mlx, MLX_KEY_M))
+		handle_m_press(rt);
 }

@@ -40,8 +40,8 @@
 # define C_EPSILON			0.0001f
 # define REFRACTION_BIAS	0.00001f
 # define SHADOW_BIAS		0.1f
-# define OVER_POINT			0.00001f
-# define UNDER_POINT		0.1f
+# define OVER_POINT			0.1f
+# define UNDER_POINT		0.00001f
 # define PATTERN_SHIFT		0.01f
 # define BOUNCE_LIMIT		4
 # define MAX_CONTAINERS		16
@@ -190,6 +190,7 @@ typedef struct s_object
 	t_color		color;
 	t_material	material;
 	t_matrix4	transform;
+	t_matrix4	transforms[3][3];
 	t_ray		saved_ray;
 }	t_object;
 
@@ -649,7 +650,10 @@ t_float		cofactor3(t_matrix3 m, int row, int col);
 /* -------------------------------------------------------- minirt_matrix06.c */
 bool		is_matrix4_invertable(t_matrix4 m);
 t_matrix4	inverse_matrix4(t_matrix4 m);
-
+/* -------------------------------------------------------- minirt_matrix07.c */
+void		print_matrix4(t_matrix4 mat);
+/* -------------------------------------------------------- minirt_matrix08.c */
+void		apply_transforms(t_object *obj);
 /* ============================= TRANSFORMS ================================= */
 
 /* ----------------------------------------------------- minirt_transform00.c */
@@ -768,7 +772,19 @@ void		handle_key_press(mlx_key_data_t keydata, void *param);
 void		handle_mouse_click(mouse_key_t button, action_t action, modifier_key_t mods, void *param);
 /* ----------------------------------------------------------- minirt_mlx04.c */
 void		handle_mouse_move(double w, double h, void *param);
-
+/* ----------------------------------------------------------- minirt_mlx05.c */
+void		handle_up_press(t_minirt *rt);
+void		handle_down_press(t_minirt *rt);
+void		handle_left_press(t_minirt *rt);
+void		handle_right_press(t_minirt *rt);
+/* ----------------------------------------------------------- minirt_mlx06.c */
+void		handle_q_press(t_minirt *rt);
+void		handle_w_press(t_minirt *rt);
+void		handle_e_press(t_minirt *rt);
+/* ----------------------------------------------------------- minirt_mlx07.c */
+void		handle_a_press(t_minirt *rt);
+void		handle_s_press(t_minirt *rt);
+void		handle_d_press(t_minirt *rt);
 /* =============================== ERROR ==================================== */
 
 /* -------------------------------------------------------- error/arg_error.c */

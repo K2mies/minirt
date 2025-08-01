@@ -63,10 +63,10 @@ t_intersections	intersect_cylinder_caps(t_object *cylinder, t_ray ray, t_interse
 	if (cylinder->closed == false || compare_floats(ray.direction.y, 0.0f))
 		return (xs);
 	xs.t[2] = (cylinder->min - ray.origin.y) / ray.direction.y;
-	if (check_cylinder_cap(ray, xs.t[2], cylinder))
+	if (xs.t[2] > C_EPSILON && check_cylinder_cap(ray, xs.t[2], cylinder))
 		xs.count += 1;
 	xs.t[3] = (cylinder->max - ray.origin.y) / ray.direction.y;
-	if (check_cylinder_cap(ray, xs.t[3], cylinder))
+	if (xs.t[3] > C_EPSILON && check_cylinder_cap(ray, xs.t[3], cylinder))
 		xs.count += 1;
 	return (xs);
 }

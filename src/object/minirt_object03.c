@@ -18,26 +18,26 @@
  * @param	cy 
  * @return	t_matrix4 transform matrx
  */
-static t_matrix4	calculate_transform_matrix(t_object cy)
+static void calculate_transform_matrix(t_object *cy)
 {
-	t_matrix4	res;
-	t_matrix4	matrix[3][3];
+	t_float		pos[3];
 	t_float		axis[3];
 	t_float		magnitude;
 	t_tuple		unit_vector;
 
-	res = id_matrix4();
-	matrix[translate][xyz] = translation(cy.origin.x, cy.origin.y, cy.origin.z);
-	unit_vector = normalize_vector(cy.vector);
+	pos[x] = cy->origin.x;
+	pos[y] = cy->origin.y;
+	pos[z] = cy->origin.z;
+	cy->transforms[translate][xyz] = translation(pos[x], pos[y], pos[z]);
+	unit_vector = normalize_vector(cy->vector);
 	magnitude = get_magnitude(vector(unit_vector.x, 0, unit_vector.z));
 	axis[x] = atan2f(magnitude, unit_vector.y);
 	axis[y] = atan2f(unit_vector.x, unit_vector.z);
-	matrix[rotate][x] = rotation_x(rad_to_deg(axis[x]));
-	matrix[rotate][y] = rotation_y(rad_to_deg(axis[y]));
-	res = multiply_matrix4(res, matrix[translate][xyz]);
-	res = multiply_matrix4(res, matrix[rotate][y]);
-	res = multiply_matrix4(res, matrix[rotate][x]);
-	return (res);
+	cy->transforms[rotate][x] = rotation_x(rad_to_deg(axis[x]));
+	cy->transforms[rotate][y] = rotation_y(rad_to_deg(axis[y]));
+	cy->transforms[rotate][z] = id_matrix4();
+	cy->transforms[scale][xyz] = id_matrix4();
+	apply_transforms(cy);
 }
 
 /**
@@ -74,6 +74,6 @@ t_object	cylinder(t_p_cy	param)
 	cylinder.color = param.col;
 	cylinder.material = material(material_param, cylinder.color);
 	cylinder.material.has_pattern = false;
-	cylinder.transform = calculate_transform_matrix(cylinder);
+	calculate_transform_matrix(&cylinder);
 	return (cylinder);
 }

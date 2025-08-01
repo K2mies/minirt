@@ -36,9 +36,9 @@ static t_tuple	calculate_local_normal(t_tuple object_point, t_object obj)
 //		return(vector(0, 1, 0));
 //	if (fabs(object_point.y - obj.min) < C_EPSILON && distance <= 1.0f - C_EPSILON)
 //		return (vector(0, -1, 0));
-	if (distance <= 1.0f + C_EPSILON && object_point.y >= obj.max - C_EPSILON)
+	if (distance < 1.0f + C_EPSILON && object_point.y >= obj.max - C_EPSILON)
 		return (vector(0, -1, 0));
-	if (distance <= 1.0f + C_EPSILON && object_point.y <= obj.min + C_EPSILON)
+	if (distance < 1.0f + C_EPSILON && object_point.y <= obj.min + C_EPSILON)
 		return(vector(0, 1, 0));
 	return (local_normal);
 }

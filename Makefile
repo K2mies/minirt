@@ -75,6 +75,8 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				$(SRC_DIR)/matrix/minirt_matrix04.c									\
 				$(SRC_DIR)/matrix/minirt_matrix05.c									\
 				$(SRC_DIR)/matrix/minirt_matrix06.c									\
+				$(SRC_DIR)/matrix/minirt_matrix07.c									\
+				$(SRC_DIR)/matrix/minirt_matrix08.c									\
 				\
 				$(SRC_DIR)/transform/minirt_transform00.c							\
 				$(SRC_DIR)/transform/minirt_transform01.c							\
@@ -126,6 +128,9 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				$(SRC_DIR)/mlx/minirt_mlx02.c										\
 				$(SRC_DIR)/mlx/minirt_mlx03.c										\
 				$(SRC_DIR)/mlx/minirt_mlx04.c										\
+				$(SRC_DIR)/mlx/minirt_mlx05.c										\
+				$(SRC_DIR)/mlx/minirt_mlx06.c										\
+				$(SRC_DIR)/mlx/minirt_mlx07.c										\
 				\
 				$(SRC_DIR)/error/arg_error.c										\
 				$(SRC_DIR)/error/error.c											\
