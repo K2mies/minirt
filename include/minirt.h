@@ -281,6 +281,7 @@ typedef struct s_minirt
 	t_canvas		*canvas;
 	t_ambient		ambient;
 	t_camera		camera;
+	int				size[2];
 	t_light			light;
 	t_object		*objs;
 	int				n_light;
@@ -379,6 +380,14 @@ typedef struct	s_p_cy
 }	t_p_cy;
 
 /* ================================ ENUMS =================================== */
+
+//Enum for size
+typedef enum e_size
+{
+	big,
+	medium,
+	small
+}	t_size;
 //Enum for trans, rot, scale
 typedef enum		e_trans_rot_scale
 {
@@ -767,7 +776,9 @@ void		color_fill(t_minirt *rt);
 /* ----------------------------------------------------------- minirt_mlx01.c */
 void		resize_screen(int32_t width, int32_t height, void *param);
 /* ----------------------------------------------------------- minirt_mlx02.c */
-void		handle_key_press(mlx_key_data_t keydata, void *param);
+void		handle_key_location(void *param);
+void		handle_key_rotation(void *param);
+void		handle_key_other(void *param);
 /* ----------------------------------------------------------- minirt_mlx03.c */
 void		handle_mouse_click(mouse_key_t button, action_t action, modifier_key_t mods, void *param);
 /* ----------------------------------------------------------- minirt_mlx04.c */
@@ -785,6 +796,10 @@ void		handle_e_press(t_minirt *rt);
 void		handle_a_press(t_minirt *rt);
 void		handle_s_press(t_minirt *rt);
 void		handle_d_press(t_minirt *rt);
+/* ----------------------------------------------------------- minirt_mlx08.c */
+void		handle_p_press(t_minirt *rt);
+void		handle_m_press(t_minirt *rt);
+void		handle_r_press(t_minirt *rt);
 /* =============================== ERROR ==================================== */
 
 /* -------------------------------------------------------- error/arg_error.c */

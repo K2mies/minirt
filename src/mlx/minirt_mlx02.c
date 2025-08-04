@@ -12,53 +12,15 @@
 
 #include "minirt.h"
 
-void	handle_p_press(t_minirt *rt)
-{
-	t_object	*obj;
-
-	if (rt->is_active_object)
-	{
-		obj = &rt->w.objs[rt->active_object.index];
-		if (obj->material.has_pattern == false)
-			obj->material.has_pattern = true;
-		else
-			obj->material.has_pattern = false;
-		obj->material.pattern = pattern(color(0,0,0), color(1,1,1), CHECKER);
-		obj->material.pattern.transform = scaling(0.5, 0.5, 0.5);
-		printf("pattern set to checkered\n");
-		mlx_render(rt, rt->w.camera, rt->w);
-		printf("scene rendered\n");
-	}
-
-}
-
-void	handle_m_press(t_minirt *rt)
-{
-	t_object *obj;
-
-	if (rt->is_active_object)
-	{
-		obj = &rt->w.objs[rt->active_object.index];
-		if (obj->material.refractive_index == 1.0)
-		{
-			obj->material.refractive_index = 1.5;
-			obj->material.transparency = 0.5;
-		}
-		else
-		{
-			obj->material.refractive_index = 1.0;
-			obj->material.transparency = 1.0;
-		}
-		mlx_render(rt, rt->w.camera, rt->w);
-		printf("scene rendered\n");
-	}
-}
-
-void handle_key_press(mlx_key_data_t keydata, void *param)
+/**
+ * @brief	handle location key presses
+ * takes input and redirects the apropriate key press to function
+ * @param	void *param pointer to rt data struct
+ */
+void handle_key_location(void *param)
 {
 	t_minirt	*rt;
 
-	(void)keydata;
 	rt = (t_minirt *)param;
 	if(mlx_is_key_down(rt->mlx, MLX_KEY_UP))
 		handle_up_press(rt);
@@ -68,6 +30,18 @@ void handle_key_press(mlx_key_data_t keydata, void *param)
 		handle_left_press(rt);
 	if(mlx_is_key_down(rt->mlx, MLX_KEY_RIGHT))
 		handle_right_press(rt);
+}
+
+/**
+ * @brief	handle rotation key presses
+ * takes input and redirects the apropriate key press to function
+ * @param	void *param pointer to rt data struct
+ */
+void handle_key_rotation(void *param)
+{
+	t_minirt	*rt;
+
+	rt = (t_minirt *)param;
 	if(mlx_is_key_down(rt->mlx, MLX_KEY_Q))
 		handle_q_press(rt);
 	if(mlx_is_key_down(rt->mlx, MLX_KEY_W))
@@ -80,8 +54,22 @@ void handle_key_press(mlx_key_data_t keydata, void *param)
 		handle_s_press(rt);
 	if(mlx_is_key_down(rt->mlx, MLX_KEY_D))
 		handle_d_press(rt);
+}
+
+/**
+ * @brief	handle other key presses
+ * takes input and redirects the apropriate key press to function
+ * @param	void *param pointer to rt data struct
+ */
+void handle_key_other(void *param)
+{
+	t_minirt	*rt;
+
+	rt = (t_minirt *)param;
 	if(mlx_is_key_down(rt->mlx, MLX_KEY_P))
 		handle_p_press(rt);
 	if(mlx_is_key_down(rt->mlx, MLX_KEY_M))
 		handle_m_press(rt);
+	if(mlx_is_key_down(rt->mlx, MLX_KEY_R))
+		handle_r_press(rt);
 }

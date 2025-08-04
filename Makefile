@@ -131,6 +131,7 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				$(SRC_DIR)/mlx/minirt_mlx05.c										\
 				$(SRC_DIR)/mlx/minirt_mlx06.c										\
 				$(SRC_DIR)/mlx/minirt_mlx07.c										\
+				$(SRC_DIR)/mlx/minirt_mlx08.c										\
 				\
 				$(SRC_DIR)/error/arg_error.c										\
 				$(SRC_DIR)/error/error.c											\
