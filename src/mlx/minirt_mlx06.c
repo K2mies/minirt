@@ -1,83 +1,61 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_mlx05.c                                     :+:      :+:    :+:   */
+/*   minirt_mlx06.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/01 14:10:55 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/08/01 14:36:37 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/08/05 15:44:14 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/08/05 15:47:32 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 /**
- * @brief	hand q key press case
- * rotates object on the x axis by 10 degree
+ * @brief	handle Z key press case
+ * translates object on the z axis by 0.5
  * @param	t_minirt *rt pointer to the main data struct
  */
-void	handle_q_press(t_minirt *rt)
+void	handle_z_press(t_minirt *rt)
 {
-	t_matrix4	rot[3];
+	t_matrix4	transform;
+	t_matrix4	*move;
 	t_object	*obj;
 
 	if (rt->is_active_object)
 	{
-		rot[x] = rotation_x(10);
+		transform = translation(0, 0, 0.5);
 		obj = &rt->w.objs[rt->active_object.index];
-		obj->transforms[rotate][x] = multiply_matrix4(
-			obj->transforms[rotate][x], rot[x]);
+		move = &obj->transforms[translate][xyz];
+		*move = multiply_matrix4(*move, transform);
 		apply_transforms(obj);
 		mlx_render(rt, rt->w.camera, rt->w);
-		printf("object rotated on x by 10degree\n");
+		printf("object translated on z by 0.5\n");
 		printf("scene rendered\n");
 	}
 }
 
 /**
- * @brief	hand w key press case
- * rotates object on the y axis by 10 degree
+ * @brief	handle X key press case
+ * translates object on the z axis by -0.5
  * @param	t_minirt *rt pointer to the main data struct
  */
-void	handle_w_press(t_minirt *rt)
+void	handle_x_press(t_minirt *rt)
 {
-	t_matrix4	rot[3];
+	t_matrix4	transform;
+	t_matrix4	*move;
 	t_object	*obj;
 
 	if (rt->is_active_object)
 	{
-		rot[y] = rotation_y(10);
+		transform = translation(0, 0, -0.5);
 		obj = &rt->w.objs[rt->active_object.index];
-		obj->transforms[rotate][y] = multiply_matrix4(
-			obj->transforms[rotate][y], rot[y]);
+		move = &obj->transforms[translate][xyz];
+		*move = multiply_matrix4(*move, transform);
 		apply_transforms(obj);
 		mlx_render(rt, rt->w.camera, rt->w);
-		printf("object rotated on y by 10degree\n");
+		printf("object translated on z by -0.5\n");
 		printf("scene rendered\n");
 	}
-}
-
-/**
- * @brief	hand e key press case
- * rotates object on the z axis by 10 degree
- * @param	t_minirt *rt pointer to the main data struct
- */
-void	handle_e_press(t_minirt *rt)
-{
-	t_matrix4	rot[3];
-	t_object	*obj;
-
-	if (rt->is_active_object)
-	{
-
-		rot[z] = rotation_z(10);
-		obj = &rt->w.objs[rt->active_object.index];
-		obj->transforms[rotate][z] = multiply_matrix4(
-			obj->transforms[rotate][z], rot[z]);
-		apply_transforms(obj);
-		printf("object rotated on z by 10degree\n");
-		printf("scene rendered\n");
-	}
-
 }

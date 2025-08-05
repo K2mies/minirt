@@ -126,6 +126,7 @@ typedef struct	s_pattern
 	t_color		a;
 	t_color		b;
 	t_matrix4	transform;
+	t_matrix4	transforms[3][3];
 }	t_pattern;
 
 // Typedef for phong material
@@ -593,7 +594,7 @@ t_color		sub_colors(t_color cola, t_color colb);
 t_color		multiply_color_by_scalar(t_color col, t_float scalar);
 t_color		multiply_color(t_color cola, t_color colb);
 /* --------------------------------------------------------- minirt_color05.c */
-void		set_pattern_transform(t_pattern *pat, t_matrix4 m);
+void		apply_pattern_transforms(t_pattern *pat);
 t_pattern	pattern(t_color a, t_color b, int type);
 t_color		pattern_at(t_pattern	pat, t_object obj, t_tuple world_point);
 /* --------------------------------------------------------- minirt_color06.c */
@@ -767,6 +768,7 @@ t_material	material(t_float param[7], t_color col);
 t_world		world_scene(t_minirt *rt);
 t_world		default_world(t_minirt *rt);
 /* -------------------------------------------------------- minirt_object09.c */
+void		calculate_pixel_size(t_camera *cam);
 t_camera	camera(t_tuple origin, t_tuple direction, t_float fov);
 /* ================================ MLX ===================================== */
 
@@ -778,6 +780,7 @@ void		resize_screen(int32_t width, int32_t height, void *param);
 /* ----------------------------------------------------------- minirt_mlx02.c */
 void		handle_key_location(void *param);
 void		handle_key_rotation(void *param);
+void		handle_key_scaling(void *param);
 void		handle_key_other(void *param);
 /* ----------------------------------------------------------- minirt_mlx03.c */
 void		handle_mouse_click(mouse_key_t button, action_t action, modifier_key_t mods, void *param);
@@ -789,16 +792,35 @@ void		handle_down_press(t_minirt *rt);
 void		handle_left_press(t_minirt *rt);
 void		handle_right_press(t_minirt *rt);
 /* ----------------------------------------------------------- minirt_mlx06.c */
+void		handle_z_press(t_minirt *rt);
+void		handle_x_press(t_minirt *rt);
+/* ----------------------------------------------------------- minirt_mlx07.c */
 void		handle_q_press(t_minirt *rt);
 void		handle_w_press(t_minirt *rt);
 void		handle_e_press(t_minirt *rt);
-/* ----------------------------------------------------------- minirt_mlx07.c */
+/* ----------------------------------------------------------- minirt_mlx08.c */
 void		handle_a_press(t_minirt *rt);
 void		handle_s_press(t_minirt *rt);
 void		handle_d_press(t_minirt *rt);
-/* ----------------------------------------------------------- minirt_mlx08.c */
+/* ----------------------------------------------------------- minirt_mlx09.c */
+void		handle_y_press(t_minirt *rt);
+void		handle_u_press(t_minirt *rt);
+void		handle_i_press(t_minirt *rt);
+void		handle_o_press(t_minirt *rt);
+/* ----------------------------------------------------------- minirt_mlx10.c */
+void		handle_h_press(t_minirt *rt);
+void		handle_j_press(t_minirt *rt);
+void		handle_k_press(t_minirt *rt);
+void		handle_l_press(t_minirt *rt);
+/* ----------------------------------------------------------- minirt_mlx11.c */
+void		handle_g_press(t_minirt *rt);
+/* ----------------------------------------------------------- minirt_mlx12.c */
 void		handle_p_press(t_minirt *rt);
+/* ----------------------------------------------------------- minirt_mlx13.c */
 void		handle_m_press(t_minirt *rt);
+/* ----------------------------------------------------------- minirt_mlx14.c */
+void		handle_n_press(t_minirt *rt);
+/* ----------------------------------------------------------- minirt_mlx15.c */
 void		handle_r_press(t_minirt *rt);
 /* =============================== ERROR ==================================== */
 

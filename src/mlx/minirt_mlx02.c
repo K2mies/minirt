@@ -13,7 +13,7 @@
 #include "minirt.h"
 
 /**
- * @brief	handle location key presses
+ * @brief	handle LOCATION key presses
  * takes input and redirects the apropriate key press to function
  * @param	void *param pointer to rt data struct
  */
@@ -30,10 +30,14 @@ void handle_key_location(void *param)
 		handle_left_press(rt);
 	if(mlx_is_key_down(rt->mlx, MLX_KEY_RIGHT))
 		handle_right_press(rt);
+	if(mlx_is_key_down(rt->mlx, MLX_KEY_Z))
+		handle_z_press(rt);
+	if(mlx_is_key_down(rt->mlx, MLX_KEY_X))
+		handle_x_press(rt);
 }
 
 /**
- * @brief	handle rotation key presses
+ * @brief	handle ROTATION key presses
  * takes input and redirects the apropriate key press to function
  * @param	void *param pointer to rt data struct
  */
@@ -57,7 +61,35 @@ void handle_key_rotation(void *param)
 }
 
 /**
- * @brief	handle other key presses
+ * @brief	handle SCALE key presses
+ * takes input and redirects the apropriate key press to function
+ * @param	void *param pointer to rt data struct
+ */
+void handle_key_scaling(void *param)
+{
+	t_minirt	*rt;
+
+	rt = (t_minirt *)param;
+	if(mlx_is_key_down(rt->mlx, MLX_KEY_Y))
+		handle_y_press(rt);
+	if(mlx_is_key_down(rt->mlx, MLX_KEY_U))
+		handle_u_press(rt);
+	if(mlx_is_key_down(rt->mlx, MLX_KEY_I))
+		handle_i_press(rt);
+	if(mlx_is_key_down(rt->mlx, MLX_KEY_O))
+		handle_o_press(rt);
+	if(mlx_is_key_down(rt->mlx, MLX_KEY_H))
+		handle_h_press(rt);
+	if(mlx_is_key_down(rt->mlx, MLX_KEY_J))
+		handle_j_press(rt);
+	if(mlx_is_key_down(rt->mlx, MLX_KEY_K))
+		handle_k_press(rt);
+	if(mlx_is_key_down(rt->mlx, MLX_KEY_L))
+		handle_l_press(rt);
+}
+
+/**
+ * @brief	handle OTHER key presses
  * takes input and redirects the apropriate key press to function
  * @param	void *param pointer to rt data struct
  */
@@ -66,10 +98,15 @@ void handle_key_other(void *param)
 	t_minirt	*rt;
 
 	rt = (t_minirt *)param;
+	if(mlx_is_key_down(rt->mlx, MLX_KEY_G))
+		handle_g_press(rt);
 	if(mlx_is_key_down(rt->mlx, MLX_KEY_P))
 		handle_p_press(rt);
 	if(mlx_is_key_down(rt->mlx, MLX_KEY_M))
 		handle_m_press(rt);
+	if(mlx_is_key_down(rt->mlx, MLX_KEY_N))
+		handle_n_press(rt);
 	if(mlx_is_key_down(rt->mlx, MLX_KEY_R))
 		handle_r_press(rt);
+
 }

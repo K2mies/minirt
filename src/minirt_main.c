@@ -3387,17 +3387,14 @@ void	test_mlx_render(t_minirt *rt)
 {
 	rt->w = world_scene(rt);
 
-//	mlx_set_setting(MLX_STRETCH_IMAGE, true);
-//	mlx_set_setting(, true);
 	mlx_start(rt, CAM_WIDTH, CAM_HEIGHT);
 	color_fill(rt);
 	mlx_render(rt, rt->w.camera,  rt->w);
-//	mlx_key_hook(rt->mlx, handle_key_press, rt);
 	mlx_loop_hook(rt->mlx, handle_key_location, rt);
 	mlx_loop_hook(rt->mlx, handle_key_rotation, rt);
+	mlx_loop_hook(rt->mlx, handle_key_scaling, rt);
 	mlx_loop_hook(rt->mlx, handle_key_other, rt);
 	mlx_mouse_hook(rt->mlx, handle_mouse_click, rt);
-//	mlx_resize_hook(rt->mlx, resize_screen, rt);
 	mlx_cursor_hook(rt->mlx, handle_mouse_move, rt);
 	mlx_loop(rt->mlx);
 	mlx_delete_image(rt->mlx, rt->img);
