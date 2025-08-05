@@ -23,4 +23,5 @@ void	resize_screen(int32_t width, int32_t height, void *param)
 	t_minirt	*rt;
 	rt = (t_minirt *)param;
 	mlx_resize_image(rt->img, width, height);
+	mlx_set_window_size(rt->mlx, width, height);
 }

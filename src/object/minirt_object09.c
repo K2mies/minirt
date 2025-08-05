@@ -17,7 +17,7 @@
  * calculates the size of a pixel on the canvas
  * @param cam		pointer to the camera object to operate on
  */
-static void	calculate_pixel_size(t_camera *cam)
+void	calculate_pixel_size(t_camera *cam)
 {
 	cam->half_view = tanf(cam->fov / 2.f);
 	cam->aspect = cam->dim[width] / cam->dim[height];
