@@ -70,12 +70,5 @@ t_tuple	multiply_matrix4_tuple(t_matrix4 m, t_tuple t)
 		+ m.m[3][1] * t.y
 		+ m.m[3][2] * t.z
 		+ m.m[3][3] * t.w;
-//  not sure what this is doing in the case that w > 1; 
-//    if (res.w != 1 && res.w != 0)
-//    {
-//        res.x /= res.w;
-//        res.y /= res.w;
-//        res.z /= res.w;
-//    }
 	return (res);
 }

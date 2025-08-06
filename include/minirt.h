@@ -382,6 +382,13 @@ typedef struct	s_p_cy
 
 /* ================================ ENUMS =================================== */
 
+//Enum for positive or negative
+typedef enum e_pos_neg
+{
+	positive,
+	negative
+}	t_pos_neg;
+
 //Enum for size
 typedef enum e_size
 {
@@ -773,54 +780,56 @@ t_camera	camera(t_tuple origin, t_tuple direction, t_float fov);
 /* ================================ MLX ===================================== */
 
 /* ----------------------------------------------------------- minirt_mlx00.c */
+void		run_mlx(t_minirt *rt);
+/* ----------------------------------------------------------- minirt_mlx01.c */
 void		mlx_start(t_minirt *rt, int width, int height);
 void		color_fill(t_minirt *rt);
-/* ----------------------------------------------------------- minirt_mlx01.c */
-void		resize_screen(int32_t width, int32_t height, void *param);
 /* ----------------------------------------------------------- minirt_mlx02.c */
+void		resize_screen(int32_t width, int32_t height, void *param);
+/* ----------------------------------------------------------- minirt_mlx03.c */
 void		handle_key_location(void *param);
 void		handle_key_rotation(void *param);
 void		handle_key_scaling(void *param);
 void		handle_key_other(void *param);
-/* ----------------------------------------------------------- minirt_mlx03.c */
-void		handle_mouse_click(mouse_key_t button, action_t action, modifier_key_t mods, void *param);
 /* ----------------------------------------------------------- minirt_mlx04.c */
-void		handle_mouse_move(double w, double h, void *param);
+void		handle_mouse_click(mouse_key_t button, action_t action, modifier_key_t mods, void *param);
 /* ----------------------------------------------------------- minirt_mlx05.c */
+void		handle_mouse_move(double w, double h, void *param);
+/* ----------------------------------------------------------- minirt_mlx06.c */
 void		handle_up_press(t_minirt *rt);
 void		handle_down_press(t_minirt *rt);
 void		handle_left_press(t_minirt *rt);
 void		handle_right_press(t_minirt *rt);
-/* ----------------------------------------------------------- minirt_mlx06.c */
+/* ----------------------------------------------------------- minirt_mlx07.c */
 void		handle_z_press(t_minirt *rt);
 void		handle_x_press(t_minirt *rt);
-/* ----------------------------------------------------------- minirt_mlx07.c */
+/* ----------------------------------------------------------- minirt_mlx08.c */
 void		handle_q_press(t_minirt *rt);
 void		handle_w_press(t_minirt *rt);
 void		handle_e_press(t_minirt *rt);
-/* ----------------------------------------------------------- minirt_mlx08.c */
+/* ----------------------------------------------------------- minirt_mlx09.c */
 void		handle_a_press(t_minirt *rt);
 void		handle_s_press(t_minirt *rt);
 void		handle_d_press(t_minirt *rt);
-/* ----------------------------------------------------------- minirt_mlx09.c */
+/* ----------------------------------------------------------- minirt_mlx10.c */
 void		handle_y_press(t_minirt *rt);
 void		handle_u_press(t_minirt *rt);
 void		handle_i_press(t_minirt *rt);
 void		handle_o_press(t_minirt *rt);
-/* ----------------------------------------------------------- minirt_mlx10.c */
+/* ----------------------------------------------------------- minirt_mlx11.c */
 void		handle_h_press(t_minirt *rt);
 void		handle_j_press(t_minirt *rt);
 void		handle_k_press(t_minirt *rt);
 void		handle_l_press(t_minirt *rt);
-/* ----------------------------------------------------------- minirt_mlx11.c */
-void		handle_g_press(t_minirt *rt);
 /* ----------------------------------------------------------- minirt_mlx12.c */
-void		handle_p_press(t_minirt *rt);
+void		handle_g_press(t_minirt *rt);
 /* ----------------------------------------------------------- minirt_mlx13.c */
-void		handle_m_press(t_minirt *rt);
+void		handle_p_press(t_minirt *rt);
 /* ----------------------------------------------------------- minirt_mlx14.c */
-void		handle_n_press(t_minirt *rt);
+void		handle_m_press(t_minirt *rt);
 /* ----------------------------------------------------------- minirt_mlx15.c */
+void		handle_n_press(t_minirt *rt);
+/* ----------------------------------------------------------- minirt_mlx16.c */
 void		handle_r_press(t_minirt *rt);
 /* =============================== ERROR ==================================== */
 

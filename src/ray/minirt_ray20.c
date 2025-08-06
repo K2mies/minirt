@@ -20,7 +20,8 @@
  * @param m			matterial to be used
  * @param light		light to be used for calculation
  */
-static void	calculate_ambient_color(t_lighting_param *p, t_material m, t_light light)
+static void	calculate_ambient_color(t_lighting_param *p, t_material m,
+									t_light light)
 {
 	p->ambient[effective] = multiply_color(m.color, light.color);
 	p->ambient[effective] = multiply_color(p->ambient[effective], light.color);
@@ -39,7 +40,8 @@ static void	calculate_ambient_color(t_lighting_param *p, t_material m, t_light l
  * @param light		light to be used for calculation
  * @param v			array of 3 vectors needed
  */
-static void	calculate_color(t_lighting_param *p, t_material m, t_light light, t_tuple v[3])
+static void	calculate_color(t_lighting_param *p, t_material m, t_light light,
+							t_tuple v[3])
 {
 	t_float	scal[2];
 
@@ -66,7 +68,8 @@ static void	calculate_color(t_lighting_param *p, t_material m, t_light light, t_
  * @param light		light to be used for calculation
  * @param v			array of 3 vectors needed
  */
-static void	apply_lighting(t_lighting_param *p, t_material m, t_light light, t_tuple v[3])
+static void	apply_lighting(t_lighting_param *p, t_material m, t_light light,
+						   t_tuple v[3])
 {
 	calculate_ambient_color(p, m, light);
 	p->lightv = normalize_vector(sub_tuples(light.origin, v[pos]));

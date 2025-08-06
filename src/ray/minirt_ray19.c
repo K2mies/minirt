@@ -27,6 +27,5 @@ t_tuple	reflect(t_tuple in, t_tuple normal)
 
 	scaled_norm = multiply_tuple_by_scalar(normal, 2 * dot_product(in, normal));
 	res = sub_tuples(in, scaled_norm);
-//	res = multiply_tuple_by_scalar(sub_tuples(in, normal), 2 * dot_product(in, normal));
 	return (res);
 }

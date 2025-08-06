@@ -1,45 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_mlx12.c                                     :+:      :+:    :+:   */
+/*   minirt_mlx11.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/05 14:23:51 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/08/05 14:24:20 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/08/05 14:23:00 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/08/05 14:23:41 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 /**
- * @brief	hand key R key press case
- * changes window resolution 
+ * @brief	hand key N key press case
+ * changes material to reflective
  * @param	t_minirt *rt pointer to the main data struct
  */
-void	handle_r_press(t_minirt *rt)
+void	handle_n_press(t_minirt *rt)
 {
-	int32_t	size[3][2];
+	t_object	*obj;
 
-	size[big][width] = 100 * 10;
-	size[big][height] = 50 * 10;
-	size[small][width] = 100 * 3;
-	size[small][height] =  50  * 3;
-	if(rt->w.camera.dim[width] == size[small][width])
+	if (rt->is_active_object)
 	{
-		rt->w.camera.dim[width] = size[big][width];
-		rt->w.camera.dim[height] = size[big][height];
-		resize_screen(size[big][width], size[big][height], rt);
-		printf("scene size set to BIG\n");
+		obj = &rt->w.objs[rt->active_object.index];
+		if (obj->material.reflective == 0)
+		{
+			obj->material.reflective = 1.0f;
+			printf("reflective set to 1.0\n");
+		}
+		else
+		{
+			obj->material.reflective = 0;
+			printf("reflective set to 0\n");
+		}
 	}
-	else
-	{
-		rt->w.camera.dim[width] = size[small][width];
-		rt->w.camera.dim[height] = size[small][height];
-		resize_screen(size[small][width], size[small][height], rt);
-		printf("scene size set to SMALL\n");
-	}
-	calculate_pixel_size(&rt->w.camera);
 	mlx_render(rt, rt->w.camera, rt->w);
 	printf("scene rendered\n");
 }
