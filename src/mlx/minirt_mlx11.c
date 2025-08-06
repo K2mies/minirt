@@ -1,76 +1,113 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_mlx08.c                                     :+:      :+:    :+:   */
+/*   minirt_mlx10.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/04 11:59:10 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/08/04 12:01:29 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/08/05 16:27:15 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/08/05 16:50:26 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 /**
- * @brief	helper function to set pattern transforms
- * changes the pattern transforms 
- * @param	t_pattern	*pat pattern to change transforms of
- */
-static void	set_pattern_transforms(t_pattern *pat)
-{
-		pat->transforms[translate][xyz] = translation(5, 0, 0);
-		pat->transforms[scale][xyz] = scaling(2, 2, 2);
-}
-
-/**
- * @brief	helper function to set material based on type
- * changes the selected objects material to GRADIENT if flag is false
- * or if pattern is set to another type
- * @param	t_color		col[2] col[a] and col[b] to set gradient from
- * @param	t_object	*obj pointer to object to opperate on
- */
-static void	set_material(t_color col[2], t_object *obj)
-{
-	t_pattern	*pat;
-
-	if (obj->material.has_pattern == false
-		|| (obj->material.has_pattern == true
-		&& obj->material.pattern.type != GRADIENT))
-	{
-		pat = &obj->material.pattern;
-		obj->material.has_pattern = true;
-		obj->material.pattern = pattern(col[a], col[b], GRADIENT);
-		set_pattern_transforms(pat);
-		apply_pattern_transforms(pat);
-		printf("pattern set to gradient\n");
-	}
-	else
-	{
-		obj->material.has_pattern = false;
-		printf("pattern set to false\n ");
-	}
-}
-
-/**
- * @brief	hand key G key press case
- * changes selected object to GRADIENT pattern
+ * @brief	handles Y key press case
+ * scales on the x axis by 0.5
  * @param	t_minirt *rt pointer to the main data struct
  */
-void	handle_g_press(t_minirt *rt)
+void	handle_h_press(t_minirt *rt)
 {
+	t_matrix4	scale_matrix;
+	t_matrix4	*scale_transform;
 	t_object	*obj;
-	t_color		col[2];
-//	t_pattern	*pat;
-
-	col[a] = color(0.71, 0, 0.29);
-	col[b] = color(1, 1, 1);
+	
 
 	if (rt->is_active_object)
 	{
-		obj = &rt->objs[rt->active_object.index];
-		set_material(col, obj);
+		scale_matrix = scaling(0.9, 1, 1);
+		obj = &rt->w.objs[rt->active_object.index];
+		scale_transform = &obj->transforms[scale][xyz];
+		*scale_transform = multiply_matrix4(*scale_transform, scale_matrix);
+		apply_transforms(obj);
 		mlx_render(rt, rt->w.camera, rt->w);
+		printf("objec scaled on x by 0.5\n");
+		printf("scene rendered\n");
+	}
+}
+
+/**
+ * @brief	handles J key press case
+ * scales on the y axis by 0.5
+ * @param	t_minirt *rt pointer to the main data struct
+ */
+void	handle_j_press(t_minirt *rt)
+{
+	t_matrix4	scale_matrix;
+	t_matrix4	*scale_transform;
+	t_object	*obj;
+	
+
+	if (rt->is_active_object)
+	{
+		scale_matrix = scaling(1, 0.9, 1);
+		obj = &rt->w.objs[rt->active_object.index];
+		scale_transform = &obj->transforms[scale][xyz];
+		*scale_transform = multiply_matrix4(*scale_transform, scale_matrix);
+		apply_transforms(obj);
+		mlx_render(rt, rt->w.camera, rt->w);
+		printf("object scaled on y by 0.5\n");
+		printf("scene rendered\n");
+	}
+}
+
+/**
+ * @brief	handles K key press case
+ * scales on the z axis by 0.5
+ * @param	t_minirt *rt pointer to the main data struct
+ */
+void	handle_k_press(t_minirt *rt)
+{
+	t_matrix4	scale_matrix;
+	t_matrix4	*scale_transform;
+	t_object	*obj;
+	
+
+	if (rt->is_active_object)
+	{
+		scale_matrix = scaling(1, 1, 0.9);
+		obj = &rt->w.objs[rt->active_object.index];
+		scale_transform = &obj->transforms[scale][xyz];
+		*scale_transform = multiply_matrix4(*scale_transform, scale_matrix);
+		apply_transforms(obj);
+		mlx_render(rt, rt->w.camera, rt->w);
+		printf("object scaled on z by 0.5\n");
+		printf("scene rendered\n");
+	}
+}
+
+/**
+ * @brief	handles L key press case
+ * scales on all axies by 1.5
+ * @param	t_minirt *rt pointer to the main data struct
+ */
+void	handle_l_press(t_minirt *rt)
+{
+	t_matrix4	scale_matrix;
+	t_matrix4	*scale_transform;
+	t_object	*obj;
+	
+
+	if (rt->is_active_object)
+	{
+		scale_matrix = scaling(0.9, 0.9, 0.9);
+		obj = &rt->w.objs[rt->active_object.index];
+		scale_transform = &obj->transforms[scale][xyz];
+		*scale_transform = multiply_matrix4(*scale_transform, scale_matrix);
+		apply_transforms(obj);
+		mlx_render(rt, rt->w.camera, rt->w);
+		printf("object scaled on all axis by 0.5\n");
 		printf("scene rendered\n");
 	}
 }

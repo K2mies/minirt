@@ -35,6 +35,7 @@ static void	calculate_matrix_transform(t_object *pl)
 	axis[y] = atan2f(unit_vector.x, unit_vector.z);
 	pl->transforms[rotate][x] = rotation_x(rad_to_deg(axis[x]));
 	pl->transforms[rotate][y] = rotation_y(rad_to_deg(axis[y]));
+	pl->transforms[rotate][z] = id_matrix4();
 	pl->transforms[scale][xyz] = id_matrix4();
 	apply_transforms(pl);
 }

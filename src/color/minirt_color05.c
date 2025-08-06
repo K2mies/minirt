@@ -22,9 +22,7 @@ void	apply_pattern_transforms(t_pattern *pat)
 {
 	t_matrix4	res;
 
-	res = id_matrix4();
-//	res = multiply_matrix4(res, pat->transforms[scale][xyz]);
-	res = multiply_matrix4(res, pat->transforms[translate][xyz]);
+	res = pat->transforms[translate][xyz];
 	res = multiply_matrix4(res, pat->transforms[rotate][z]);
 	res = multiply_matrix4(res, pat->transforms[rotate][y]);
 	res = multiply_matrix4(res, pat->transforms[rotate][x]);

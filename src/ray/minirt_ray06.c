@@ -71,7 +71,8 @@ static t_float	calculate_var_c(t_ray ray)
  * @param discriminant	discriminant to use for calculation
  * @param res			pointer to the xs intersection to operate on
  */
-static	void handle_discriminant(t_float var[3], t_float discriminant, t_intersections *res)
+static	void handle_discriminant(t_float var[3], t_float discriminant,
+								t_intersections *res)
 {
 	res->t[0] = (-var[b] - sqrtf(discriminant)) / (2.0 * var[a]);
 	res->t[1] = (-var[b] + sqrtf(discriminant)) / (2.0 * var[a]);

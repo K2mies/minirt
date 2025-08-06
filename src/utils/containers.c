@@ -37,7 +37,8 @@ void	update_container(t_obj_container *container, t_object *obj)
  * @param index			pointer to the obj to the index of the obj
  * @return				true if the object is present, false if not
  */
-bool	is_inside_container(t_obj_container *container, t_object *obj, int *index)
+bool	is_inside_container(t_obj_container *container,
+						 t_object *obj, int *index)
 {
 	int	i;
 
@@ -101,8 +102,6 @@ t_float	get_refractive_index(t_obj_container *container)
 	count = container->n_obj - 1;
 	if (count <= 0)
 		return (1.0f);
-//	if (!container->objs[count].material)
-//		return (1.0f);
 	if (!container->objs[count])
 		return (1.0f);
 	else
