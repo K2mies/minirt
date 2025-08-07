@@ -21,6 +21,7 @@ void	run_mlx(t_minirt *rt)
 	mlx_start(rt, CAM_WIDTH, CAM_HEIGHT);
 	color_fill(rt);
 	mlx_render(rt, rt->w.camera,  rt->w);
+	mlx_loop_hook(rt->mlx, handle_key_esc, rt);
 	mlx_loop_hook(rt->mlx, handle_key_location, rt);
 	mlx_loop_hook(rt->mlx, handle_key_rotation, rt);
 	mlx_loop_hook(rt->mlx, handle_key_scaling, rt);

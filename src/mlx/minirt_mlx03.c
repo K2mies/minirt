@@ -108,5 +108,18 @@ void handle_key_other(void *param)
 		handle_n_press(rt);
 	if(mlx_is_key_down(rt->mlx, MLX_KEY_R))
 		handle_r_press(rt);
+}
 
+/**
+ * @brief	handle ESC key presses
+ * takes input and redirects the apropriate key press to function
+ * @param	void *param pointer to rt data struct
+ */
+void handle_key_esc(void *param)
+{
+	t_minirt	*rt;
+
+	rt = (t_minirt *)param;
+	if (mlx_is_key_down(rt->mlx, MLX_KEY_ESCAPE))
+		handle_esc_press(rt);
 }

@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_matrix07.c                                  :+:      :+:    :+:   */
+/*   minirt_mlx17.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/01 12:23:48 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/08/07 16:37:06 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/08/07 12:03:05 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/08/07 12:20:36 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	print_matrix4(t_matrix4	mat)
+/**
+ * @brief	hand key ESC key press case
+ * terminates mlx, does clean up and exits program
+ * @param	t_minirt *rt pointer to the main data struct
+ */
+void	handle_esc_press(t_minirt *rt)
 {
-	int	col;
-	int	row;
-
-	row = 0;
-	while (row <= 3)
-	{
-		col = 0;
-		while (col <= 3)
-		{
-			printf("%f	| ", mat.m[row][col]);
-			if (col == 3)
-				printf("\n");
-			col++;
-		}
-		row++;
-	}
-	printf("\n\n");
+	mlx_close_window(rt->mlx);
 }

@@ -382,6 +382,13 @@ typedef struct	s_p_cy
 
 /* ================================ ENUMS =================================== */
 
+//Enum for over and underpoints
+typedef enum	e_over_under
+{
+	over,
+	under
+}	t_over_under;
+
 //Enum for positive or negative
 typedef enum e_pos_neg
 {
@@ -445,6 +452,12 @@ typedef enum	e_dimensions
 	height
 }	t_dimensions;
 
+//Enum for points
+typedef enum	e_point
+{
+	object,
+	pat
+}	t_point;
 //Enum for vectors
 typedef enum	e_vectors
 {
@@ -791,6 +804,7 @@ void		handle_key_location(void *param);
 void		handle_key_rotation(void *param);
 void		handle_key_scaling(void *param);
 void		handle_key_other(void *param);
+void		handle_key_esc(void *param);
 /* ----------------------------------------------------------- minirt_mlx04.c */
 void		handle_mouse_click(mouse_key_t button, action_t action, modifier_key_t mods, void *param);
 /* ----------------------------------------------------------- minirt_mlx05.c */
@@ -831,6 +845,8 @@ void		handle_m_press(t_minirt *rt);
 void		handle_n_press(t_minirt *rt);
 /* ----------------------------------------------------------- minirt_mlx16.c */
 void		handle_r_press(t_minirt *rt);
+/* ----------------------------------------------------------- minirt_mlx17.c */
+void		handle_esc_press(t_minirt *rt);
 /* =============================== ERROR ==================================== */
 
 /* -------------------------------------------------------- error/arg_error.c */

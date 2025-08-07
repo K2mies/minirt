@@ -146,7 +146,7 @@ void	load_cube(t_minirt *rt, char **data, int index)
 			ft_atof(vec[2])), color_from_channels(ft_atoi(rgb[0]),
 			ft_atoi(rgb[1]), ft_atoi(rgb[2])), ft_atof(data[4]));
 	rt->objs[index] = cb;
-	object_free(origin, NULL, rgb);
+	object_free(origin, vec, rgb);
 }
 
 // void load_cone(t_minirt *rt, char **data, int index) // object_util.c 41-42
