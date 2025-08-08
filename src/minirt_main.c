@@ -31,5 +31,6 @@ int	main(int argc, char **argv)
 	open_file(&rt, argv);
 	run_mlx(&rt);
 	cleanup_rt(&rt);
+	printf("program exited\n");
 	return (0);
 }

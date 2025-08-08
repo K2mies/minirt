@@ -31,5 +31,6 @@ void	apply_transforms(t_object *obj)
 	res = multiply_matrix4(res, obj->transforms[rotate][y]);
 	res = multiply_matrix4(res, obj->transforms[rotate][x]);
 	res = multiply_matrix4(res, obj->transforms[scale][xyz]);
+//	print_matrix4(res);
 	obj->transform = res;
 }

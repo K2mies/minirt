@@ -43,10 +43,12 @@ static void	calculate_ambient_color(t_lighting_param *p, t_material m,
 static void	calculate_color(t_lighting_param *p, t_material m, t_light light,
 							t_tuple v[3])
 {
-	t_float	scal[2];
+	t_float	scale[2];
+	t_color	col[3];
 
-	scal[a] = m.diffuse * p->light_dot_normal;
-	p->col[diffuse] = multiply_color_by_scalar(p->ambient[effective] ,scal[a]);
+	scale[a] = m.diffuse * p->light_dot_normal;
+	col[diffuse] = multiply_color_by_scalar(p->ambient[effective], scale[a]);
+	p->col[diffuse] = col[diffuse];
 	p->reflectv = reflect(negate_tuple(p->lightv), v[normalv]);
 	p->reflect_dot_eye = dot_product(p->reflectv, v[eyev]);
 	if (p->reflect_dot_eye <= 0)
@@ -54,8 +56,9 @@ static void	calculate_color(t_lighting_param *p, t_material m, t_light light,
 	else
 	{
 		p->factor = pow(p->reflect_dot_eye, m.shininess);
-		scal[b] = m.specular * p->factor;
-		p->col[specular] = multiply_color_by_scalar(light.color, scal[b]);
+		scale[b] = m.specular * p->factor;
+		col[specular] = multiply_color_by_scalar(light.color, scale[b]);
+		p->col[specular] = col[specular];
 	}
 }
 

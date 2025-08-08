@@ -38,14 +38,14 @@ t_color	checker_at(t_pattern check, t_tuple p)
  * @param p		point to check
  * @return		t_color type struct
  */
-t_color	checker_at_object(t_pattern pattern, t_object obj, t_tuple world_point)
+t_color	checker_at_object(t_pattern src_pattern, t_object obj, t_tuple world_point)
 {
-	t_tuple	object_point;
-	t_tuple	pattern_point;
+	t_tuple		point[2];
+	t_matrix4	mat[2];
 
-	object_point = multiply_matrix4_tuple(
-		inverse_matrix4(obj.transform), world_point);
-	pattern_point = multiply_matrix4_tuple(
-		inverse_matrix4(pattern.transform), object_point);
-	return (checker_at(pattern, pattern_point));
+	mat[inverse] = inverse_matrix4(obj.transform);
+	point[object] = multiply_matrix4_tuple(mat[inverse], world_point);
+	mat[inverse] = inverse_matrix4(src_pattern.transform);
+	point[pat] = multiply_matrix4_tuple(mat[inverse], point[object]);
+	return (checker_at(src_pattern, point[pat]));
 }
