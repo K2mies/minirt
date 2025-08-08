@@ -108,6 +108,8 @@ void handle_key_other(void *param)
 		handle_n_press(rt);
 	if(mlx_is_key_down(rt->mlx, MLX_KEY_R))
 		handle_r_press(rt);
+	if(mlx_is_key_down(rt->mlx, MLX_KEY_T))
+		handle_t_press(rt);
 }
 
 /**

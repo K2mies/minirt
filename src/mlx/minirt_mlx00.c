@@ -19,7 +19,7 @@ void	run_mlx(t_minirt *rt)
 {
 	rt->w = world_scene(rt);
 	mlx_start(rt, CAM_WIDTH, CAM_HEIGHT);
-	color_fill(rt);
+//	color_fill(rt);
 	mlx_render(rt, rt->w.camera,  rt->w);
 	mlx_loop_hook(rt->mlx, handle_key_esc, rt);
 	mlx_loop_hook(rt->mlx, handle_key_location, rt);

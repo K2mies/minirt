@@ -25,7 +25,6 @@ static void calculate_transform_matrix(t_object *sp)
 	pos[x] = sp->origin.x;
 	pos[y] = sp->origin.y;
 	pos[z] = sp->origin.z;
-	printf("posx: %f	posy: %f	posz: %f\n", pos[x], pos[y],  pos[z]);
 	sp->transforms[translate][xyz] = translation(pos[x], pos[y], pos[z]);
 	sp->transforms[rotate][x] = id_matrix4();
 	sp->transforms[rotate][y] = id_matrix4();
