@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 15:17:45 by mpierce           #+#    #+#             */
-/*   Updated: 2025/07/21 13:08:35 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 15:23:59 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,15 @@ int	open_rt(t_minirt *rt, char *path)
 	if (fd < 0)
 	{
 		if (errno == ENOENT)
+		{
+			free(path);
 			rt_error(rt, "Scene not found", 1);
+		}
 		else
+		{
+			free(path);
 			rt_error(rt, "Problem opening file", 3);
+		}
 	}
 	return (fd);
 }

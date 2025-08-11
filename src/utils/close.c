@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:04:59 by mpierce           #+#    #+#             */
-/*   Updated: 2025/07/21 13:12:23 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 15:22:01 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@
  */
 void	close_rt(t_minirt *rt, int ex)
 {
-	cleanup_rt(rt);
+	cleanup_rt_pre(rt);
 	exit(ex);
 }

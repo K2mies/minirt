@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.h                                           :+:      :+:    :+:   */
+/*   bonus_minirt .h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:11:13 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/08/11 13:19:51 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 15:27:58 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#ifndef BONUS_MINIRT_H
+# define BONUS_MINIRT_H
 
 /* ================================ HEADERS ================================ */
 
@@ -877,6 +877,7 @@ bool			ft_isfloat(char *str);
 void			*rt_malloc(t_minirt *rt, size_t size);
 void			object_free(char **arr1, char **arr2, char **arr3);
 void			cleanup_rt(t_minirt *rt);
+void			cleanup_rt_pre(t_minirt *rt);
 /* ------------------------------------------------------- utils/quicksort.c */
 void			quicksort(t_intersection arr[], int low, int high);
 /* ------------------------------------------------------ utils/containers.c */

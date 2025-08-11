@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   memory.c                                           :+:      :+:    :+:   */
+/*   bonus_memory.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 17:25:11 by mpierce           #+#    #+#             */
-/*   Updated: 2025/07/24 13:05:46 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 15:26:36 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,17 @@ void	cleanup_rt(t_minirt *rt)
 		free(rt->w.ts);
 	if (rt->w.cs)
 		free(rt->w.cs);
+	if (rt->full_data)
+		free_big_array(&rt->full_data);
+	printf("data clean up complete\n");
+}
+
+void	cleanup_rt_pre(t_minirt *rt)
+{
+	if (rt->objs)
+		free(rt->objs);
+	if (rt->ts)
+		free(rt->ts);
 	if (rt->full_data)
 		free_big_array(&rt->full_data);
 	printf("data clean up complete\n");
