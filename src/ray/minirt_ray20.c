@@ -20,7 +20,8 @@
  * @param m			matterial to be used
  * @param light		light to be used for calculation
  */
-static void	calculate_ambient_color(t_lighting_param *p, t_material m, t_light light)
+static void	calculate_ambient_color(t_lighting_param *p, t_material m,
+									t_light light)
 {
 	p->ambient[effective] = multiply_color(m.color, light.color);
 	p->ambient[effective] = multiply_color(p->ambient[effective], light.color);
@@ -39,12 +40,15 @@ static void	calculate_ambient_color(t_lighting_param *p, t_material m, t_light l
  * @param light		light to be used for calculation
  * @param v			array of 3 vectors needed
  */
-static void	calculate_color(t_lighting_param *p, t_material m, t_light light, t_tuple v[3])
+static void	calculate_color(t_lighting_param *p, t_material m, t_light light,
+							t_tuple v[3])
 {
-	t_float	scal[2];
+	t_float	scale[2];
+	t_color	col[3];
 
-	scal[a] = m.diffuse * p->light_dot_normal;
-	p->col[diffuse] = multiply_color_by_scalar(p->ambient[effective] ,scal[a]);
+	scale[a] = m.diffuse * p->light_dot_normal;
+	col[diffuse] = multiply_color_by_scalar(p->ambient[effective], scale[a]);
+	p->col[diffuse] = col[diffuse];
 	p->reflectv = reflect(negate_tuple(p->lightv), v[normalv]);
 	p->reflect_dot_eye = dot_product(p->reflectv, v[eyev]);
 	if (p->reflect_dot_eye <= 0)
@@ -52,8 +56,9 @@ static void	calculate_color(t_lighting_param *p, t_material m, t_light light, t_
 	else
 	{
 		p->factor = pow(p->reflect_dot_eye, m.shininess);
-		scal[b] = m.specular * p->factor;
-		p->col[specular] = multiply_color_by_scalar(light.color, scal[b]);
+		scale[b] = m.specular * p->factor;
+		col[specular] = multiply_color_by_scalar(light.color, scale[b]);
+		p->col[specular] = col[specular];
 	}
 }
 
@@ -66,7 +71,8 @@ static void	calculate_color(t_lighting_param *p, t_material m, t_light light, t_
  * @param light		light to be used for calculation
  * @param v			array of 3 vectors needed
  */
-static void	apply_lighting(t_lighting_param *p, t_material m, t_light light, t_tuple v[3])
+static void	apply_lighting(t_lighting_param *p, t_material m, t_light light,
+						   t_tuple v[3])
 {
 	calculate_ambient_color(p, m, light);
 	p->lightv = normalize_vector(sub_tuples(light.origin, v[pos]));

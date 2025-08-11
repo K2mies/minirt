@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 15:38:44 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/31 12:33:07 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 12:32:41 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ static t_float	calculate_var_c(t_ray ray)
  * @param discriminant	discriminant to use for calculation
  * @param res			pointer to the xs intersection to operate on
  */
-static	void handle_discriminant(t_float var[3], t_float discriminant, t_intersections *res)
+static	void handle_discriminant(t_float var[3], t_float discriminant,
+								t_intersections *res)
 {
 	res->t[0] = (-var[b] - sqrtf(discriminant)) / (2.0 * var[a]);
 	res->t[1] = (-var[b] + sqrtf(discriminant)) / (2.0 * var[a]);
@@ -99,16 +100,15 @@ t_intersections	cylinder_intersection(t_object *cylinder, t_ray ray)
 	var[b] = calculate_var_b(ray);
 	var[c] = calculate_var_c(ray);
 	discriminant = (var[b] * var[b]) - (4.0f * var[a] * var[c]);
+	handle_discriminant(var, discriminant, &res);
 	if (compare_floats(var[a], 0.0f))
 	{
-		res.count = 0;
-		// truncate_cylinder(cylinder, ray, &res);
+		truncate_cylinder(cylinder, ray, &res);
 		res = intersect_cylinder_caps(cylinder, ray, res);
 		return (res);
 	}
 	if (discriminant < 0)
 		return (res);
-	handle_discriminant(var, discriminant, &res);
 	truncate_cylinder(cylinder, ray, &res);
 	res = intersect_cylinder_caps(cylinder, ray, res);
 	return (res);

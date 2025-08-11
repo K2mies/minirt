@@ -20,7 +20,8 @@
  * @param	col
  * @return	t_object struct with type OBJ_SPHERE
  */
-t_object	cone(t_tuple location, t_float diameter, t_float height, t_color col)
+t_object	cone(t_tuple location, t_float diameter, t_float height,
+			  t_color col)
 {
 	t_object	con;
 	t_float		param[7];

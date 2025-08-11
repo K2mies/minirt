@@ -13,7 +13,7 @@
 NAME		= 	miniRT
 
 CC			= 	cc
-CFLAGS		= 	-O3 -flto -ffast-math -Wextra -Werror -Wall 
+CFLAGS		= 	-O3 -flto -ffast-math -march=native -Wextra -Werror -Wall 
 #CFLAGS		= 	-O3 -flto -ffast-math -march=native -Wextra -Werror -Wall 
 #CFLAGS		= 	-O3 -flto -Wextra -Werror -Wall 
 #CFLAGS		= 	-O3 -flto -march=native -Wextra -Werror -Wall 
@@ -75,6 +75,8 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				$(SRC_DIR)/matrix/minirt_matrix04.c									\
 				$(SRC_DIR)/matrix/minirt_matrix05.c									\
 				$(SRC_DIR)/matrix/minirt_matrix06.c									\
+				$(SRC_DIR)/matrix/minirt_matrix07.c									\
+				$(SRC_DIR)/matrix/minirt_matrix08.c									\
 				\
 				$(SRC_DIR)/transform/minirt_transform00.c							\
 				$(SRC_DIR)/transform/minirt_transform01.c							\
@@ -126,6 +128,21 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				$(SRC_DIR)/mlx/minirt_mlx02.c										\
 				$(SRC_DIR)/mlx/minirt_mlx03.c										\
 				$(SRC_DIR)/mlx/minirt_mlx04.c										\
+				$(SRC_DIR)/mlx/minirt_mlx05.c										\
+				$(SRC_DIR)/mlx/minirt_mlx06.c										\
+				$(SRC_DIR)/mlx/minirt_mlx07.c										\
+				$(SRC_DIR)/mlx/minirt_mlx08.c										\
+				$(SRC_DIR)/mlx/minirt_mlx09.c										\
+				$(SRC_DIR)/mlx/minirt_mlx10.c										\
+				$(SRC_DIR)/mlx/minirt_mlx11.c										\
+				$(SRC_DIR)/mlx/minirt_mlx12.c										\
+				$(SRC_DIR)/mlx/minirt_mlx13.c										\
+				$(SRC_DIR)/mlx/minirt_mlx14.c										\
+				$(SRC_DIR)/mlx/minirt_mlx15.c										\
+				$(SRC_DIR)/mlx/minirt_mlx16.c										\
+				$(SRC_DIR)/mlx/minirt_mlx17.c										\
+				$(SRC_DIR)/mlx/minirt_mlx18.c										\
+				$(SRC_DIR)/mlx/minirt_mlx19.c										\
 				\
 				$(SRC_DIR)/error/arg_error.c										\
 				$(SRC_DIR)/error/error.c											\

@@ -55,6 +55,7 @@ t_color	shade_hit(t_world w, t_computations comps, t_object	obj, int remaining)
 	t_color				col[3];
 	t_material			material;
 	t_float				reflectance;
+	t_float				ref[2];
 
 
 	param.ambient[env] = w.ambient.color;
@@ -68,8 +69,10 @@ t_color	shade_hit(t_world w, t_computations comps, t_object	obj, int remaining)
 	if (material.reflective > 0 && material.transparency > 0)
 	{
 		reflectance = schlick(comps);
-		col[reflected] = multiply_color_by_scalar(col[reflected], reflectance);
-		col[refracted] = multiply_color_by_scalar(col[refracted], (1 - reflectance));
+		ref[a] = reflectance;
+		ref[b] = 1 - reflectance;
+		col[reflected] = multiply_color_by_scalar(col[reflected], ref[a]);
+		col[refracted] = multiply_color_by_scalar(col[refracted],  ref[b]);
 		return (add_three_colors(col[surface], col[reflected], col[refracted]));
 	}
 	return (add_three_colors(col[surface], col[reflected], col[refracted]));

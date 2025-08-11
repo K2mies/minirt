@@ -18,9 +18,16 @@
  * @param pat	pointer to pattern struct
  * @param m		matrix to set
  */
-void	set_pattern_transform(t_pattern *pat, t_matrix4 m)
+void	apply_pattern_transforms(t_pattern *pat)
 {
-	pat->transform = m;
+	t_matrix4	res;
+
+	res = pat->transforms[translate][xyz];
+	res = multiply_matrix4(res, pat->transforms[rotate][z]);
+	res = multiply_matrix4(res, pat->transforms[rotate][y]);
+	res = multiply_matrix4(res, pat->transforms[rotate][x]);
+	res = multiply_matrix4(res, pat->transforms[scale][xyz]);
+	pat->transform = res;
 }
 
 /**
@@ -39,6 +46,11 @@ t_pattern	pattern(t_color a, t_color b, int type)
 	pat.a = a;
 	pat.b = b;
 	pat.transform = id_matrix4();
+	pat.transforms[scale][xyz] = id_matrix4();
+	pat.transforms[rotate][x] = id_matrix4();
+	pat.transforms[rotate][y] = id_matrix4();
+	pat.transforms[rotate][z] = id_matrix4();
+	pat.transforms[translate][xyz] = id_matrix4();
 	return (pat);
 }
 

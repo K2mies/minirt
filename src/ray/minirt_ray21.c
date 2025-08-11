@@ -23,6 +23,7 @@
 t_computations prepare_computations(t_world w, t_intersection *i, t_ray r)
 {
 	t_computations	comps;
+	t_tuple			point[2];
 
 	comps.t = i->t;
 	comps.object = i->object;
@@ -38,9 +39,9 @@ t_computations prepare_computations(t_world w, t_intersection *i, t_ray r)
 	else
 		comps.inside = false;
 	comps.v[reflectv] = reflect(r.direction, comps.v[normalv]);
-	comps.over_point = add_tuples(comps.v[pos],
-				multiply_tuple_by_scalar(comps.v[normalv], OVER_POINT));
-	comps.under_point = sub_tuples(comps.v[pos],
-				multiply_tuple_by_scalar(comps.v[normalv], UNDER_POINT));
+	point[over] = multiply_tuple_by_scalar(comps.v[normalv], OVER_POINT);
+	point[under] = multiply_tuple_by_scalar(comps.v[normalv], UNDER_POINT);
+	comps.over_point = add_tuples(comps.v[pos],point[over]);
+	comps.under_point = sub_tuples(comps.v[pos],point[under]);
 	return (comps);
 }

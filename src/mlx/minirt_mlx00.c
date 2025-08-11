@@ -3,56 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_mlx00.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/06 10:44:16 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:10:18 by mpierce          ###   ########.fr       */
+/*   Created: 2025/08/06 14:03:51 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/08/06 14:15:58 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
 /**
- * @brief	fills img buffer with black
- * fills the img buffer with black
- * @param rt		pointer to main data struct
+ * @brief function to run MLX logic and loop
+ * @param	t_minirt *rt pointer to main data struct
  */
-void	color_fill(t_minirt *rt)
+void	run_mlx(t_minirt *rt)
 {
-	int	x;
-	int	y;
-
-	x = 0;
-	while (x < rt->mlx_d[width])
-	{
-		y = 0;
-		while (y < rt->mlx_d[height])
-		{
-			mlx_put_pixel(rt->img, x, y, BLACK);
-			y++;
-		}
-		x++;
-	}
-}
-
-/**
- * @brief	inits mlx
- * initialises the mlx settings
- * @param rt		pointer to main data struct
- * @param x			x dimension
- * @param y			y domension
- */
-void	mlx_start(t_minirt *rt, int x, int y)
-{
-//	mlx_set_setting(MLX_MAXIMIZED, true);
-	rt->mlx = mlx_init(x, y, "miniRT", true);
-	rt->mlx_d[width] = x;
-	rt->mlx_d[height] = y;
-	if (!rt->mlx)
-		rt_error(rt, MSG_ERROR_MLX, ERROR_MLX);
-//	mlx_get_monitor_size(0, &rt->mlx_d[width], &rt->mlx_d[height]);
-//	printf("x: %d y: %d\n", rt->mlx_d[width], rt->mlx_d[height]);
-	rt->img = mlx_new_image(rt->mlx, rt->mlx_d[width], rt->mlx_d[height]);
-	if (!rt->img || mlx_image_to_window(rt->mlx, rt->img, 0, 0) < 0)
-		rt_error(rt, MSG_ERROR_MLX_IMG, ERROR_IMG);
+	rt->w = world_scene(rt);
+	mlx_start(rt, CAM_WIDTH, CAM_HEIGHT);
+//	color_fill(rt);
+	mlx_render(rt, rt->w.camera,  rt->w);
+	mlx_loop_hook(rt->mlx, handle_key_esc, rt);
+	mlx_loop_hook(rt->mlx, handle_key_location, rt);
+	mlx_loop_hook(rt->mlx, handle_key_rotation, rt);
+	mlx_loop_hook(rt->mlx, handle_key_scaling, rt);
+	mlx_loop_hook(rt->mlx, handle_key_other, rt);
+	mlx_mouse_hook(rt->mlx, handle_mouse_click, rt);
+	mlx_cursor_hook(rt->mlx, handle_mouse_move, rt);
+	mlx_loop(rt->mlx);
+	mlx_delete_image(rt->mlx, rt->img);
+	mlx_terminate(rt->mlx);
 }

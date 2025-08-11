@@ -19,29 +19,28 @@
  * @param	cb
  * @return	t_matrix4 transform matrx
  */
-static t_matrix4	calculate_matrix_transform(t_object cb)
+static void	calculate_matrix_transform(t_object *cb)
 {
-	t_matrix4	res;
-	t_matrix4	matrix[3][3];
+	t_float		pos[3];
 	t_float		axis[3];
 	t_float		magnitude;
 	t_tuple		unit_vector;
 
-	res = id_matrix4();
-	matrix[translate][xyz] = translation(cb.origin.x, cb.origin.y, cb.origin.z);
-	unit_vector = normalize_vector(cb.vector);
+	pos[x] = cb->origin.x;
+	pos[y] = cb->origin.y;
+	pos[z] = cb->origin.z;
+	cb->transforms[translate][xyz] = translation(pos[x], pos[y], pos[z]);
+	unit_vector = normalize_vector(cb->vector);
 	magnitude = get_magnitude(vector(unit_vector.x, 0, unit_vector.z));
 	axis[x] = atan2f(magnitude, unit_vector.y);
 	axis[y] = atan2f(unit_vector.x, unit_vector.z);
-	matrix[rotate][x] = rotation_x(rad_to_deg(axis[x]));
-	matrix[rotate][y] = rotation_y(rad_to_deg(axis[y]));
-	matrix[scale][xyz] = scaling(cb.height, cb.height, cb.height);
-	res = multiply_matrix4(res, matrix[translate][xyz]);
-	res = multiply_matrix4(res, matrix[rotate][y]);
-	res = multiply_matrix4(res, matrix[rotate][x]);
-	res = multiply_matrix4(res, matrix[scale][xyz]);
-	return (res);
+	cb->transforms[rotate][x] = rotation_x(rad_to_deg(axis[x]));
+	cb->transforms[rotate][y] = rotation_y(rad_to_deg(axis[y]));
+	cb->transforms[rotate][z] = id_matrix4();
+	cb->transforms[scale][xyz] = scaling(cb->height, cb->height, cb->height);
+	apply_transforms(cb);
 }
+
 /**
  * @brief	creates and returns a cube object
  * creates a Cube object/struct 
@@ -67,9 +66,7 @@ t_object	cube(t_tuple origin, t_tuple direction, t_color col, t_float scale)
 	cube.color = col;
 	cube.material = material(material_param, col);
 	cube.material.has_pattern = false;
-//	cube.material.pattern = pattern(color(0,0,0), color(1,1,1), CHECKER);
-//	cube.material.pattern.transform = scaling(0.5,0.5,0.5);
 	cube.height = scale;
-	cube.transform = calculate_matrix_transform(cube);
+	calculate_matrix_transform(&cube);
 	return (cube);
 }

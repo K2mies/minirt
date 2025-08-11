@@ -1,26 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_mlx01.c                                     :+:      :+:    :+:   */
+/*   minirt_mlx00.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/29 16:15:58 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/29 16:19:33 by rhvidste         ###   ########.fr       */
+/*   Created: 2025/06/06 10:44:16 by rhvidste          #+#    #+#             */
+/*   Updated: 2025/07/21 13:10:18 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 /**
- * @brief	function to resize img and screen
- * @param	int32_t width
- * @param	int32_t height
- * #param	void * parameter to pass to funcion (in this case t_minirt *)
+ * @brief	fills img buffer with black
+ * fills the img buffer with black
+ * @param rt		pointer to main data struct
  */
-void	resize_screen(int32_t width, int32_t height, void *param)
+void	color_fill(t_minirt *rt)
 {
-	t_minirt	*rt;
-	rt = (t_minirt *)param;
-	mlx_resize_image(rt->img, width, height);
+	int	x;
+	int	y;
+
+	x = 0;
+	while (x < rt->mlx_d[width])
+	{
+		y = 0;
+		while (y < rt->mlx_d[height])
+		{
+			mlx_put_pixel(rt->img, x, y, BLACK);
+			y++;
+		}
+		x++;
+	}
+}
+
+/**
+ * @brief	inits mlx
+ * initialises the mlx settings
+ * @param rt		pointer to main data struct
+ * @param x			x dimension
+ * @param y			y domension
+ */
+void	mlx_start(t_minirt *rt, int x, int y)
+{
+	rt->mlx = mlx_init(x, y, "miniRT", true);
+	rt->mlx_d[width] = x;
+	rt->mlx_d[height] = y;
+	if (!rt->mlx)
+		rt_error(rt, MSG_ERROR_MLX, ERROR_MLX);
+	rt->img = mlx_new_image(rt->mlx, rt->mlx_d[width], rt->mlx_d[height]);
+	if (!rt->img || mlx_image_to_window(rt->mlx, rt->img, 0, 0) < 0)
+		rt_error(rt, MSG_ERROR_MLX_IMG, ERROR_IMG);
 }
