@@ -11,14 +11,10 @@
 # **************************************************************************** #
 
 NAME		= 	miniRT
+BONUS_NAME	=	bonus_miniRT
 
 CC			= 	cc
 CFLAGS		= 	-O3 -flto -ffast-math -march=native -Wextra -Werror -Wall 
-#CFLAGS		= 	-O3 -flto -ffast-math -march=native -Wextra -Werror -Wall 
-#CFLAGS		= 	-O3 -flto -Wextra -Werror -Wall 
-#CFLAGS		= 	-O3 -flto -march=native -Wextra -Werror -Wall 
-#CFLAGS		=  -fno-associative-math -flto -fno-fast-math -Wextra -Werror -Wall 
-#CFLAGS		=	-fno-associative-math -fno-fast-math -Wextra -Werror -Wall 
 
 #CFLAGS		= 	-Wextra -Werror -Wall
 DEBUG_FLAGS	=	-g
@@ -37,6 +33,8 @@ LIBS		= 	$(LIBMLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
 #-----------------------------------------------------------------------------------#
 SRC_DIR		=	./src
 OBJ_DIR		=	./obj
+BONUS_SRC_DIR = ./bonus_src
+BONUS_OBJ_DIR = ./bonus_obj
 
 #-----------------------------------------------------------------------------------#
 SRC		=		$(SRC_DIR)/minirt_main.c											\
@@ -163,11 +161,132 @@ SRC		=		$(SRC_DIR)/minirt_main.c											\
 				$(SRC_DIR)/utils/swap.c												\
 				\
 #-----------------------------------------------------------------------------------#
+BONUS_SRC	=	$(BONUS_SRC_DIR)/bonus_minirt_main.c										\
+				\
+				$(BONUS_SRC_DIR)/tuple/bonus_minirt_tuples00.c						\
+				$(BONUS_SRC_DIR)/tuple/bonus_minirt_tuples01.c						\
+				$(BONUS_SRC_DIR)/tuple/bonus_minirt_tuples02.c						\
+				$(BONUS_SRC_DIR)/tuple/bonus_minirt_tuples03.c						\
+				$(BONUS_SRC_DIR)/tuple/bonus_minirt_tuples04.c						\
+				$(BONUS_SRC_DIR)/tuple/bonus_minirt_tuples05.c						\
+				$(BONUS_SRC_DIR)/tuple/bonus_minirt_floats.c						\
+				\
+				$(BONUS_SRC_DIR)/color/bonus_minirt_color00.c						\
+				$(BONUS_SRC_DIR)/color/bonus_minirt_color01.c						\
+				$(BONUS_SRC_DIR)/color/bonus_minirt_color02.c						\
+				$(BONUS_SRC_DIR)/color/bonus_minirt_color03.c						\
+				$(BONUS_SRC_DIR)/color/bonus_minirt_color04.c						\
+				$(BONUS_SRC_DIR)/color/bonus_minirt_color05.c						\
+				$(BONUS_SRC_DIR)/color/bonus_minirt_color06.c						\
+				$(BONUS_SRC_DIR)/color/bonus_minirt_color07.c						\
+				$(BONUS_SRC_DIR)/color/bonus_minirt_color08.c						\
+				$(BONUS_SRC_DIR)/color/bonus_minirt_color09.c						\
+				$(BONUS_SRC_DIR)/color/bonus_minirt_color10.c						\
+				$(BONUS_SRC_DIR)/color/bonus_minirt_color11.c						\
+				\
+				$(BONUS_SRC_DIR)/canvas/bonus_minirt_canvas00.c						\
+				$(BONUS_SRC_DIR)/canvas/bonus_minirt_canvas01.c						\
+				$(BONUS_SRC_DIR)/canvas/bonus_minirt_canvas02.c						\
+				\
+				$(BONUS_SRC_DIR)/ppm/bonus_minirt_ppm00.c							\
+				\
+				$(BONUS_SRC_DIR)/matrix/bonus_minirt_matrix00.c						\
+				$(BONUS_SRC_DIR)/matrix/bonus_minirt_matrix01.c						\
+				$(BONUS_SRC_DIR)/matrix/bonus_minirt_matrix02.c						\
+				$(BONUS_SRC_DIR)/matrix/bonus_minirt_matrix03.c						\
+				$(BONUS_SRC_DIR)/matrix/bonus_minirt_matrix04.c						\
+				$(BONUS_SRC_DIR)/matrix/bonus_minirt_matrix05.c						\
+				$(BONUS_SRC_DIR)/matrix/bonus_minirt_matrix06.c						\
+				$(BONUS_SRC_DIR)/matrix/bonus_minirt_matrix07.c						\
+				$(BONUS_SRC_DIR)/matrix/bonus_minirt_matrix08.c						\
+				\
+				$(BONUS_SRC_DIR)/transform/bonus_minirt_transform00.c				\
+				$(BONUS_SRC_DIR)/transform/bonus_minirt_transform01.c				\
+				$(BONUS_SRC_DIR)/transform/bonus_minirt_transform02.c				\
+				$(BONUS_SRC_DIR)/transform/bonus_minirt_transform03.c				\
+				$(BONUS_SRC_DIR)/transform/bonus_minirt_transform04.c				\
+				\
+				$(BONUS_SRC_DIR)/ray/bonus_minirt_ray00.c							\
+				$(BONUS_SRC_DIR)/ray/bonus_minirt_ray01.c							\
+				$(BONUS_SRC_DIR)/ray/bonus_minirt_ray02.c							\
+				$(BONUS_SRC_DIR)/ray/bonus_minirt_ray03.c							\
+				$(BONUS_SRC_DIR)/ray/bonus_minirt_ray04.c							\
+				$(BONUS_SRC_DIR)/ray/bonus_minirt_ray05.c							\
+				$(BONUS_SRC_DIR)/ray/bonus_minirt_ray06.c							\
+				$(BONUS_SRC_DIR)/ray/bonus_minirt_ray07.c							\
+				$(BONUS_SRC_DIR)/ray/bonus_minirt_ray08.c							\
+				$(BONUS_SRC_DIR)/ray/bonus_minirt_ray09.c							\
+				$(BONUS_SRC_DIR)/ray/bonus_minirt_ray10.c							\
+				$(BONUS_SRC_DIR)/ray/bonus_minirt_ray11.c							\
+				$(BONUS_SRC_DIR)/ray/bonus_minirt_ray12.c							\
+				$(BONUS_SRC_DIR)/ray/bonus_minirt_ray13.c							\
+				$(BONUS_SRC_DIR)/ray/bonus_minirt_ray14.c							\
+				$(BONUS_SRC_DIR)/ray/bonus_minirt_ray15.c							\
+				$(BONUS_SRC_DIR)/ray/bonus_minirt_ray16.c							\
+				$(BONUS_SRC_DIR)/ray/bonus_minirt_ray17.c							\
+				$(BONUS_SRC_DIR)/ray/bonus_minirt_ray18.c							\
+				$(BONUS_SRC_DIR)/ray/bonus_minirt_ray19.c							\
+				$(BONUS_SRC_DIR)/ray/bonus_minirt_ray20.c							\
+				$(BONUS_SRC_DIR)/ray/bonus_minirt_ray21.c							\
+				$(BONUS_SRC_DIR)/ray/bonus_minirt_ray22.c							\
+				$(BONUS_SRC_DIR)/ray/bonus_minirt_ray23.c							\
+				$(BONUS_SRC_DIR)/ray/bonus_minirt_ray24.c							\
+				$(BONUS_SRC_DIR)/ray/bonus_minirt_ray25.c							\
+				$(BONUS_SRC_DIR)/ray/bonus_minirt_ray26.c							\
+				\
+				$(BONUS_SRC_DIR)/object/bonus_minirt_object00.c						\
+				$(BONUS_SRC_DIR)/object/bonus_minirt_object01.c						\
+				$(BONUS_SRC_DIR)/object/bonus_minirt_object02.c						\
+				$(BONUS_SRC_DIR)/object/bonus_minirt_object03.c						\
+				$(BONUS_SRC_DIR)/object/bonus_minirt_object04.c						\
+				$(BONUS_SRC_DIR)/object/bonus_minirt_object05.c						\
+				$(BONUS_SRC_DIR)/object/bonus_minirt_object06.c						\
+				$(BONUS_SRC_DIR)/object/bonus_minirt_object07.c						\
+				$(BONUS_SRC_DIR)/object/bonus_minirt_object08.c						\
+				$(BONUS_SRC_DIR)/object/bonus_minirt_object09.c						\
+				\
+				$(BONUS_SRC_DIR)/mlx/bonus_minirt_mlx00.c							\
+				$(BONUS_SRC_DIR)/mlx/bonus_minirt_mlx01.c							\
+				$(BONUS_SRC_DIR)/mlx/bonus_minirt_mlx02.c							\
+				$(BONUS_SRC_DIR)/mlx/bonus_minirt_mlx03.c							\
+				$(BONUS_SRC_DIR)/mlx/bonus_minirt_mlx04.c							\
+				$(BONUS_SRC_DIR)/mlx/bonus_minirt_mlx05.c							\
+				$(BONUS_SRC_DIR)/mlx/bonus_minirt_mlx06.c							\
+				$(BONUS_SRC_DIR)/mlx/bonus_minirt_mlx07.c							\
+				$(BONUS_SRC_DIR)/mlx/bonus_minirt_mlx08.c							\
+				$(BONUS_SRC_DIR)/mlx/bonus_minirt_mlx09.c							\
+				$(BONUS_SRC_DIR)/mlx/bonus_minirt_mlx10.c							\
+				$(BONUS_SRC_DIR)/mlx/bonus_minirt_mlx11.c							\
+				$(BONUS_SRC_DIR)/mlx/bonus_minirt_mlx12.c							\
+				$(BONUS_SRC_DIR)/mlx/bonus_minirt_mlx13.c							\
+				$(BONUS_SRC_DIR)/mlx/bonus_minirt_mlx14.c							\
+				$(BONUS_SRC_DIR)/mlx/bonus_minirt_mlx15.c							\
+				$(BONUS_SRC_DIR)/mlx/bonus_minirt_mlx16.c							\
+				$(BONUS_SRC_DIR)/mlx/bonus_minirt_mlx17.c							\
+				$(BONUS_SRC_DIR)/mlx/bonus_minirt_mlx18.c							\
+				$(BONUS_SRC_DIR)/mlx/bonus_minirt_mlx19.c							\
+				\
+				$(BONUS_SRC_DIR)/error/bonus_arg_error.c							\
+				$(BONUS_SRC_DIR)/error/bonus_error.c								\
+				\
+				$(BONUS_SRC_DIR)/parsing/bonus_validation.c							\
+				$(BONUS_SRC_DIR)/parsing/bonus_validation_utils.c					\
+				$(BONUS_SRC_DIR)/parsing/bonus_utils.c								\
+				$(BONUS_SRC_DIR)/parsing/bonus_sorting.c							\
+				$(BONUS_SRC_DIR)/parsing/bonus_object.c								\
+				$(BONUS_SRC_DIR)/parsing/bonus_object_utils.c						\
+				\
+				$(BONUS_SRC_DIR)/utils/bonus_close.c								\
+				$(BONUS_SRC_DIR)/utils/bonus_utils.c								\
+				$(BONUS_SRC_DIR)/utils/bonus_memory.c								\
+				$(BONUS_SRC_DIR)/utils/bonus_quicksort.c							\
+				$(BONUS_SRC_DIR)/utils/bonus_containers.c							\
+				$(BONUS_SRC_DIR)/utils/bonus_cube.c									\
+				$(BONUS_SRC_DIR)/utils/bonus_swap.c									\
+				\
+#-----------------------------------------------------------------------------------#-----------------------------------------------------------------------------------#
 OBJ 		= 	$(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
-#-----------------------------------------------------------------------------------#
-#INC			=	include/
-#SRC_DIR		=	src/
-#OBJ_DIR		=	obj/
+BONUS_OBJ 	= 	$(patsubst $(BONUS_SRC_DIR)/%.c, $(BONUS_OBJ_DIR)/%.o, $(BONUS_SRC))
 #-----------------------------------------------------------------------------------#
 all: .libmlx $(LIBFT) $(NAME)
 
@@ -178,7 +297,6 @@ all: .libmlx $(LIBFT) $(NAME)
 		
 $(NAME): $(LIBFT) $(OBJ) $(HEADER)
 		$(CC) $(CFLAGS) $(OBJ) $(INC_FLAGS) $(LIBS) $< $(LIBFT) -o $@
-#		@$(CC) $(CFLAGS) $(OBJ) $(LIBS) $(LIBFT) $(HEADER) -o $(NAME)
 		@echo "$(GREEN)Succesfully built miniRT!$(DEF_COLOR)"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADER)
@@ -187,17 +305,27 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADER)
 
 $(LIBFT):
 		make -C ./lib/libft
-#$(OBJ_DIR):
-#		@mkdir -p $@
+#-----------------------------------------------------------------------------------#
+bonus: $(BONUS_NAME)
+
+$(BONUS_NAME): .libmlx $(LIBFT) $(BONUS_OBJ) $(HEADER)
+		$(CC) $(CFLAGS) $(BONUS_OBJ) $(INC_FLAGS) $(LIBS) $< $(LIBFT) -o $@
+		@echo "$(GREEN)Succesfully built bonus_miniRT!$(DEF_COLOR)"
+
+$(BONUS_OBJ_DIR)/%.o: $(BONUS_SRC_DIR)/%.c $(HEADER)
+		@mkdir -p $(@D)
+		$(CC) $(CFLAGS) $(INC_FLAGS) -c $< -o $@
+$(LIBFT):
+		make -C ./lib/libft
 #-----------------------------------------------------------------------------------#
 clean:
 		@rm -rf $(OBJ_DIR)
-		@rm -rf $(BOBJ_DIR)
+		@rm -rf $(BONUS_OBJ_DIR)
 		@make clean -C ./lib/libft
 
 fclean: clean
 		@rm -rf $(NAME)
-		@rm -rf $(BNAME)
+		@rm -rf $(BONUS_NAME)
 		@rm -rf $(LIBFT)
 		@rm -rf $(LIBMLX_DIR)
 		@rm -rf .libmlx

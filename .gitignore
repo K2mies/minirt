@@ -7,3 +7,5 @@ lib/libft/libft.a
 .vscode/
 .cache/
 .libmlx
+.gitignore
+.mlx42.supp
