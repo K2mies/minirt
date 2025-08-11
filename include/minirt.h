@@ -848,6 +848,8 @@ void		handle_r_press(t_minirt *rt);
 /* ----------------------------------------------------------- minirt_mlx17.c */
 void		handle_t_press(t_minirt *rt);
 /* ----------------------------------------------------------- minirt_mlx18.c */
+void		handle_c_press(t_minirt *rt);
+/* ----------------------------------------------------------- minirt_mlx19.c */
 void		handle_esc_press(t_minirt *rt);
 /* =============================== ERROR ==================================== */
 
