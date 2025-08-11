@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 15:44:23 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:11:24 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 13:56:28 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,15 @@
  */
 t_tuple	normal_at_cylinder(t_object obj, t_tuple world_point)
 {
-
 	t_matrix4	matrix[2];
 	t_tuple		normal[2];
-	
+
 	matrix[inverse] = inverse_matrix4(obj.transform);
 	matrix[transpose] = transpose_matrix4(matrix[inverse]);
-	normal[local] =  multiply_matrix4_tuple(matrix[inverse], world_point);
-	normal[local] = vector(normal[local].x,  0, normal[local].z);
+	normal[local] = multiply_matrix4_tuple(matrix[inverse], world_point);
+	normal[local] = vector(normal[local].x, 0, normal[local].z);
 	normal[world] = multiply_matrix4_tuple(matrix[transpose], normal[local]);
 	normal[world].w = 0;
 	normal[world] = normalize_vector(normal[world]);
 	return (normal[world]);
 }
-

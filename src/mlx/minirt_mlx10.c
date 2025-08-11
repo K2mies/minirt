@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_mlx09.c                                     :+:      :+:    :+:   */
+/*   minirt_mlx10.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:06:39 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/08/05 16:50:29 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/08/11 13:26:44 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	handle_y_press(t_minirt *rt)
 	t_matrix4	scale_matrix;
 	t_matrix4	*scale_transform;
 	t_object	*obj;
-	
 
 	if (rt->is_active_object)
 	{
@@ -47,7 +46,6 @@ void	handle_u_press(t_minirt *rt)
 	t_matrix4	scale_matrix;
 	t_matrix4	*scale_transform;
 	t_object	*obj;
-	
 
 	if (rt->is_active_object)
 	{
@@ -72,7 +70,6 @@ void	handle_i_press(t_minirt *rt)
 	t_matrix4	scale_matrix;
 	t_matrix4	*scale_transform;
 	t_object	*obj;
-	
 
 	if (rt->is_active_object)
 	{
@@ -97,7 +94,6 @@ void	handle_o_press(t_minirt *rt)
 	t_matrix4	scale_matrix;
 	t_matrix4	*scale_transform;
 	t_object	*obj;
-	
 
 	if (rt->is_active_object)
 	{

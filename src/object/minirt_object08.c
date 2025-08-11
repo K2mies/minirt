@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 14:31:28 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/24 13:06:57 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 14:06:51 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ t_world	world_scene(t_minirt *rt)
 	w.objs = rt->objs;
 	w.n_objs = rt->n_objs;
 	count = count_intersections(w);
-	w.ts =	rt_malloc(rt ,sizeof(t_intersection) * count);
+	w.ts = rt_malloc(rt, sizeof(t_intersection) * count);
 	w.cs = rt_malloc(rt, sizeof(t_computations) * count);
 	w.n_ts = 0;
-	return(w);
+	return (w);
 }
 
 /**

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_mlx05.c                                     :+:      :+:    :+:   */
+/*   minirt_mlx06.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 14:38:05 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/08/01 15:18:00 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/08/11 13:28:32 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	handle_left_press(t_minirt *rt)
 		transform = translation(-0.5, 0, 0);
 		obj = &rt->w.objs[rt->active_object.index];
 		move = &obj->transforms[translate][xyz];
-		*move =  multiply_matrix4(*move, transform);
+		*move = multiply_matrix4(*move, transform);
 		apply_transforms(obj);
 		mlx_render(rt, rt->w.camera, rt->w);
 		printf("object translated on x by -0.5\n");

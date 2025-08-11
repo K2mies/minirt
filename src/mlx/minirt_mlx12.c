@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_mlx08.c                                     :+:      :+:    :+:   */
+/*   minirt_mlx12.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 11:59:10 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/08/04 12:01:29 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/08/11 13:25:33 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
  */
 static void	set_pattern_transforms(t_pattern *pat)
 {
-		pat->transforms[translate][xyz] = translation(5, 0, 0);
-		pat->transforms[scale][xyz] = scaling(2, 2, 2);
+	pat->transforms[translate][xyz] = translation(5, 0, 0);
+	pat->transforms[scale][xyz] = scaling(2, 2, 2);
 }
 
 /**
@@ -36,7 +36,7 @@ static void	set_material(t_color col[2], t_object *obj)
 
 	if (obj->material.has_pattern == false
 		|| (obj->material.has_pattern == true
-		&& obj->material.pattern.type != GRADIENT))
+			&& obj->material.pattern.type != GRADIENT))
 	{
 		pat = &obj->material.pattern;
 		obj->material.has_pattern = true;
@@ -64,7 +64,6 @@ void	handle_g_press(t_minirt *rt)
 
 	col[a] = color(0.71, 0, 0.29);
 	col[b] = color(1, 1, 1);
-
 	if (rt->is_active_object)
 	{
 		obj = &rt->objs[rt->active_object.index];

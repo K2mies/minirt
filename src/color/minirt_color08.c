@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 12:45:02 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:09:37 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 14:12:27 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ t_color	ring_at_object(t_pattern pattern, t_object obj, t_tuple world_point)
 	t_tuple	pattern_point;
 
 	object_point = multiply_matrix4_tuple(
-		inverse_matrix4(obj.transform), world_point);
+			inverse_matrix4(obj.transform), world_point);
 	pattern_point = multiply_matrix4_tuple(
-		inverse_matrix4(pattern.transform), object_point);
+			inverse_matrix4(pattern.transform), object_point);
 	return (ring_at(pattern, pattern_point));
 }

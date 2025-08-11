@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_matrix08.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 12:55:16 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/08/06 14:59:10 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/08/11 14:10:13 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minirt.h"
 
 /**
@@ -31,6 +32,5 @@ void	apply_transforms(t_object *obj)
 	res = multiply_matrix4(res, obj->transforms[rotate][y]);
 	res = multiply_matrix4(res, obj->transforms[rotate][x]);
 	res = multiply_matrix4(res, obj->transforms[scale][xyz]);
-//	print_matrix4(res);
 	obj->transform = res;
 }

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_mlx04.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 16:21:16 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/08/06 14:23:18 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/08/11 13:29:08 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
 
 static void	print_object_type(t_minirt *rt)
 {
@@ -50,7 +49,6 @@ static void	set_active_object(t_minirt *rt, t_intersection hit_point)
 	}
 }
 
-
 /**
  * @brief	function to handle mouse click by shooting a ray to get the selected
  * object
@@ -62,7 +60,6 @@ static void	set_active_object(t_minirt *rt, t_intersection hit_point)
 void	handle_mouse_click(mouse_key_t button, action_t action,
 						modifier_key_t mods, void *param)
 {
-
 	t_minirt		*rt;
 	t_ray			ray;
 	t_intersection	hit_point;

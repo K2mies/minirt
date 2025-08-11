@@ -6,12 +6,11 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 11:42:18 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/24 12:34:26 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 14:06:09 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
 
 /**
  * @brief	(helper) calculates the transform matrix of the cube

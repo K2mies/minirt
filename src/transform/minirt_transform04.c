@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 14:46:59 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:12:03 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 13:44:54 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 static t_matrix4	assign_transform_matrix(t_view_transform_param *p)
 {
 	t_matrix4	m;
+
 	m = id_matrix4();
 	m.m[0][0] = p->left.x;
 	m.m[0][1] = p->left.y;
@@ -46,7 +47,7 @@ t_matrix4	view_transform(t_tuple from, t_tuple to, t_tuple up)
 	t_view_transform_param	p;
 	t_matrix4				orientation;
 	t_matrix4				res;
-	
+
 	p.forward = normalize_vector(sub_tuples(to, from));
 	p.upn = normalize_vector(up);
 	p.left = cross_product(p.forward, p.upn);

@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 13:21:45 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:13:51 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 14:08:17 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,4 @@ t_light	point_light(t_tuple origin, t_float brightness, t_color col)
 	light.brightness = brightness;
 	light.color = multiply_color_by_scalar(col, light.brightness);
 	return (light);
-		
 }

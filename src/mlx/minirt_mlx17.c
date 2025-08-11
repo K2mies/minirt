@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_mlx17.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 14:32:50 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/08/11 12:13:37 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/08/11 13:22:16 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void	set_pattern_transforms(t_pattern *pat)
 static void	set_material(t_color col[2], t_object *obj, bool *planes_present)
 {
 	t_pattern	*pat;
+
 	*planes_present = true;
 	obj->material.has_pattern = true;
 	obj->material.pattern = pattern(col[a], col[b], CHECKER);

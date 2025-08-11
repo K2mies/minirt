@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:33:45 by mpierce           #+#    #+#             */
-/*   Updated: 2025/07/25 15:28:22 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 14:04:09 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,8 +136,8 @@ void	load_camera(t_minirt *rt, char **data)
 	if (!rt_isstrdigit(data[3]))
 		object_error(rt, origin, vec, NULL);
 	rt->camera = camera(point(ft_atof(origin[0]), ft_atof(origin[1]),
-			ft_atof(origin[2])), vector(ft_atof(vec[0]), ft_atof(vec[1]),
-			ft_atof(vec[2])), deg_to_rad(ft_atof(data[3])));
+				ft_atof(origin[2])), vector(ft_atof(vec[0]), ft_atof(vec[1]),
+				ft_atof(vec[2])), deg_to_rad(ft_atof(data[3])));
 	object_free(origin, vec, NULL);
 }
 

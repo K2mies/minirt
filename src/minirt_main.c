@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:24:50 by mpierce           #+#    #+#             */
-/*   Updated: 2025/07/25 15:05:03 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 14:14:39 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 
 int	main(int argc, char **argv)
 {
-//	(void)argc;
-//	(void)argv;
-
-	t_minirt rt;
+	t_minirt	rt;
 
 	if (argc != 2)
 		argc_error(argc);

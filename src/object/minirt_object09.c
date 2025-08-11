@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 15:54:58 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:13:57 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 14:08:48 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ static	t_matrix4	calculate_transform_matrix(t_camera cam)
 	view = view_transform(cam.origin, cam.vector, vector(0, 1, 0));
 	m = multiply_matrix4(m, view);
 	return (m);
-
 }
 
 /**
@@ -64,7 +63,7 @@ t_camera	camera(t_tuple origin, t_tuple direction, t_float fov)
 
 	cam.dim[height] = CAM_HEIGHT;
 	cam.dim[width] = CAM_WIDTH;
-	cam.origin = origin; 
+	cam.origin = origin;
 	cam.vector = direction;
 	cam.fov = fov;
 	cam.transform = calculate_transform_matrix(cam);

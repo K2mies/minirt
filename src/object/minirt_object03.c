@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 14:50:42 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/24 12:38:43 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 14:05:53 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * @param	cy 
  * @return	t_matrix4 transform matrx
  */
-static void calculate_transform_matrix(t_object *cy)
+static void	calculate_transform_matrix(t_object *cy)
 {
 	t_float		pos[3];
 	t_float		axis[3];

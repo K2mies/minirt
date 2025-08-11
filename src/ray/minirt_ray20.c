@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 14:47:00 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 14:14:56 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 13:47:36 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	calculate_ambient_color(t_lighting_param *p, t_material m,
 	p->ambient[effective] = multiply_color(m.color, light.color);
 	p->ambient[effective] = multiply_color(p->ambient[effective], light.color);
 	p->ambient[env] = multiply_color(p->ambient[env], light.color);
-	p->ambient[env] = multiply_color_by_scalar(p->ambient[env],  p->ratio);
+	p->ambient[env] = multiply_color_by_scalar(p->ambient[env], p->ratio);
 	p->col[ambient] = multiply_color_by_scalar(p->ambient[effective], p->ratio);
 	p->col[ambient] = add_colors(p->col[ambient], p->ambient[env]);
 }
@@ -72,7 +72,7 @@ static void	calculate_color(t_lighting_param *p, t_material m, t_light light,
  * @param v			array of 3 vectors needed
  */
 static void	apply_lighting(t_lighting_param *p, t_material m, t_light light,
-						   t_tuple v[3])
+						t_tuple v[3])
 {
 	calculate_ambient_color(p, m, light);
 	p->lightv = normalize_vector(sub_tuples(light.origin, v[pos]));
@@ -103,7 +103,7 @@ t_color	lighting(t_lighting_param p, t_material m, t_light light, t_tuple v[3])
 	t_color				res;
 
 	if (m.has_pattern == true)
-		m.color	= pattern_at(m.pattern, p.obj, v[pos]);
+		m.color = pattern_at(m.pattern, p.obj, v[pos]);
 	apply_lighting(&p, m, light, v);
 	res = add_three_colors(p.col[ambient], p.col[diffuse], p.col[specular]);
 	return (res);
@@ -134,4 +134,3 @@ bool	is_shadowed(t_world world, t_tuple point)
 		return (true);
 	return (false);
 }
-

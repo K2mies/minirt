@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 11:55:13 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:09:43 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 13:54:51 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,5 @@ t_color	refracted_color(t_world w, t_computations comps, int remaining)
 	p.refract_ray = ray(comps.under_point, p.direction[c]);
 	p.res = color_at(w, p.refract_ray, remaining - 1);
 	p.res = multiply_color_by_scalar(p.res, comps.object.material.transparency);
-	return(p.res);
+	return (p.res);
 }

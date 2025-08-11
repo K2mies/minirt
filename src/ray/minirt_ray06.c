@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 15:38:44 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/08/11 12:32:41 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 13:55:46 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static t_float	calculate_var_c(t_ray ray)
  * @param discriminant	discriminant to use for calculation
  * @param res			pointer to the xs intersection to operate on
  */
-static	void handle_discriminant(t_float var[3], t_float discriminant,
+static void	handle_discriminant(t_float var[3], t_float discriminant,
 								t_intersections *res)
 {
 	res->t[0] = (-var[b] - sqrtf(discriminant)) / (2.0 * var[a]);

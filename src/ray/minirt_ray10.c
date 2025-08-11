@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 16:39:44 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:11:17 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 14:00:09 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
  * @param m		transformation matrix used to transform ray
  * @return		returns newley transformed ray
  */
-t_ray transform(t_ray r, t_matrix4 m)
+t_ray	transform(t_ray r, t_matrix4 m)
 {
 	t_ray	res;
 

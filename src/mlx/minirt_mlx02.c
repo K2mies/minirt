@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_mlx01.c                                     :+:      :+:    :+:   */
+/*   minirt_mlx02.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 16:15:58 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/29 16:19:33 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/08/11 13:30:24 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 void	resize_screen(int32_t width, int32_t height, void *param)
 {
 	t_minirt	*rt;
+
 	rt = (t_minirt *)param;
 	mlx_resize_image(rt->img, width, height);
 	mlx_set_window_size(rt->mlx, width, height);

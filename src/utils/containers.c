@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 13:38:59 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:12:25 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 13:32:36 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 void	update_container(t_obj_container *container, t_object *obj)
 {
 	int	index;
+
 	if (is_inside_container(container, obj, &index))
 	{
 		remove_from_container(container, index);
@@ -38,7 +39,7 @@ void	update_container(t_obj_container *container, t_object *obj)
  * @return				true if the object is present, false if not
  */
 bool	is_inside_container(t_obj_container *container,
-						 t_object *obj, int *index)
+						t_object *obj, int *index)
 {
 	int	i;
 
@@ -64,6 +65,7 @@ bool	is_inside_container(t_obj_container *container,
 void	remove_from_container(t_obj_container *container, int index)
 {
 	int	i;
+
 	i = index;
 	while (i < container->n_obj - 1)
 	{

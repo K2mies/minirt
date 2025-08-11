@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 15:15:41 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:08:35 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 13:52:19 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@
  * @param obj	object being intersected
  * @return		t_intersection	result of intersection
  */
-t_intersection intersection(t_float t, t_object obj)
+t_intersection	intersection(t_float t, t_object obj)
 {
 	t_intersection	res;
+
 	res.t = t;
 	res.object = obj;
 	return (res);
@@ -36,9 +37,9 @@ t_intersection intersection(t_float t, t_object obj)
  * @param ray	ray to intersect
  * @return		t_intersection	result of intersection
  */
-t_intersections object_intersection(t_object *obj, t_ray ray)
+t_intersections	object_intersection(t_object *obj, t_ray ray)
 {
-	t_intersections xs;
+	t_intersections	xs;
 
 	if (obj->type == SPHERE)
 		xs = sphere_intersection(obj, ray);
@@ -63,7 +64,7 @@ t_intersections object_intersection(t_object *obj, t_ray ray)
  */
 void	world_intersect(t_world *w, t_ray ray)
 {
-	int			i;
+	int				i;
 	t_intersections	xs;
 
 	i = 0;
@@ -76,5 +77,3 @@ void	world_intersect(t_world *w, t_ray ray)
 	}
 	quicksort(w->ts, 0, w->n_ts -1);
 }
-
-

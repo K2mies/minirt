@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 13:12:39 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:09:14 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 14:13:55 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,9 @@ t_canvas	*render(t_camera cam, t_world world)
 		x = -1;
 		while (++x < cam.dim[width])
 		{
-
 			p.bounce_limit = BOUNCE_LIMIT;
 			p.ray = ray_for_pixel(cam, x, y);
-			p.col = color_at(world, p.ray, p.bounce_limit);	
+			p.col = color_at(world, p.ray, p.bounce_limit);
 			write_pixel_to_canvas(p.img, x, y, p.col);
 		}
 	}
@@ -52,8 +51,8 @@ t_canvas	*render(t_camera cam, t_world world)
 void	mlx_render(t_minirt *rt, t_camera cam, t_world world)
 {
 	t_render_param	p;
-	int	y;
-	int	x;
+	int				y;
+	int				x;
 
 	p.bounce_limit = BOUNCE_LIMIT;
 	y = -1;

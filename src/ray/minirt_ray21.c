@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 15:30:46 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/31 12:56:41 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 13:53:50 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
  * @param r		ray to use for computations
  * @return		computations struct with contained values
  */
-t_computations prepare_computations(t_world w, t_intersection *i, t_ray r)
+t_computations	prepare_computations(t_world w, t_intersection *i, t_ray r)
 {
 	t_computations	comps;
 	t_tuple			point[2];
@@ -41,7 +41,7 @@ t_computations prepare_computations(t_world w, t_intersection *i, t_ray r)
 	comps.v[reflectv] = reflect(r.direction, comps.v[normalv]);
 	point[over] = multiply_tuple_by_scalar(comps.v[normalv], OVER_POINT);
 	point[under] = multiply_tuple_by_scalar(comps.v[normalv], UNDER_POINT);
-	comps.over_point = add_tuples(comps.v[pos],point[over]);
-	comps.under_point = sub_tuples(comps.v[pos],point[under]);
+	comps.over_point = add_tuples(comps.v[pos], point[over]);
+	comps.under_point = sub_tuples(comps.v[pos], point[under]);
 	return (comps);
 }

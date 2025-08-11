@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 10:52:26 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:11:19 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 13:59:53 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
  */
 t_tuple	normal_at(t_object obj, t_tuple world_point)
 {
-	t_tuple res;
+	t_tuple	res;
+
 	if (obj.type == SPHERE)
 		res = normal_at_sphere(obj, world_point);
 	if (obj.type == PLANE)
@@ -36,7 +37,7 @@ t_tuple	normal_at(t_object obj, t_tuple world_point)
 		res = normal_at_cylinder(obj, world_point);
 	if (obj.type == CONE && obj.closed == true)
 		res = normal_at_cone_cap(obj, world_point);
-	else if(obj.type == CONE)
+	else if (obj.type == CONE)
 		res = normal_at_cone(obj, world_point);
 	return (res);
 }

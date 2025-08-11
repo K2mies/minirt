@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 11:05:28 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:08:35 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 13:49:53 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ static void	handle_discriminant(t_float	var[3], t_intersections *res,
 		res->t[res->count + 1] = sum[b];
 	}
 }
+
 /**
  * @brief	intersections  of a ray and a cylinder
  *
@@ -95,7 +96,7 @@ static void	handle_discriminant(t_float	var[3], t_intersections *res,
  * @param ray		Ray to cast
  * @return			t_intersections	result of intersections
  */
-t_intersections		cone_intersection(t_object *cone, t_ray ray)
+t_intersections	cone_intersection(t_object *cone, t_ray ray)
 {
 	t_intersections	res;
 	t_float			discriminant;
@@ -111,7 +112,7 @@ t_intersections		cone_intersection(t_object *cone, t_ray ray)
 	handle_discriminant(var, &res, discriminant);
 	if (fabs(var[a]) < EPSILON)
 	{
-		if(fabs(var[b]) < EPSILON)
+		if (fabs(var[b]) < EPSILON)
 			return (res);
 		truncate_cone(cone, ray, &res);
 		res = intersect_cone_caps(cone, ray, res);

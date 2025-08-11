@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:25:18 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:09:28 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 14:12:02 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ t_pattern	pattern(t_color a, t_color b, int type)
 t_color	pattern_at(t_pattern pat, t_object obj, t_tuple world_point)
 {
 	t_color	res;
+
 	if (obj.material.pattern.type == STRIPE)
 		res = stripe_at_object(pat, obj, world_point);
 	if (obj.material.pattern.type == GRADIENT)

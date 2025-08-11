@@ -49,8 +49,9 @@ static t_float	check_cone_cap(t_ray ray, t_float t, t_float radius)
 
 	x = ray.origin.x + (t * ray.direction.x);
 	z = ray.origin.z + (t * ray.direction.z);
-	return (x*x + z*z) <= (radius * radius);
+	return ((x * x + z * z) <= (radius * radius));
 }
+
 /**
  * @brief	intersections  of a ray and a cylinder
  *

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_mlx12.c                                     :+:      :+:    :+:   */
+/*   minirt_mlx16.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 14:23:51 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/08/05 14:24:20 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/08/11 13:22:54 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	handle_r_press(t_minirt *rt)
 	size[big][width] = 100 * 10;
 	size[big][height] = 50 * 10;
 	size[small][width] = 100 * 3;
-	size[small][height] =  50  * 3;
-	if(rt->w.camera.dim[width] == size[small][width])
+	size[small][height] = 50 * 3;
+	if (rt->w.camera.dim[width] == size[small][width])
 	{
 		rt->w.camera.dim[width] = size[big][width];
 		rt->w.camera.dim[height] = size[big][height];

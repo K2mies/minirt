@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 15:42:04 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:11:22 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 13:57:18 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@
  * @param world_point	intersection point in world space.
  * @return				normal vector from calculation
  */
-t_tuple normal_at_plane(t_object obj)
+t_tuple	normal_at_plane(t_object obj)
 {
 	t_matrix4	matrix[2];
 	t_tuple		normal[2];
 
 	matrix[inverse] = inverse_matrix4(obj.transform);
 	matrix[transpose] = transpose_matrix4(matrix[inverse]);
-	normal[local] = multiply_matrix4_tuple(matrix[inverse],obj.vector);
+	normal[local] = multiply_matrix4_tuple(matrix[inverse], obj.vector);
 	normal[world] = multiply_matrix4_tuple(matrix[transpose], normal[local]);
 	normal[world].w = 0;
 	normal[world] = normalize_vector(normal[world]);

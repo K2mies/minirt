@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 11:05:36 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:12:33 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 13:34:17 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	swap(t_intersection *a, t_intersection *b)
 {
-	t_intersection tmp;
+	t_intersection	tmp;
 
 	tmp = *a;
 	*a = *b;
@@ -23,9 +23,9 @@ static void	swap(t_intersection *a, t_intersection *b)
 
 static int	partition(t_intersection arr[], int low, int high)
 {
-	t_float pivote;
-	int	i;
-	int j;
+	t_float	pivote;
+	int		i;
+	int		j;
 
 	pivote = arr[high].t;
 	i = (low - 1);
@@ -53,7 +53,7 @@ static int	partition(t_intersection arr[], int low, int high)
  */
 void	quicksort(t_intersection arr[], int low, int high)
 {
-	int pi;
+	int	pi;
 
 	if (low < high)
 	{

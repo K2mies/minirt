@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 15:42:52 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:11:23 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 13:50:59 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static	t_tuple	calculate_local_normal(t_tuple object_point)
  * @return				normal vector from calculation
  */
 t_tuple	normal_at_cube(t_object obj, t_tuple world_point)
-{	
+{
 	t_matrix4	matrix[2];
 	t_tuple		normal[2];
 

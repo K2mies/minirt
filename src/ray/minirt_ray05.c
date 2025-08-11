@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 15:33:15 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:11:01 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 13:51:14 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,3 @@ t_intersections	cube_intersection(t_object *cube, t_ray ray)
 	res.count = 2;
 	return (res);
 }
-

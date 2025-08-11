@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:48:59 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:11:32 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 13:48:00 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static t_tuple	calculate_local_normal(t_tuple object_point, t_object obj)
 	if (distance < sq[min] + C_EPSILON && object_point.y <= obj.min + C_EPSILON)
 		local_normal = vector(0, -1, 0);
 	return (local_normal);
-
 }
 
 /**
@@ -58,7 +57,6 @@ static t_tuple	calculate_local_normal(t_tuple object_point, t_object obj)
  */
 t_tuple	normal_at_cone_cap(t_object obj, t_tuple world_point)
 {
-
 	t_matrix4	matrix[2];
 	t_tuple		normal[2];
 	t_tuple		object_point;

@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 14:09:22 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:13:48 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 14:05:28 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
  * @return	t_object struct with type OBJ_SPHERE
  */
 t_object	cone(t_tuple location, t_float diameter, t_float height,
-			  t_color col)
+				t_color col)
 {
 	t_object	con;
 	t_float		param[7];

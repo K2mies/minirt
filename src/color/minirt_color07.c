@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 15:37:45 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:09:35 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 14:12:49 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  * @param p		point to check
  * @return		t_color type struct
  */
-t_color gradient_at(t_pattern gradient, t_tuple point)
+t_color	gradient_at(t_pattern gradient, t_tuple point)
 {
 	t_color	res;
 	t_color	distance;
@@ -46,8 +46,8 @@ t_color	gradient_at_object(t_pattern pattern, t_object obj, t_tuple world_point)
 	t_tuple	pattern_point;
 
 	object_point = multiply_matrix4_tuple(
-		inverse_matrix4(obj.transform), world_point);
+			inverse_matrix4(obj.transform), world_point);
 	pattern_point = multiply_matrix4_tuple(
-		inverse_matrix4(pattern.transform), object_point);
+			inverse_matrix4(pattern.transform), object_point);
 	return (gradient_at(pattern, pattern_point));
 }

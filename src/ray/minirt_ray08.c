@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 13:41:16 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/31 12:35:15 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 13:55:26 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
  * @param res		pointer to result values to update
  */
 void	truncate_cylinder(t_object *cylinder, t_ray ray, t_intersections *res)
-{ 
+{
 	t_float	y[2];
 
 	y[0] = ray.origin.y + (res->t[0] * ray.direction.y);
@@ -41,6 +41,7 @@ void	truncate_cylinder(t_object *cylinder, t_ray ray, t_intersections *res)
 void	truncate_cone(t_object *cone, t_ray ray, t_intersections *res)
 {
 	t_float	y[2];
+
 	y[0] = ray.origin.y + (res->t[0] * ray.direction.y);
 	if (y[0] > cone->min && y[0] < cone->max)
 		res->count += 1;

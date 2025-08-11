@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 12:20:32 by mpierce           #+#    #+#             */
-/*   Updated: 2025/07/21 14:16:12 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 14:04:57 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,6 @@ void	light_validation(t_minirt *rt)
 	if (!is_in_range(rt->light.brightness, 0, 1))
 		rt_error(rt, "Light brightness error", 3);
 	if (!is_in_range(rt->light.color.r, 0, 1) || !is_in_range(rt->light.color.g,
-		0, 1) || !is_in_range(rt->light.color.b, 0, 1))
+			0, 1) || !is_in_range(rt->light.color.b, 0, 1))
 		rt_error(rt, "Light RGB error", 3);
 }

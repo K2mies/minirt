@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 16:06:50 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 14:15:15 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 13:53:20 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
  */
 t_intersection	hit(t_world *w)
 {
-	int		i;
+	int				i;
 	t_intersection	res;
 
 	i = 0;
@@ -57,7 +57,6 @@ t_color	shade_hit(t_world w, t_computations comps, t_object	obj, int remaining)
 	t_float				reflectance;
 	t_float				ref[2];
 
-
 	param.ambient[env] = w.ambient.color;
 	param.ratio = w.ambient.ratio;
 	param.in_shadow = is_shadowed(w, comps.over_point);
@@ -72,7 +71,7 @@ t_color	shade_hit(t_world w, t_computations comps, t_object	obj, int remaining)
 		ref[a] = reflectance;
 		ref[b] = 1 - reflectance;
 		col[reflected] = multiply_color_by_scalar(col[reflected], ref[a]);
-		col[refracted] = multiply_color_by_scalar(col[refracted],  ref[b]);
+		col[refracted] = multiply_color_by_scalar(col[refracted], ref[b]);
 		return (add_three_colors(col[surface], col[reflected], col[refracted]));
 	}
 	return (add_three_colors(col[surface], col[reflected], col[refracted]));

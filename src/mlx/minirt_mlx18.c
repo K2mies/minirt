@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_mlx18.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:05:13 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/08/11 12:15:05 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/08/11 13:21:52 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void	set_pattern_transforms(t_pattern *pat)
 static void	set_material(t_color col[2], t_object *obj, bool *cube_present)
 {
 	t_pattern	*pat;
+
 	*cube_present = true;
 	obj->material.has_pattern = true;
 	obj->material.pattern = pattern(col[a], col[b], CHECKER);
@@ -40,7 +41,6 @@ static void	set_material(t_color col[2], t_object *obj, bool *cube_present)
 	apply_pattern_transforms(pat);
 	printf("pattern set to checkered\n");
 }
-
 
 /**
  * @brief	hand key C key press case
@@ -66,5 +66,4 @@ void	handle_c_press(t_minirt *rt)
 		printf("no cubes found present in scene\n");
 	else
 		mlx_render(rt, rt->w.camera, rt->w);
-	
 }

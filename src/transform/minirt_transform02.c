@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 11:10:12 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:12:01 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 13:44:14 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  *
  * @return		value converted into radians
  */
-double rad_to_deg(t_float radians)
+double	rad_to_deg(t_float radians)
 {
 	return (radians * (180.0 / M_PI));
 }

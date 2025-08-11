@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 15:35:35 by mpierce           #+#    #+#             */
-/*   Updated: 2025/07/24 12:55:27 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 13:33:21 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	free_big_array(char ****arr)
 	free(*arr);
 	*arr = NULL;
 }
+
 /**
  * 
  * @brief Converts decimal part of a string to float
@@ -52,7 +53,6 @@ t_float	ft_atof_dec(char *str, t_float num)
 	i = 0;
 	dec = 0.0f;
 	pos = 0;
-
 	while (str[i] == '.')
 		i++;
 	while (str[i] >= '0' && str[i] <= '9')
@@ -64,6 +64,7 @@ t_float	ft_atof_dec(char *str, t_float num)
 	num += dec / pow(10, pos);
 	return (num);
 }
+
 /**
  * 
  * @brief Convert string to float
@@ -123,6 +124,7 @@ bool	ft_isfloat(char *str)
 	}
 	return (true);
 }
+
 /**
  * 
  * @brief Checks that the array contains only integers (accepts floats)

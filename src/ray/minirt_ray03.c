@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:07:00 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:10:58 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 13:50:42 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@
  */
 t_intersections	sphere_intersection(t_object *sphere, t_ray ray)
 {
-	t_tuple	sphere_to_ray;
-	t_float var[3];
-	t_float	discriminant;
-	t_float	radius_sqr;
+	t_tuple			sphere_to_ray;
+	t_float			var[3];
+	t_float			discriminant;
+	t_float			radius_sqr;
 	t_intersections	res;
 
 	ray = transform(ray, inverse_matrix4(sphere->transform));
 	sphere->saved_ray = ray;
-	sphere_to_ray = sub_tuples(ray.origin, point(0, 0, 0));	
+	sphere_to_ray = sub_tuples(ray.origin, point(0, 0, 0));
 	radius_sqr = sphere->radius * sphere->radius;
 	var[a] = dot_product(ray.direction, ray.direction);
 	var[b] = 2.0 * dot_product(ray.direction, sphere_to_ray);

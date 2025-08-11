@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 14:42:25 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:12:27 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 13:35:31 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
  * @param min		pointer to axis_t[min]
  * @param min		pointer to axis_t[max]
  */
-void	check_axis(t_float origin, t_float direction, t_float *min, t_float *max)
+void	check_axis(t_float origin, t_float direction, t_float *min,
+			t_float *max)
 {
 	t_float	tmin_numerator;
 	t_float	tmax_numerator;
@@ -63,7 +64,7 @@ t_float	max_3(t_float a, t_float b, t_float c)
 	else
 		max = b;
 	if (max > c)
-		return(max);
+		return (max);
 	else
 		max = c;
 	return (max);
@@ -80,6 +81,7 @@ t_float	max_3(t_float a, t_float b, t_float c)
 t_float	min_3(t_float a, t_float b, t_float c)
 {
 	t_float	min;
+
 	if (a < b)
 		min = a;
 	else
@@ -90,4 +92,3 @@ t_float	min_3(t_float a, t_float b, t_float c)
 		min = c;
 	return (min);
 }
-

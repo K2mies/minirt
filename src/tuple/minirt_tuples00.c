@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 13:13:26 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:12:08 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 14:09:11 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
  */
 t_tuple	tuple(t_float x, t_float y, t_float z, t_float w)
 {
-	t_tuple tuple;
+	t_tuple	tuple;
 
 	tuple.x = x;
 	tuple.y = y;

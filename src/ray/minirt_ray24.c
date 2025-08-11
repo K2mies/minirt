@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 10:34:33 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:11:44 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 13:49:23 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_color	color_at(t_world w, t_ray r, int remaining)
 
 	world_intersect(&w, r);
 	hit_point = hit(&w);
-	if(hit_point.t >= 0)
+	if (hit_point.t >= 0)
 	{
 		w.cs[w.hit_index] = prepare_computations(w, &hit_point, r);
 		res = shade_hit(w, w.cs[w.hit_index], hit_point.object, remaining);

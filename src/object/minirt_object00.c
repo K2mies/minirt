@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 14:49:48 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:08:35 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 14:06:17 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * @param	sp (sphere)
  * @return	t_matrix4 transform matrx
  */
-static void calculate_transform_matrix(t_object *sp)
+static void	calculate_transform_matrix(t_object *sp)
 {
 	t_float	pos[3];
 

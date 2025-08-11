@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_mlx09.c                                     :+:      :+:    :+:   */
+/*   minirt_mlx13.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 14:21:25 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/08/05 14:22:28 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/08/11 13:24:09 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,10 @@ static void	set_pattern_transforms(t_pattern *pat)
 static void	set_material(t_color col[2], t_object *obj)
 {
 	t_pattern	*pat;
+
 	if (obj->material.has_pattern == false
-		|| (obj->material.has_pattern = true
-		&& obj->material.pattern.type != CHECKER))
+		|| (obj->material.has_pattern == true
+			&& obj->material.pattern.type != CHECKER))
 	{
 		obj->material.has_pattern = true;
 		obj->material.pattern = pattern(col[a], col[b], CHECKER);
@@ -69,5 +70,4 @@ void	handle_p_press(t_minirt *rt)
 		mlx_render(rt, rt->w.camera, rt->w);
 		printf("scene rendered\n");
 	}
-
 }

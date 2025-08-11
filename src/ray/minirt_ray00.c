@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 15:47:25 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:10:52 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 13:52:44 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,9 @@ t_ray	ray(t_tuple origin, t_tuple direction)
 t_tuple	position(t_ray ray, t_float t)
 {
 	t_tuple	r;
-	t_tuple res;
+	t_tuple	res;
 
 	r = multiply_tuple_by_scalar(ray.direction, t);
 	res = add_tuples(ray.origin, r);
-
-
 	return (res);
 }

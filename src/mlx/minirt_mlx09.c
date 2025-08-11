@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_mlx07.c                                     :+:      :+:    :+:   */
+/*   minirt_mlx09.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 15:18:50 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/08/01 16:12:34 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/08/11 13:27:34 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	handle_a_press(t_minirt *rt)
 		rot[x] = rotation_x(-10);
 		obj = &rt->w.objs[rt->active_object.index];
 		obj->transforms[rotate][x] = multiply_matrix4(
-			obj->transforms[rotate][x], rot[x]);
+				obj->transforms[rotate][x], rot[x]);
 		apply_transforms(obj);
 		mlx_render(rt, rt->w.camera, rt->w);
 		printf("object rotated on x by 10degree\n");
@@ -50,7 +50,7 @@ void	handle_s_press(t_minirt *rt)
 		rot[y] = rotation_y(-10);
 		obj = &rt->w.objs[rt->active_object.index];
 		obj->transforms[rotate][y] = multiply_matrix4(
-			obj->transforms[rotate][y], rot[y]);
+				obj->transforms[rotate][y], rot[y]);
 		apply_transforms(obj);
 		mlx_render(rt, rt->w.camera, rt->w);
 		printf("object rotated on y by 10degree\n");
@@ -70,15 +70,13 @@ void	handle_d_press(t_minirt *rt)
 
 	if (rt->is_active_object)
 	{
-
 		rot[z] = rotation_z(-10);
 		obj = &rt->w.objs[rt->active_object.index];
 		obj->transforms[rotate][z] = multiply_matrix4(
-			obj->transforms[rotate][z], rot[z]);
+				obj->transforms[rotate][z], rot[z]);
 		apply_transforms(obj);
 		mlx_render(rt, rt->w.camera, rt->w);
 		printf("object rotated on z by 10degree\n");
 		printf("scene rendered\n");
 	}
-
 }

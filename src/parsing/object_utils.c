@@ -6,20 +6,20 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 12:23:34 by mpierce           #+#    #+#             */
-/*   Updated: 2025/07/25 15:06:28 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 14:04:34 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void cylinder_check(t_minirt *rt, char **origin, char **vec, char **rgb)
+void	cylinder_check(t_minirt *rt, char **origin, char **vec, char **rgb)
 {
 	if (!origin || !vec || !rgb || !validate_array(origin)
 		|| !validate_array(vec) || !validate_array(rgb) || !validate_rgb(rgb))
 		object_error(rt, origin, vec, rgb);
 }
 
-void load_objects_to_data(t_minirt *rt, char ***full, int i)
+void	load_objects_to_data(t_minirt *rt, char ***full, int i)
 {
 	if (!ft_strcmp(full[i][0], "A"))
 		load_ambient(rt, full[i]);
@@ -35,8 +35,6 @@ void load_objects_to_data(t_minirt *rt, char ***full, int i)
 		load_cylinder(rt, full[i], rt->parsing_index++);
 	else if (!ft_strcmp(full[i][0], "cb"))
 		load_cube(rt, full[i], rt->parsing_index++);
-	// else if (!ft_strcmp(full[i][0], "con")) // object.c 143-166
-	// 	load_cone(rt, full[i], index++);
 	else
 		rt_error(rt, "File contains invalid data type", 1);
 }

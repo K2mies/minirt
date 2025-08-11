@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_mlx00.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 14:03:51 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/08/06 14:15:58 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/08/11 13:31:31 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
 /**
  * @brief function to run MLX logic and loop
  * @param	t_minirt *rt pointer to main data struct
@@ -19,8 +20,7 @@ void	run_mlx(t_minirt *rt)
 {
 	rt->w = world_scene(rt);
 	mlx_start(rt, CAM_WIDTH, CAM_HEIGHT);
-//	color_fill(rt);
-	mlx_render(rt, rt->w.camera,  rt->w);
+	mlx_render(rt, rt->w.camera, rt->w);
 	mlx_loop_hook(rt->mlx, handle_key_esc, rt);
 	mlx_loop_hook(rt->mlx, handle_key_location, rt);
 	mlx_loop_hook(rt->mlx, handle_key_rotation, rt);

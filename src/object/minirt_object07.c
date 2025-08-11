@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 13:40:51 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:13:52 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/08/11 14:07:08 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@
  * @param col			Color of material
  * @return				t_material object
  */
-t_material material(t_float param[7], t_color col)
+t_material	material(t_float param[7], t_color col)
 {
-	t_material m;
+	t_material	m;
 
 	m.color = col;
 	m.ambient = param[ambient];

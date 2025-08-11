@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_mlx05.c                                     :+:      :+:    :+:   */
+/*   minirt_mlx08.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 14:10:55 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/08/01 14:36:37 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/08/11 13:27:51 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void	handle_e_press(t_minirt *rt)
 
 	if (rt->is_active_object)
 	{
-
 		rot[z] = rotation_z(10);
 		obj = &rt->w.objs[rt->active_object.index];
 		rot_mat_z = &obj->transforms[rotate][z];
@@ -82,5 +81,4 @@ void	handle_e_press(t_minirt *rt)
 		printf("object rotated on z by 10degree\n");
 		printf("scene rendered\n");
 	}
-
 }
