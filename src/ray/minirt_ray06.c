@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 15:38:44 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:11:02 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/07/31 12:33:07 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,19 +96,20 @@ t_intersections	cylinder_intersection(t_object *cylinder, t_ray ray)
 	cylinder->saved_ray = ray;
 	res.count = 0;
 	var[a] = calculate_var_a(ray);
-	if (compare_floats(var[a], 0.0f))
-	{
-		res = intersect_cylinder_caps(cylinder, ray, res);
-		truncate_cylinder(cylinder, ray, &res);
-		return (res);
-	}
 	var[b] = calculate_var_b(ray);
 	var[c] = calculate_var_c(ray);
 	discriminant = (var[b] * var[b]) - (4.0f * var[a] * var[c]);
+	if (compare_floats(var[a], 0.0f))
+	{
+		res.count = 0;
+		// truncate_cylinder(cylinder, ray, &res);
+		res = intersect_cylinder_caps(cylinder, ray, res);
+		return (res);
+	}
 	if (discriminant < 0)
 		return (res);
 	handle_discriminant(var, discriminant, &res);
-	res = intersect_cylinder_caps(cylinder, ray, res);
 	truncate_cylinder(cylinder, ray, &res);
+	res = intersect_cylinder_caps(cylinder, ray, res);
 	return (res);
 }

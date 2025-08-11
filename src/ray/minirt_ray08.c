@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 13:41:16 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:44:16 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/07/31 12:35:15 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void	truncate_cylinder(t_object *cylinder, t_ray ray, t_intersections *res)
 	t_float	y[2];
 
 	y[0] = ray.origin.y + (res->t[0] * ray.direction.y);
-	if (cylinder->min < y[0] && y[0] < cylinder->max)
+	if (cylinder->min - EPSILON < y[0] && y[0] < cylinder->max)
 		res->count += 1;
 	y[1] = ray.origin.y + res->t[1] * ray.direction.y;
-	if (cylinder->min < y[1] && y[1] < cylinder->max)
+	if (cylinder->min - EPSILON < y[1] && y[1] < cylinder->max)
 		res->count += 1;
 }
 

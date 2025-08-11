@@ -6,7 +6,7 @@
 /*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 15:45:23 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:11:26 by mpierce          ###   ########.fr       */
+/*   Updated: 2025/07/31 12:50:25 by mpierce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,13 @@ static t_tuple	calculate_local_normal(t_tuple object_point, t_object obj)
 	obj_point_sqr[z] = object_point.z * object_point.z;
 	distance = obj_point_sqr[x] + obj_point_sqr[z];
 	local_normal = vector(object_point.x, 0, object_point.z);
-	if (distance < 1.0f + C_EPSILON && object_point.y >= obj.max - C_EPSILON)
-		local_normal = vector(0, 1, 0);
-	if (distance < 1.0f + C_EPSILON && object_point.y <= obj.min + C_EPSILON)
-		local_normal = vector(0, -1, 0);
+	if (distance < 1.0f + C_EPSILON)
+    {
+        if (object_point.y >= obj.max - C_EPSILON)  // Changed to >= and smaller epsilon
+            return (vector(0, 1, 0));
+        if (object_point.y <= obj.min + C_EPSILON)  // Changed to <= and smaller epsilon
+            return (vector(0, -1, 0));
+    }
 	return (local_normal);
 }
 

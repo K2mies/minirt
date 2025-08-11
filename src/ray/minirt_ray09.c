@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minirt_ray09.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mpierce <mpierce@student.hive.fi>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/09 15:05:26 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/07/21 13:11:15 by mpierce          ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   minirt_ray09.c									 :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: mpierce <mpierce@student.hive.fi>		  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2025/07/09 15:05:26 by rhvidste		  #+#	#+#			 */
+/*   Updated: 2025/07/31 12:18:57 by mpierce		  ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "minirt.h"
@@ -26,9 +26,10 @@ static t_float	check_cylinder_cap(t_ray ray, t_float t, t_object *obj)
 {
 	t_float	x;
 	t_float	z;
+
 	x = ray.origin.x + (t * ray.direction.x);
 	z = ray.origin.z + (t * ray.direction.z);
-	return (((x * x) + (z * z)) <= obj->radius);
+	return (((x * x) + (z * z)) <= obj->radius * obj->radius + C_EPSILON);
 }
 
 /**
