@@ -6,7 +6,7 @@
 /*   By: rhvidste <rhvidste@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 14:32:50 by rhvidste          #+#    #+#             */
-/*   Updated: 2025/08/08 15:36:47 by rhvidste         ###   ########.fr       */
+/*   Updated: 2025/08/11 12:13:37 by rhvidste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@ static void	set_pattern_transforms(t_pattern *pat)
 	pat->transforms[scale][xyz] = scaling(0.5, 0.5, 0.5);
 }
 
+/**
+ * @brief	helper functio to set material with pattern
+ * changes the pattern transforms 
+ * @param	t_color	col[2]	two color tuples for pattern
+ * @param	t_object *obj	pointer to the obj to operate on
+ * @param	bool			boolean for if plane is present or not
+ */
 static void	set_material(t_color col[2], t_object *obj, bool *planes_present)
 {
 	t_pattern	*pat;
